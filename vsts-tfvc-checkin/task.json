@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 1,
-        "Patch": 34
+        "Patch": 46
     },
     "minimumAgentVersion": "1.83.0",
     "inputs": [
@@ -26,6 +26,25 @@
             "label": "Check-in comment",
             "defaultValue": "",
             "required": false
+        },
+        {
+            "name": "ItemSpec",
+            "type": "string",
+            "label": "Files to check in",
+            "defaultValue": "**\\*;-:**\\bin\\**;-:**\\obj\\**;-:**\\$tf\\**",
+            "required": false
+        },
+        {
+            "name": "Recursion",
+            "type": "pickList",
+            "label": "Recursion",
+            "defaultValue": "None",
+            "required": false,
+            "options": {
+                "None": "None",
+                "Full": "Full",
+                "OneLevel": "One Level"
+            }
         }
     ],
     "instanceNameFormat": "Check changes into source control",

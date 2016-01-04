@@ -1,7 +1,9 @@
 [cmdletbinding()]
 param(
     [string] $Comment = "",
-    [string] $IncludeNoCIComment = $true
+    [string] $IncludeNoCIComment = $true,
+    [string] $Itemspec = "**\*;-:**\bin\**;-:**\obj\**;-:**\`$tf\**",
+    [string] $Recursion = "Full"
 )
 
 Write-Verbose "Importing modules"
@@ -116,25 +118,39 @@ function Invoke-DisposeSourceProvider {
 
 $provider = Get-SourceProvider
 
-#$ItemSpec = "**\*;-:**\bin\**;-:**\obj\**;-:**\`$tf\**"
+if (-not $Recursion -eq "")
+{
+    $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
+}
+else
+{
+    $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]"None"
+}
 
-#if ($ItemSpec.Contains("*") -Or $ItemSpec.Contains("?"))
-#{
-#    Write-Verbose "Pattern found in solution parameter. Calling Find-Files."
-#    Write-Verbose "Calling Find-Files with pattern: $ItemSpec"    
-#    [string[]] $FilesToCheckin = @(Find-Files -SearchPattern $ItemSpec -RootFolder $env:BUILD_SOURCESDIRECTORY)
-#    Write-Verbose "Found files: $FilesToCheckin"
-#}
-#else
-#{
-#    Write-Verbose "No Pattern found in solution parameter."
-#    [string[]] $FilesToCheckin = @($ItemSpec)
-#}
+#not ideal as it operates against the local filesystem and can't 
+if (-not $Itemspec -eq "")
+{
+    if ($ItemSpec.Contains("*") -Or $ItemSpec.Contains("?") -Or $ItemSpec.Contains(";") -Or $ItemSpec.Contains("-:"))
+    {
+        Write-Verbose "Pattern found in itemspec parameter. Calling Find-Files."
+        Write-Verbose "Calling Find-Files with pattern: $ItemSpec"    
+        [string[]] $FilesToCheckin = @(Find-Files -SearchPattern $ItemSpec -RootFolder $env:BUILD_SOURCESDIRECTORY -IncludeFiles $true -IncludeFolders $true )
+    }
+    else
+    {
+        Write-Verbose "No Pattern found in solution parameter."
+        [string[]] $FilesToCheckin = @($ItemSpec)
+    }
+
+    $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]] @($FilesToCheckin), $RecursionType )
+}
+else
+{
+    $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType)
+}
 
 
-#$pendingChanges = $provider.Workspace.GetPendingChanges( @($FilesToCheckin) )
 
-$pendingChanges = $provider.Workspace.GetPendingChanges()
 $provider.Workspace.CheckIn($pendingChanges, $Comment)
 
 Invoke-DisposeSourceProvider -Provider $provider
