@@ -1,0 +1,39 @@
+{
+    "id": "31f040e5-e040-4556-878a-59a47c7128bd",
+    "name": "TFVCCheckin",
+    "friendlyName": "TFVC - Check-in changes",
+    "description": "Checks in any files changed in the repository.",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Jesse Houwing",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 34
+    },
+    "minimumAgentVersion": "1.83.0",
+    "inputs": [
+        {
+            "name": "IncludeNoCIComment",
+            "type": "boolean",
+            "label": "Bypass CI on check-in",
+            "defaultValue": true,
+            "required": false
+        },
+        {
+            "name": "Comment",
+            "type": "string",
+            "label": "Check-in comment",
+            "defaultValue": "",
+            "required": false
+        }
+    ],
+    "instanceNameFormat": "Check changes into source control",
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\TfvcCheckin.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(Build.SourcesDirectory)"
+        }
+    }
+}
