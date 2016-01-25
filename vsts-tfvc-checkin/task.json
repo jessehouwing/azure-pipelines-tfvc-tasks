@@ -9,7 +9,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 36
+        "Patch": 38
     },
     "visibility": [
         "Build"
@@ -29,6 +29,11 @@
             "name": "configurationOptions",
             "displayName": "Configuration",
             "isExpanded": true
+        },
+        {
+            "name": "overrideOptions",
+            "displayName": "Policy Override",
+            "isExpanded": false
         }
     ],
 
@@ -38,6 +43,7 @@
             "type": "boolean",
             "label": "I understand",
             "defaultValue": false,
+            "required": true,
             "groupName": "confirmationOptions"
         },
         {
@@ -46,7 +52,7 @@
             "label": "Bypass CI on check-in",
             "defaultValue": true,
             "required": false,
-            "groupName": "configurationOptions"
+            "groupName": "overrideOptions"
         },
         {
             "name": "OverridePolicy",
@@ -54,7 +60,7 @@
             "label": "Override policies",
             "defaultValue": false,
             "required": false,
-            "groupName": "configurationOptions"
+            "groupName": "overrideOptions"
         },
         {
             "name": "OverridePolicyReason",
@@ -63,15 +69,7 @@
             "defaultValue": "",
             "visibleRule": "OverridePolicy = true",
             "required": true,
-            "groupName": "configurationOptions"
-        },
-        {
-            "name": "Comment",
-            "type": "multiLine",
-            "label": "Check-in comment",
-            "defaultValue": "",
-            "required": false,
-            "groupName": "configurationOptions"
+            "groupName": "overrideOptions"
         },
         {
             "name": "ItemSpec",
@@ -92,6 +90,14 @@
                 "Full": "Full",
                 "OneLevel": "One Level"
             },
+            "groupName": "configurationOptions"
+        },
+        {
+            "name": "Comment",
+            "type": "multiLine",
+            "label": "Check-in comment",
+            "defaultValue": "",
+            "required": false,
             "groupName": "configurationOptions"
         }
     ],
