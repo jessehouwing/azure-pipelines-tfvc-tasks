@@ -9,7 +9,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 5
+        "Patch": 36
     },
     "visibility": [
         "Build"
@@ -46,6 +46,23 @@
             "label": "Bypass CI on check-in",
             "defaultValue": true,
             "required": false,
+            "groupName": "configurationOptions"
+        },
+        {
+            "name": "OverridePolicy",
+            "type": "boolean",
+            "label": "Override policies",
+            "defaultValue": false,
+            "required": false,
+            "groupName": "configurationOptions"
+        },
+        {
+            "name": "OverridePolicyReason",
+            "type": "string",
+            "label": "Override reason",
+            "defaultValue": "",
+            "visibleRule": "OverridePolicy = true",
+            "required": true,
             "groupName": "configurationOptions"
         },
         {

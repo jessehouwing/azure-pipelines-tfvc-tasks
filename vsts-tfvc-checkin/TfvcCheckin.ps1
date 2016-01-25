@@ -4,7 +4,9 @@ param(
     [string] $IncludeNoCIComment = $true,
     [string] $Itemspec = "$/*",
     [string] $Recursion = "Full",
-    [string] $ConfirmUnderstand = $false
+    [string] $ConfirmUnderstand = $false,
+    [string] $OverridePolicy = $false,
+    [string] $OverridePolicyReason = ""
 )
 
 if (-not ($ConfirmUnderstand -eq $true))
@@ -131,6 +133,95 @@ function Invoke-DisposeSourceProvider {
     }
 }
 
+Function Evaluate-Checkin {
+    [cmdletbinding()]
+    param(
+        $checkinWorkspace, 
+        $checkinEvaluationOptions, 
+        $allChanges, 
+        $checkinChanges, 
+        $comment, 
+        $note, 
+        $checkedWorkitems,
+        [ref] $passed
+    )
+
+    Write-Verbose "Entering Evaluate-Checkin"
+    Try
+    {
+        $passed = $true
+        $result = $checkinWorkspace.EvaluateCheckin2($checkinEvaluationOptions, $allChanges, $checkinChanges, $comment, $checkinNotes, $checkedWorkItems);
+        if (-not $result.Conflicts.Length -eq 0)
+        {
+            $passed = $false
+            foreach ($conflict in $result.Conflicts)
+            {
+                if ($conflict.Resolvable)
+                {
+                    Write-Warning $conflict.Message
+                }
+                else
+                {
+                    Write-Error $conflict.Message
+                }
+            }
+        }
+        if (-not $result.NoteFailures.Count -eq 0)
+        {
+            foreach ($noteFailure in $result.NoteFailures)
+            {
+                Write-Warning "$($noteFailure.Definition.Name): $($noteFailure.Message)"
+            }
+            $passed = $false;
+        }
+        if (-not $result.PolicyEvaluationException -eq $null)
+        {
+            Write-Error($result.PolicyEvaluationException.Message);
+            $passed = $false;
+        }
+        return $result
+    }
+    Finally
+    {
+        Write-Verbose "Leaving Evaluate-Checkin"
+    }
+}
+
+ 
+Function Handle-PolicyOverride {
+    [cmdletbinding()]
+    param(
+        [Microsoft.TeamFoundation.VersionControl.Client.PolicyFailure[]] $policyFailures, 
+        [string] $overrideComment,
+        [ref] $passed
+    )
+
+    Write-Verbose "Entering Handle-PolicyOverride"
+
+    Try
+    {
+        $passed = $true
+
+        if (-not $policyFailures.Length -eq 0)
+        {
+            foreach ($failure in $policyFailures)
+            {
+                Write-Warning "$($failure.Message)"
+            }
+            if (-not $overrideComment -eq "")
+            {
+                return new-object Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo( $overrideComment, $policyFailures )
+            }
+            $passed = $false
+        }
+        return $null
+    }
+    Finally
+    {
+        Write-Verbose "Leaving Handle-PolicyOverride"
+    }
+}
+
 Try
 {
     $noCiComment = "**NO_CI**"
@@ -170,10 +261,32 @@ Try
         $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType)
     }
 
-    $provider.Workspace.CheckIn($pendingChanges, $Comment)
+    $passed = [ref] $true
+
+    $evaluationOptions = [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"AddMissingFieldValues" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Notes" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Policies"
+    $result = Evaluate-Checkin $provider.Workspace $evaluationOptions $pendingChanges $pendingChanges $comment @() $null $passed
+ 
+    if (($passed -eq $false) -and $OverridePolicy)
+    {   
+        $override = Handle-PolicyOverride $result.PolicyFailures $OverridePolicyReason $passed
+    }
+
+    if ($override -eq $null -or $OverridePolicy)
+    {
+        Write-Verbose "Entering Workspace-Checkin"
+        $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$null, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
+        Write-Verbose "Leaving Workspace-Checkin"
+    }
+    else
+    {
+        Write-Error "Checkin policy failed"
+    }
 }
 Finally
 {
     Invoke-DisposeSourceProvider -Provider $provider
     [System.AppDomain]::CurrentDomain.remove_AssemblyResolve($OnAssemblyResolve)
 }
+
+
+
