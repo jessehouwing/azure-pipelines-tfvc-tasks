@@ -28,10 +28,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="icon.png" />
-    <Content Include="Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll" />
-    <Content Include="Microsoft.TeamFoundation.WorkItemTracking.Client.dll" />
-    <Content Include="Microsoft.WITDataStore32.dll" />
-    <Content Include="Microsoft.WITDataStore64.dll" />
     <Content Include="task.json" />
   </ItemGroup>
   <ItemGroup>

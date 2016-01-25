@@ -1,31 +1,64 @@
 {
-    "id": "31f040e5-e040-4556-878a-59a47c7128bd",
-    "name": "TFVCCheckin",
+    "id": "2ef90ef1-5298-4f6a-8b99-12933fed4de4",
+    "name": "TFVCAdd",
     "friendlyName": "TFVC - Add new files",
     "description": "Adds file to Pending changes.",
     "helpMarkDown": "",
     "category": "Utility",
     "author": "Jesse Houwing",
     "version": {
-        "Major": 0,
-        "Minor": 1,
-        "Patch": 0
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 1
+
     },
     "minimumAgentVersion": "1.83.0",
+
+
+    "groups": [
+        {
+            "name": "confirmationOptions",
+            "displayName": "Please confirm",
+            "isExpanded": true
+        },
+        {
+            "name": "configurationOptions",
+            "displayName": "Configuration",
+            "isExpanded": true
+        }
+    ],
+
     "inputs": [
         {
+            "name": "ConfirmUnderstand",
+            "type": "boolean",
+            "label": "I understand checking in files during build is generally a bad idea",
+            "defaultValue": false,
+            "groupName": "confirmationOptions"
+        },
+        {
             "name": "ItemSpec",
-            "type": "string",
+            "type": "multiLine",
             "label": "Files to check in",
-            "defaultValue": "**\\*;-:**\\bin\\**;-:**\\obj\\**;-:**\\$tf\\**",
-            "required": false
+            "defaultValue": "$/",
+            "required": false,
+            "groupName": "configurationOptions"
         },
         {
             "name": "Recursive",
             "type": "boolean",
-            "label": "Recursion",
+            "label": "Recursive",
             "defaultValue": "false",
-            "required": false
+            "required": false,
+            "groupName": "configurationOptions"
+        },
+        {
+            "name": "ApplyLocalitemExclusions",
+            "type": "boolean",
+            "label": "Apply Localitem Exclusions",
+            "defaultValue": "true",
+            "required": false,
+            "groupName": "configurationOptions"
         }
     ],
     "instanceNameFormat": "Adding pending changes",

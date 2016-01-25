@@ -7,32 +7,62 @@
     "category": "Utility",
     "author": "Jesse Houwing",
     "version": {
-        "Major": 0,
-        "Minor": 1,
-        "Patch": 46
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
     },
+    "visibility": [
+        "Build"
+    ],
+    "demands": [
+        "visualstudio"
+    ],
     "minimumAgentVersion": "1.83.0",
+
+    "groups": [
+        {
+            "name": "confirmationOptions",
+            "displayName": "Please confirm",
+            "isExpanded": true
+        },
+        {
+            "name": "configurationOptions",
+            "displayName": "Configuration",
+            "isExpanded": true
+        }
+    ],
+
     "inputs": [
+        {
+            "name": "ConfirmUnderstand",
+            "type": "boolean",
+            "label": "I understand checking in files during build is generally a bad idea",
+            "defaultValue": false,
+            "groupName": "confirmationOptions"
+        },
         {
             "name": "IncludeNoCIComment",
             "type": "boolean",
             "label": "Bypass CI on check-in",
             "defaultValue": true,
-            "required": false
+            "required": false,
+            "groupName": "configurationOptions"
         },
         {
             "name": "Comment",
-            "type": "string",
+            "type": "multiLine",
             "label": "Check-in comment",
             "defaultValue": "",
-            "required": false
+            "required": false,
+            "groupName": "configurationOptions"
         },
         {
             "name": "ItemSpec",
-            "type": "string",
+            "type": "multiLine",
             "label": "Files to check in",
-            "defaultValue": "**\\*;-:**\\bin\\**;-:**\\obj\\**;-:**\\$tf\\**",
-            "required": false
+            "defaultValue": "$/*",
+            "required": false,
+            "groupName": "configurationOptions"
         },
         {
             "name": "Recursion",
@@ -44,7 +74,8 @@
                 "None": "None",
                 "Full": "Full",
                 "OneLevel": "One Level"
-            }
+            },
+            "groupName": "configurationOptions"
         }
     ],
     "instanceNameFormat": "Check changes into source control",

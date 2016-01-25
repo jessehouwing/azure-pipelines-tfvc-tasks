@@ -2,7 +2,7 @@
 param(
     [string] $Comment = "",
     [string] $IncludeNoCIComment = $true,
-    [string] $Itemspec = "**\*;-:**\bin\**;-:**\obj\**;-:**\`$tf\**",
+    [string] $Itemspec = "$/*",
     [string] $Recursion = "Full"
 )
 
@@ -13,23 +13,32 @@ import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 [System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.Client.dll") | Out-Null
 [System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.Common.dll") | Out-Null
 [System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.VersionControl.Client.dll") | Out-Null
-[System.Reflection.Assembly]::LoadFrom("$PSScriptRoot\Microsoft.TeamFoundation.WorkItemTracking.Client.dll") | Out-Null
 
 
-
-$noCiComment = "**NO_CI**"
-if ($IncludeNoCIComment -eq $true)
-{
-    if ($Comment -eq "")
+$OnAssemblyResolve = [System.ResolveEventHandler] {
+    param($sender, $e)
+    foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
     {
-        $Comment = $noCiComment
+        if ($a.FullName -eq $e.Name)
+        {
+            return $a
+        }
     }
-    else
-    {
-        $Comment = "$Comment $noCiComment"
+
+    if ($path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder) {
+         $path = $path.TrimEnd('\'[0]) + "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\" + $e.Name + ".dll"
+        if (Test-Path -PathType Leaf -LiteralPath $path)
+        {
+            return [System.Reflection.Assembly]::LoadFrom($path)
+        }
     }
+
+    return $null
 }
-       
+[System.AppDomain]::CurrentDomain.add_AssemblyResolve($OnAssemblyResolve)
+
+[System.Reflection.Assembly]::Load("Microsoft.TeamFoundation.WorkItemTracking.Client") | Out-Null
+
 function Get-SourceProvider {
     [cmdletbinding()]
     param()
@@ -116,41 +125,49 @@ function Invoke-DisposeSourceProvider {
     }
 }
 
-$provider = Get-SourceProvider
-
-if (-not $Recursion -eq "")
+Try
 {
-    $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
-}
-else
-{
-    $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]"None"
-}
-
-#not ideal as it operates against the local filesystem and can't 
-if (-not $Itemspec -eq "")
-{
-    if ($ItemSpec.Contains("*") -Or $ItemSpec.Contains("?") -Or $ItemSpec.Contains(";") -Or $ItemSpec.Contains("-:"))
+    $noCiComment = "**NO_CI**"
+    if ($IncludeNoCIComment -eq $true)
     {
-        Write-Verbose "Pattern found in itemspec parameter. Calling Find-Files."
-        Write-Verbose "Calling Find-Files with pattern: $ItemSpec"    
-        [string[]] $FilesToCheckin = @(Find-Files -SearchPattern $ItemSpec -RootFolder $env:BUILD_SOURCESDIRECTORY -IncludeFiles $true -IncludeFolders $true )
+        if ($Comment -eq "")
+        {
+            $Comment = $noCiComment
+        }
+        else
+        {
+            $Comment = "$Comment $noCiComment"
+        }
+    }
+       
+
+
+    $provider = Get-SourceProvider
+
+    if (-not $Recursion -eq "")
+    {
+        $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
     }
     else
     {
-        Write-Verbose "No Pattern found in solution parameter."
-        [string[]] $FilesToCheckin = @($ItemSpec)
+        $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]"None"
     }
 
-    $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]] @($FilesToCheckin), $RecursionType )
+    if (-not $Itemspec -eq "")
+    {
+        [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
+        Write-Output $FilesToCheckin
+        $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
+    }
+    else
+    {
+        $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType)
+    }
+
+    $provider.Workspace.CheckIn($pendingChanges, $Comment)
 }
-else
+Finally
 {
-    $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType)
+    Invoke-DisposeSourceProvider -Provider $provider
+    [System.AppDomain]::CurrentDomain.remove_AssemblyResolve($OnAssemblyResolve)
 }
-
-
-
-$provider.Workspace.CheckIn($pendingChanges, $Comment)
-
-Invoke-DisposeSourceProvider -Provider $provider

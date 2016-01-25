@@ -29,10 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="icon.png" />
-    <Compile Include="Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll" />
-    <Compile Include="Microsoft.TeamFoundation.WorkItemTracking.Client.dll" />
-    <Compile Include="Microsoft.WITDataStore32.dll" />
-    <Compile Include="Microsoft.WITDataStore64.dll" />
     <Compile Include="task.json" />
     <Compile Include="TfvcCheckin.ps1" />
   </ItemGroup>

@@ -1,17 +1,42 @@
 [cmdletbinding()]
 param(
-    [string] $Itemspec = "**\*;-:**\bin\**;-:**\obj\**;-:**\`$tf\**",
-    [string] $Recursive = $false
+    [string] $Itemspec = "$/",
+    [string] $Recursive = $false,
+    [string] $ApplyLocalitemExclusions = $true
 )
 
 Write-Verbose "Importing modules"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
+$OnAssemblyResolve = [System.ResolveEventHandler] {
+    param($sender, $e)
+    foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
+    {
+        if ($a.FullName -eq $e.Name)
+        {
+            return $a
+        }
+    }
+
+    if ($path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder) {
+         $path = $path.TrimEnd('\'[0]) + "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\" + $e.Name + ".dll"
+        if (Test-Path -PathType Leaf -LiteralPath $path)
+        {
+            return [System.Reflection.Assembly]::LoadFrom($path)
+        }
+    }
+
+    return $null
+}
+[System.AppDomain]::CurrentDomain.add_AssemblyResolve($OnAssemblyResolve)
+
+
 [System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.Client.dll") | Out-Null
 [System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.Common.dll") | Out-Null
-[System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.VersionControl.Client.dll") | Out-Null
-[System.Reflection.Assembly]::LoadFrom("$PSScriptRoot\Microsoft.TeamFoundation.WorkItemTracking.Client.dll") | Out-Null
+[System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.VersionControl.Client.dll")| Out-Null
+[System.Reflection.Assembly]::Load("Microsoft.TeamFoundation.WorkItemTracking.Client") | Out-Null
+[System.Reflection.Assembly]::Load("Microsoft.TeamFoundation.Diff") | Out-Null
 
 function Get-SourceProvider {
     [cmdletbinding()]
@@ -24,14 +49,6 @@ function Get-SourceProvider {
     }
     $success = $false
     try {
-        if ($provider.Name -eq 'TfsGit') {
-            $provider.CollectionUrl = "$env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI".TrimEnd('/')
-            $provider.RepoId = $env:BUILD_REPOSITORY_ID
-            $provider.CommitId = $env:BUILD_SOURCEVERSION
-            $success = $true
-            return New-Object psobject -Property $provider
-        }
-        
         if ($provider.Name -eq 'TfsVersionControl') {
             $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
             $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
@@ -40,6 +57,7 @@ function Get-SourceProvider {
                 $serviceEndpoint.Url,
                 $tfsClientCredentials)
             $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
+            $provider.VersionControlServer = $versionControlServer;
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
             if (!$provider.Workspace) {
                 Write-Verbose "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
@@ -99,33 +117,62 @@ function Invoke-DisposeSourceProvider {
     }
 }
 
-$provider = Get-SourceProvider
-
-if (-not $Recursive -eq $true)
+Try
 {
-    $Recursive = $false
-}
+    $provider = Get-SourceProvider
 
-#not ideal as it operates against the local filesystem and can't 
-if (-not $Itemspec -eq "")
-{
-    if ($ItemSpec.Contains("*") -Or $ItemSpec.Contains("?") -Or $ItemSpec.Contains(";") -Or $ItemSpec.Contains("-:"))
+    if (-not $Recursive -eq $true)
     {
-        Write-Verbose "Pattern found in itemspec parameter. Calling Find-Files."
-        Write-Verbose "Calling Find-Files with pattern: $ItemSpec"    
-        [string[]] $FilesToCheckin = @(Find-Files -SearchPattern $ItemSpec -RootFolder $env:BUILD_SOURCESDIRECTORY -IncludeFiles $true -IncludeFolders $true )
+        $Recursive = $false
     }
     else
     {
-        Write-Verbose "No Pattern found in solution parameter."
-        [string[]] $FilesToCheckin = @($ItemSpec)
+        $Recursive = $true
     }
 
-    $pendingChanges = $provider.Workspace.PendAdd( [string[]] @($FilesToCheckin), $Recursive )
-}
-else
-{
-    $pendingChanges = $provider.Workspace.PendAdd($Recursive)
-}
+    if (-not $ApplyLocalitemExclusions -eq $true)
+    {
+        $ApplyLocalitemExclusions = $false
+    }
+    else
+    {
+        $ApplyLocalitemExclusions = $true
+    }
 
-Invoke-DisposeSourceProvider -Provider $provider
+    $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
+        param($sender, $e)
+
+        Write-Warning "NonFatalError"
+        Write-Warning  $e.Exception.Message
+        Write-Warning  $e.Failure
+    }
+    $provider.VersionControlServer.add_NonFatalError($OnNonFatalError)
+
+    $provider.Workspace.Refresh()
+
+    Write-Output "Adding ItemSpec: $ItemSpec, Recursive: $recursive"
+
+    if (-not $Itemspec -eq "")
+    {
+        [string[]] $FilesToCheckin = $ItemSpec -split ';|\r?\n'
+    }
+
+    Foreach ($change in $FilesToCheckin)
+    {
+        Write-Output $change
+        $provider.Workspace.PendAdd(
+            @($change),
+            $Recursive,
+            $null,
+            [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
+            $false,
+            $true,
+            $ApplyLocalitemExclusions
+        )
+    }
+}
+Finally
+{
+    Invoke-DisposeSourceProvider -Provider $provider
+    [System.AppDomain]::CurrentDomain.remove_AssemblyResolve($OnAssemblyResolve)
+}
