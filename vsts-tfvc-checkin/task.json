@@ -9,7 +9,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 0
+        "Patch": 5
     },
     "visibility": [
         "Build"
@@ -22,7 +22,7 @@
     "groups": [
         {
             "name": "confirmationOptions",
-            "displayName": "Please confirm",
+            "displayName": "Checking in files from a build is generally a bad idea",
             "isExpanded": true
         },
         {
@@ -36,7 +36,7 @@
         {
             "name": "ConfirmUnderstand",
             "type": "boolean",
-            "label": "I understand checking in files during build is generally a bad idea",
+            "label": "I understand",
             "defaultValue": false,
             "groupName": "confirmationOptions"
         },

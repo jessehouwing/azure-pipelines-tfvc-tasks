@@ -9,18 +9,13 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 1
+        "Patch": 5
 
     },
     "minimumAgentVersion": "1.83.0",
 
 
     "groups": [
-        {
-            "name": "confirmationOptions",
-            "displayName": "Please confirm",
-            "isExpanded": true
-        },
         {
             "name": "configurationOptions",
             "displayName": "Configuration",
@@ -29,13 +24,6 @@
     ],
 
     "inputs": [
-        {
-            "name": "ConfirmUnderstand",
-            "type": "boolean",
-            "label": "I understand checking in files during build is generally a bad idea",
-            "defaultValue": false,
-            "groupName": "confirmationOptions"
-        },
         {
             "name": "ItemSpec",
             "type": "multiLine",

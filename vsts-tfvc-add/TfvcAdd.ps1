@@ -5,6 +5,7 @@ param(
     [string] $ApplyLocalitemExclusions = $true
 )
 
+
 Write-Verbose "Importing modules"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
@@ -159,7 +160,6 @@ Try
 
     Foreach ($change in $FilesToCheckin)
     {
-        Write-Output $change
         $provider.Workspace.PendAdd(
             @($change),
             $Recursive,
@@ -168,7 +168,7 @@ Try
             $false,
             $true,
             $ApplyLocalitemExclusions
-        )
+        )  | Out-Null
     }
 }
 Finally

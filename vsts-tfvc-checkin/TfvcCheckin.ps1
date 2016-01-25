@@ -3,8 +3,14 @@ param(
     [string] $Comment = "",
     [string] $IncludeNoCIComment = $true,
     [string] $Itemspec = "$/*",
-    [string] $Recursion = "Full"
+    [string] $Recursion = "Full",
+    [string] $ConfirmUnderstand = $false
 )
+
+if (-not ($ConfirmUnderstand -eq $true))
+{
+    Write-Error "Checking in sources during build can cause delays in your builds, recursive builds, mismatches between sources and symbols and other issues."
+}
 
 Write-Verbose "Importing modules"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
