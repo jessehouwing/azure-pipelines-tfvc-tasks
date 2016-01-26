@@ -9,7 +9,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 5
+        "Patch": 6
 
     },
     "minimumAgentVersion": "1.83.0",
@@ -27,7 +27,7 @@
         {
             "name": "ItemSpec",
             "type": "multiLine",
-            "label": "Files to check in",
+            "label": "Files to add",
             "defaultValue": "$/",
             "required": false,
             "groupName": "configurationOptions"

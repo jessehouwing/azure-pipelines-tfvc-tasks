@@ -7,6 +7,34 @@ Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-checkin", "vsts-t
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-add", "vsts-tfvc-add\vsts-tfvc-add.pssproj", "{DC2657DC-798F-48AE-9718-21A8F63D4DF9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{85F96213-5992-4BB1-99AB-03AAE44DC2DB}"
+	ProjectSection(SolutionItems) = preProject
+		License.txt = License.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{C899F09A-AFF7-46A0-A679-BC2FE80B1D12}"
+	ProjectSection(SolutionItems) = preProject
+		extension-manifest.json = extension-manifest.json
+		extension\extension-overview.md = extension\extension-overview.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{ADFB1042-D16B-4621-900A-CFB227C18EA0}"
+	ProjectSection(SolutionItems) = preProject
+		extension\Images\extension-icon.png = extension\Images\extension-icon.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{1FC9630F-42C8-416D-8D55-EE63BF92B0AA}"
+	ProjectSection(SolutionItems) = preProject
+		extension\Images\Screenshots\tfvc-add.png = extension\Images\Screenshots\tfvc-add.png
+		extension\Images\Screenshots\tfvc-checkin.png = extension\Images\Screenshots\tfvc-checkin.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{E242DC7E-1E06-46CF-9444-BC636897F622}"
+	ProjectSection(SolutionItems) = preProject
+		extension\Licenses\vso-agent-tasks-license.txt = extension\Licenses\vso-agent-tasks-license.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +52,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ADFB1042-D16B-4621-900A-CFB227C18EA0} = {C899F09A-AFF7-46A0-A679-BC2FE80B1D12}
+		{1FC9630F-42C8-416D-8D55-EE63BF92B0AA} = {ADFB1042-D16B-4621-900A-CFB227C18EA0}
+		{E242DC7E-1E06-46CF-9444-BC636897F622} = {C899F09A-AFF7-46A0-A679-BC2FE80B1D12}
 	EndGlobalSection
 EndGlobal
