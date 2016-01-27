@@ -1,60 +1,56 @@
 {
-    "id": "2ef90ef1-5298-4f6a-8b99-12933fed4de4",
-    "name": "TFVCAdd",
-    "friendlyName": "TFVC - Add new files",
-    "description": "Adds file to Pending changes.",
-    "helpMarkDown": "",
-    "category": "Utility",
-    "author": "Jesse Houwing",
-    "version": {
-        "Major": 1,
-        "Minor": 0,
-        "Patch": 10
-
-    },
-    "minimumAgentVersion": "1.83.0",
-
-
-    "groups": [
-        {
-            "name": "configurationOptions",
-            "displayName": "Configuration",
-            "isExpanded": true
-        }
-    ],
-
-    "inputs": [
-        {
-            "name": "ItemSpec",
-            "type": "multiLine",
-            "label": "Files to add",
-            "defaultValue": "$/",
-            "required": false,
-            "groupName": "configurationOptions"
-        },
-        {
-            "name": "Recursive",
-            "type": "boolean",
-            "label": "Recursive",
-            "defaultValue": "false",
-            "required": false,
-            "groupName": "configurationOptions"
-        },
-        {
-            "name": "ApplyLocalitemExclusions",
-            "type": "boolean",
-            "label": "Apply Localitem Exclusions",
-            "defaultValue": "true",
-            "required": false,
-            "groupName": "configurationOptions"
-        }
-    ],
-    "instanceNameFormat": "Adding pending changes",
-    "execution": {
-        "PowerShell": {
-            "target": "$(currentDirectory)\\TfvcAdd.ps1",
-            "argumentFormat": "",
-            "workingDirectory": "$(Build.SourcesDirectory)"
-        }
-    }
+    "id":  "2ef90ef1-5298-4f6a-8b99-12933fed4de4",
+    "name":  "TFVCAdd",
+    "friendlyName":  "TFVC - Add new files",
+    "description":  "Adds file to Pending changes.",
+    "helpMarkDown":  "",
+    "category":  "Utility",
+    "author":  "Jesse Houwing",
+    "version":  {
+                    "Major":  1,
+                    "Minor":  0,
+                    "Patch":  22
+                },
+    "minimumAgentVersion":  "1.83.0",
+    "groups":  [
+                   {
+                       "name":  "configurationOptions",
+                       "displayName":  "Configuration",
+                       "isExpanded":  true
+                   }
+               ],
+    "inputs":  [
+                   {
+                       "name":  "ItemSpec",
+                       "type":  "multiLine",
+                       "label":  "Files to add",
+                       "defaultValue":  "$/",
+                       "required":  false,
+                       "groupName":  "configurationOptions"
+                   },
+                   {
+                       "name":  "Recursive",
+                       "type":  "boolean",
+                       "label":  "Recursive",
+                       "defaultValue":  "false",
+                       "required":  false,
+                       "groupName":  "configurationOptions"
+                   },
+                   {
+                       "name":  "ApplyLocalitemExclusions",
+                       "type":  "boolean",
+                       "label":  "Apply Localitem Exclusions",
+                       "defaultValue":  "true",
+                       "required":  false,
+                       "groupName":  "configurationOptions"
+                   }
+               ],
+    "instanceNameFormat":  "Adding pending changes",
+    "execution":  {
+                      "PowerShell":  {
+                                         "target":  "$(currentDirectory)\\TfvcAdd.ps1",
+                                         "argumentFormat":  "",
+                                         "workingDirectory":  "$(Build.SourcesDirectory)"
+                                     }
+                  }
 }

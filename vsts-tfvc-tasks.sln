@@ -35,6 +35,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{E2
 		extension\Licenses\vso-agent-tasks-license.txt = extension\Licenses\vso-agent-tasks-license.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76607A2E-B176-45F4-8452-181A5FF89EC4}"
+	ProjectSection(SolutionItems) = preProject
+		publish.ps1 = publish.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

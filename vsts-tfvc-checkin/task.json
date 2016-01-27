@@ -1,112 +1,110 @@
 {
-    "id": "31f040e5-e040-4556-878a-59a47c7128bd",
-    "name": "TFVCCheckin",
-    "friendlyName": "TFVC - Check-in changes",
-    "description": "Checks in any files changed in the repository.",
-    "helpMarkDown": "",
-    "category": "Utility",
-    "author": "Jesse Houwing",
-    "version": {
-        "Major": 1,
-        "Minor": 0,
-        "Patch": 44
-    },
-    "visibility": [
-        "Build"
-    ],
-    "demands": [
-        "visualstudio"
-    ],
-    "minimumAgentVersion": "1.83.0",
-
-    "groups": [
-        {
-            "name": "confirmationOptions",
-            "displayName": "Checking in files from a build is generally a bad idea",
-            "isExpanded": true
-        },
-        {
-            "name": "configurationOptions",
-            "displayName": "Configuration",
-            "isExpanded": true
-        },
-        {
-            "name": "overrideOptions",
-            "displayName": "Policy Override",
-            "isExpanded": false
-        }
-    ],
-
-    "inputs": [
-        {
-            "name": "ConfirmUnderstand",
-            "type": "boolean",
-            "label": "I understand",
-            "defaultValue": false,
-            "required": true,
-            "groupName": "confirmationOptions"
-        },
-        {
-            "name": "IncludeNoCIComment",
-            "type": "boolean",
-            "label": "Bypass CI on check-in",
-            "defaultValue": true,
-            "required": false,
-            "groupName": "overrideOptions"
-        },
-        {
-            "name": "OverridePolicy",
-            "type": "boolean",
-            "label": "Override policies",
-            "defaultValue": false,
-            "required": false,
-            "groupName": "overrideOptions"
-        },
-        {
-            "name": "OverridePolicyReason",
-            "type": "string",
-            "label": "Override reason",
-            "defaultValue": "",
-            "visibleRule": "OverridePolicy = true",
-            "required": true,
-            "groupName": "overrideOptions"
-        },
-        {
-            "name": "ItemSpec",
-            "type": "multiLine",
-            "label": "Files to check in",
-            "defaultValue": "$/*",
-            "required": false,
-            "groupName": "configurationOptions"
-        },
-        {
-            "name": "Recursion",
-            "type": "pickList",
-            "label": "Recursion",
-            "defaultValue": "None",
-            "required": false,
-            "options": {
-                "None": "None",
-                "Full": "Full",
-                "OneLevel": "One Level"
-            },
-            "groupName": "configurationOptions"
-        },
-        {
-            "name": "Comment",
-            "type": "multiLine",
-            "label": "Check-in comment",
-            "defaultValue": "",
-            "required": false,
-            "groupName": "configurationOptions"
-        }
-    ],
-    "instanceNameFormat": "Check changes into source control",
-    "execution": {
-        "PowerShell": {
-            "target": "$(currentDirectory)\\TfvcCheckin.ps1",
-            "argumentFormat": "",
-            "workingDirectory": "$(Build.SourcesDirectory)"
-        }
-    }
+    "id":  "31f040e5-e040-4556-878a-59a47c7128bd",
+    "name":  "TFVCCheckin",
+    "friendlyName":  "TFVC - Check-in changes",
+    "description":  "Checks in any files changed in the repository.",
+    "helpMarkDown":  "",
+    "category":  "Utility",
+    "author":  "Jesse Houwing",
+    "version":  {
+                    "Major":  1,
+                    "Minor":  0,
+                    "Patch":  54
+                },
+    "visibility":  [
+                       "Build"
+                   ],
+    "demands":  [
+                    "visualstudio"
+                ],
+    "minimumAgentVersion":  "1.83.0",
+    "groups":  [
+                   {
+                       "name":  "confirmationOptions",
+                       "displayName":  "Checking in files from a build is generally a bad idea",
+                       "isExpanded":  true
+                   },
+                   {
+                       "name":  "configurationOptions",
+                       "displayName":  "Configuration",
+                       "isExpanded":  true
+                   },
+                   {
+                       "name":  "overrideOptions",
+                       "displayName":  "Policy Override",
+                       "isExpanded":  false
+                   }
+               ],
+    "inputs":  [
+                   {
+                       "name":  "ConfirmUnderstand",
+                       "type":  "boolean",
+                       "label":  "I understand",
+                       "defaultValue":  false,
+                       "required":  true,
+                       "groupName":  "confirmationOptions"
+                   },
+                   {
+                       "name":  "IncludeNoCIComment",
+                       "type":  "boolean",
+                       "label":  "Bypass CI on check-in",
+                       "defaultValue":  true,
+                       "required":  false,
+                       "groupName":  "overrideOptions"
+                   },
+                   {
+                       "name":  "OverridePolicy",
+                       "type":  "boolean",
+                       "label":  "Override policies",
+                       "defaultValue":  false,
+                       "required":  false,
+                       "groupName":  "overrideOptions"
+                   },
+                   {
+                       "name":  "OverridePolicyReason",
+                       "type":  "string",
+                       "label":  "Override reason",
+                       "defaultValue":  "",
+                       "visibleRule":  "OverridePolicy = true",
+                       "required":  true,
+                       "groupName":  "overrideOptions"
+                   },
+                   {
+                       "name":  "ItemSpec",
+                       "type":  "multiLine",
+                       "label":  "Files to check in",
+                       "defaultValue":  "$/*",
+                       "required":  false,
+                       "groupName":  "configurationOptions"
+                   },
+                   {
+                       "name":  "Recursion",
+                       "type":  "pickList",
+                       "label":  "Recursion",
+                       "defaultValue":  "None",
+                       "required":  false,
+                       "options":  {
+                                       "None":  "None",
+                                       "Full":  "Full",
+                                       "OneLevel":  "One Level"
+                                   },
+                       "groupName":  "configurationOptions"
+                   },
+                   {
+                       "name":  "Comment",
+                       "type":  "multiLine",
+                       "label":  "Check-in comment",
+                       "defaultValue":  "",
+                       "required":  false,
+                       "groupName":  "configurationOptions"
+                   }
+               ],
+    "instanceNameFormat":  "Check changes into source control",
+    "execution":  {
+                      "PowerShell":  {
+                                         "target":  "$(currentDirectory)\\TfvcCheckin.ps1",
+                                         "argumentFormat":  "",
+                                         "workingDirectory":  "$(Build.SourcesDirectory)"
+                                     }
+                  }
 }
