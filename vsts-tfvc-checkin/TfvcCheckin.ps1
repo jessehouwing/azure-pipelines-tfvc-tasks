@@ -37,6 +37,7 @@ $OnAssemblyResolve = [System.ResolveEventHandler] {
          $path = $path.TrimEnd('\'[0]) + "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\" + $e.Name + ".dll"
         if (Test-Path -PathType Leaf -LiteralPath $path)
         {
+            Write-Debug "Loading assembly: $path"
             return [System.Reflection.Assembly]::LoadFrom($path)
         }
     }
