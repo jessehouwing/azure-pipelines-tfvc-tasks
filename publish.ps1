@@ -7,6 +7,8 @@ param(
 $patchMarkerName = "task.json.lastpatched"
 $uploadMarkerName = "task.json.lastuploaded"
 
+cd -Path $PSScriptRoot
+
 if ($Force)
 {
     Write-Warning "Force specified"
@@ -22,8 +24,8 @@ function Update-Version
     $result = $false
 
     $patch = $Force -or {
-        $item = Get-ChildItem $TaskPath\*.* -Recurse | ?{ -not ("$($_.Name)" -eq "$uploadMarkerName") } | Sort {$_.LastWriteTime} | select -last 1
-       return -not "$($item.Name)" -eq "$patchMarkerName"
+       $item = Get-ChildItem $TaskPath\*.* -Recurse | ?{ -not ("$($_.Name)" -eq "$uploadMarkerName") } | Sort {$_.LastWriteTime} | select -last 1
+       return -not ("$($item.Name)" -eq "$patchMarkerName")
     }
 
     if ($patch)
@@ -34,7 +36,7 @@ function Update-Version
         New-Item -Path $TaskPath -Name $patchMarkerName -ItemType File -Force | Out-Null
         $result = $true
 
-        Write-Warning "Updated version to $($taskJson.Version)"
+        Write-Output "Updated version to $($taskJson.Version)"
     }
     
     return $result
@@ -59,7 +61,7 @@ function Publish-Task
         New-Item -Path $TaskPath -Name $uploadMarkerName -ItemType File -Force | Out-Null
         $result = $true
 
-        Write-Warning Published
+        Write-Output Published
     }
     
     return $result
@@ -67,9 +69,16 @@ function Publish-Task
 
 foreach ($Item in $Items)
 {
-    Write-Information "Processing: $Item"
-    if (Update-Version -TaskPath $item)
+    if (Test-Path $Item)
     {
-        Publish-Task -TaskPath $Item | Out-Null
+        Write-Output "Processing: $Item"
+        if (Update-Version -TaskPath $item)
+        {
+            $publushed = Publish-Task -TaskPath $Item
+        }
+    }
+    else
+    {
+        Write-Error "Path not found: $Item"
     }
 }
