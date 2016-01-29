@@ -10,35 +10,86 @@ Write-Verbose "Importing modules"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
-$OnAssemblyResolve = [System.ResolveEventHandler] {
-    param($sender, $e)
+function Get-VisualStudio14Path{
+    $path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+    Write-Debug "Resolved VisualStudio14Path to: $path"
+    return $path
+}
+
+function Load-Assembly
+{
+    [cmdletbinding()]
+    param(
+        [string] $name,
+        [string[]] $ProbingPathsArgs
+    )
+
+    $ProbingPaths = New-Object System.Collections.ArrayList $ProbingPathsArgs
+    if ($ProbingPaths.Count -eq 0)
+    {
+        Write-Debug "Setting default assembly locations"
+
+        if ($PSScriptRoot -ne $null )
+        {
+            $ProbingPaths.Add($PSScriptRoot) 
+        }
+        if ($env:AGENT_HOMEDIRECTORY -ne $null )
+        {
+            $ProbingPaths.Add((Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\"))
+        } 
+        if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
+        {
+            $ProbingPaths.Add($env:AGENT_SERVEROMDIRECTORY)
+        }
+        if (($VS14Path = Get-VisualStudio14Path) -ne $null)
+        {
+            $ProbingPaths.Add((Join-Path $VS14Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\"))
+        }
+    }
+
+    Write-Debug "Resolving $a"
+
     foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
     {
-        if ($a.FullName -eq $e.Name)
+        if ($a.FullName -eq $Name)
         {
             return $a
         }
     }
 
-    if ($path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder) {
-         $path = $path.TrimEnd('\'[0]) + "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\" + $e.Name + ".dll"
+    foreach ($path in $ProbingPaths)
+    {
+        Write-Debug "Checking in $path"
+
+        $path = [System.IO.Path]::Combine($path, "$($Name).dll")
+        Write-Debug "Looking for $path"
         if (Test-Path -PathType Leaf -LiteralPath $path)
         {
-            Write-Debug "Loading assembly: $path"
-            return [System.Reflection.Assembly]::LoadFrom($path)
+            Write-Debug "Found assembly: $path"
+            if ([System.Reflection.AssemblyName]::GetAssemblyName($path).Name -eq $Name)
+            {
+                Write-Debug "Loading assembly: $path"
+                return [System.Reflection.Assembly]::LoadFrom($path)
+            }
+            else
+            {
+                Write-Debug "Name Mismatch: $path"
+            }
+        }
+        else
+        {
+            Write-Debug "Not found: $Name"
         }
     }
 
     return $null
 }
-[System.AppDomain]::CurrentDomain.add_AssemblyResolve($OnAssemblyResolve)
 
-
-[System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.Client.dll") | Out-Null
-[System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.Common.dll") | Out-Null
-[System.Reflection.Assembly]::LoadFrom("$env:AGENT_HOMEDIRECTORY\Agent\Worker\Microsoft.TeamFoundation.VersionControl.Client.dll")| Out-Null
-[System.Reflection.Assembly]::Load("Microsoft.TeamFoundation.WorkItemTracking.Client") | Out-Null
-[System.Reflection.Assembly]::Load("Microsoft.TeamFoundation.Diff") | Out-Null
+Load-Assembly "Microsoft.TeamFoundation.Client"
+Load-Assembly "Microsoft.TeamFoundation.Common"
+Load-Assembly "Microsoft.TeamFoundation.VersionControl.Client"
+Load-Assembly "Microsoft.TeamFoundation.WorkItemTracking.Client"
+Load-Assembly "Microsoft.TeamFoundation.Diff"
 
 function Get-SourceProvider {
     [cmdletbinding()]
@@ -175,5 +226,4 @@ Try
 Finally
 {
     Invoke-DisposeSourceProvider -Provider $provider
-    [System.AppDomain]::CurrentDomain.remove_AssemblyResolve($OnAssemblyResolve)
 }

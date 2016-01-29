@@ -8,6 +8,16 @@
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
     <Name>vsts-tfvc-add</Name>
+    <Author>Jesse Houwing</Author>
+    <CompanyName>Jesse Houwing</CompanyName>
+    <Copyright>2015 Jesse Houwing</Copyright>
+    <Description />
+    <Guid>7b9b0ec1-d89c-4533-ab50-32a2fb1d9c47</Guid>
+    <ClrVersion />
+    <PowerShellHostVersion />
+    <PowerShellVersion />
+    <ProcessorArchitecture />
+    <RequiredModules />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
