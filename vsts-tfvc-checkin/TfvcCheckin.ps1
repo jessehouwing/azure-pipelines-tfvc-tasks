@@ -6,7 +6,8 @@ param(
     [string] $Recursion = "Full",
     [string] $ConfirmUnderstand = $false,
     [string] $OverridePolicy = $false,
-    [string] $OverridePolicyReason = ""
+    [string] $OverridePolicyReason = "",
+    [string] $Notes = ""
 )
 
 if (-not ($ConfirmUnderstand -eq $true))
@@ -217,7 +218,7 @@ Function Evaluate-Checkin {
         {
             foreach ($noteFailure in $result.NoteFailures)
             {
-                Write-Warning "$($noteFailure.Definition.Name): $($noteFailure.Message)"
+                Write-Warning "Note validation: $($noteFailure.Definition.Name): $($noteFailure.Message)"
             }
             $passed = $false;
         }
@@ -269,6 +270,26 @@ Function Handle-PolicyOverride {
     }
 }
 
+function Parse-CheckinNotes
+{
+    [cmdletbinding()]
+    param(
+        [string] $Notes
+    )
+    [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = (($notes -split ";|\r?\n") | ForEach {
+        [string[]] $note = $_ -split "\s*[:=]\s*"
+
+        if ($note.Count -ne 2)
+        {
+            Write-Error "Unable to parse checkin note"
+        }
+
+        return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0], $note[1])
+    })
+
+    return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNote(,$fieldValues)
+}
+
 Try
 {
     $noCiComment = "**NO_CI**"
@@ -288,7 +309,7 @@ Try
 
     $provider = Get-SourceProvider
 
-    if (-not $Recursion -eq "")
+    if ($Recursion -ne "")
     {
         $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
     }
@@ -297,7 +318,7 @@ Try
         $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]"None"
     }
 
-    if (-not $Itemspec -eq "")
+    if ($Itemspec -ne "")
     {
         [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
         Write-Output $FilesToCheckin
@@ -308,10 +329,15 @@ Try
         $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType)
     }
 
+    if ($Notes -ne "")
+    {
+        $CheckinNotes = Parse-CheckinNotes $Notes
+    }
+
     $passed = [ref] $true
 
     $evaluationOptions = [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"AddMissingFieldValues" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Notes" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Policies"
-    $result = Evaluate-Checkin $provider.Workspace $evaluationOptions $pendingChanges $pendingChanges $comment @() $null $passed
+    $result = Evaluate-Checkin $provider.Workspace $evaluationOptions $pendingChanges $pendingChanges $comment $CheckinNotes $null $passed
  
     if (($passed -eq $false) -and $OverridePolicy)
     {   
@@ -321,7 +347,7 @@ Try
     if ($override -eq $null -or $OverridePolicy)
     {
         Write-Verbose "Entering Workspace-Checkin"
-        $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$null, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
+        $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
         Write-Verbose "Leaving Workspace-Checkin"
     }
     else

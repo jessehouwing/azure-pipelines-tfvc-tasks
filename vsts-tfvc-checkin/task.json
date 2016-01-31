@@ -9,7 +9,7 @@
     "version":  {
                     "Major":  1,
                     "Minor":  0,
-                    "Patch":  72
+                    "Patch":  84
                 },
     "visibility":  [
                        "Build"
@@ -28,6 +28,11 @@
                        "name":  "configurationOptions",
                        "displayName":  "Configuration",
                        "isExpanded":  true
+                   },
+                   {
+                       "name":  "notesOptions",
+                       "displayName":  "Notes",
+                       "isExpanded":  false
                    },
                    {
                        "name":  "overrideOptions",
@@ -76,6 +81,14 @@
                        "defaultValue":  "$/*",
                        "required":  false,
                        "groupName":  "configurationOptions"
+                   },
+                   {
+                       "name":  "Notes",
+                       "type":  "multiLine",
+                       "label":  "Notes",
+                       "defaultValue":  "",
+                       "required":  false,
+                       "groupName":  "notesOptions"
                    },
                    {
                        "name":  "Recursion",
