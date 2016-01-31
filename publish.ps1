@@ -6,6 +6,7 @@ param(
 
 $patchMarkerName = "task.json.lastpatched"
 $uploadMarkerName = "task.json.lastuploaded"
+$packagedMarkerName = ".lastpackaged"
 
 cd -Path $PSScriptRoot
 
@@ -67,18 +68,53 @@ function Publish-Task
     return $result
 }
 
+function Package-Extension
+{
+    $result = $false
+
+    $patch = $Force -or {
+       $item = Get-ChildItem *.* -Recurse | ?{ -not ("$($_.Name)" -eq "$packagedMarkerName") } | Sort {$_.LastWriteTime} | select -last 1
+       return -not ("$($item.Name)" -eq "$packagedMarkerName")
+    }
+
+    if ($patch)
+    {
+        $extensionJson = ConvertFrom-Json (Get-Content ".\extension-manifest.json" -Raw)
+        $Version = [System.Version]::Parse($extensionJson.Version)
+        $Version = New-Object System.Version -ArgumentList $Version.Major, $Version.Minor, ($Version.Build + 1)
+        $extensionJson.Version = $Version.ToString(3)
+        $extensionJson | ConvertTo-JSON -Depth 255 | Out-File  ".\extension-manifest.json" -Force -Encoding ascii
+        New-Item -Path . -Name $packagedMarkerName -ItemType File -Force | Out-Null
+        $result = $true
+
+        Write-Output "Updated version to $($extensionJson.Version)"
+    }
+    
+    return $result
+    tfx extension create --root . --publisher jessehouwing --extensionid jessehouwing-vsts-tfvc-tasks --output-path . --manifest-globs extension-manifest.json
+}
+
+$updated = false
 foreach ($Item in $Items)
 {
+
     if (Test-Path $Item)
     {
         Write-Output "Processing: $Item"
-        if (Update-Version -TaskPath $item)
+        $taskUpdated = Update-Version -TaskPath $item
+        $updated = $updated -or $taskUpdated
+        if ($taskUpdated)
         {
-            $publushed = Publish-Task -TaskPath $Item
+            $published = Publish-Task -TaskPath $Item
         }
     }
     else
     {
         Write-Error "Path not found: $Item"
     }
+}
+
+if ($updated)
+{
+    $packaged = Package-Extension
 }
