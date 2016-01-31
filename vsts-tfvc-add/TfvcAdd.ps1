@@ -51,7 +51,7 @@ function Load-Assembly
 
     foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
     {
-        if ($a.FullName -eq $Name)
+        if ($a.Name -eq $Name)
         {
             return $a
         }
@@ -225,5 +225,6 @@ Try
 }
 Finally
 {
+    $provider.VersionControlServer.remove_NonFatalError($OnNonFatalError)
     Invoke-DisposeSourceProvider -Provider $provider
 }
