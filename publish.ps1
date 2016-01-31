@@ -1,12 +1,23 @@
 [cmdletbinding()]
 param(
     [string[]] $Items = @(".\vsts-tfvc-add", ".\vsts-tfvc-checkin"),
-    [switch] $Force = $false
+    [switch] $Force = $false,
+    [switch] $Package = $false,
+    [switch] $PublishLocal = $false,
+    [switch] $PublishMarket = $false,
+    [switch] $Release = $false
 )
 
 $patchMarkerName = "task.json.lastpatched"
 $uploadMarkerName = "task.json.lastuploaded"
 $packagedMarkerName = ".lastpackaged"
+$publisherId = "jessehouwing"
+$extensionId = "jessehouwing-vsts-tfvc-tasks"
+
+if (-not $Release.IsPresent)
+{
+    $extensionId = "$extensionId-TEST"
+}
 
 cd -Path $PSScriptRoot
 
@@ -15,7 +26,7 @@ if ($Force)
     Write-Warning "Force specified"
 }
 
-function Update-Version
+function Update-TaskVersion
 {
     param(
         [Parameter(Mandatory=$true)]
@@ -43,7 +54,7 @@ function Update-Version
     return $result
 }
 
-function Publish-Task
+function Publish-TaskLocally
 {
     param(
         [Parameter(Mandatory=$true)]
@@ -58,13 +69,34 @@ function Publish-Task
 
     if ($publish)
     {
-        tfx build tasks upload --task-path $TaskPath
+        tfx build tasks upload --task-path $TaskPath --service-url https://jessehouwing.visualstudio.com/DefaultCollection
         New-Item -Path $TaskPath -Name $uploadMarkerName -ItemType File -Force | Out-Null
         $result = $true
 
         Write-Output Published
     }
     
+    return $result
+}
+
+function Publish-ExtensionToMarket
+{
+    param(
+    )
+
+    $result = $false
+    
+    $extensionJson = ConvertFrom-Json (Get-Content ".\extension-manifest.json" -Raw)
+    $Version = [System.Version]::Parse($extensionJson.Version)
+    $versionString = $Version.ToString(3)
+
+    if (-not $Release.IsPresent)
+    {
+        $args = " --share-with https://jessehouwing.visualstudio.com"
+    }
+
+    tfx extension publish --vsix "$publisherId.$extensionId$versionString.vsix" --service-url https://app.market.visualstudio.com $args
+
     return $result
 }
 
@@ -83,6 +115,9 @@ function Package-Extension
         $Version = [System.Version]::Parse($extensionJson.Version)
         $Version = New-Object System.Version -ArgumentList $Version.Major, $Version.Minor, ($Version.Build + 1)
         $extensionJson.Version = $Version.ToString(3)
+        $extensionJson.Id = "$extensionId"
+        $extensionJson.Public = $Release.IsPresent
+
         $extensionJson | ConvertTo-JSON -Depth 255 | Out-File  ".\extension-manifest.json" -Force -Encoding ascii
         New-Item -Path . -Name $packagedMarkerName -ItemType File -Force | Out-Null
         $result = $true
@@ -90,7 +125,7 @@ function Package-Extension
         Write-Output "Updated version to $($extensionJson.Version)"
     }
     
-    tfx extension create --root . --publisher jessehouwing --extensionid jessehouwing-vsts-tfvc-tasks --output-path . --manifest-globs extension-manifest.json
+    tfx extension create --root . --output-path . --manifest-globs extension-manifest.json
     return $result
 }
 
@@ -101,11 +136,11 @@ foreach ($Item in $Items)
     if (Test-Path $Item)
     {
         Write-Output "Processing: $Item"
-        $taskUpdated = Update-Version -TaskPath $item
+        $taskUpdated = Update-TaskVersion -TaskPath $item
         $updated = ($updated -or $taskUpdated)
-        if ($taskUpdated)
+        if ($taskUpdated -and $PublishLocal)
         {
-            $published = Publish-Task -TaskPath $Item
+            $published = Publish-TaskLocally -TaskPath $Item
         }
     }
     else
@@ -114,7 +149,12 @@ foreach ($Item in $Items)
     }
 }
 
-if ($updated)
+if (($updated -or $Force) -and $Package)
 {
+
     $packaged = Package-Extension
+    if ($packaged -and $PublishMarket)
+    {
+        Publish-ExtensionToMarket
+    }
 }
