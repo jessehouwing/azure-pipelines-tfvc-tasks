@@ -1,0 +1,86 @@
+{
+    "manifestVersion":  1,
+    "id":  "jessehouwing-vsts-tfvc-tasks",
+    "name":  "TFVC Build Tasks",
+    "version":  "1.0.2",
+    "publisher":  "jessehouwing",
+    "public":  true,
+    "targets":  [
+                    {
+                        "id":  "Microsoft.VisualStudio.Services"
+                    }
+                ],
+    "description":  "Build extensions that enable you to interact with TFVC repositories.",
+    "categories":  [
+                       "Build and release"
+                   ],
+    "tags":  [
+                 "tfvc",
+                 "build",
+                 "checkin"
+             ],
+    "screenshots":  [
+                        {
+                            "path":  "extension/images/screenshots/tfvc-checkin.png"
+                        },
+                        {
+                            "path":  "extension/images/screenshots/tfvc-add.png"
+                        }
+                    ],
+    "content":  {
+                    "details":  {
+                                    "path":  "readme.md"
+                                },
+                    "license":  {
+                                    "path":  "license.txt"
+                                }
+                },
+    "links":  {
+                  "home":  {
+                               "uri":  "http://blog.jessehouwing.nl"
+                           },
+                  "repository":  {
+                                     "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks"
+                                 },
+                  "issues":  {
+                                 "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
+                             }
+              },
+    "branding":  {
+                     "color":  "rgb(36, 43, 50)",
+                     "theme":  "dark"
+                 },
+    "icons":  {
+                  "default":  "extension/images/extension-icon.png"
+              },
+    "files":  [
+                  {
+                      "path":  "vsts-tfvc-add"
+                  },
+                  {
+                      "path":  "vsts-tfvc-checkin"
+                  }
+              ],
+    "contributions":  [
+                          {
+                              "id":  "azure-webdeploy-task",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-add"
+                                             }
+                          },
+                          {
+                              "id":  "vsts-tfvc-checkin",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-checkin"
+                                             }
+                          }
+                      ]
+}
