@@ -10,12 +10,6 @@ Write-Verbose "Importing modules"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
-function Get-VisualStudio14Path{
-    $path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-    Write-Debug "Resolved VisualStudio14Path to: $path"
-    return $path
-}
-
 function Load-Assembly
 {
     [cmdletbinding()]
@@ -41,7 +35,9 @@ function Load-Assembly
         {
             $ProbingPaths.Add($env:AGENT_SERVEROMDIRECTORY)
         }
-        if (($VS14Path = Get-VisualStudio14Path) -ne $null)
+
+        $VS14Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+        if ($VS14Path -ne $null)
         {
             $ProbingPaths.Add((Join-Path $VS14Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\"))
         }
