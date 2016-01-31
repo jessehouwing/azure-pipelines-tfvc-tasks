@@ -90,11 +90,11 @@ function Package-Extension
         Write-Output "Updated version to $($extensionJson.Version)"
     }
     
-    return $result
     tfx extension create --root . --publisher jessehouwing --extensionid jessehouwing-vsts-tfvc-tasks --output-path . --manifest-globs extension-manifest.json
+    return $result
 }
 
-$updated = false
+$updated = $false
 foreach ($Item in $Items)
 {
 
@@ -102,7 +102,7 @@ foreach ($Item in $Items)
     {
         Write-Output "Processing: $Item"
         $taskUpdated = Update-Version -TaskPath $item
-        $updated = $updated -or $taskUpdated
+        $updated = ($updated -or $taskUpdated)
         if ($taskUpdated)
         {
             $published = Publish-Task -TaskPath $Item

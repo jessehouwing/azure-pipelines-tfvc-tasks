@@ -7,7 +7,7 @@ Is a set of Build tasks for TFS 2015 and Visual Studio Team Services that enable
 
 # General warning
 
-Checkin in files during your build process is not something you should take lightly. There are multiple problems you may not be aware of when doing this:
+Checking in files during your build process is not something you should take lightly. There are multiple problems you may not be aware of when doing this:
 
  * When checking in sources during the build the CS number of the build doesn't match the code checked in.
  * When using Source and Symbol indexing the information to the original CS number is stored, not the actual code used to create the binaries. This may cause problems when using:

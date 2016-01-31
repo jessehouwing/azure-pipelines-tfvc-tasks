@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots"
 	ProjectSection(SolutionItems) = preProject
 		extension\Images\Screenshots\tfvc-add.png = extension\Images\Screenshots\tfvc-add.png
 		extension\Images\Screenshots\tfvc-checkin.png = extension\Images\Screenshots\tfvc-checkin.png
+		extension\Images\Screenshots\tfvc-tasks.png = extension\Images\Screenshots\tfvc-tasks.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{E242DC7E-1E06-46CF-9444-BC636897F622}"

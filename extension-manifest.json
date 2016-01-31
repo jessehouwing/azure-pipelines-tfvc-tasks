@@ -2,7 +2,7 @@
     "manifestVersion":  1,
     "id":  "jessehouwing-vsts-tfvc-tasks",
     "name":  "TFVC Build Tasks",
-    "version":  "1.0.2",
+    "version":  "1.0.9",
     "publisher":  "jessehouwing",
     "public":  true,
     "targets":  [
@@ -21,10 +21,13 @@
              ],
     "screenshots":  [
                         {
-                            "path":  "extension/images/screenshots/tfvc-checkin.png"
+                            "path":  "extension/Images/Screenshots/tfvc-tasks.png"
                         },
                         {
-                            "path":  "extension/images/screenshots/tfvc-add.png"
+                            "path":  "extension/Images/Screenshots/tfvc-checkin.png"
+                        },
+                        {
+                            "path":  "extension/Images/Screenshots/tfvc-add.png"
                         }
                     ],
     "content":  {
