@@ -145,9 +145,7 @@ function Get-SourceProvider {
             return New-Object psobject -Property $provider
         }
 
-        Write-Warning (Get-LocalizedString -Key 'Only TfsGit and TfsVersionControl source providers are supported for source indexing. Repository type: {0}' -ArgumentList $provider)
-        Write-Warning (Get-LocalizedString -Key 'Unable to index sources.')
-        return
+        Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")        return
     } finally {
         if (!$success) {
             Invoke-DisposeSourceProvider -Provider $provider
