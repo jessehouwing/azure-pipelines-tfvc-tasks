@@ -218,7 +218,7 @@ Function Evaluate-Checkin {
         {
             foreach ($noteFailure in $result.NoteFailures)
             {
-                Write-Warning "Note validation: $($noteFailure.Definition.Name): $($noteFailure.Message)"
+                Write-Warning "$($noteFailure.Definition.Name): $($noteFailure.Message)"
             }
             $passed = $false;
         }
@@ -276,16 +276,17 @@ function Parse-CheckinNotes
     param(
         [string] $Notes
     )
-    [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = (($notes -split ";|\r?\n") | ForEach {
+    [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = (($notes -split "\s*(?:;|\r?\n)\s*") | ForEach {
         [string[]] $note = $_ -split "\s*[:=]\s*"
 
         if ($note.Count -ne 2)
         {
             Write-Error "Unable to parse checkin note"
+            return $null
         }
 
-        return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0], $note[1])
-    })
+        return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0].Trim(), $note[1].Trim())
+    } | ?{$_ -ne $null} )
 
     return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNote(,$fieldValues)
 }
