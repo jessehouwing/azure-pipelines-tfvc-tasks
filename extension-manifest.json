@@ -1,10 +1,10 @@
 {
     "manifestVersion":  1,
-    "id":  "jessehouwing-vsts-tfvc-tasks-TEST",
+    "id":  "jessehouwing-vsts-tfvc-tasks",
     "name":  "TFVC Build Tasks",
-    "version":  "1.0.20",
+    "version":  "1.0.19",
     "publisher":  "jessehouwing",
-    "public":  false,
+    "public":  true,
     "targets":  [
                     {
                         "id":  "Microsoft.VisualStudio.Services"
@@ -39,10 +39,13 @@
                                 }
                 },
     "links":  {
-        "getstarted": {
-            "uri": "https://github.com/jessehouwing/vsts-tfvc-tasks/wiki"
-        },
-                  "support":  {
+                  "home":  {
+                               "uri":  "http://blog.jessehouwing.nl"
+                           },
+                  "repository":  {
+                                     "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks"
+                                 },
+                  "issues":  {
                                  "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
                              }
               },
