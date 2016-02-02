@@ -39,13 +39,10 @@
                                 }
                 },
     "links":  {
-                  "home":  {
-                               "uri":  "http://blog.jessehouwing.nl"
-                           },
-                  "repository":  {
-                                     "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks"
+                  "getstarted":  {
+                                     "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/wiki"
                                  },
-                  "issues":  {
+                  "support":  {
                                  "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
                              }
               },
