@@ -9,7 +9,7 @@
     "version":  {
                     "Major":  1,
                     "Minor":  0,
-                    "Patch":  119
+                    "Patch":  121
                 },
     "visibility":  [
                        "Build"
@@ -42,74 +42,82 @@
                ],
     "inputs":  [
                    {
-                       "name":  "ConfirmUnderstand",
-                       "type":  "boolean",
+                       "defaultValue":  false,
+                       "groupName":  "confirmationOptions",
+                       "helpMarkdown":  "If your build system dived into an endless loop, uses up all your build minutes or destroys your source tree by accident. You\u0027ve signaled you understand this risk, the task won\u0027t work without this consent. \u003cbr/\u003e\u003cbr/\u003e[More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki)",
                        "label":  "I understand",
-                       "defaultValue":  false,
+                       "name":  "ConfirmUnderstand",
                        "required":  true,
-                       "groupName":  "confirmationOptions"
+                       "type":  "boolean"
                    },
                    {
-                       "name":  "IncludeNoCIComment",
-                       "type":  "boolean",
-                       "label":  "Bypass CI on check-in",
                        "defaultValue":  true,
+                       "groupName":  "overrideOptions",
+                       "helpMarkdown":  "Adds a special string to the check-in comment to ensure that no other build is triggered.",
+                       "label":  "Bypass CI on check-in",
+                       "name":  "IncludeNoCIComment",
                        "required":  false,
-                       "groupName":  "overrideOptions"
+                       "type":  "boolean"
                    },
                    {
-                       "name":  "OverridePolicy",
-                       "type":  "boolean",
-                       "label":  "Override policies",
                        "defaultValue":  false,
+                       "groupName":  "overrideOptions",
+                       "helpMarkdown":  "To override any check-in policies or changeset-notes that may be required by your administrator.",
+                       "label":  "Override policies",
+                       "name":  "OverridePolicy",
                        "required":  false,
-                       "groupName":  "overrideOptions"
+                       "type":  "boolean"
                    },
                    {
-                       "name":  "OverridePolicyReason",
-                       "type":  "string",
+                       "defaultValue":  "",
+                       "groupName":  "overrideOptions",
+                       "helpMarkdown":  "When enabling Override Policies, you\u0027re required to specify a reason. This reason is stored with the changeset.",
                        "label":  "Override reason",
-                       "defaultValue":  "",
-                       "visibleRule":  "OverridePolicy = true",
+                       "name":  "OverridePolicyReason",
                        "required":  true,
-                       "groupName":  "overrideOptions"
+                       "type":  "string",
+                       "visibleRule":  "OverridePolicy = true"
                    },
                    {
-                       "name":  "ItemSpec",
-                       "type":  "multiLine",
-                       "label":  "Files to check in",
                        "defaultValue":  "$/*",
+                       "groupName":  "configurationOptions",
+                       "helpMarkdown":  "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they\u0027re not the same as the minimatch patterns used by other build tasks and do **not** support the recursive wildcard `**`. \u003cbr/\u003e\u003cbr/\u003eExample: `$/MyTeamproject/Main/*.cs`",
+                       "label":  "Files to check in",
+                       "name":  "ItemSpec",
                        "required":  false,
-                       "groupName":  "configurationOptions"
+                       "type":  "multiLine"
                    },
                    {
-                       "name":  "Notes",
-                       "type":  "multiLine",
-                       "label":  "Notes",
                        "defaultValue":  "",
+                       "groupName":  "notesOptions",
+                       "helpMarkdown":  "Specify one or more checkin notes using the following format `Name=Value` or `Name:Value` separated by `;` or newline.",
+                       "label":  "Notes",
+                       "name":  "Notes",
                        "required":  false,
-                       "groupName":  "notesOptions"
+                       "type":  "multiLine"
                    },
                    {
-                       "name":  "Recursion",
-                       "type":  "pickList",
-                       "label":  "Recursion",
                        "defaultValue":  "None",
-                       "required":  false,
+                       "groupName":  "configurationOptions",
+                       "helpMarkdown":  "Controls whether you\u0027ll be checking in just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+                       "label":  "Recursion",
+                       "name":  "Recursion",
                        "options":  {
                                        "None":  "None",
                                        "Full":  "Full",
                                        "OneLevel":  "One Level"
                                    },
-                       "groupName":  "configurationOptions"
+                       "required":  false,
+                       "type":  "pickList"
                    },
                    {
-                       "name":  "Comment",
-                       "type":  "multiLine",
-                       "label":  "Check-in comment",
                        "defaultValue":  "",
+                       "groupName":  "configurationOptions",
+                       "helpMarkdown":  "The comment which will show up in the source control history for this changeset.",
+                       "label":  "Check-in comment",
+                       "name":  "Comment",
                        "required":  false,
-                       "groupName":  "configurationOptions"
+                       "type":  "multiLine"
                    }
                ],
     "instanceNameFormat":  "Check changes into source control",

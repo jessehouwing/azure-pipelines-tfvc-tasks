@@ -1,10 +1,10 @@
 {
     "manifestVersion":  1,
-    "id":  "jessehouwing-vsts-tfvc-tasks",
+    "id":  "jessehouwing-vsts-tfvc-tasks-TEST",
     "name":  "TFVC Build Tasks",
-    "version":  "1.0.19",
+    "version":  "1.0.22",
     "publisher":  "jessehouwing",
-    "public":  true,
+    "public":  false,
     "targets":  [
                     {
                         "id":  "Microsoft.VisualStudio.Services"
@@ -43,8 +43,8 @@
                                      "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/wiki"
                                  },
                   "support":  {
-                                 "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
-                             }
+                                  "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
+                              }
               },
     "branding":  {
                      "color":  "rgb(36, 43, 50)",
@@ -63,7 +63,7 @@
               ],
     "contributions":  [
                           {
-                              "id":  "azure-webdeploy-task",
+                              "id":  "vsts-tfvc-add",
                               "type":  "ms.vss-distributed-task.task",
                               "targets":  [
                                               "ms.vss-distributed-task.tasks"

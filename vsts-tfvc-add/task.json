@@ -9,7 +9,7 @@
     "version":  {
                     "Major":  1,
                     "Minor":  0,
-                    "Patch":  87
+                    "Patch":  90
                 },
     "minimumAgentVersion":  "1.83.0",
     "groups":  [
@@ -26,7 +26,8 @@
                        "label":  "Files to add",
                        "defaultValue":  "$/",
                        "required":  false,
-                       "groupName":  "configurationOptions"
+                       "groupName":  "configurationOptions",
+                       "helpMarkDown":  "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they\u0027re not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.\u003cbr/\u003e\u003cbr/\u003eExample: `$/MyTeamproject/Main/AssemblyInfo.cs`\u003cbr/\u003e"
                    },
                    {
                        "name":  "Recursive",
@@ -34,7 +35,8 @@
                        "label":  "Recursive",
                        "defaultValue":  "false",
                        "required":  false,
-                       "groupName":  "configurationOptions"
+                       "groupName":  "configurationOptions",
+                       "helpMarkDown":  "Controls whether you\u0027ll be checking in just the current folder/file (unechecked), or all levels below the selected path (checked)."
                    },
                    {
                        "name":  "ApplyLocalitemExclusions",
@@ -42,7 +44,8 @@
                        "label":  "Apply Localitem Exclusions",
                        "defaultValue":  "true",
                        "required":  false,
-                       "groupName":  "configurationOptions"
+                       "groupName":  "configurationOptions",
+                       "helpMarkDown":  "Will ignore files that are specified in your `.tfignore` file if your repository has one."
                    }
                ],
     "instanceNameFormat":  "Adding pending changes",
