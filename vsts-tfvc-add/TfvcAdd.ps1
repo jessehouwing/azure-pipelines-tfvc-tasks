@@ -25,27 +25,27 @@ function Load-Assembly
 
         if ($PSScriptRoot -ne $null )
         {
-            $ProbingPaths.Add($PSScriptRoot) 
+            $ProbingPaths.Add($PSScriptRoot) | Out-Null
         }
         if ($env:AGENT_HOMEDIRECTORY -ne $null )
         {
-            $ProbingPaths.Add((Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\"))
+            $ProbingPaths.Add((Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")) | Out-Null
         } 
         if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
         {
-            $ProbingPaths.Add($env:AGENT_SERVEROMDIRECTORY)
+            $ProbingPaths.Add($env:AGENT_SERVEROMDIRECTORY) | Out-Null
         }
 
         $VS1454Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
         if ($VS1464Path -ne $null)
         {
-            $ProbingPaths.Add((Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\"))
+            $ProbingPaths.Add((Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")) | Out-Null
         }
 
         $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
         if ($VS1432Path -ne $null)
         {
-            $ProbingPaths.Add((Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\"))
+            $ProbingPaths.Add((Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")) | Out-Null
         }
     }
 
@@ -177,7 +177,7 @@ Try
 {
     $provider = Get-SourceProvider
 
-    if (-not $Recursive -eq $true)
+    if ($Recursive -ne $true)
     {
         $Recursive = $false
     }
@@ -186,7 +186,7 @@ Try
         $Recursive = $true
     }
 
-    if (-not $ApplyLocalitemExclusions -eq $true)
+    if ($ApplyLocalitemExclusions -ne $true)
     {
         $ApplyLocalitemExclusions = $false
     }

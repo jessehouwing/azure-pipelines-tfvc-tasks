@@ -43,7 +43,7 @@
                        "type":  "boolean",
                        "label":  "Apply Localitem Exclusions",
                        "defaultValue":  "true",
-                       "required":  false,
+                       "required":  true,
                        "groupName":  "configurationOptions",
                        "helpMarkDown":  "Will ignore files that are specified in your `.tfignore` file if your repository has one."
                    }
