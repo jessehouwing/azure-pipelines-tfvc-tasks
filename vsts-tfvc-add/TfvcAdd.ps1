@@ -59,16 +59,19 @@ function Load-Assembly
         }
     }
 
+    $assemblyToLoad = New-Object System.Reflection.AssemblyName $name
+    
+
     foreach ($path in $ProbingPaths)
     {
         Write-Debug "Checking in $path"
 
-        $path = [System.IO.Path]::Combine($path, "$($Name).dll")
+        $path = [System.IO.Path]::Combine($path, "$($assemblyToLoad.Name).dll")
         Write-Debug "Looking for $path"
         if (Test-Path -PathType Leaf -LiteralPath $path)
         {
             Write-Debug "Found assembly: $path"
-            if ([System.Reflection.AssemblyName]::GetAssemblyName($path).Name -eq $Name)
+            if ([System.Reflection.AssemblyName]::GetAssemblyName($path).Name -eq $assemblyToLoad.Name)
             {
                 Write-Debug "Loading assembly: $path"
                 return [System.Reflection.Assembly]::LoadFrom($path)
