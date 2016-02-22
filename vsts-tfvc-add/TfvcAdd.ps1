@@ -198,9 +198,14 @@ Try
     $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
         param($sender, $e)
 
-        Write-Warning "NonFatalError"
-        Write-Warning  $e.Exception.Message
-        Write-Warning  $e.Failure
+        if ($e.Exception -ne $null -and $e.Exception.Message -ne $null)
+        {
+            Write-Warning  $e.Exception.Message
+        }
+        if ($e.Faulure -ne $null)
+        {
+            Write-Warning  $e.Failure.ToString()
+        }
     }
     $provider.VersionControlServer.add_NonFatalError($OnNonFatalError)
 

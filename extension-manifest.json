@@ -1,10 +1,10 @@
 {
     "manifestVersion":  1,
-    "id":  "jessehouwing-vsts-tfvc-tasks-TEST",
+    "id":  "jessehouwing-vsts-tfvc-tasks",
     "name":  "TFVC Build Tasks",
-    "version":  "1.0.29",
+    "version":  "1.0.35",
     "publisher":  "jessehouwing",
-    "public":  false,
+    "public":  true,
     "targets":  [
                     {
                         "id":  "Microsoft.VisualStudio.Services"

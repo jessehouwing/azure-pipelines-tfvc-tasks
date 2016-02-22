@@ -116,14 +116,6 @@ function Get-SourceProvider {
     }
     $success = $false
     try {
-        if ($provider.Name -eq 'TfsGit') {
-            $provider.CollectionUrl = "$env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI".TrimEnd('/')
-            $provider.RepoId = $env:BUILD_REPOSITORY_ID
-            $provider.CommitId = $env:BUILD_SOURCEVERSION
-            $success = $true
-            return New-Object psobject -Property $provider
-        }
-        
         if ($provider.Name -eq 'TfsVersionControl') {
             $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
             $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
@@ -132,6 +124,7 @@ function Get-SourceProvider {
                 $serviceEndpoint.Url,
                 $tfsClientCredentials)
             $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
+            $provider.VersionControlServer = $versionControlServer;
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
             if (!$provider.Workspace) {
                 Write-Verbose "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
@@ -170,8 +163,7 @@ function Get-SourceProvider {
             return New-Object psobject -Property $provider
         }
 
-        Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")
-        return
+        Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")        return
     } finally {
         if (!$success) {
             Invoke-DisposeSourceProvider -Provider $provider
@@ -315,9 +307,21 @@ Try
         }
     }
        
-
-
     $provider = Get-SourceProvider
+
+    $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
+        param($sender, $e)
+
+        if ($e.Exception -ne $null -and $e.Exception.Message -ne $null)
+        {
+            Write-Warning  $e.Exception.Message
+        }
+        if ($e.Faulure -ne $null)
+        {
+            Write-Warning  $e.Failure.ToString()
+        }
+    }
+    $provider.VersionControlServer.add_NonFatalError($OnNonFatalError)
 
     if ($Recursion -ne "")
     {
@@ -375,8 +379,8 @@ Try
 }
 Finally
 {
+    $provider.VersionControlServer.remove_NonFatalError($OnNonFatalError)
     Invoke-DisposeSourceProvider -Provider $provider
-    [System.AppDomain]::CurrentDomain.remove_AssemblyResolve($OnAssemblyResolve)
 }
 
 
