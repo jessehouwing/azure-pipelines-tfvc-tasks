@@ -337,23 +337,31 @@ Try
 
     $passed = [ref] $true
 
-    $evaluationOptions = [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"AddMissingFieldValues" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Notes" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Policies"
-    $result = Evaluate-Checkin $provider.Workspace $evaluationOptions $pendingChanges $pendingChanges $comment $CheckinNotes $null $passed
- 
-    if (($passed -eq $false) -and $OverridePolicy)
-    {   
-        $override = Handle-PolicyOverride $result.PolicyFailures $OverridePolicyReason $passed
-    }
-
-    if ($override -eq $null -or $OverridePolicy)
+    if ($pendingChanges.Length -gt 0)
     {
-        Write-Verbose "Entering Workspace-Checkin"
-        $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
-        Write-Verbose "Leaving Workspace-Checkin"
+
+        $evaluationOptions = [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"AddMissingFieldValues" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Notes" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Policies"
+        $result = Evaluate-Checkin $provider.Workspace $evaluationOptions $pendingChanges $pendingChanges $comment $CheckinNotes $null $passed
+ 
+        if (($passed -eq $false) -and $OverridePolicy)
+        {   
+            $override = Handle-PolicyOverride $result.PolicyFailures $OverridePolicyReason $passed
+        }
+
+        if ($override -eq $null -or $OverridePolicy)
+        {
+            Write-Verbose "Entering Workspace-Checkin"
+            $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
+            Write-Verbose "Leaving Workspace-Checkin"
+        }
+        else
+        {
+            Write-Error "Checkin policy failed"
+        }
     }
     else
     {
-        Write-Error "Checkin policy failed"
+        Write-Output "No changes to check in"
     }
 }
 Finally
