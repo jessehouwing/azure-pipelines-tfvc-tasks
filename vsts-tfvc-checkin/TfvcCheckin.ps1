@@ -45,10 +45,16 @@ function Load-Assembly
             $ProbingPaths.Add($env:AGENT_SERVEROMDIRECTORY)
         }
 
-        $VS14Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-        if ($VS14Path -ne $null)
+        $VS1454Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+        if ($VS1464Path -ne $null)
         {
-            $ProbingPaths.Add((Join-Path $VS14Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\"))
+            $ProbingPaths.Add((Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\"))
+        }
+
+        $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+        if ($VS1432Path -ne $null)
+        {
+            $ProbingPaths.Add((Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\"))
         }
     }
 
