@@ -209,7 +209,7 @@ Try
             {
                 foreach ($warning in $e.Failure.Warnings)
                 {
-                    Write-Warning $warning.ParentOrChildTask
+                    Write-Warning $warning.ParentOrChildTask 
                 }
             }
         }

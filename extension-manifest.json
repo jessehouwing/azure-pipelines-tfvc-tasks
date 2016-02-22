@@ -1,10 +1,10 @@
 {
     "manifestVersion":  1,
-    "id":  "jessehouwing-vsts-tfvc-tasks",
+    "id":  "jessehouwing-vsts-tfvc-tasks-TEST",
     "name":  "TFVC Build Tasks",
-    "version":  "1.0.44",
+    "version":  "1.0.48",
     "publisher":  "jessehouwing",
-    "public":  true,
+    "public":  false,
     "targets":  [
                     {
                         "id":  "Microsoft.VisualStudio.Services"
@@ -17,7 +17,8 @@
     "tags":  [
                  "tfvc",
                  "build",
-                 "checkin"
+                 "checkin",
+                 "delete"
              ],
     "screenshots":  [
                         {
@@ -59,6 +60,9 @@
                   },
                   {
                       "path":  "vsts-tfvc-checkin"
+                  },
+                  {
+                      "path":  "vsts-tfvc-delete"
                   }
               ],
     "contributions":  [
@@ -80,6 +84,16 @@
                                           ],
                               "properties":  {
                                                  "name":  "vsts-tfvc-checkin"
+                                             }
+                          },
+                          {
+                              "id":  "vsts-tfvc-delete",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-delete"
                                              }
                           }
                       ]

@@ -316,9 +316,16 @@ Try
         {
             Write-Warning  $e.Exception.Message
         }
-        if ($e.Faulure -ne $null)
+        if ($e.Failure -ne $null -and $e.Failure.Message -ne $null)
         {
-            Write-Warning  $e.Failure.ToString()
+            Write-Warning  $e.Failure.Message
+            if ($e.Failure.Warnings.Length -gt 0)
+            {
+                foreach ($warning in $e.Failure.Warnings)
+                {
+                    Write-Warning $warning.ParentOrChildTask 
+                }
+            }
         }
     }
     $provider.VersionControlServer.add_NonFatalError($OnNonFatalError)
