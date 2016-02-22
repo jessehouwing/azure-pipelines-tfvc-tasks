@@ -202,16 +202,23 @@ Try
         {
             Write-Warning  $e.Exception.Message
         }
-        if ($e.Faulure -ne $null)
+        if ($e.Failure -ne $null -and $e.Failure.Message -ne $null)
         {
-            Write-Warning  $e.Failure.ToString()
+            Write-Warning  $e.Failure.Message
+            if ($e.Failure.Warnings.Length -gt 0)
+            {
+                foreach ($warning in $e.Failure.Warnings)
+                {
+                    Write-Warning $warning.ParentOrChildTask
+                }
+            }
         }
     }
     $provider.VersionControlServer.add_NonFatalError($OnNonFatalError)
 
     $provider.Workspace.Refresh()
 
-    Write-Output "Adding ItemSpec: $ItemSpec, Recursive: $recursive"
+    Write-Output "Adding ItemSpec: $ItemSpec, Recursive: $recursive, Apply Ignorefile: $ApplyLocalitemExclusions"
 
     if (-not $Itemspec -eq "")
     {
@@ -226,8 +233,8 @@ Try
             $null,
             [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
             $false,
-            $true,
-            $ApplyLocalitemExclusions
+            $false,
+            ($ApplyLocalitemExclusions -eq $true)
         )  | Out-Null
     }
 }

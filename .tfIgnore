@@ -1,0 +1,4 @@
+*.vsix
+*.user
+*.lastpatched
+*.lastpackaged
