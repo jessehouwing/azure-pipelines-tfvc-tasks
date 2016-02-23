@@ -347,7 +347,7 @@ Try
     }
     else
     {
-        $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType)
+        $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType) 
     }
 
     if ($Notes -ne "")

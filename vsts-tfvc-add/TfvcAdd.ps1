@@ -8,7 +8,7 @@ param(
 
 Write-Verbose "Importing modules"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common" 
 
 function Load-Assembly
 {
