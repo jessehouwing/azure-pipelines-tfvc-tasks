@@ -238,7 +238,7 @@ Try
     {
         $pendingChanges = $null
         $ItemSpecs = [Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($FilesToDelete, $RecursionType)
-        $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $pendingChanges);
+        $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $pendingChanges) | Out-Null
         
         $selectedChanges = New-Object System.Collections.ArrayList
 
