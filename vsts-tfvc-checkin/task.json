@@ -8,8 +8,8 @@
     "author":  "Jesse Houwing",
     "version":  {
                     "Major":  1,
-                    "Minor":  0,
-                    "Patch":  152
+                    "Minor":  1,
+                    "Patch":  19
                 },
     "visibility":  [
                        "Build"
@@ -84,7 +84,7 @@
                        "helpMarkdown":  "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they\u0027re not the same as the minimatch patterns used by other build tasks and do **not** support the recursive wildcard `**`. \u003cbr/\u003e\u003cbr/\u003eExample: `$/MyTeamproject/Main/*.cs`",
                        "label":  "Files to check in",
                        "name":  "ItemSpec",
-                       "required":  false,
+                       "required":  true,
                        "type":  "multiLine"
                    },
                    {
@@ -107,7 +107,7 @@
                                        "Full":  "Full",
                                        "OneLevel":  "One Level"
                                    },
-                       "required":  false,
+                       "required":  true,
                        "type":  "pickList"
                    },
                    {

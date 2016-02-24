@@ -2,13 +2,25 @@
 param(
     [string] $Comment = "",
     [string] $IncludeNoCIComment = $true,
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
     [string] $Itemspec = "$/*",
+    [Parameter(Mandatory=$true)]
+    [ValidateSet("None", "Full", "OneLevel")]
     [string] $Recursion = "Full",
+    [Parameter(Mandatory=$true)]
     [string] $ConfirmUnderstand = $false,
     [string] $OverridePolicy = $false,
     [string] $OverridePolicyReason = "",
     [string] $Notes = ""
 )
+
+Write-Verbose "Entering script $MyInvocation.MyCommand.Name"
+Write-Verbose "Parameter Values"
+foreach($key in $PSBoundParameters.Keys)
+{
+    Write-Verbose ($key + ' = ' + $PSBoundParameters[$key])
+}
 
 if (-not ($ConfirmUnderstand -eq $true))
 {
@@ -18,169 +30,7 @@ if (-not ($ConfirmUnderstand -eq $true))
 Write-Verbose "Importing modules"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
-
-function Load-Assembly
-{
-    [cmdletbinding()]
-    param(
-        [string] $name,
-        [string[]] $ProbingPathsArgs
-    )
-
-    $ProbingPaths = New-Object System.Collections.ArrayList $ProbingPathsArgs
-    if ($ProbingPaths.Count -eq 0)
-    {
-        Write-Debug "Setting default assembly locations"
-
-        if ($PSScriptRoot -ne $null )
-        {
-            $ProbingPaths.Add($PSScriptRoot)  | Out-Null
-        }
-        if ($env:AGENT_HOMEDIRECTORY -ne $null )
-        {
-            $ProbingPaths.Add((Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")) | Out-Null
-        } 
-        if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
-        {
-            $ProbingPaths.Add($env:AGENT_SERVEROMDIRECTORY) | Out-Null
-        }
-
-        $VS1454Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-        if ($VS1464Path -ne $null)
-        {
-            $ProbingPaths.Add((Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")) | Out-Null
-        }
-
-        $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-        if ($VS1432Path -ne $null)
-        {
-            $ProbingPaths.Add((Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")) | Out-Null
-        }
-    }
-
-    Write-Debug "Resolving $a"
-
-    foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
-    {
-        if ($a.Name -eq $Name)
-        {
-            return $a
-        }
-    }
-
-    $assemblyToLoad = New-Object System.Reflection.AssemblyName $name
-    
-
-    foreach ($path in $ProbingPaths)
-    {
-        Write-Debug "Checking in $path"
-
-        $path = [System.IO.Path]::Combine($path, "$($assemblyToLoad.Name).dll")
-        Write-Debug "Looking for $path"
-        if (Test-Path -PathType Leaf -LiteralPath $path)
-        {
-            Write-Debug "Found assembly: $path"
-            if ([System.Reflection.AssemblyName]::GetAssemblyName($path).Name -eq $assemblyToLoad.Name)
-            {
-                Write-Debug "Loading assembly: $path"
-                return [System.Reflection.Assembly]::LoadFrom($path)
-            }
-            else
-            {
-                Write-Debug "Name Mismatch: $path"
-            }
-        }
-        else
-        {
-            Write-Debug "Not found: $Name"
-        }
-    }
-
-    return $null
-}
-
-Load-Assembly "Microsoft.TeamFoundation.Client"
-Load-Assembly "Microsoft.TeamFoundation.Common"
-Load-Assembly "Microsoft.TeamFoundation.VersionControl.Client"
-Load-Assembly "Microsoft.TeamFoundation.WorkItemTracking.Client"
-Load-Assembly "Microsoft.TeamFoundation.Diff"
-
-function Get-SourceProvider {
-    [cmdletbinding()]
-    param()
-
-    $provider = @{
-        Name = $env:BUILD_REPOSITORY_PROVIDER
-        SourcesRootPath = $env:BUILD_SOURCESDIRECTORY
-        TeamProjectId = $env:SYSTEM_TEAMPROJECTID
-    }
-    $success = $false
-    try {
-        if ($provider.Name -eq 'TfsVersionControl') {
-            $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
-            $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
-            
-            $provider.TfsTeamProjectCollection = New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
-                $serviceEndpoint.Url,
-                $tfsClientCredentials)
-            $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
-            $provider.VersionControlServer = $versionControlServer;
-            $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
-            if (!$provider.Workspace) {
-                Write-Verbose "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
-                Write-Verbose "Attempting to resolve workspace recursively from locally cached info."
-                $workspaceInfos = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current.GetLocalWorkspaceInfoRecursively($provider.SourcesRootPath);
-                if ($workspaceInfos) {
-                    foreach ($workspaceInfo in $workspaceInfos) {
-                        Write-Verbose "Cached workspace info discovered. Server URI: $($workspaceInfo.ServerUri) ; Name: $($workspaceInfo.Name) ; Owner Name: $($workspaceInfo.OwnerName)"
-                        try {
-                            $provider.Workspace = $versionControlServer.GetWorkspace($workspaceInfo)
-                            break
-                        } catch {
-                            Write-Verbose "Determination failed. Exception: $_"
-                        }
-                    }
-                }
-            }
-
-            if ((!$provider.Workspace) -and $env:BUILD_REPOSITORY_TFVC_WORKSPACE) {
-                Write-Verbose "Attempting to resolve workspace by name: $env:BUILD_REPOSITORY_TFVC_WORKSPACE"
-                try {
-                    $provider.Workspace = $versionControlServer.GetWorkspace($env:BUILD_REPOSITORY_TFVC_WORKSPACE, '.')
-                } catch [Microsoft.TeamFoundation.VersionControl.Client.WorkspaceNotFoundException] {
-                    Write-Verbose "Workspace not found."
-                } catch {
-                    Write-Verbose "Determination failed. Exception: $_"
-                }
-            }
-
-            if (!$provider.Workspace) {
-                Write-Warning (Get-LocalizedString -Key 'Unable to determine workspace from source folder ''{0}''.' -ArgumentList $provider.SourcesRootPath)
-                return
-            }
-
-            $success = $true
-            return New-Object psobject -Property $provider
-        }
-
-        Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")        return
-    } finally {
-        if (!$success) {
-            Invoke-DisposeSourceProvider -Provider $provider
-        }
-    }
-}
-
-function Invoke-DisposeSourceProvider {
-    [cmdletbinding()]
-    param($Provider)
-
-    if ($Provider.TfsTeamProjectCollection) {
-        Write-Verbose 'Disposing tfsTeamProjectCollection'
-        $Provider.TfsTeamProjectCollection.Dispose()
-        $Provider.TfsTeamProjectCollection = $null
-    }
-}
+Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
 
 Function Evaluate-Checkin {
     [cmdletbinding()]
@@ -200,7 +50,7 @@ Function Evaluate-Checkin {
     {
         $passed = $true
         $result = $checkinWorkspace.EvaluateCheckin2($checkinEvaluationOptions, $allChanges, $checkinChanges, $comment, $checkinNotes, $checkedWorkItems);
-        if (-not $result.Conflicts.Length -eq 0)
+        if ($result.Conflicts.Length -ne 0)
         {
             $passed = $false
             foreach ($conflict in $result.Conflicts)
@@ -215,7 +65,7 @@ Function Evaluate-Checkin {
                 }
             }
         }
-        if (-not $result.NoteFailures.Count -eq 0)
+        if ($result.NoteFailures.Count -ne 0)
         {
             foreach ($noteFailure in $result.NoteFailures)
             {
@@ -223,7 +73,7 @@ Function Evaluate-Checkin {
             }
             $passed = $false;
         }
-        if (-not $result.PolicyEvaluationException -eq $null)
+        if ($result.PolicyEvaluationException -ne $null)
         {
             Write-Error($result.PolicyEvaluationException.Message);
             $passed = $false;
@@ -251,13 +101,13 @@ Function Handle-PolicyOverride {
     {
         $passed = $true
 
-        if (-not $policyFailures.Length -eq 0)
+        if ($policyFailures.Length -ne 0)
         {
             foreach ($failure in $policyFailures)
             {
                 Write-Warning "$($failure.Message)"
             }
-            if (-not $overrideComment -eq "")
+            if ($overrideComment -ne "")
             {
                 return new-object Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo( $overrideComment, $policyFailures )
             }
@@ -309,35 +159,7 @@ Try
        
     $provider = Get-SourceProvider
 
-    $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
-        param($sender, $e)
-
-        if ($e.Exception -ne $null -and $e.Exception.Message -ne $null)
-        {
-            Write-Warning  $e.Exception.Message
-        }
-        if ($e.Failure -ne $null -and $e.Failure.Message -ne $null)
-        {
-            Write-Warning  $e.Failure.Message
-            if ($e.Failure.Warnings.Length -gt 0)
-            {
-                foreach ($warning in $e.Failure.Warnings)
-                {
-                    Write-Warning $warning.ParentOrChildTask 
-                }
-            }
-        }
-    }
-    $provider.VersionControlServer.add_NonFatalError($OnNonFatalError)
-
-    if ($Recursion -ne "")
-    {
-        $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
-    }
-    else
-    {
-        $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]"None"
-    }
+    $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
 
     if ($Itemspec -ne "")
     {
@@ -368,10 +190,11 @@ Try
             $override = Handle-PolicyOverride $result.PolicyFailures $OverridePolicyReason $passed
         }
 
-        if ($override -eq $null -or $OverridePolicy)
+        if (($override -eq $null) -or $OverridePolicy)
         {
             Write-Verbose "Entering Workspace-Checkin"
-            $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
+            $changeset = $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
+            Write-Output "Checked in changeset: $changeset"
             Write-Verbose "Leaving Workspace-Checkin"
         }
         else
@@ -386,7 +209,6 @@ Try
 }
 Finally
 {
-    $provider.VersionControlServer.remove_NonFatalError($OnNonFatalError)
     Invoke-DisposeSourceProvider -Provider $provider
 }
 

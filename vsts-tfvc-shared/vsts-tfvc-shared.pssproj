@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3404efa2-13f6-448e-abf7-6e2cb6dcf628}</ProjectGuid>
+    <ProjectGuid>{16a16f58-43d5-40ba-910c-f9b98be1c30c}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
-    <Name>vsts-tfvc-delete</Name>
+    <Name>vsts-tfvc-shared</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,19 +26,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Content Include="icon.png" />
-    <Content Include="task.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="TfvcDelete.ps1" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\vsts-tfvc-shared\vsts-tfvc-shared.pssproj">
-      <Name>vsts-tfvc-shared</Name>
-      <Project>{16a16f58-43d5-40ba-910c-f9b98be1c30c}</Project>
-      <Private>True</Private>
-    </ProjectReference>
+    <Compile Include="vsts-tfvc-shared.psm1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />

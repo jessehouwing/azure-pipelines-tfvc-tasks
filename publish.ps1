@@ -136,6 +136,7 @@ foreach ($Item in $Items)
     if (Test-Path $Item)
     {
         Write-Output "Processing: $Item"
+        Copy-Item .\vsts-tfvc-shared\*.psm1 .\$item -Force
         $taskUpdated = Update-TaskVersion -TaskPath $item
         $updated = ($updated -or $taskUpdated)
         if ($taskUpdated -and $PublishLocal)

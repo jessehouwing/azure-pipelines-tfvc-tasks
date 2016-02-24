@@ -3,6 +3,8 @@
 *.lastpatched
 *.lastpackaged
 .suo
-\bin
-\obj
-\.vs
+/bin
+/obj
+/.vs
+*.psm1
+!/vsts-tfvc-shared/*.psm1
