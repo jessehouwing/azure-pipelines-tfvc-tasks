@@ -9,7 +9,7 @@
     "version":  {
                     "Major":  1,
                     "Minor":  0,
-                    "Patch":  120
+                    "Patch":  121
                 },
     "minimumAgentVersion":  "1.83.0",
     "groups":  [

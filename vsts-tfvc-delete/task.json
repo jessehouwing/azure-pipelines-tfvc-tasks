@@ -9,7 +9,7 @@
     "version":  {
                     "Major":  1,
                     "Minor":  0,
-                    "Patch":  120
+                    "Patch":  121
                 },
     "minimumAgentVersion":  "1.83.0",
     "groups":  [
@@ -23,7 +23,7 @@
                    {
                        "name":  "ItemSpec",
                        "type":  "multiLine",
-                       "label":  "Files to add",
+                       "label":  "Files to delete",
                        "defaultValue":  "$/",
                        "required":  false,
                        "groupName":  "configurationOptions",
