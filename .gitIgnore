@@ -2,7 +2,7 @@
 *.user
 *.lastpatched
 *.lastpackaged
-*.suo
+.suo
 \bin
 \obj
 \.vs
