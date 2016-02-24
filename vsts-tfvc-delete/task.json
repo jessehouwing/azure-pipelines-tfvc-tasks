@@ -2,7 +2,7 @@
     "id":  "07161921-2369-47cc-8475-81623b554215",
     "name":  "TFVCDelete",
     "friendlyName":  "TFVC - Delete files",
-    "description":  "Adds deletes to Pending changes.",
+    "description":  "Adds deleted files to Pending changes.",
     "helpMarkDown":  "[More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Delete)",
     "category":  "Utility",
     "author":  "Jesse Houwing",
@@ -50,10 +50,10 @@
                        "defaultValue":  "false",
                        "required":  true,
                        "groupName":  "configurationOptions",
-                       "helpMarkDown":  ""
+                       "helpMarkDown":  "Detects files deleted earlier in your build process and pends them."
                    }
                ],
-    "instanceNameFormat":  "Delete files from TFVC",
+    "instanceNameFormat":  "Delete files from source control",
     "execution":  {
                       "PowerShell":  {
                                          "target":  "$(currentDirectory)\\TfvcDelete.ps1",
