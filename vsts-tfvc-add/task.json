@@ -48,7 +48,7 @@
                        "helpMarkDown":  "Will ignore files that are specified in your `.tfignore` file if your repository has one."
                    }
                ],
-    "instanceNameFormat":  "Adding pending changes",
+    "instanceNameFormat":  "Adding files to source control",
     "execution":  {
                       "PowerShell":  {
                                          "target":  "$(currentDirectory)\\TfvcAdd.ps1",
