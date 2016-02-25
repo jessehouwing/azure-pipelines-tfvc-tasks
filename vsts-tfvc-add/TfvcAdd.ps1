@@ -6,7 +6,7 @@ param(
     [ValidateSet("None", "Full", "OneLevel")]
     [string] $Recursion = "None",
     [ValidateSet($true, $false, "")]
-    [string] $Recursive,
+    [string] $Recursive, #For backwards compatibility reasons
     [string] $ApplyLocalitemExclusions = $true
 ) 
 

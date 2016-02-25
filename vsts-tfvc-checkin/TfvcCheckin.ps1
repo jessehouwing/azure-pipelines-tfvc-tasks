@@ -12,7 +12,10 @@ param(
     [string] $ConfirmUnderstand = $false,
     [string] $OverridePolicy = $false,
     [string] $OverridePolicyReason = "",
-    [string] $Notes = ""
+    [string] $Notes = "",
+
+    [string] $AutoDetectAdds = $false,
+    [string] $AutoDetectDeletes = $false
 )
 
 Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
@@ -84,7 +87,6 @@ Function Evaluate-Checkin {
     }
 }
 
- 
 Function Handle-PolicyOverride {
     [cmdletbinding()]
     param(
@@ -119,8 +121,7 @@ Function Handle-PolicyOverride {
     }
 }
 
-function Parse-CheckinNotes
-{
+function Parse-CheckinNotes {
     [cmdletbinding()]
     param(
         [string] $Notes
@@ -159,17 +160,21 @@ Try
 
     $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
 
-    if ($Itemspec -ne "")
+    [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
+    Write-Output $FilesToCheckin
+
+    if ($AutoDetectAdds -eq $true)
     {
-        [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
-        Write-Output $FilesToCheckin
-        $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
-    }
-    else
-    {
-        $pendingChanges = $provider.Workspace.GetPendingChanges($RecursionType) 
+        AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Add"
     }
 
+    if ($AutoDetectDeletes -eq $true)
+    {
+        AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Delete"
+    }
+        
+    $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
+    
     if ($Notes -ne "")
     {
         $CheckinNotes = Parse-CheckinNotes $Notes

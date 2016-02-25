@@ -9,7 +9,7 @@
     "version":  {
                     "Major":  1,
                     "Minor":  1,
-                    "Patch":  38
+                    "Patch":  39
                 },
     "visibility":  [
                        "Build"
@@ -27,6 +27,11 @@
                    {
                        "name":  "configurationOptions",
                        "displayName":  "Configuration",
+                       "isExpanded":  true
+                   },
+                   {
+                       "name":  "autoDetectOptions",
+                       "displayName":  "Auto-detect changes",
                        "isExpanded":  true
                    },
                    {
@@ -56,6 +61,24 @@
                        "helpMarkdown":  "Adds a special string to the check-in comment to ensure that no other build is triggered.",
                        "label":  "Bypass CI on check-in",
                        "name":  "IncludeNoCIComment",
+                       "required":  false,
+                       "type":  "boolean"
+                   },
+                   {
+                       "defaultValue":  false,
+                       "groupName":  "autoDetectOptions",
+                       "helpMarkdown":  "Auto-detects any files added to the workspace. Always applies local workspace exclusions.",
+                       "label":  "Adds",
+                       "name":  "autoDetectAdds",
+                       "required":  false,
+                       "type":  "boolean"
+                   },
+                   {
+                       "defaultValue":  false,
+                       "groupName":  "autoDetectOptions",
+                       "helpMarkdown":  "Auto-detects any files deleted from the workspace. Always applies local workspace exclusions.",
+                       "label":  "Deletes",
+                       "name":  "autoDetectDeletes",
                        "required":  false,
                        "type":  "boolean"
                    },
