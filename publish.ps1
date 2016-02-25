@@ -8,6 +8,11 @@ param(
     [switch] $Release = $false
 )
 
+if ((Get-Command "tfx" -ErrorAction SilentlyContinue) -eq $null) 
+{ 
+   [Environment]::SetEnvironmentVariable("Path", "$($env:Path);node_modules\.bin\", "Process")
+}
+
 $patchMarkerName = "task.json.lastpatched"
 $uploadMarkerName = "task.json.lastuploaded"
 $packagedMarkerName = ".lastpackaged"
