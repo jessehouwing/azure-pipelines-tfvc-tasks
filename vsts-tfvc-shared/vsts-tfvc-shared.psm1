@@ -1,5 +1,7 @@
-function Load-Assembly
-{
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
+
+function Load-Assembly {
     [cmdletbinding()]
     param(
         [string] $name,
@@ -108,6 +110,7 @@ function Get-SourceProvider {
     [cmdletbinding()]
     param()
 
+    Write-Debug "Entering Get-SourceProvider"
     $provider = @{
         Name = $env:BUILD_REPOSITORY_PROVIDER
         SourcesRootPath = $env:BUILD_SOURCESDIRECTORY
@@ -161,6 +164,8 @@ function Get-SourceProvider {
                 return
             }
 
+            $provider.Workspace.Refresh()
+
             $success = $true
             return New-Object psobject -Property $provider
         }
@@ -170,13 +175,17 @@ function Get-SourceProvider {
         if (!$success) {
             Invoke-DisposeSourceProvider -Provider $provider
         }
+        Write-Debug "Leaving Get-SourceProvider"
     }
+
 }
 
 function Invoke-DisposeSourceProvider {
     [cmdletbinding()]
     param($Provider)
     
+    Write-Debug "Entering Invoke-DisposeSourceProvider"
+
     if ($Provider)
     {
         if ($Provider.VersionControlServer)
@@ -190,9 +199,11 @@ function Invoke-DisposeSourceProvider {
             $Provider.TfsTeamProjectCollection = $null
         }
     }
+
+    Write-Debug "Leaving Invoke-DisposeSourceProvider"
 }
 
-function Detect-WorkspaceChanges{
+function Detect-WorkspaceChanges {
     [cmdletbinding()]
     param(
         [Parameter(Mandatory=$true)]
@@ -204,20 +215,28 @@ function Detect-WorkspaceChanges{
         [Microsoft.TeamFoundation.VersionControl.Client.ChangeType] $ChangeType
     )
 
-    $pendingChanges = $null
-    $ItemSpecs = [Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings(@($Items), $RecursionType)
-    
-    $provider.Workspace.Refresh()
+    Write-Debug "Entering Detect-WorkspaceChanges"
 
-    $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $pendingChanges)
+    try
+    {
+        $pendingChanges = $null
+        $ItemSpecs = [Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings(@($Items), $RecursionType)
     
-    return ($pendingChanges |
-        ?{ $_.ChangeType -band $ChangeType } |
-        Select-Object $_.ServerItem)
+        $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $pendingChanges)
+        
+        $pendingChanges = $pendingChanges | ?{ $_.ChangeType -band $ChangeType } 
+
+        Write-Debug "Detected Changes of type $($ChangeType): $($pendingChanges.Length)"
+
+        return $pendingChanges
+    }
+    finally
+    {
+        Write-Debug "Leaving Detect-WorkspaceChanges"    
+    }
 }
 
-function AutoPend-WorkspaceChanges
-{
+function AutoPend-WorkspaceChanges {
     [cmdletbinding()]
     param(
         [Parameter(Mandatory=$true)]
@@ -226,25 +245,27 @@ function AutoPend-WorkspaceChanges
         [string[]] $Items,
         [Parameter(Mandatory=$true)]
         [Microsoft.TeamFoundation.VersionControl.Client.RecursionType] $RecursionType,
-        [Microsoft.TeamFoundation.VersionControl.Client.ChangeType] $ChangeType,
-        [Parameter(Mandatory=$false)]
-        [bool] $ApplyLocalItemExclusions = $false
+        [Microsoft.TeamFoundation.VersionControl.Client.ChangeType] $ChangeType
     )
 
-    [string[]] $DetectedItems = Detect-WorkspaceChanges -Provider $Provider -Items @($Items) -RecursionType $RecursionType -ChangeType $Changetype
+    Write-Debug "Entering AutoPend-WorkspaceChanges"
+
+    $DetectedItems = Detect-WorkspaceChanges -Provider $Provider -Items @($Items) -RecursionType $RecursionType -ChangeType $Changetype
     
-    if ($DetectedItems.Length -eq 0)
+    if ($DetectedItems -eq $null -or $DetectedItems.Length -eq 0)
     {
         Write-Output "No changes detected."
         return
     }
+
+    Write-Output "Pending $($ChangeType): $($DetectedItems.ServerItem)"
 
     switch ($ChangeType) 
     { 
         "Delete"
         {
             $provider.Workspace.PendDelete(
-                @($DetectedItems),
+                $DetectedItems.ServerItem,
                 [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]"None",
                 [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
                 $true,
@@ -255,13 +276,13 @@ function AutoPend-WorkspaceChanges
         "Add"
         {
             $provider.Workspace.PendAdd(
-                @($DetectedItems),
-                $false,
-                $null,
+                $DetectedItems.ServerItem,
+                $false, #recursive
+                $null,  
                 [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
-                $false,
-                $false,
-                $ApplyLocalitemExclusions
+                $false, 
+                $false, #silent
+                $true #ApplyLocalItemExclusions, Since GetPendingChangesWithCandidates ignores these anyway.
             )  | Out-Null
         }
 
@@ -270,6 +291,8 @@ function AutoPend-WorkspaceChanges
             Write-Error "Unsupported auto-pend operation: $ChangeType"
         }
     }
+
+    Write-Debug "Leaving AutoPend-WorkspaceChanges"
 }
 
 Export-ModuleMember -Function Invoke-DisposeSourceProvider

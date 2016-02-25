@@ -2,7 +2,7 @@
     "manifestVersion":  1,
     "id":  "jessehouwing-vsts-tfvc-tasks-TEST",
     "name":  "TFVC Build Tasks",
-    "version":  "1.1.19",
+    "version":  "1.1.38",
     "publisher":  "jessehouwing",
     "public":  false,
     "targets":  [

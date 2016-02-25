@@ -10,7 +10,7 @@ param(
     [string] $ApplyLocalitemExclusions = $true
 ) 
 
-Write-Verbose "Entering script $MyInvocation.MyCommand.Name"
+Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
 Write-Verbose "Parameter Values"
 foreach($key in $PSBoundParameters.Keys)
 {
@@ -18,8 +18,6 @@ foreach($key in $PSBoundParameters.Keys)
 }
 
 Write-Verbose "Importing modules"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common" 
 Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1" 
 
 #Backwards compatiblity for the old boolean parameter
@@ -40,13 +38,39 @@ if ($recursive -ne "")
 [string[]] $FilesToAdd = $ItemSpec -split ';|\r?\n'
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
 
-Write-Output "Adding ItemSpec: $ItemSpec, Recursive: $recursive, Apply Ignorefile: $ApplyLocalitemExclusions"
+Write-Output "Adding ItemSpec: $ItemSpec, Recursive: $RecursionType, Apply Ignorefile: $ApplyLocalitemExclusions"
 
 Try
 {
     $provider = Get-SourceProvider
 
-    AutoPend-Workspacechanges -Provider $provider -Items @($FilesToAdd) -RecursionType $RecursionType -ChangeType "Add" -ApplyLocalitemExclusions ($ApplyLocalitemExclusions -eq $true)
+    if (-not $ApplyLocalitemExclusions)
+    {
+        AutoPend-Workspacechanges -Provider $provider -Items @($FilesToAdd) -RecursionType $RecursionType -ChangeType "Add"
+    }
+    else
+    {
+        if ($RecursionType -eq "OneLevel")
+        {
+            Write-Error "RecursionType OneLevel is not supported when ignoring local item exclusions."
+            return
+        }
+
+        Foreach ($change in $FilesToAdd)
+        {
+            Write-Output "Pending Add: $change"
+
+            $provider.Workspace.PendAdd(
+                @($change),
+                $RecursionType -eq "Full",
+                $null,
+                [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
+                $false,
+                $false,
+                ($ApplyLocalitemExclusions -eq $true)
+            )  | Out-Null
+        }
+    }
 }
 Finally
 {

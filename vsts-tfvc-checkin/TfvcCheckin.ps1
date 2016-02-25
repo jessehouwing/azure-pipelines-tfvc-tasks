@@ -15,7 +15,7 @@ param(
     [string] $Notes = ""
 )
 
-Write-Verbose "Entering script $MyInvocation.MyCommand.Name"
+Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
 Write-Verbose "Parameter Values"
 foreach($key in $PSBoundParameters.Keys)
 {
@@ -28,8 +28,6 @@ if (-not ($ConfirmUnderstand -eq $true))
 }
 
 Write-Verbose "Importing modules"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
 
 Function Evaluate-Checkin {

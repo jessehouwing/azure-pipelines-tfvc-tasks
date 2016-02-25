@@ -9,7 +9,7 @@ param(
     [string] $Detect = $true
 ) 
 
-Write-Verbose "Entering script $MyInvocation.MyCommand.Name"
+Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
 Write-Verbose "Parameter Values"
 foreach($key in $PSBoundParameters.Keys)
 {
@@ -17,8 +17,6 @@ foreach($key in $PSBoundParameters.Keys)
 }
 
 Write-Verbose "Importing modules"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
 
 [string[]] $FilesToDelete = $ItemSpec -split ';|\r?\n'
@@ -32,15 +30,19 @@ Try
 
     if ($Detect -eq $true)
     {
+        Write-Debug "Auto-Detect enabled"
         AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToDelete) -RecursionType $RecursionType -ChangeType "Delete"
     }
     else
     {
-        Foreach ($delete in $FilesToDelete)
+        Write-Debug "Auto-Detect disabled"
+        
+        Foreach ($change in $FilesToDelete)
         {
+            Write-Output "Pending Delete: $change"
 
             $provider.Workspace.PendDelete(
-                @($delete),
+                @($change),
                 $RecursionType,
                 [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
                 $true,
