@@ -12,10 +12,7 @@ param(
 
 Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
 Write-Verbose "Parameter Values"
-foreach($key in $PSBoundParameters.Keys)
-{
-    Write-Verbose ($key + ' = ' + $PSBoundParameters[$key])
-}
+$PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
 
 Write-Verbose "Importing modules"
 Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1" 

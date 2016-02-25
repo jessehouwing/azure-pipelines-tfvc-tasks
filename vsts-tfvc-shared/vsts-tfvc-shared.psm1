@@ -5,41 +5,38 @@ function Load-Assembly {
     [cmdletbinding()]
     param(
         [string] $name,
-        [string[]] $ProbingPathsArgs
+        [array] $ProbingPaths = @()
     )
 
-    $ProbingPaths = New-Object System.Collections.ArrayList $ProbingPathsArgs
-    if ($ProbingPaths.Count -eq 0)
+    if ($ProbingPaths.Length -eq 0)
     {
         Write-Debug "Setting default assembly locations"
 
         if ($PSScriptRoot -ne $null )
         {
-            $ProbingPaths.Add($PSScriptRoot) | Out-Null
+            $ProbingPaths += $PSScriptRoot
         }
         if ($env:AGENT_HOMEDIRECTORY -ne $null )
         {
-            $ProbingPaths.Add((Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")) | Out-Null
+            $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
         } 
         if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
         {
-            $ProbingPaths.Add($env:AGENT_SERVEROMDIRECTORY) | Out-Null
+            $ProbingPaths += $env:AGENT_SERVEROMDIRECTORY
         }
 
-        $VS1454Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+        $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
         if ($VS1464Path -ne $null)
         {
-            $ProbingPaths.Add((Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")) | Out-Null
+            $ProbingPaths += (Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
         }
 
         $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
         if ($VS1432Path -ne $null)
         {
-            $ProbingPaths.Add((Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")) | Out-Null
+            $ProbingPaths += (Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
         }
     }
-
-    Write-Debug "Resolving $a"
 
     foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
     {
@@ -54,30 +51,19 @@ function Load-Assembly {
 
     foreach ($path in $ProbingPaths)
     {
-        Write-Debug "Checking in $path"
-
         $path = [System.IO.Path]::Combine($path, "$($assemblyToLoad.Name).dll")
-        Write-Debug "Looking for $path"
         if (Test-Path -PathType Leaf -LiteralPath $path)
         {
-            Write-Debug "Found assembly: $path"
             if ([System.Reflection.AssemblyName]::GetAssemblyName($path).Name -eq $assemblyToLoad.Name)
             {
                 Write-Debug "Loading assembly: $path"
-                return [System.Reflection.Assembly]::LoadFrom($path)
+                $assembly = [System.Reflection.Assembly]::LoadFrom($path)
+                return;
             }
-            else
-            {
-                Write-Debug "Name Mismatch: $path"
-            }
-        }
-        else
-        {
-            Write-Debug "Not found: $Name"
         }
     }
 
-    return $null
+    throw "Could not load assembly: $Name"
 }
 
 Load-Assembly "Microsoft.TeamFoundation.Client"
@@ -209,7 +195,7 @@ function Detect-WorkspaceChanges {
         [Parameter(Mandatory=$true)]
         $Provider,
         [Parameter(Mandatory=$true)]
-        [string[]] $Items,
+        [array] $Items,
         [Parameter(Mandatory=$true)]
         [Microsoft.TeamFoundation.VersionControl.Client.RecursionType] $RecursionType,
         [Microsoft.TeamFoundation.VersionControl.Client.ChangeType] $ChangeType
@@ -219,16 +205,16 @@ function Detect-WorkspaceChanges {
 
     try
     {
-        $pendingChanges = $null
-        $ItemSpecs = [Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings(@($Items), $RecursionType)
-    
-        $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $pendingChanges)
+        $AllWorkspaceChanges = @()
+        $ItemSpecs = @([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($Items, $RecursionType))
+
+        $provider.Workspace.Refresh()
+        $CurrentPendingChanges = $provider.Workspace.GetPendingChanges([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec[]]$ItemSpecs, $false)
+        $workspaceChanges = $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $AllWorkspaceChanges)
+
+        $detectedChanges = $AllWorkspaceChanges | Where-Object { $CurrentPendingChanges.ServerItem -notcontains $_.ServerItem } | Where-Object { (($_.ChangeType -band $ChangeType) -eq $ChangeType) -and $_.IsCandidate} 
         
-        $pendingChanges = $pendingChanges | ?{ $_.ChangeType -band $ChangeType } 
-
-        Write-Debug "Detected Changes of type $($ChangeType): $($pendingChanges.Length)"
-
-        return $pendingChanges
+        return $detectedChanges | %{ $_.ServerItem }
     }
     finally
     {
@@ -242,7 +228,7 @@ function AutoPend-WorkspaceChanges {
         [Parameter(Mandatory=$true)]
         $Provider,
         [Parameter(Mandatory=$true)]
-        [string[]] $Items,
+        [array] $Items,
         [Parameter(Mandatory=$true)]
         [Microsoft.TeamFoundation.VersionControl.Client.RecursionType] $RecursionType,
         [Microsoft.TeamFoundation.VersionControl.Client.ChangeType] $ChangeType
@@ -250,40 +236,41 @@ function AutoPend-WorkspaceChanges {
 
     Write-Debug "Entering AutoPend-WorkspaceChanges"
 
-    $DetectedItems = Detect-WorkspaceChanges -Provider $Provider -Items @($Items) -RecursionType $RecursionType -ChangeType $Changetype
-    
-    if ($DetectedItems -eq $null -or $DetectedItems.Length -eq 0)
+    $DetectedChanges = @(Detect-WorkspaceChanges -Provider $Provider -Items $Items -RecursionType $RecursionType -ChangeType $Changetype)
+
+    if ($DetectedChanges.Length -le 0)
     {
-        Write-Output "No changes detected."
+        Write-Output "No $ChangeType detected."
         return
     }
 
-    Write-Output "Pending $($ChangeType): $($DetectedItems.ServerItem)"
+    Write-Output "Pending $($ChangeType): "
+    $DetectedChanges | %{ Write-output $_ }
 
     switch ($ChangeType) 
     { 
         "Delete"
         {
             $provider.Workspace.PendDelete(
-                $DetectedItems.ServerItem,
+                $DetectedChanges,
                 [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]"None",
                 [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
                 $true,
                 $true
-            )  | Out-Null
+            )  |Out-Null
         }
 
         "Add"
         {
             $provider.Workspace.PendAdd(
-                $DetectedItems.ServerItem,
+                $DetectedChanges,
                 $false, #recursive
                 $null,  
                 [Microsoft.TeamFoundation.VersionControl.Client.LockLevel]"Unchanged",
                 $false, 
                 $false, #silent
                 $true #ApplyLocalItemExclusions, Since GetPendingChangesWithCandidates ignores these anyway.
-            )  | Out-Null
+            )  |Out-Null
         }
 
         default 
@@ -291,7 +278,7 @@ function AutoPend-WorkspaceChanges {
             Write-Error "Unsupported auto-pend operation: $ChangeType"
         }
     }
-
+    
     Write-Debug "Leaving AutoPend-WorkspaceChanges"
 }
 

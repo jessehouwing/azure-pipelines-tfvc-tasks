@@ -20,18 +20,15 @@ param(
 
 Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
 Write-Verbose "Parameter Values"
-foreach($key in $PSBoundParameters.Keys)
-{
-    Write-Verbose ($key + ' = ' + $PSBoundParameters[$key])
-}
+$PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
+
+Write-Verbose "Importing modules"
+Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
 
 if (-not ($ConfirmUnderstand -eq $true))
 {
     Write-Error "Checking in sources during build can cause delays in your builds, recursive builds, mismatches between sources and symbols and other issues."
 }
-
-Write-Verbose "Importing modules"
-Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
 
 Function Evaluate-Checkin {
     [cmdletbinding()]
