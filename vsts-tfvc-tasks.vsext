@@ -1,1 +1,22 @@
-﻿
+﻿{
+    "extensions": {
+        "optional": [
+            {
+                "name": "Command Task Runner",
+                "productId": "fc1aafb2-321e-41bd-ac37-03b09ea8ef31",
+                "link": "https://visualstudiogallery.msdn.microsoft.com/e6bf6a3d-7411-4494-8a1e-28c1a8c4ce99",
+                "description": "Adds support for command line batch files in Visual Studio 2015's Task Runner Explorer. Supports .cmd, .bat, .ps1 and .psm1 files."
+            }
+        ],
+
+        "mandatory": [
+            {
+                "name": "PowerShell Tools for Visual Studio 2015",
+                "link": "https://visualstudiogallery.msdn.microsoft.com/c9eb3ba8-0c59-4944-9a62-6eee37294597",
+                "productId": "59875F69-67B7-4A5C-B33A-9E2C2B5D266D",
+                "description": "A set of tools for developing and debugging PowerShell scripts and modules in Visual Studio."
+            }
+        ]
+    }
+
+}
