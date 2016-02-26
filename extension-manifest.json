@@ -1,10 +1,10 @@
 {
     "manifestVersion":  1,
-    "id":  "jessehouwing-vsts-tfvc-tasks",
+    "id":  "jessehouwing-vsts-tfvc-tasks-TEST",
     "name":  "TFVC Build Tasks",
-    "version":  "1.1.62",
+    "version":  "1.1.67",
     "publisher":  "jessehouwing",
-    "public":  true,
+    "public":  false,
     "targets":  [
                     {
                         "id":  "Microsoft.VisualStudio.Services"
@@ -65,6 +65,9 @@
                   },
                   {
                       "path":  "vsts-tfvc-delete"
+                  },
+                  {
+                      "path":  "vsts-tfvc-undo"
                   }
               ],
     "contributions":  [
@@ -96,6 +99,16 @@
                                           ],
                               "properties":  {
                                                  "name":  "vsts-tfvc-delete"
+                                             }
+                          },
+                          {
+                              "id":  "vsts-tfvc-undo",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-undo"
                                              }
                           }
                       ]

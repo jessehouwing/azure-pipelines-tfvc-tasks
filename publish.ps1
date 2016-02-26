@@ -1,6 +1,6 @@
 [cmdletbinding()]
 param(
-    [string[]] $Items = @(".\vsts-tfvc-add", ".\vsts-tfvc-checkin", ".\vsts-tfvc-delete", ".\vsts-tfvc-delete"),
+    [string[]] $Items = @(".\vsts-tfvc-add", ".\vsts-tfvc-checkin", ".\vsts-tfvc-delete", ".\vsts-tfvc-undo"),
     [switch] $Force = $false,
     [switch] $Package = $false,
     [switch] $PublishLocal = $false,

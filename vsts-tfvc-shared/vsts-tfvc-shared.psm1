@@ -209,7 +209,7 @@ function Detect-WorkspaceChanges {
         $ItemSpecs = @( Convert-ToItemSpecs -Paths $Items -RecursionType $RecursionType )
 
         $provider.Workspace.Refresh()
-        $CurrentPendingChanges = $provider.Workspace.GetPendingChanges($ItemSpecs, $false)
+        $CurrentPendingChanges = $provider.Workspace.GetPendingChanges([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec[]]$ItemSpecs, $false)
         $workspaceChanges = $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $AllWorkspaceChanges)
 
         $detectedChanges = $AllWorkspaceChanges | Where-Object { $CurrentPendingChanges.ServerItem -notcontains $_.ServerItem } | Where-Object { (($_.ChangeType -band $ChangeType) -eq $ChangeType) -and $_.IsCandidate} 

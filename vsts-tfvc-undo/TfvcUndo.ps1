@@ -27,7 +27,10 @@ Try
     $provider = Get-SourceProvider
     
     [array] $ItemSpecs = Convert-ToItemSpecs -Paths $FilesToUndo -RecursionType $Recursion
-        
+
+    # Pending any deleted files to ensure they're picked up by Undo.
+    AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToUndo) -RecursionType $Recursion -ChangeType "Delete" | Out-Null
+
     Write-Output "Undoing:"
     $ItemSpecs | %{ Write-Output $_.Item }
 
