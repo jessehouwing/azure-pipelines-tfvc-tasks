@@ -206,10 +206,10 @@ function Detect-WorkspaceChanges {
     try
     {
         $AllWorkspaceChanges = @()
-        $ItemSpecs = @([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($Items, $RecursionType))
+        $ItemSpecs = @( Convert-ToItemSpecs -Paths $Items -RecursionType $RecursionType )
 
         $provider.Workspace.Refresh()
-        $CurrentPendingChanges = $provider.Workspace.GetPendingChanges([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec[]]$ItemSpecs, $false)
+        $CurrentPendingChanges = $provider.Workspace.GetPendingChanges($ItemSpecs, $false)
         $workspaceChanges = $provider.Workspace.GetPendingChangesWithCandidates($ItemSpecs, $false, [ref] $AllWorkspaceChanges)
 
         $detectedChanges = $AllWorkspaceChanges | Where-Object { $CurrentPendingChanges.ServerItem -notcontains $_.ServerItem } | Where-Object { (($_.ChangeType -band $ChangeType) -eq $ChangeType) -and $_.IsCandidate} 
@@ -282,6 +282,16 @@ function AutoPend-WorkspaceChanges {
     Write-Debug "Leaving AutoPend-WorkspaceChanges"
 }
 
+function Convert-ToItemSpecs {
+    param (
+        [array] $Paths = @(),
+        [Microsoft.TeamFoundation.VersionControl.Client.RecursionType] $RecursionType = "None"
+    )
+
+    return @([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($Paths, $RecursionType))
+}
+
 Export-ModuleMember -Function Invoke-DisposeSourceProvider
 Export-ModuleMember -Function Get-SourceProvider
 Export-ModuleMember -Function AutoPend-WorkspaceChanges
+Export-ModuleMember -Function Convert-ToItemSpecs

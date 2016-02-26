@@ -1,6 +1,6 @@
 [cmdletbinding()]
 param(
-    [string[]] $Items = @(".\vsts-tfvc-add", ".\vsts-tfvc-checkin", ".\vsts-tfvc-delete"),
+    [string[]] $Items = @(".\vsts-tfvc-add", ".\vsts-tfvc-checkin", ".\vsts-tfvc-delete", ".\vsts-tfvc-delete"),
     [switch] $Force = $false,
     [switch] $Package = $false,
     [switch] $PublishLocal = $false,
@@ -10,7 +10,7 @@ param(
 
 if ((Get-Command "tfx" -ErrorAction SilentlyContinue) -eq $null) 
 { 
-   [Environment]::SetEnvironmentVariable("Path", "$($env:Path);node_modules\.bin\", "Process")
+    [Environment]::SetEnvironmentVariable("Path", "$($env:Path);node_modules\.bin\", "Process")
 }
 
 $patchMarkerName = "task.json.lastpatched"

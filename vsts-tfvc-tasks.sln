@@ -51,6 +51,8 @@ Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-delete", "vsts-tf
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-shared", "vsts-tfvc-shared\vsts-tfvc-shared.pssproj", "{16A16F58-43D5-40BA-910C-F9B98BE1C30C}"
 EndProject
+Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-undo", "vsts-tfvc-undo\vsts-tfvc-undo.pssproj", "{661AFDF5-A6F0-4603-B9A3-A2F899A786B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{16A16F58-43D5-40BA-910C-F9B98BE1C30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16A16F58-43D5-40BA-910C-F9B98BE1C30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16A16F58-43D5-40BA-910C-F9B98BE1C30C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{661AFDF5-A6F0-4603-B9A3-A2F899A786B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661AFDF5-A6F0-4603-B9A3-A2F899A786B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661AFDF5-A6F0-4603-B9A3-A2F899A786B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661AFDF5-A6F0-4603-B9A3-A2F899A786B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
