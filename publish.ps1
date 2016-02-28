@@ -91,7 +91,7 @@ function Publish-ExtensionToMarket
 
     $result = $false
     
-    $extensionJson = ConvertFrom-Json (Get-Content ".\extension-manifest.json" -Raw)
+    $extensionJson = ConvertFrom-Json (Get-Content ".\vss-manifest.json" -Raw)
     $Version = [System.Version]::Parse($extensionJson.Version)
     $versionString = $Version.ToString(3)
 
@@ -116,21 +116,21 @@ function Package-Extension
 
     if ($patch)
     {
-        $extensionJson = ConvertFrom-Json (Get-Content ".\extension-manifest.json" -Raw)
+        $extensionJson = ConvertFrom-Json (Get-Content ".\vss-manifest.json" -Raw)
         $Version = [System.Version]::Parse($extensionJson.Version)
         $Version = New-Object System.Version -ArgumentList $Version.Major, $Version.Minor, ($Version.Build + 1)
         $extensionJson.Version = $Version.ToString(3)
         $extensionJson.Id = "$extensionId"
         $extensionJson.Public = $Release.IsPresent
 
-        $extensionJson | ConvertTo-JSON -Depth 255 | Out-File  ".\extension-manifest.json" -Force -Encoding ascii
+        $extensionJson | ConvertTo-JSON -Depth 255 | Out-File  ".\vss-manifest.json" -Force -Encoding ascii
         New-Item -Path . -Name $packagedMarkerName -ItemType File -Force | Out-Null
         $result = $true
 
         Write-Output "Updated version to $($extensionJson.Version)"
     }
     
-    tfx extension create --root . --output-path . --manifest-globs extension-manifest.json
+    tfx extension create --root . --output-path . --manifest-globs vss-manifest.json
     return $result
 }
 

@@ -1,0 +1,115 @@
+{
+    "manifestVersion":  1,
+    "id":  "jessehouwing-vsts-tfvc-tasks",
+    "name":  "TFVC Build Tasks",
+    "version":  "1.1.69",
+    "publisher":  "jessehouwing",
+    "public":  true,
+    "targets":  [
+                    {
+                        "id":  "Microsoft.VisualStudio.Services"
+                    }
+                ],
+    "description":  "Build extensions that enable you to interact with TFVC repositories.",
+    "categories":  [
+                       "Build and release"
+                   ],
+    "tags":  [
+                 "tfvc",
+                 "build",
+                 "checkin",
+                 "delete",
+                 "add",
+                 "Source Control"
+             ],
+    "screenshots":  [
+                        {
+                            "path":  "extension/Images/Screenshots/tfvc-tasks.png"
+                        },
+                        {
+                            "path":  "extension/Images/Screenshots/tfvc-checkin.png"
+                        },
+                        {
+                            "path":  "extension/Images/Screenshots/tfvc-add.png"
+                        }
+                    ],
+    "content":  {
+                    "details":  {
+                                    "path":  "readme.md"
+                                },
+                    "license":  {
+                                    "path":  "license.txt"
+                                }
+                },
+    "links":  {
+                  "getstarted":  {
+                                     "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/wiki"
+                                 },
+                  "support":  {
+                                  "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
+                              }
+              },
+    "branding":  {
+                     "color":  "rgb(36, 43, 50)",
+                     "theme":  "dark"
+                 },
+    "icons":  {
+                  "default":  "extension/images/extension-icon.png"
+              },
+    "files":  [
+                  {
+                      "path":  "vsts-tfvc-add"
+                  },
+                  {
+                      "path":  "vsts-tfvc-checkin"
+                  },
+                  {
+                      "path":  "vsts-tfvc-delete"
+                  },
+                  {
+                      "path":  "vsts-tfvc-undo"
+                  }
+              ],
+    "contributions":  [
+                          {
+                              "id":  "vsts-tfvc-add",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-add"
+                                             }
+                          },
+                          {
+                              "id":  "vsts-tfvc-checkin",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-checkin"
+                                             }
+                          },
+                          {
+                              "id":  "vsts-tfvc-delete",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-delete"
+                                             }
+                          },
+                          {
+                              "id":  "vsts-tfvc-undo",
+                              "type":  "ms.vss-distributed-task.task",
+                              "targets":  [
+                                              "ms.vss-distributed-task.tasks"
+                                          ],
+                              "properties":  {
+                                                 "name":  "vsts-tfvc-undo"
+                                             }
+                          }
+                      ]
+}

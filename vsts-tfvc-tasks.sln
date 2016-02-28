@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{C899F09A-AFF7-46A0-A679-BC2FE80B1D12}"
 	ProjectSection(SolutionItems) = preProject
-		extension-manifest.json = extension-manifest.json
 		extension\extension-overview.md = extension\extension-overview.md
 		readme.md = readme.md
+		vss-extension.json = vss-extension.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{ADFB1042-D16B-4621-900A-CFB227C18EA0}"
