@@ -9,7 +9,7 @@
     "version":  {
                     "Major":  1,
                     "Minor":  1,
-                    "Patch":  69
+                    "Patch":  74
                 },
     "visibility":  [
                        "Build"
@@ -113,7 +113,7 @@
                    {
                        "defaultValue":  "",
                        "groupName":  "notesOptions",
-                       "helpMarkdown":  "Specify one or more checkin notes using the following format `Name=Value` or `Name:Value` separated by `;` or newline.",
+                       "helpMarkdown":  "Specify one or more checkin notes using the following format `{ \"NameA\": \"Value\" , \"NameB\": \"Value\" }`, or using the old syntax: `Name=Value` or `Name:Value` separated by `;` or newline.",
                        "label":  "Notes",
                        "name":  "Notes",
                        "required":  false,

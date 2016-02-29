@@ -123,17 +123,49 @@ function Parse-CheckinNotes {
     param(
         [string] $Notes
     )
-    [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = (($notes -split "\s*(?:;|\r?\n)\s*") | ForEach {
-        [string[]] $note = $_ -split "\s*[:=]\s*"
 
-        if ($note.Count -ne 2)
+    try
+    {
+        $JsonParseFailed = $false
+        $ParsedNotes = ($Notes | ConvertFrom-Json)
+        [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = $ParsedNotes |
+            %{ Get-Member -MemberType NoteProperty -InputObject $_ | %{
+                return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue([string]$_.Name.Trim(), $ParsedNotes.$($_.Name).Trim())
+            }}
+    }
+    catch
+    {
+        $JsonParseFailed = $true
+    }
+
+    if ($JsonParseFailed)
+    {
+        [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = (($notes -split "\s*(?:;|\r?\n)\s*") | ForEach {
+            [string[]] $note = $_ -split "\s*[:=]\s*"
+
+            if ($note.Count -eq 1)
+            {
+                Write-Error "Ignoring Checkin note without value"
+                return $null
+            }
+            elseif ($note.Count -ne 2)
+            {
+                Write-Error "Unable to parse checkin note"
+                return $null
+            }
+
+            return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0].Trim(), $note[1].Trim())
+        } | ?{$_ -ne $null} )
+
+        Write-Warning "Using old Notes notation, please switch to the new Json format:"
+        $ParsedNotes = "{ }" | ConvertFrom-Json
+        foreach ($fieldValue in $fieldValues)
         {
-            Write-Error "Unable to parse checkin note"
-            return $null
+            Add-Member -InputObject $ParsedNotes -NotePropertyName  $fieldValue.Name -NotePropertyValue $fieldValue.Value -Force
         }
-
-        return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0].Trim(), $note[1].Trim())
-    } | ?{$_ -ne $null} )
+        
+        Write-Warning ($ParsedNotes | ConvertTo-Json -Depth 5 )
+    }
 
     if ($fieldValues.Length -gt 0)
     {
