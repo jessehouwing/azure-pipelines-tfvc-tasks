@@ -135,7 +135,10 @@ function Parse-CheckinNotes {
         return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0].Trim(), $note[1].Trim())
     } | ?{$_ -ne $null} )
 
-    return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNote(,$fieldValues)
+    if ($fieldValues.Length -gt 0)
+    {
+        return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNote(,$fieldValues)
+    }
 }
 
 Try
@@ -172,7 +175,7 @@ Try
         
     $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
     
-    if ($Notes -ne "")
+    if ($Notes -ne $null -and $Notes.Trim() -ne "")
     {
         $CheckinNotes = Parse-CheckinNotes $Notes
     }
