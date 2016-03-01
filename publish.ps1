@@ -5,7 +5,8 @@ param(
     [switch] $Package = $false,
     [switch] $PublishLocal = $false,
     [switch] $PublishMarket = $false,
-    [switch] $Release = $false
+    [switch] $Release = $false,
+    [string] $ServiceUrl = "https://jessehouwing.visualstudio.com/DefaultCollection"
 )
 
 if ((Get-Command "tfx" -ErrorAction SilentlyContinue) -eq $null) 
@@ -74,7 +75,7 @@ function Publish-TaskLocally
 
     if ($publish)
     {
-        tfx build tasks upload --task-path $TaskPath --service-url https://jessehouwing.visualstudio.com/DefaultCollection
+        tfx build tasks upload --task-path $TaskPath --service-url $ServiceUrl
         New-Item -Path $TaskPath -Name $uploadMarkerName -ItemType File -Force | Out-Null
         $result = $true
 
@@ -95,12 +96,7 @@ function Publish-ExtensionToMarket
     $Version = [System.Version]::Parse($extensionJson.Version)
     $versionString = $Version.ToString(3)
 
-    if (-not $Release.IsPresent)
-    {
-        $args = " --share-with https://jessehouwing.visualstudio.com"
-    }
-
-    tfx extension publish --vsix "$publisherId.$extensionId$versionString.vsix" --service-url https://app.market.visualstudio.com $args
+    tfx extension publish --vsix "$publisherId.$extensionId$versionString.vsix" --service-url https://app.market.visualstudio.com
 
     return $result
 }
