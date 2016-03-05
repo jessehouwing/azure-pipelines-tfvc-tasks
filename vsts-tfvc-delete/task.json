@@ -1,64 +1,64 @@
 {
-    "id":  "07161921-2369-47cc-8475-81623b554215",
-    "name":  "TFVCDelete",
-    "friendlyName":  "TFVC - Delete files",
-    "description":  "Adds deleted files to Pending changes.",
-    "helpMarkDown":  "[More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Delete)",
-    "category":  "Utility",
-    "author":  "Jesse Houwing",
-    "version":  {
-                    "Major":  0,
-                    "Minor":  0,
-                    "Patch":  0
-                },
-    "minimumAgentVersion":  "1.83.0",
-    "groups":  [
-                   {
-                       "name":  "configurationOptions",
-                       "displayName":  "Configuration",
-                       "isExpanded":  true
-                   }
-               ],
-    "inputs":  [
-                   {
-                       "name":  "ItemSpec",
-                       "type":  "multiLine",
-                       "label":  "Files to delete",
-                       "defaultValue":  "$/",
-                       "required":  true,
-                       "groupName":  "configurationOptions",
-                       "helpMarkDown":  "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they\u0027re not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.\u003cbr/\u003e\u003cbr/\u003eExample: `$/MyTeamproject/Main/AssemblyInfo.cs`\u003cbr/\u003e"
-                   },
-                   {
-                       "defaultValue":  "None",
-                       "groupName":  "configurationOptions",
-                       "helpMarkdown":  "Controls whether you\u0027ll be deleting just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
-                       "label":  "Recursion",
-                       "name":  "Recursion",
-                       "options":  {
-                                       "None":  "None",
-                                       "Full":  "Full",
-                                       "OneLevel":  "One Level"
-                                   },
-                       "required":  true,
-                       "type":  "pickList"
-                   },
-                   {
-                       "name":  "Detect",
-                       "type":  "boolean",
-                       "label":  "Auto-detect",
-                       "defaultValue":  "false",
-                       "required":  true,
-                       "groupName":  "configurationOptions",
-                       "helpMarkDown":  "Detects files deleted earlier in your build process and pends them."
-                   }
-               ],
-    "instanceNameFormat":  "Delete files from source control",
-    "execution":  {
-                      "PowerShell":  {
-                                         "target":  "$(currentDirectory)\\TfvcDelete.ps1",
-                                         "argumentFormat":  "",
-                                         "workingDirectory":  "$(Build.SourcesDirectory)"
-                                     }
-                  }
+    "id": "07161921-2369-47cc-8475-81623b554215",
+    "name": "TFVCDelete",
+    "friendlyName": "TFVC - Delete files #{Extension.Tag}#",
+    "description": "Adds deleted files to Pending changes.",
+    "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Delete)",
+    "category": "Utility",
+    "author": "Jesse Houwing",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "minimumAgentVersion": "1.83.0",
+    "groups": [
+        {
+            "name": "configurationOptions",
+            "displayName": "Configuration",
+            "isExpanded": true
+        }
+    ],
+    "inputs": [
+        {
+            "name": "ItemSpec",
+            "type": "multiLine",
+            "label": "Files to delete",
+            "defaultValue": "$/",
+            "required": true,
+            "groupName": "configurationOptions",
+            "helpMarkDown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.<br/><br/>Example: `$/MyTeamproject/Main/AssemblyInfo.cs`<br/>"
+        },
+        {
+            "defaultValue": "None",
+            "groupName": "configurationOptions",
+            "helpMarkdown": "Controls whether you'll be deleting just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+            "label": "Recursion",
+            "name": "Recursion",
+            "options": {
+                "None": "None",
+                "Full": "Full",
+                "OneLevel": "One Level"
+            },
+            "required": true,
+            "type": "pickList"
+        },
+        {
+            "name": "Detect",
+            "type": "boolean",
+            "label": "Auto-detect",
+            "defaultValue": "false",
+            "required": true,
+            "groupName": "configurationOptions",
+            "helpMarkDown": "Detects files deleted earlier in your build process and pends them."
+        }
+    ],
+    "instanceNameFormat": "Delete files from source control",
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\TfvcDelete.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(Build.SourcesDirectory)"
+        }
+    }
 }
