@@ -56,20 +56,70 @@
     "icons":  {
                   "default":  "extension/images/extension-icon.png"
               },
-    "files":  [
-                  {
-                      "path":  "vsts-tfvc-add"
-                  },
-                  {
-                      "path":  "vsts-tfvc-checkin"
-                  },
-                  {
-                      "path":  "vsts-tfvc-delete"
-                  },
-                  {
-                      "path":  "vsts-tfvc-undo"
-                  }
-              ],
+    "files": [
+        {
+            "path": "vsts-tfvc-add/TfvcAdd.ps1"
+        },
+        {
+            "path": "vsts-tfvc-add/vsts-tfvc-shared.psm1",
+            "contentType": "text/plain"
+        },
+        {
+            "path": "vsts-tfvc-add/task.json"
+        },
+        {
+            "path": "vsts-tfvc-add/icon.png"
+        },
+
+
+
+        {
+            "path": "vsts-tfvc-checkin/TfvcCheckin.ps1"
+        },
+        {
+            "path": "vsts-tfvc-checkin/vsts-tfvc-shared.psm1",
+            "contentType": "text/plain"
+        },
+        {
+            "path": "vsts-tfvc-checkin/task.json"
+        },
+        {
+            "path": "vsts-tfvc-checkin/icon.png"
+        },
+
+
+
+        {
+            "path": "vsts-tfvc-delete/TfvcDelete.ps1"
+        },
+        {
+            "path": "vsts-tfvc-delete/vsts-tfvc-shared.psm1",
+            "contentType": "text/plain"
+        },
+        {
+            "path": "vsts-tfvc-delete/task.json"
+        },
+        {
+            "path": "vsts-tfvc-delete/icon.png"
+        },
+
+
+
+        {
+            "path": "vsts-tfvc-undo/TfvcUndo.ps1"
+        },
+        {
+            "path": "vsts-tfvc-undo/vsts-tfvc-shared.psm1",
+            "contentType": "text/plain"
+        },
+        {
+            "path": "vsts-tfvc-undo/task.json"
+        },
+        {
+            "path": "vsts-tfvc-undo/icon.png"
+        }
+
+    ],
     "contributions":  [
                           {
                               "id":  "vsts-tfvc-add",
