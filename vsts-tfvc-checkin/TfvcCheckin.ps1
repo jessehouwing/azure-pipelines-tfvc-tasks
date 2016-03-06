@@ -175,7 +175,7 @@ function Parse-CheckinNotes {
 
 Try
 {
-    $noCiComment = "**NO_CI**"
+    $noCiComment = "***NO_CI***"
     if ($IncludeNoCIComment -eq $true)
     {
         if ($Comment -eq "")
