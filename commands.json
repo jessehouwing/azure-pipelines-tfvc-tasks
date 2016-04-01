@@ -1,0 +1,10 @@
+{
+    "commands": {
+        "Pre-Build": {
+            "fileName": "powershell.exe",
+            "workingDirectory": ".",
+            "arguments": "-ExecutionPolicy Bypass -File Pre-Build.ps1"
+        }
+    },
+    "-vs-binding": { "BeforeBuild": [ "Pre-Build" ] }
+}
