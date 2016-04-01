@@ -1,0 +1,111 @@
+{
+    "id": "7164ddbc-7979-4e2c-a2f8-e7a89b6ba026",
+    "name": "TFVCUpdateShelveset",
+    "friendlyName": "TFVC - Update or create Shelveset #{Extension.Tag}#",
+    "description": "Upates or creates a shelveset with the local Pending changes.",
+    "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Shelve)",
+    "category": "Utility",
+    "author": "Jesse Houwing",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "minimumAgentVersion": "1.83.0",
+    "groups": [
+        {
+            "name": "configurationOptions",
+            "displayName": "Configuration",
+            "isExpanded": true
+        },
+        {
+            "name": "autoDetectOptions",
+            "displayName": "Auto-detect changes",
+            "isExpanded": true
+        }
+    ],
+    "inputs": [
+        {
+            "name": "ItemSpec",
+            "type": "multiLine",
+            "label": "Files to shelve",
+            "defaultValue": "$/",
+            "required": true,
+            "groupName": "configurationOptions",
+            "helpMarkDown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.<br/><br/>Example: `$/MyTeamproject/Main/AssemblyInfo.cs`<br/>"
+        },
+        {
+            "defaultValue": "None",
+            "groupName": "configurationOptions",
+            "helpMarkdown": "Controls whether you'll be shelving just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+            "label": "Recursion",
+            "name": "Recursion",
+            "options": {
+                "None": "None",
+                "Full": "Full",
+                "OneLevel": "One Level"
+            },
+            "required": true,
+            "type": "pickList"
+        },
+        {
+            "defaultValue": "CreateOrUpdate",
+            "groupName": "configurationOptions",
+            "helpMarkdown": "",
+            "label": "Mode",
+            "name": "Mode",
+            "options": {
+                "Update": "Update",
+                "Create": "Create",
+                "UpdateOrCreate": "Update or Create"
+            },
+            "required": true,
+            "type": "pickList"
+        },
+        {
+            "defaultValue": false,
+            "groupName": "autoDetectOptions",
+            "helpMarkdown": "Auto-detects any files added to the workspace. Always applies local workspace exclusions.",
+            "label": "Adds",
+            "name": "autoDetectAdds",
+            "required": false,
+            "type": "boolean"
+        },
+        {
+            "defaultValue": false,
+            "groupName": "autoDetectOptions",
+            "helpMarkdown": "Auto-detects any files deleted from the workspace. Always applies local workspace exclusions.",
+            "label": "Deletes",
+            "name": "autoDetectDeletes",
+            "required": false,
+            "type": "boolean"
+        },
+        {
+            "defaultValue": "",
+            "groupName": "configurationOptions",
+            "helpMarkdown": "Updates the specified shelveset (`shelvesetname;owner`). Use `$(Build.SourceTfvcShelveset)` to update the shelveset used to queue this build.",
+            "label": "Shelveset Name",
+            "name": "ShelvesetName",
+            "required": true,
+            "type": "string"
+        },
+        {
+            "defaultValue": "true",
+            "groupName": "configurationOptions",
+            "helpMarkdown": "Will skip when shelveset is not specified or resolves to empty string.",
+            "label": "Skip when no shelveset is specified",
+            "name": "SkipEmpty",
+            "required": true,
+            "type": "boolean"
+        }
+
+    ],
+    "instanceNameFormat": "Update or create shelveset",
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\TfvcUpdateShelveset.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(Build.SourcesDirectory)"
+        }
+    }
+}
