@@ -10,6 +10,10 @@ param(
     [ValidateSet("Create", "Update", "CreateOrUpdate")]
     [string] $Mode = "CreateOrUpdate",
     [string] $ShelvesetName = $false,
+    [Parameter(Mandatory=$true)]
+    [ValidateSet("Build", "Custom", "CreateOrUpdate")]
+    [string] $ShelvesetOption = "Build",
+
     [string] $AutoDetectAdds = $false,
     [string] $AutoDetectDeletes = $false,
     [string] $SkipEmpty = $true
@@ -26,11 +30,23 @@ Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
 Write-Output $FilesToCheckin
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
     
-Write-Output "Deleting ItemSpec: $ItemSpec, Recursive: $RecursionType, Auto-detect: $Detect"
+Write-Output "Deleting ItemSpec: $ItemSpec, Recursive: $RecursionType, Skip Empty: $SkipEmpty."
 
-if (($SkipEmpty -ne $true) -and ($ShelvesetName -eq "" -or $ShelvesetName -contains "`$("))
+if ($ShelvesetOption -eq "Build")
 {
-    throw "No shelveset specified."
+    $ShelvesetName = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
+    if ($ShelvesetName -eq "")
+    {
+        if ($SkipEmpty -eq $true)
+        {
+            Write-Output "No shelveset specified."
+            exit
+        }
+        else
+        {
+            throw "No shelveset specified."
+        }
+    }
 }
 
 Try
