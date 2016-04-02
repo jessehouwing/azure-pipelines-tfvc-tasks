@@ -32,30 +32,32 @@ Try
     $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
     $ShelvesetName = "_Build_$BuildId"
 
-    if ($AutoDetectAdds -eq $true)
-    {
-        AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Add"
-    }
-
-    if ($AutoDetectDeletes -eq $true)
-    {
-        AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Delete"
-    }
-
-    $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
-
     [Microsoft.TeamFoundation.VersionControl.Client.Shelveset[]]$shelvesets = @($provider.VersionControlServer.QueryShelvesets($ShelvesetName, $owner))
 
     switch ($shelvesets.Count)
     {
-        1{
+        1 
+        {
+            if ($AutoDetectAdds -eq $true)
+            {
+                AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Add"
+            }
+
+            if ($AutoDetectDeletes -eq $true)
+            {
+                AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Delete"
+            }
+
+            $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
+
             Write-Output "Updating shelveset '$ShelvesetName;$owner' with local changes."
             
             $shelveset = $shelvesets[0]
             $provider.Workspace.Shelve($shelveset, @($pendingChanges), [Microsoft.TeamFoundation.VersionControl.Client.ShelvingOptions]"Replace");
             Write-Output "Done."
         }
-        default
+
+        0 
         {
             if ($SkipNonGated -eq $true)
             {
