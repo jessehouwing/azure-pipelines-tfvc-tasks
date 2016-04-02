@@ -116,49 +116,73 @@
         },
         {
             "path": "vsts-tfvc-undo/icon.png"
+        },
+
+        {
+            "path": "vsts-tfvc-updateshelveset/TfvcUpdateShelveset.ps1"
+        },
+        {
+            "path": "vsts-tfvc-updateshelveset/vsts-tfvc-shared.psm1",
+            "contentType": "text/plain"
+        },
+        {
+            "path": "vsts-tfvc-updateshelveset/task.json"
+        },
+        {
+            "path": "vsts-tfvc-updateshelveset/icon.png"
         }
 
     ],
-    "contributions":  [
-                          {
-                              "id":  "vsts-tfvc-add",
-                              "type":  "ms.vss-distributed-task.task",
-                              "targets":  [
-                                              "ms.vss-distributed-task.tasks"
-                                          ],
-                              "properties":  {
-                                                 "name":  "vsts-tfvc-add"
-                                             }
-                          },
-                          {
-                              "id":  "vsts-tfvc-checkin",
-                              "type":  "ms.vss-distributed-task.task",
-                              "targets":  [
-                                              "ms.vss-distributed-task.tasks"
-                                          ],
-                              "properties":  {
-                                                 "name":  "vsts-tfvc-checkin"
-                                             }
-                          },
-                          {
-                              "id":  "vsts-tfvc-delete",
-                              "type":  "ms.vss-distributed-task.task",
-                              "targets":  [
-                                              "ms.vss-distributed-task.tasks"
-                                          ],
-                              "properties":  {
-                                                 "name":  "vsts-tfvc-delete"
-                                             }
-                          },
-                          {
-                              "id":  "vsts-tfvc-undo",
-                              "type":  "ms.vss-distributed-task.task",
-                              "targets":  [
-                                              "ms.vss-distributed-task.tasks"
-                                          ],
-                              "properties":  {
-                                                 "name":  "vsts-tfvc-undo"
-                                             }
-                          }
-                      ]
+    "contributions": [
+        {
+            "id": "vsts-tfvc-add",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "vsts-tfvc-add"
+            }
+        },
+        {
+            "id": "vsts-tfvc-checkin",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "vsts-tfvc-checkin"
+            }
+        },
+        {
+            "id": "vsts-tfvc-delete",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "vsts-tfvc-delete"
+            }
+        },
+        {
+            "id": "vsts-tfvc-undo",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "vsts-tfvc-undo"
+            }
+        },
+        {
+            "id": "vsts-tfvc-updateshelveset",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "vsts-tfvc-updateshelveset"
+            }
+        }
+    ]
 }
