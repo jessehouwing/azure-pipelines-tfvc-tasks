@@ -29,25 +29,8 @@ Try
     $provider = Get-SourceProvider
     $owner = $provider.VersionControlServer.AuthorizedIdentity.UniqueName
 
-    if ($ShelvesetOption -eq "Build")
-    {
-        $ShelvesetName = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
-        if ($ShelvesetName -eq "")
-        {
-            if ($SkipNonGated -eq $true)
-            {
-                Write-Output "Not a gated build. Skipping."
-                exit
-            }
-            else
-            {
-                throw "Not a gated build."
-            }
-        }
-
-        $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
-        $ShelvesetName = "_Build_$BuildId"
-    }
+    $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
+    $ShelvesetName = "_Build_$BuildId"
 
     if ($AutoDetectAdds -eq $true)
     {
@@ -71,6 +54,18 @@ Try
             $shelveset = $shelvesets[0]
             $provider.Workspace.Shelve($shelveset, @($pendingChanges), [Microsoft.TeamFoundation.VersionControl.Client.ShelvingOptions]"Replace");
             Write-Output "Done."
+        }
+        default
+        {
+            if ($SkipNonGated -eq $true)
+            {
+                Write-Output "Not a gated build. Ignoring."
+                exit
+            }
+            else
+            {
+                throw "Not a gated build."
+            }
         }
     }
 }
