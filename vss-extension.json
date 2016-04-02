@@ -122,14 +122,14 @@
             "path": "vsts-tfvc-updateshelveset/TfvcUpdateShelveset.ps1"
         },
         {
-            "path": "vsts-tfvc-undo/vsts-tfvc-shared.psm1",
+            "path": "vsts-tfvc-updateshelveset/vsts-tfvc-shared.psm1",
             "contentType": "text/plain"
         },
         {
-            "path": "vsts-tfvc-undo/task.json"
+            "path": "vsts-tfvc-updateshelveset/task.json"
         },
         {
-            "path": "vsts-tfvc-undo/icon.png"
+            "path": "vsts-tfvc-updateshelveset/icon.png"
         }
 
     ],
