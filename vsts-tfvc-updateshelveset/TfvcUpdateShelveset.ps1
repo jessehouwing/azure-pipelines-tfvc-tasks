@@ -6,17 +6,9 @@ param(
     [Parameter(Mandatory=$true)]
     [ValidateSet("None", "Full", "OneLevel")]
     [string] $Recursion = "None",
-    [Parameter(Mandatory=$true)]
-    [ValidateSet("Create", "Update", "CreateOrUpdate")]
-    [string] $Mode = "CreateOrUpdate",
-    [string] $ShelvesetName = $false,
-    [Parameter(Mandatory=$true)]
-    [ValidateSet("Build", "Custom", "CreateOrUpdate")]
-    [string] $ShelvesetOption = "Build",
-
     [string] $AutoDetectAdds = $false,
     [string] $AutoDetectDeletes = $false,
-    [string] $SkipEmpty = $true
+    [string] $SkipNonGated = $true
 ) 
 
 Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
@@ -30,28 +22,32 @@ Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
 Write-Output $FilesToCheckin
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
     
-Write-Output "Deleting ItemSpec: $ItemSpec, Recursive: $RecursionType, Skip Empty: $SkipEmpty."
-
-if ($ShelvesetOption -eq "Build")
-{
-    $ShelvesetName = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
-    if ($ShelvesetName -eq "")
-    {
-        if ($SkipEmpty -eq $true)
-        {
-            Write-Output "No shelveset specified."
-            exit
-        }
-        else
-        {
-            throw "No shelveset specified."
-        }
-    }
-}
+Write-Output "Update gated changes. ItemSpec: $ItemSpec, Recursive: $RecursionType, Skip Non-gated: $SkipNonGated."
 
 Try
 {
     $provider = Get-SourceProvider
+    $owner = $provider.VersionControlServer.AuthorizedIdentity.UniqueName
+
+    if ($ShelvesetOption -eq "Build")
+    {
+        $ShelvesetName = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
+        if ($ShelvesetName -eq "")
+        {
+            if ($SkipNonGated -eq $true)
+            {
+                Write-Output "Not a gated build. Skipping."
+                exit
+            }
+            else
+            {
+                throw "Not a gated build."
+            }
+        }
+
+        $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
+        $ShelvesetName = "_Build_$BuildId"
+    }
 
     if ($AutoDetectAdds -eq $true)
     {
@@ -65,40 +61,16 @@ Try
 
     $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
 
-    if ($ShelvesetName -contains ";")
-    {
-        $ShelvesetParts = $ShelvesetName -split ";"
-        $ShelvesetName = $ShelvesetParts[0]
-        $ShelvesetOwner = $ShelvesetParts[1]
-    }
-    
-    $shelvesets = @($provider.VersionControlServer.QueryShelvesets("$ShelvesetName", "$ShelvesetOwner"))
+    [Microsoft.TeamFoundation.VersionControl.Client.Shelveset[]]$shelvesets = @($provider.VersionControlServer.QueryShelvesets($ShelvesetName, $owner))
 
     switch ($shelvesets.Count)
     {
-        0{
-            if ($Mode -notcontains "Create")
-            {
-                throw "Shelveset not found."
-            }
-
-            Write-Output "Shelveset not found, creating new shelveset: '$ShelvesetName;$ShelvesetOwner'."
-            $shelveset = new-object Microsoft.TeamFoundation.VersionControl.Client.Shelveset $provider.VersionControlServer $ShelvesetName $ShelvesetOwner
-            $provider.Workspace.Shelve($shelveset, @($pendingChanges), [Microsoft.TeamFoundation.VersionControl.Client.ShelvingOptions]"None");
-        }
         1{
-            if ($Mode -notcontains "Update")
-            {
-                throw "Shelveset already exists."
-            }
-
-            Write-Output "Shelveset found, updating shelveset: '$ShelvesetName;$ShelvesetOwner'."
+            Write-Output "Updating shelveset '$ShelvesetName;$owner' with local changes."
+            
             $shelveset = $shelvesets[0]
             $provider.Workspace.Shelve($shelveset, @($pendingChanges), [Microsoft.TeamFoundation.VersionControl.Client.ShelvingOptions]"Replace");
-        }
-        default{
-            Write-Error "Found multiple shelvesets matching: '$ShelvesetName;$ShelvesetOwner'."
-            throw "Failed"
+            Write-Output "Done."
         }
     }
 }

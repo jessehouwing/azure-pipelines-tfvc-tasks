@@ -1,8 +1,8 @@
 {
     "id": "7164ddbc-7979-4e2c-a2f8-e7a89b6ba026",
     "name": "TFVCUpdateShelveset",
-    "friendlyName": "TFVC - Update or create Shelveset #{Extension.Tag}#",
-    "description": "Upates or creates a shelveset with the local Pending changes.",
+    "friendlyName": "TFVC - Update gated changes #{Extension.Tag}#",
+    "description": "Updates the gated changes with the local workspace prior to checking in.",
     "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Shelve)",
     "category": "Utility",
     "author": "Jesse Houwing",
@@ -49,20 +49,6 @@
       "type": "pickList"
     },
     {
-      "defaultValue": "CreateOrUpdate",
-      "groupName": "configurationOptions",
-      "helpMarkdown": "",
-      "label": "Mode",
-      "name": "Mode",
-      "options": {
-        "Update": "Update",
-        "Create": "Create",
-        "UpdateOrCreate": "Update or Create"
-      },
-      "required": true,
-      "type": "pickList"
-    },
-    {
       "defaultValue": false,
       "groupName": "autoDetectOptions",
       "helpMarkdown": "Auto-detects any files added to the workspace. Always applies local workspace exclusions.",
@@ -81,41 +67,17 @@
       "type": "boolean"
     },
     {
-      "defaultValue": "None",
-      "groupName": "configurationOptions",
-      "helpMarkdown": "Controls whether to use the shelveset that was used to queue the build or a custom shelveset.",
-      "label": "Shelveset",
-      "name": "ShelvesetOption",
-      "options": {
-        "Build": "Build",
-        "Custom": "Custom"
-      },
-      "required": true,
-      "type": "pickList"
-    },
-    {
-      "defaultValue": "name;owner",
-      "groupName": "configurationOptions",
-      "helpMarkdown": "Updates the specified shelveset (`shelvesetname;owner`).",
-      "label": "Shelveset Name",
-      "name": "ShelvesetName",
-      "required": true,
-      "type": "string",
-      "visibleRule": "ShelvesetOption = Custom"
-    },
-    {
       "defaultValue": "true",
       "groupName": "configurationOptions",
-      "helpMarkdown": "Will skip when the build is queued without a shelveset.",
-      "label": "Skip when no shelveset is specified",
-      "name": "SkipEmpty",
+      "helpMarkdown": "Will skip this task when the build is not a gated build.",
+      "label": "Skip on non-gated build",
+      "name": "SkipNonGated",
       "required": true,
-      "type": "boolean",
-      "visibleRule": "ShelvesetOption = Build"
+      "type": "boolean"
     }
 
   ],
-    "instanceNameFormat": "Update or create shelveset",
+    "instanceNameFormat": "Update gated changes",
     "execution": {
         "PowerShell": {
             "target": "$(currentDirectory)\\TfvcUpdateShelveset.ps1",
