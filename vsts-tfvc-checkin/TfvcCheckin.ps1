@@ -15,7 +15,8 @@ param(
     [string] $Notes = "",
     [string] $SkipGated = $true,
     [string] $AutoDetectAdds = $false,
-    [string] $AutoDetectDeletes = $false
+    [string] $AutoDetectDeletes = $false,
+    [string] $BypassGatedCheckin = $false
 )
 
 Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
@@ -242,8 +243,20 @@ Try
 
             if (($override -eq $null) -or $OverridePolicy)
             {
+                $checkInParameters = new-object [Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters](@($pendingChanges), $Comment)
+                $checkinParameters.Author = $env:BUILD_QUEUEDBY
+                $checkInParameters.CheckinNotes = $Notes
+                $checkInParameters.PolicyOverride = $override
+                $checkInParameters.QueueBuildForGatedCheckIn = -not ($BypassGatedCheckin -eq $true)
+                $checkInParameters.OverrideGatedCheckIn = ($BypassGatedCheckin -eq $true)
+                $checkInParameters.AllowUnchangedContent = $false
+                $checkInParameters.NoAutoResolve = $false
+                $checkInParameters.CheckinDate = Get-Date
+
                 Write-Verbose "Entering Workspace-Checkin"
-                $changeset = $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
+                $privider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
+
+                $changeset = $provider.Workspace.CheckIn($checkInParameters)
                 Write-Output "Checked in changeset: $changeset"
                 Write-Verbose "Leaving Workspace-Checkin"
             }

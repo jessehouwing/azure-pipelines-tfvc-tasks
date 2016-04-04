@@ -66,6 +66,15 @@
     },
     {
       "defaultValue": false,
+      "groupName": "overrideOptions",
+      "helpMarkdown": "Bypasses the gated checkin if one is enabled for this build.",
+      "label": "Bypass gated on check-in",
+      "name": "BypassGatedCheckin",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": false,
       "groupName": "autoDetectOptions",
       "helpMarkdown": "Auto-detects any files added to the workspace. Always applies local workspace exclusions.",
       "label": "Adds",
