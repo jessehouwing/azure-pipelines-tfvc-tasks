@@ -257,6 +257,10 @@ Try
             Write-Output "No changes to check in"
         }
     }
+    else
+    {
+        Write-Output "Gated build. Ignoring."
+    }
 }
 Finally
 {
