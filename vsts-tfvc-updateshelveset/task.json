@@ -28,7 +28,7 @@
     {
       "name": "ItemSpec",
       "type": "multiLine",
-      "label": "Files to shelve",
+      "label": "Files to update",
       "defaultValue": "$/",
       "required": true,
       "groupName": "configurationOptions",

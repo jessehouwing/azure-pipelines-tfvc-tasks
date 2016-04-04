@@ -13,7 +13,7 @@ param(
     [string] $OverridePolicy = $false,
     [string] $OverridePolicyReason = "",
     [string] $Notes = "",
-
+    [string] $SkipGated = $true,
     [string] $AutoDetectAdds = $false,
     [string] $AutoDetectDeletes = $false
 )
@@ -175,71 +175,87 @@ function Parse-CheckinNotes {
 
 Try
 {
-    $noCiComment = "***NO_CI***"
-    if ($IncludeNoCIComment -eq $true)
-    {
-        if ($Comment -eq "")
-        {
-            $Comment = $noCiComment
-        }
-        else
-        {
-            $Comment = "$Comment $noCiComment"
-        }
-    }
-       
     $provider = Get-SourceProvider
 
-    $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
+    $IsShelvesetBuild = (Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset") -ne ""
+    $shevesets = @()
 
-    [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
-    Write-Output $FilesToCheckin
-
-    if ($AutoDetectAdds -eq $true)
+    if ($IsShelvesetBuild)
     {
-        AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Add"
+        $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
+        $ShelvesetName = "_Build_$BuildId"
+        $Owner = $provider.VersionControlServer.AuthorizedIdentity.UniqueName
+
+        $shelvesets += @($provider.VersionControlServer.QueryShelvesets($ShelvesetName, $Owner))
+        $IsGatedBuild = ($shelvesets.Count -eq 1)
     }
 
-    if ($AutoDetectDeletes -eq $true)
+    if (-not (($SkipGated -eq $true) -and $IsGatedBuild))
     {
-        AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Delete"
-    }
-        
-    $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
-    
-    if ($Notes -ne $null -and $Notes.Trim() -ne "")
-    {
-        $CheckinNotes = Parse-CheckinNotes $Notes
-    }
-
-    $passed = [ref] $true
-
-    if ($pendingChanges.Length -gt 0)
-    {
-
-        $evaluationOptions = [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"AddMissingFieldValues" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Notes" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Policies"
-        $result = Evaluate-Checkin $provider.Workspace $evaluationOptions $pendingChanges $pendingChanges $comment $CheckinNotes $null $passed
- 
-        if (($passed -eq $false) -and $OverridePolicy)
-        {   
-            $override = Handle-PolicyOverride $result.PolicyFailures $OverridePolicyReason $passed
+        $noCiComment = "***NO_CI***"
+        if ($IncludeNoCIComment -eq $true)
+        {
+            if ($Comment -eq "")
+            {
+                $Comment = $noCiComment
+            }
+            else
+            {
+                $Comment = "$Comment $noCiComment"
+            }
         }
 
-        if (($override -eq $null) -or $OverridePolicy)
+        $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
+
+        [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
+        Write-Output $FilesToCheckin
+
+        if ($AutoDetectAdds -eq $true)
         {
-            Write-Verbose "Entering Workspace-Checkin"
-            $changeset = $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
-            Write-Output "Checked in changeset: $changeset"
-            Write-Verbose "Leaving Workspace-Checkin"
+            AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Add"
+        }
+
+        if ($AutoDetectDeletes -eq $true)
+        {
+            AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToCheckin) -RecursionType $RecursionType -ChangeType "Delete"
+        }
+        
+        $pendingChanges = $provider.Workspace.GetPendingChanges( [string[]]@($FilesToCheckin), $RecursionType )
+    
+        if ($Notes -ne $null -and $Notes.Trim() -ne "")
+        {
+            $CheckinNotes = Parse-CheckinNotes $Notes
+        }
+
+        $passed = [ref] $true
+
+        if ($pendingChanges.Length -gt 0)
+        {
+
+            $evaluationOptions = [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"AddMissingFieldValues" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Notes" -bor [Microsoft.TeamFoundation.VersionControl.Client.CheckinEvaluationOptions]"Policies"
+            $result = Evaluate-Checkin $provider.Workspace $evaluationOptions $pendingChanges $pendingChanges $comment $CheckinNotes $null $passed
+ 
+            if (($passed -eq $false) -and $OverridePolicy)
+            {   
+                $override = Handle-PolicyOverride $result.PolicyFailures $OverridePolicyReason $passed
+            }
+
+            if (($override -eq $null) -or $OverridePolicy)
+            {
+                Write-Verbose "Entering Workspace-Checkin"
+                $changeset = $provider.Workspace.CheckIn($pendingChanges, $Comment, [Microsoft.TeamFoundation.VersionControl.Client.CheckinNote]$CheckinNotes, [Microsoft.TeamFoundation.VersionControl.Client.WorkItemCheckinInfo[]]$null, [Microsoft.TeamFoundation.VersionControl.Client.PolicyOverrideInfo]$override)
+                Write-Output "Checked in changeset: $changeset"
+                Write-Verbose "Leaving Workspace-Checkin"
+            }
+            else
+            {
+                Write-Error "Checkin policy failed"
+            }
         }
         else
         {
-            Write-Error "Checkin policy failed"
+            Write-Output "No changes to check in"
         }
-    }
-    else
-    {
-        Write-Output "No changes to check in"
     }
 }
 Finally
