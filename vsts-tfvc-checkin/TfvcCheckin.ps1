@@ -245,7 +245,7 @@ Try
             {
                 $checkInParameters = new-object Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters(@($pendingChanges), $Comment)
                 $checkinParameters.Author = $env:BUILD_QUEUEDBY
-                if ($Notes -ne $null -and $Notes.Trim() -ne "")
+                if ($CheckinNotes -ne $null)
                 {
                     $checkInParameters.CheckinNotes = $CheckinNotes
                 }
