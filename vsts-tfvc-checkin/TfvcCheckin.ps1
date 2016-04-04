@@ -243,9 +243,12 @@ Try
 
             if (($override -eq $null) -or $OverridePolicy)
             {
-                $checkInParameters = new-object [Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters](@($pendingChanges), $Comment)
+                $checkInParameters = new-object Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters(@($pendingChanges), $Comment)
                 $checkinParameters.Author = $env:BUILD_QUEUEDBY
-                $checkInParameters.CheckinNotes = $Notes
+                if ($Notes -ne $null -and $Notes.Trim() -ne "")
+                {
+                    $checkInParameters.CheckinNotes = $CheckinNotes
+                }
                 $checkInParameters.PolicyOverride = $override
                 $checkInParameters.QueueBuildForGatedCheckIn = -not ($BypassGatedCheckin -eq $true)
                 $checkInParameters.OverrideGatedCheckIn = ($BypassGatedCheckin -eq $true)
@@ -254,7 +257,7 @@ Try
                 $checkInParameters.CheckinDate = Get-Date
 
                 Write-Verbose "Entering Workspace-Checkin"
-                $privider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
+                $provider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
 
                 $changeset = $provider.Workspace.CheckIn($checkInParameters)
                 Write-Output "Checked in changeset: $changeset"
