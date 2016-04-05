@@ -254,7 +254,7 @@ Try
                 $checkInParameters.OverrideGatedCheckIn = ($BypassGatedCheckin -eq $true)
                 $checkInParameters.AllowUnchangedContent = $false
                 $checkInParameters.NoAutoResolve = $false
-                $checkInParameters.CheckinDate = Get-Date
+                #$checkInParameters.CheckinDate = Get-Date
 
                 Write-Verbose "Entering Workspace-Checkin"
                 $provider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
