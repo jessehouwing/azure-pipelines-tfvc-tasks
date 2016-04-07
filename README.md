@@ -26,4 +26,4 @@ Possible additional features:
  * Download files from Source Control (TFVC) in Build and Release.
  * Unshelve shelveset
 
-If you have ideas or improvements to existing tasks, don't hestitate to leave feedback or [file an issue](https://github.com/jessehouwing/vsts-tfvc-tasks/issues).
+If you have ideas or improvements to existing tasks, don't hesitate to leave feedback or [file an issue](https://github.com/jessehouwing/vsts-tfvc-tasks/issues).
