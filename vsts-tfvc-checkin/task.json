@@ -159,6 +159,15 @@
       "name": "SkipGated",
       "required": true,
       "type": "boolean"
+    },
+    {
+      "defaultValue": "true",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Will skip this task when the build is a shelveset build.",
+      "label": "Skip on shelveset build",
+      "name": "SkipShelveset",
+      "required": true,
+      "type": "boolean"
     }
   ],
     "instanceNameFormat": "Check changes into source control",

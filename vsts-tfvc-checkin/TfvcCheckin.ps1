@@ -14,6 +14,7 @@ param(
     [string] $OverridePolicyReason = "",
     [string] $Notes = "",
     [string] $SkipGated = $true,
+    [string] $SkipShelveset = $true,
     [string] $AutoDetectAdds = $false,
     [string] $AutoDetectDeletes = $false,
     [string] $BypassGatedCheckin = $false
@@ -178,20 +179,31 @@ Try
 {
     $provider = Get-SourceProvider
 
-    $IsShelvesetBuild = (Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset") -ne ""
-    $shevesets = @()
-
-    if ($IsShelvesetBuild)
+    $BuildSourceTfvcShelveset = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
+    Write-Debug "Build.SourceTfvcShelveset = '$BuildSourceTfvcShelveset'."
+    $IsShelvesetBuild = "$BuildSourceTfvcShelveset" -ne ""
+    $IsGatedBuild = $false
+    
+    if ($SkipGated -eq $false -and $IsShelvesetBuild)
     {
+        $Shevesets = @()
         $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
         $ShelvesetName = "_Build_$BuildId"
         $Owner = $provider.VersionControlServer.AuthorizedIdentity.UniqueName
 
-        $shelvesets += @($provider.VersionControlServer.QueryShelvesets($ShelvesetName, $Owner))
-        $IsGatedBuild = ($shelvesets.Count -eq 1)
+        $Shevesets += @($provider.VersionControlServer.QueryShelvesets($ShelvesetName, $Owner))
+        $IsGatedBuild = ($Shevesets.Count -eq 1)
     }
 
-    if (-not (($SkipGated -eq $true) -and $IsGatedBuild))
+    if (($SkipShelveset -eq $true) -and $IsShelvesetBuild)
+    {
+        Write-Output "Shelveset build. Ignoring."
+    }
+    elseif (($SkipGated -eq $true) -and $IsGatedBuild)
+    {
+        Write-Output "Gated build. Ignoring."
+    }
+    else
     {
         $noCiComment = "***NO_CI***"
         if ($IncludeNoCIComment -eq $true)
@@ -272,10 +284,6 @@ Try
         {
             Write-Output "No changes to check in"
         }
-    }
-    else
-    {
-        Write-Output "Gated build. Ignoring."
     }
 }
 Finally
