@@ -1,22 +1,16 @@
 ﻿[cmdletbinding()]
-param(
-    [Parameter(Mandatory=$true)]
-    [ValidateNotNullOrEmpty()]
-    [string] $Itemspec = "$/",
-    [Parameter(Mandatory=$true)]
-    [ValidateSet("None", "Full", "OneLevel")]
-    [string] $Recursion = "None",
-    [string] $Detect = $true
-) 
+param() 
 
-Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
-Write-Verbose "Parameter Values"
-$PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
+Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
 
-Write-Verbose "Importing modules"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
-Import-Module -DisableNameChecking "$PSScriptRoot/ps_modules/VstsTfvcShared/VstsTfvcShared.psm1"
+Import-Module VstsTaskSdk
+
+$Itemspec             = Get-VstsInput -Name ItemSpec             -Require 
+$Recursion            = Get-VstsInput -Name Recursion            -Require
+$Detect               = Get-VstsInput -Name AutoDetectAdds       -Default $true         -AsBool
+
+Write-VstsTaskVerbose "Importing modules"
+Import-Module VstsTfvcShared -DisableNameChecking
 
 [string[]] $FilesToDelete = $ItemSpec -split ';|\r?\n'
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
@@ -26,19 +20,15 @@ Write-Output "Deleting ItemSpec: $ItemSpec, Recursive: $RecursionType, Auto-dete
 Try
 {
     $provider = Get-SourceProvider
-    if (-not $provider)
-    {
-        return;
-    }
 
     if ($Detect -eq $true)
     {
-        Write-Debug "Auto-Detect enabled"
+        Write-VstsTaskDebug "Auto-Detect enabled"
         AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToDelete) -RecursionType $RecursionType -ChangeType "Delete"
     }
     else
     {
-        Write-Debug "Auto-Detect disabled"
+        Write-VstsTaskDebug "Auto-Detect disabled"
         
         Foreach ($change in $FilesToDelete)
         {

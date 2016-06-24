@@ -1,6 +1,3 @@
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
-
 function Load-Assembly {
     [cmdletbinding()]
     param(
@@ -10,7 +7,7 @@ function Load-Assembly {
 
     if ($ProbingPaths.Length -eq 0)
     {
-        Write-Debug "Setting default assembly locations"
+        Write-Message -Type Debug "Setting default assembly locations"
 
         if ($PSScriptRoot -ne $null )
         {
@@ -55,7 +52,7 @@ function Load-Assembly {
         {
             if ([System.Reflection.AssemblyName]::GetAssemblyName($path).Name -eq $assemblyToLoad.Name)
             {
-                Write-Debug "Loading assembly: $path"
+                Write-Message -Type Debug "Loading assembly: $path"
                 $assembly = [System.Reflection.Assembly]::LoadFrom($path)
                 return;
             }
@@ -76,18 +73,40 @@ $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEven
 
     if ($e.Exception -ne $null -and $e.Exception.Message -ne $null)
     {
-        Write-Warning  $e.Exception.Message
+        Write-Message -Type Warning  $e.Exception.Message
     }
     if ($e.Failure -ne $null -and $e.Failure.Message -ne $null)
     {
-        Write-Warning  $e.Failure.Message
+        Write-Message -Type Warning  $e.Failure.Message
         if ($e.Failure.Warnings -ne $null -and $e.Failure.Warnings.Length -gt 0)
         {
             foreach ($warning in $e.Failure.Warnings)
             {
-                Write-Warning $warning.ParentOrChildTask
+                Write-Message -Type Warning $warning.ParentOrChildTask 
             }
         }
+    }
+}
+
+function Get-TfsTeamProjectCollection()
+{
+    if ((Get-Command Get-VstsTaskVariable))
+    {
+        $ProjectCollectionUri = Get-VstsTaskVariable "System.TeamFoundationCollectionUri" -Require
+        $tfsClientCredentials = Get-VstsTfsClientCredentials
+            
+        return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
+            $ProjectCollectionUri,
+            $tfsClientCredentials)
+    }
+    else
+    {
+        $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
+        $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
+            
+        return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
+            $serviceEndpoint.Url,
+            $tfsClientCredentials)
     }
 }
 
@@ -122,35 +141,35 @@ function Get-SourceProvider {
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
 
             if (!$provider.Workspace) {
-                Write-Verbose "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
-                Write-Verbose "Attempting to resolve workspace recursively from locally cached info."
+                Write-Message -Type Verbose "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
+                Write-Message -Type Verbose "Attempting to resolve workspace recursively from locally cached info."
                 $workspaceInfos = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current.GetLocalWorkspaceInfoRecursively($provider.SourcesRootPath);
                 if ($workspaceInfos) {
                     foreach ($workspaceInfo in $workspaceInfos) {
-                        Write-Verbose "Cached workspace info discovered. Server URI: $($workspaceInfo.ServerUri) ; Name: $($workspaceInfo.Name) ; Owner Name: $($workspaceInfo.OwnerName)"
+                        Write-Message -Type Verbose "Cached workspace info discovered. Server URI: $($workspaceInfo.ServerUri) ; Name: $($workspaceInfo.Name) ; Owner Name: $($workspaceInfo.OwnerName)"
                         try {
                             $provider.Workspace = $versionControlServer.GetWorkspace($workspaceInfo)
                             break
                         } catch {
-                            Write-Verbose "Determination failed. Exception: $_"
+                            Write-Message -Type Verbose "Determination failed. Exception: $_"
                         }
                     }
                 }
             }
 
             if ((!$provider.Workspace) -and $env:BUILD_REPOSITORY_TFVC_WORKSPACE) {
-                Write-Verbose "Attempting to resolve workspace by name: $env:BUILD_REPOSITORY_TFVC_WORKSPACE"
+                Write-Message -Type Verbose "Attempting to resolve workspace by name: $env:BUILD_REPOSITORY_TFVC_WORKSPACE"
                 try {
                     $provider.Workspace = $versionControlServer.GetWorkspace($env:BUILD_REPOSITORY_TFVC_WORKSPACE, '.')
                 } catch [Microsoft.TeamFoundation.VersionControl.Client.WorkspaceNotFoundException] {
-                    Write-Verbose "Workspace not found."
+                    Write-Message -Type Verbose "Workspace not found."
                 } catch {
-                    Write-Verbose "Determination failed. Exception: $_"
+                    Write-Message -Type Verbose "Determination failed. Exception: $_"
                 }
             }
 
             if (!$provider.Workspace) {
-                Write-Warning ("Unable to determine workspace from source folder $($provider.SourcesRootPath).")
+                Write-Message -Type Warning (Get-LocalizedString -Key 'Unable to determine workspace from source folder ''{0}''.' -ArgumentList $provider.SourcesRootPath)
                 return
             }
 
@@ -171,7 +190,7 @@ function Get-SourceProvider {
         if (!$success) {
             Invoke-DisposeSourceProvider -Provider $provider
         }
-        Write-Debug "Leaving Get-SourceProvider"
+        Write-Message -Type Debug "Leaving Get-SourceProvider"
     }
 
 }
@@ -180,7 +199,7 @@ function Invoke-DisposeSourceProvider {
     [cmdletbinding()]
     param($Provider)
     
-    Write-Debug "Entering Invoke-DisposeSourceProvider"
+    Write-Message -Type Debug "Entering Invoke-DisposeSourceProvider"
 
     if ($Provider)
     {
@@ -196,7 +215,7 @@ function Invoke-DisposeSourceProvider {
         }
     }
 
-    Write-Debug "Leaving Invoke-DisposeSourceProvider"
+    Write-Message -Type Debug "Leaving Invoke-DisposeSourceProvider"
 }
 
 function Detect-WorkspaceChanges {
@@ -211,7 +230,7 @@ function Detect-WorkspaceChanges {
         [Microsoft.TeamFoundation.VersionControl.Client.ChangeType] $ChangeType
     )
 
-    Write-Debug "Entering Detect-WorkspaceChanges"
+    Write-Message -Type Debug "Entering Detect-WorkspaceChanges"
 
     try
     {
@@ -228,7 +247,7 @@ function Detect-WorkspaceChanges {
     }
     finally
     {
-        Write-Debug "Leaving Detect-WorkspaceChanges"    
+        Write-Message -Type Debug "Leaving Detect-WorkspaceChanges"    
     }
 }
 
@@ -244,17 +263,17 @@ function AutoPend-WorkspaceChanges {
         [Microsoft.TeamFoundation.VersionControl.Client.ChangeType] $ChangeType
     )
 
-    Write-Debug "Entering AutoPend-WorkspaceChanges"
+    Write-Message -Type Debug "Entering AutoPend-WorkspaceChanges"
 
     $DetectedChanges = @(Detect-WorkspaceChanges -Provider $Provider -Items $Items -RecursionType $RecursionType -ChangeType $Changetype)
 
     if ($DetectedChanges.Length -le 0)
     {
-        Write-Output "No $ChangeType detected."
+        Write-Message -Type Output "No $ChangeType detected."
         return
     }
 
-    Write-Output "Pending $($ChangeType): "
+    Write-Message -Type Output "Pending $($ChangeType): "
     $DetectedChanges | %{ Write-output $_ }
 
     switch ($ChangeType) 
@@ -285,11 +304,11 @@ function AutoPend-WorkspaceChanges {
 
         default 
         {
-            Write-Error "Unsupported auto-pend operation: $ChangeType"
+            Write-Message -Type Error "Unsupported auto-pend operation: $ChangeType"
         }
     }
     
-    Write-Debug "Leaving AutoPend-WorkspaceChanges"
+    Write-Message -Type Debug "Leaving AutoPend-WorkspaceChanges"
 }
 
 function Convert-ToItemSpecs {
@@ -299,6 +318,34 @@ function Convert-ToItemSpecs {
     )
 
     return @([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($Paths, $RecursionType))
+}
+
+function Write-Message{
+    param(
+        [string] $Message,
+        [string] $Type = "Output"
+    )
+    
+    if ((Get-Command Get-VstsTaskError))
+    {
+        switch ($Type)
+        {
+            "Output"  { Write-Output $Message }
+            "Debug"   { Write-VstsTaskDebug $Message }
+            "Warning" { Write-VstsTaskWarning $Message }
+            "Error"   { Write-VstsTaskError $Message }
+        }
+    }
+    else
+    {
+        switch ($Type)
+        {
+            "Output"  { Write-Output $Message }
+            "Debug"   { Write-Debug $Message }
+            "Warning" { Write-Warning $Message }
+            "Error"   { Write-Error $Message }
+        }
+    }
 }
 
 Export-ModuleMember -Function Invoke-DisposeSourceProvider

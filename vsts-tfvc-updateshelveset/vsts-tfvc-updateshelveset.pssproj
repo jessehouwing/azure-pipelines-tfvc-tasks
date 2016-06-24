@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="TfvcUpdateShelveset.v3.ps1" />
     <Compile Include="TfvcUpdateShelveset.ps1" />
   </ItemGroup>
   <ItemGroup>

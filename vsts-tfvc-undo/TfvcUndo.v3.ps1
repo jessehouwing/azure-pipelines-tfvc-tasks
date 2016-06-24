@@ -1,24 +1,16 @@
 ﻿[cmdletbinding()]
-param(
-    [Parameter(Mandatory=$true)]
-    [ValidateNotNullOrEmpty()]
-    [string] $Itemspec = "$/",
-    [Parameter(Mandatory=$true)]
-    [ValidateSet("None", "Full", "OneLevel")]
-    [string] $Recursion = "None",
-    [Parameter(Mandatory=$false)]
-    [ValidateSet("true", "false")]
-    [string] $DeleteAdds = $false
-)
+param() 
 
-Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
-Write-Verbose "Parameter Values"
-$PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
+Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
 
-Write-Verbose "Importing modules"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
-import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
-Import-Module -DisableNameChecking "$PSScriptRoot/ps_modules/VstsTfvcShared/VstsTfvcShared.psm1"
+Import-Module VstsTaskSdk
+
+$Itemspec             = Get-VstsInput -Name ItemSpec             -Require 
+$Recursion            = Get-VstsInput -Name Recursion            -Require
+$DeleteAdds           = Get-VstsInput -Name DeleteAdds           -Default $false         -AsBool
+
+Write-VstsTaskVerbose "Importing modules"
+Import-Module VstsTfvcShared -DisableNameChecking
 
 [string[]] $FilesToUndo = $ItemSpec -split ';|\r?\n'
     
@@ -27,10 +19,6 @@ Write-Output "Undo ItemSpec: $ItemSpec, Recursive: $Recursion, Delete Adds: $Del
 Try
 {
     $provider = Get-SourceProvider
-    if (-not $provider)
-    {
-        return;
-    }
     
     [array] $ItemSpecs = Convert-ToItemSpecs -Paths $FilesToUndo -RecursionType $Recursion
 

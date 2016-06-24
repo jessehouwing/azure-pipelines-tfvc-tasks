@@ -30,6 +30,7 @@
   <ItemGroup>
     <Compile Include="icon.png" />
     <Compile Include="task.json" />
+    <Compile Include="TfvcCheckin.v3.ps1" />
     <Compile Include="TfvcCheckin.ps1" />
   </ItemGroup>
   <ItemGroup>

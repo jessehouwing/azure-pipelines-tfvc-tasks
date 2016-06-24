@@ -8,7 +8,5 @@
 /.vs
 *.psm1
 !/vsts-tfvc-shared/*.psm1
-/.cr
-/vsts-tfvc-*/ps_modules
-node_modules/
-obj/
+/ps_modules
+!/vsts-tfvc-shared/ps_modules/

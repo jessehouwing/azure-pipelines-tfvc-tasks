@@ -26,9 +26,48 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Compile Include="vsts-tfvc-shared.psm1" />
+    <Folder Include="ps_modules\" />
+    <Folder Include="ps_modules\VstsTfvcShared\" />
+    <Folder Include="ps_modules\VstsTaskSdk\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\de-de\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\en-US\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\es-es\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\fr-fr\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\it-IT\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\ja-jp\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\ko-KR\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\ru-RU\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\zh-CN\" />
+    <Folder Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\zh-TW\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ps_modules\VstsTaskSdk\FindFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\InputFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\lib.json" />
+    <Compile Include="ps_modules\VstsTaskSdk\LocalizationFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\LoggingCommandFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\LongPathFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\OutFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\ServerOMFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\de-de\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\en-US\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\es-es\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\fr-fr\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\it-IT\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\ja-jp\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\ko-KR\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\ru-RU\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\zh-CN\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\Strings\resources.resjson\zh-TW\resources.resjson" />
+    <Compile Include="ps_modules\VstsTaskSdk\ToolFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\TraceFunctions.ps1" />
+    <Compile Include="ps_modules\VstsTaskSdk\VstsTaskSdk.psd1" />
+    <Compile Include="ps_modules\VstsTaskSdk\VstsTaskSdk.psm1" />
+    <Compile Include="ps_modules\VstsTfvcShared\VstsTfvcShared.psm1" />
+    <Compile Include="ps_modules\VstsTfvcShared\VstsTfvcShared.psd1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />

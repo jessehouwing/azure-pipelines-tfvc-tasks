@@ -27,7 +27,9 @@ Write-Verbose "Parameter Values"
 $PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
 
 Write-Verbose "Importing modules"
-Import-Module -DisableNameChecking "$PSScriptRoot/vsts-tfvc-shared.psm1"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
+Import-Module -DisableNameChecking "$PSScriptRoot/ps_modules/VstsTfvcShared/VstsTfvcShared.psm1"
 
 if (-not ($ConfirmUnderstand -eq $true))
 {

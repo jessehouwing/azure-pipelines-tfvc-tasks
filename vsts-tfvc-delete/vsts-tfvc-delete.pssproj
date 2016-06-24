@@ -31,6 +31,7 @@
     <Content Include="task.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TfvcDelete.v3.ps1" />
     <Compile Include="TfvcDelete.ps1" />
   </ItemGroup>
   <ItemGroup>
