@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-checkin", "vsts-tfvc-checkin\vsts-tfvc-checkin.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
 EndProject
@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extension", "Extension", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{ADFB1042-D16B-4621-900A-CFB227C18EA0}"
 	ProjectSection(SolutionItems) = preProject
+		extension\images\donate.png = extension\images\donate.png
 		extension\Images\extension-icon.png = extension\Images\extension-icon.png
 		extension\Images\icons-small.psd = extension\Images\icons-small.psd
 		extension\Images\icons.psd = extension\Images\icons.psd
