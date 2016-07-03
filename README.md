@@ -1,4 +1,4 @@
-[![Donate](https://raw.githubusercontent.com/jessehouwing/vsts-tfvc-tasks/master/extension/images/donate.png)](https://www.paypal.me/JesseHouwing/5) [![Build Status](https://jessehouwing.visualstudio.com/DefaultCollection/_apis/public/build/definitions/25755ae1-d9b8-43e3-a7a2-6c964c760d09/28/badge)](https://jessehouwing.visualstudio.com/DefaultCollection/vsts-tfvc-tasks/_build) [![Gitter](https://badges.gitter.im/jessehouwing/vsts-tfvc-tasks.svg)](https://gitter.im/jessehouwing/vsts-tfvc-tasks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Donate](https://raw.githubusercontent.com/jessehouwing/vsts-tfvc-tasks/master/extension/Images/donate.png)](https://www.paypal.me/JesseHouwing/5) [![Build Status](https://jessehouwing.visualstudio.com/DefaultCollection/_apis/public/build/definitions/25755ae1-d9b8-43e3-a7a2-6c964c760d09/28/badge)](https://jessehouwing.visualstudio.com/DefaultCollection/vsts-tfvc-tasks/_build) [![Gitter](https://badges.gitter.im/jessehouwing/vsts-tfvc-tasks.svg)](https://gitter.im/jessehouwing/vsts-tfvc-tasks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # Release Notes
 > **3-6-2016**
