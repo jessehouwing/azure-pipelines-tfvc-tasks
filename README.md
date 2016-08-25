@@ -1,13 +1,5 @@
 [![Donate](https://raw.githubusercontent.com/jessehouwing/vsts-tfvc-tasks/master/extension/Images/donate.png)](https://www.paypal.me/JesseHouwing/5) [![Build Status](https://jessehouwing.visualstudio.com/DefaultCollection/_apis/public/build/definitions/25755ae1-d9b8-43e3-a7a2-6c964c760d09/28/badge)](https://jessehouwing.visualstudio.com/DefaultCollection/vsts-tfvc-tasks/_build) [![Gitter](https://badges.gitter.im/jessehouwing/vsts-tfvc-tasks.svg)](https://gitter.im/jessehouwing/vsts-tfvc-tasks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-# WARNING
-
-> The new build agent uses Server workspaces instead of local workspaces. The TFVC tasks rely on the local workspace to provide support for auto-detection of changes, no-server-side locks when changing binary files and the lack of read-only bits on files.
-
-> If you currently rely on these tasks, stay on agent version 1.95 until I've figured out how to solve this situation. Expect a new version of these tasks which will be a *BREAKING CHANGE* in both UI and task implementation in order to switch to the 2.1xx agents.
-
-> https://github.com/jessehouwing/vsts-tfvc-tasks/issues/35
-
 # Release Notes
 > **3-6-2016**
 
