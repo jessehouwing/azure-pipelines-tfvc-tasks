@@ -186,8 +186,7 @@
   "execution": {
     "PowerShell": {
       "target": "$(currentDirectory)\\TfvcCheckin.ps1",
-      "argumentFormat": "",
-      "workingDirectory": "$(Build.SourcesDirectory)"
+      "argumentFormat": ""
     }
   }
 }

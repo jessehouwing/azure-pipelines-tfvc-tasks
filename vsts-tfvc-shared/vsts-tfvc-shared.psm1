@@ -47,7 +47,6 @@ function Load-Assembly {
     }
 
     $assemblyToLoad = New-Object System.Reflection.AssemblyName $name
-    
 
     foreach ($path in $ProbingPaths)
     {
@@ -86,7 +85,7 @@ $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEven
         {
             foreach ($warning in $e.Failure.Warnings)
             {
-                Write-Warning $warning.ParentOrChildTask 
+                Write-Warning $warning.ParentOrChildTask
             }
         }
     }
@@ -107,7 +106,7 @@ function Get-SourceProvider {
         if ($provider.Name -eq 'TfsVersionControl') {
             $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
             $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
-            
+
             $provider.TfsTeamProjectCollection = New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
                 $serviceEndpoint.Url,
                 $tfsClientCredentials)

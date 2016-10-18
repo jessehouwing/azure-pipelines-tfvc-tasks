@@ -61,8 +61,7 @@
   "execution": {
     "PowerShell": {
       "target": "$(currentDirectory)\\TfvcAdd.ps1",
-      "argumentFormat": "",
-      "workingDirectory": "$(Build.SourcesDirectory)"
+      "argumentFormat": ""
     }
   }
 }

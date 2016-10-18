@@ -66,8 +66,7 @@
   "execution": {
     "PowerShell": {
       "target": "$(currentDirectory)\\TfvcUndo.ps1",
-      "argumentFormat": "",
-      "workingDirectory": "$(Build.SourcesDirectory)"
+      "argumentFormat": ""
     }
   }
 }
