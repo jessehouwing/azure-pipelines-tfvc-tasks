@@ -24,6 +24,10 @@ Write-Output "Deleting ItemSpec: $ItemSpec, Recursive: $RecursionType, Auto-dete
 Try
 {
     $provider = Get-SourceProvider
+    if (-not $provider)
+    {
+        return;
+    }
 
     if ($Detect -eq $true)
     {

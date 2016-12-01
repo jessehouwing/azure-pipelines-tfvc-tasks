@@ -40,6 +40,10 @@ Write-Output "Adding ItemSpec: $ItemSpec, Recursive: $RecursionType, Apply Ignor
 Try
 {
     $provider = Get-SourceProvider
+    if (-not $provider)
+    {
+        return;
+    }
 
     if (-not $ApplyLocalitemExclusions)
     {

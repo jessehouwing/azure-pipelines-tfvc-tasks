@@ -149,9 +149,10 @@ function Get-SourceProvider {
                 return
             }
 
-            if (!$provider.Workspace.IsLocal)
+            if ($provider.Workspace.Location -eq "Server")
             {
-                throw "TFVC tasks are not supported against server workspaces."
+                Write-Error "TFVC tasks are not supported against server workspaces."
+                return
             }
 
 

@@ -24,6 +24,10 @@ $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$
 Try
 {
     $provider = Get-SourceProvider
+    if (-not $provider)
+    {
+        return;
+    }
     
     $IsShelvesetBuild = (Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset") -ne ""
     $shevesets = @()
