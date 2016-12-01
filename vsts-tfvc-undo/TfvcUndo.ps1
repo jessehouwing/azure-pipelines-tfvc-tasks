@@ -25,6 +25,10 @@ Write-Output "Undo ItemSpec: $ItemSpec, Recursive: $Recursion, Delete Adds: $Del
 Try
 {
     $provider = Get-SourceProvider
+    if (-not $provider)
+    {
+        return;
+    }
     
     [array] $ItemSpecs = Convert-ToItemSpecs -Paths $FilesToUndo -RecursionType $Recursion
 

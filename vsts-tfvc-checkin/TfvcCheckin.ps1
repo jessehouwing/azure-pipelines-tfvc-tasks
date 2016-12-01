@@ -178,6 +178,10 @@ function Parse-CheckinNotes {
 Try
 {
     $provider = Get-SourceProvider
+    if (-not $provider)
+    {
+        return;
+    }
 
     $BuildSourceTfvcShelveset = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
     Write-Debug "Build.SourceTfvcShelveset = '$BuildSourceTfvcShelveset'."
@@ -290,6 +294,3 @@ Finally
 {
     Invoke-DisposeSourceProvider -Provider $provider
 }
-
-
-
