@@ -1,11 +1,11 @@
-[![Donate](https://raw.githubusercontent.com/jessehouwing/vsts-tfvc-tasks/master/extension/Images/donate.png)](https://www.paypal.me/JesseHouwing/5) [![Build Status](https://jessehouwing.visualstudio.com/DefaultCollection/_apis/public/build/definitions/25755ae1-d9b8-43e3-a7a2-6c964c760d09/28/badge)](https://jessehouwing.visualstudio.com/DefaultCollection/vsts-tfvc-tasks/_build) [![Gitter](https://badges.gitter.im/jessehouwing/vsts-tfvc-tasks.svg)](https://gitter.im/jessehouwing/vsts-tfvc-tasks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 # Release Notes
+> **1-12-2016**
+
+> - Add: throw error on server workspaces. They are not supported. Please upgrade to Agent 2.0 or configure your Project Collection to default to local workspaces.
+
 > **18-10-2016**
 
 > - FIX: working directory on 2.* agent
-
-
 
 > **3-6-2016**
 
