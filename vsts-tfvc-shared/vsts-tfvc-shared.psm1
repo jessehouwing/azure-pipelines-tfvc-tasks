@@ -145,9 +145,15 @@ function Get-SourceProvider {
             }
 
             if (!$provider.Workspace) {
-                Write-Warning (Get-LocalizedString -Key 'Unable to determine workspace from source folder ''{0}''.' -ArgumentList $provider.SourcesRootPath)
+                Write-Warning ("Unable to determine workspace from source folder $($provider.SourcesRootPath).")
                 return
             }
+
+            if (!$provider.Workspace.IsLocal)
+            {
+                throw "TFVC tasks are not supported against server workspaces."
+            }
+
 
             $provider.Workspace.Refresh()
 
@@ -155,7 +161,8 @@ function Get-SourceProvider {
             return New-Object psobject -Property $provider
         }
 
-        Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")        return
+        Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")
+        return
     } finally {
         if (!$success) {
             Invoke-DisposeSourceProvider -Provider $provider
