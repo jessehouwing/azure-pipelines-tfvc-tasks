@@ -1,188 +1,192 @@
 {
-    "manifestVersion":  1,
-    "id":  "jessehouwing-vsts-tfvc-tasks",
-    "name":  "TFVC Build Tasks",
-    "version":  "0.0.0",
-    "publisher":  "jessehouwing",
-    "targets":  [
-                    {
-                        "id":  "Microsoft.VisualStudio.Services"
-                    }
-                ],
-    "description":  "Build extensions that enable you to interact with TFVC repositories.",
-    "categories":  [
-                       "Build and release"
-                   ],
-    "tags":  [
-                 "tfvc",
-                 "build",
-                 "checkin",
-                 "delete",
-                 "add",
-                 "Source Control"
-             ],
-    "screenshots":  [
-                        {
-                            "path":  "extension/Images/Screenshots/tfvc-tasks.png"
-                        },
-                        {
-                            "path":  "extension/Images/Screenshots/tfvc-checkin.png"
-                        },
-                        {
-                            "path":  "extension/Images/Screenshots/tfvc-add.png"
-                        }
-                    ],
-    "content":  {
-                    "details":  {
-                                    "path":  "readme.md"
-                                },
-                    "license":  {
-                                    "path":  "license.txt"
-                                }
-                },
-    "links":  {
-                  "getstarted":  {
-                                     "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/wiki"
-                                 },
-                  "support":  {
-                                  "uri":  "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
-                              }
-              },
-    "branding":  {
-                     "color":  "rgb(36, 43, 50)",
-                     "theme":  "dark"
-                 },
-    "icons":  {
-                  "default":  "extension/images/extension-icon.png"
-              },
-    "files": [
-        {
-            "path": "vsts-tfvc-add/TfvcAdd.ps1"
-        },
-        {
-            "path": "vsts-tfvc-add/vsts-tfvc-shared.psm1",
-            "contentType": "text/plain"
-        },
-        {
-            "path": "vsts-tfvc-add/task.json"
-        },
-        {
-            "path": "vsts-tfvc-add/icon.png"
-        },
+  "manifestVersion": 1,
+  "id": "jessehouwing-vsts-tfvc-tasks",
+  "name": "TFVC Build Tasks",
+  "version": "0.0.0",
+  "publisher": "jessehouwing",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "description": "Build extensions that enable you to interact with TFVC repositories.",
+  "categories": [
+    "Build and release"
+  ],
+  "tags": [
+    "tfvc",
+    "build",
+    "checkin",
+    "delete",
+    "add",
+    "Source Control"
+  ],
+  "screenshots": [
+    {
+      "path": "extension/Images/Screenshots/tfvc-tasks.png"
+    },
+    {
+      "path": "extension/Images/Screenshots/tfvc-checkin.png"
+    },
+    {
+      "path": "extension/Images/Screenshots/tfvc-add.png"
+    }
+  ],
+  "content": {
+    "details": {
+      "path": "readme.md"
+    },
+    "license": {
+      "path": "license.txt"
+    }
+  },
+  "links": {
+    "getstarted": {
+      "uri": "https://github.com/jessehouwing/vsts-tfvc-tasks/wiki"
+    },
+    "support": {
+      "uri": "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/jessehouwing/vsts-tfvc-tasks"
+  },
+  "branding": {
+    "color": "rgb(36, 43, 50)",
+    "theme": "dark"
+  },
+  "icons": {
+    "default": "extension/images/extension-icon.png"
+  },
+  "files": [
+    {
+      "path": "vsts-tfvc-add/TfvcAdd.ps1"
+    },
+    {
+      "path": "vsts-tfvc-add/vsts-tfvc-shared.psm1",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "vsts-tfvc-add/task.json"
+    },
+    {
+      "path": "vsts-tfvc-add/icon.png"
+    },
 
 
 
-        {
-            "path": "vsts-tfvc-checkin/TfvcCheckin.ps1"
-        },
-        {
-            "path": "vsts-tfvc-checkin/vsts-tfvc-shared.psm1",
-            "contentType": "text/plain"
-        },
-        {
-            "path": "vsts-tfvc-checkin/task.json"
-        },
-        {
-            "path": "vsts-tfvc-checkin/icon.png"
-        },
+    {
+      "path": "vsts-tfvc-checkin/TfvcCheckin.ps1"
+    },
+    {
+      "path": "vsts-tfvc-checkin/vsts-tfvc-shared.psm1",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "vsts-tfvc-checkin/task.json"
+    },
+    {
+      "path": "vsts-tfvc-checkin/icon.png"
+    },
 
 
 
-        {
-            "path": "vsts-tfvc-delete/TfvcDelete.ps1"
-        },
-        {
-            "path": "vsts-tfvc-delete/vsts-tfvc-shared.psm1",
-            "contentType": "text/plain"
-        },
-        {
-            "path": "vsts-tfvc-delete/task.json"
-        },
-        {
-            "path": "vsts-tfvc-delete/icon.png"
-        },
+    {
+      "path": "vsts-tfvc-delete/TfvcDelete.ps1"
+    },
+    {
+      "path": "vsts-tfvc-delete/vsts-tfvc-shared.psm1",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "vsts-tfvc-delete/task.json"
+    },
+    {
+      "path": "vsts-tfvc-delete/icon.png"
+    },
 
 
 
-        {
-            "path": "vsts-tfvc-undo/TfvcUndo.ps1"
-        },
-        {
-            "path": "vsts-tfvc-undo/vsts-tfvc-shared.psm1",
-            "contentType": "text/plain"
-        },
-        {
-            "path": "vsts-tfvc-undo/task.json"
-        },
-        {
-            "path": "vsts-tfvc-undo/icon.png"
-        },
+    {
+      "path": "vsts-tfvc-undo/TfvcUndo.ps1"
+    },
+    {
+      "path": "vsts-tfvc-undo/vsts-tfvc-shared.psm1",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "vsts-tfvc-undo/task.json"
+    },
+    {
+      "path": "vsts-tfvc-undo/icon.png"
+    },
 
-        {
-            "path": "vsts-tfvc-updateshelveset/TfvcUpdateShelveset.ps1"
-        },
-        {
-            "path": "vsts-tfvc-updateshelveset/vsts-tfvc-shared.psm1",
-            "contentType": "text/plain"
-        },
-        {
-            "path": "vsts-tfvc-updateshelveset/task.json"
-        },
-        {
-            "path": "vsts-tfvc-updateshelveset/icon.png"
-        }
+    {
+      "path": "vsts-tfvc-updateshelveset/TfvcUpdateShelveset.ps1"
+    },
+    {
+      "path": "vsts-tfvc-updateshelveset/vsts-tfvc-shared.psm1",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "vsts-tfvc-updateshelveset/task.json"
+    },
+    {
+      "path": "vsts-tfvc-updateshelveset/icon.png"
+    }
 
-    ],
-    "contributions": [
-        {
-            "id": "vsts-tfvc-add",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "vsts-tfvc-add"
-            }
-        },
-        {
-            "id": "vsts-tfvc-checkin",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "vsts-tfvc-checkin"
-            }
-        },
-        {
-            "id": "vsts-tfvc-delete",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "vsts-tfvc-delete"
-            }
-        },
-        {
-            "id": "vsts-tfvc-undo",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "vsts-tfvc-undo"
-            }
-        },
-        {
-            "id": "vsts-tfvc-updateshelveset",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "vsts-tfvc-updateshelveset"
-            }
-        }
-    ]
+  ],
+  "contributions": [
+    {
+      "id": "vsts-tfvc-add",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "vsts-tfvc-add"
+      }
+    },
+    {
+      "id": "vsts-tfvc-checkin",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "vsts-tfvc-checkin"
+      }
+    },
+    {
+      "id": "vsts-tfvc-delete",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "vsts-tfvc-delete"
+      }
+    },
+    {
+      "id": "vsts-tfvc-undo",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "vsts-tfvc-undo"
+      }
+    },
+    {
+      "id": "vsts-tfvc-updateshelveset",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "vsts-tfvc-updateshelveset"
+      }
+    }
+  ]
 }
