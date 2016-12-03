@@ -151,10 +151,8 @@ function Get-SourceProvider {
 
             if ($provider.Workspace.Location -eq "Server")
             {
-                Write-Error "TFVC tasks are not supported against server workspaces."
-                return
+                Write-Waring "Server workspace support is experimental."
             }
-
 
             $provider.Workspace.Refresh()
 

@@ -124,7 +124,19 @@
       "path": "vsts-tfvc-delete/icon.png"
     },
 
-
+    {
+      "path": "vsts-tfvc-checkout/TfvcCheckout.ps1"
+    },
+    {
+      "path": "vsts-tfvc-checkout/vsts-tfvc-shared.psm1",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "vsts-tfvc-checkout/task.json"
+    },
+    {
+      "path": "vsts-tfvc-checkout/icon.png"
+    },
 
     {
       "path": "vsts-tfvc-undo/TfvcUndo.ps1"
@@ -174,6 +186,16 @@
       ],
       "properties": {
         "name": "vsts-tfvc-checkin"
+      }
+    },
+    {
+      "id": "vsts-tfvc-checkout",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "vsts-tfvc-checkout"
       }
     },
     {

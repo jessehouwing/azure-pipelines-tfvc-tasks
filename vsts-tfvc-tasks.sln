@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.25928.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-checkin", "vsts-tfvc-checkin\vsts-tfvc-checkin.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
 EndProject
@@ -56,6 +56,8 @@ Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-undo", "vsts-tfvc
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-updateshelveset", "vsts-tfvc-updateshelveset\vsts-tfvc-updateshelveset.pssproj", "{09311BEB-4FE8-4795-A927-ED72709BE4AA}"
 EndProject
+Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "vsts-tfvc-checkout", "vsts-tfvc-checkout\vsts-tfvc-checkout.pssproj", "{EFDE6A51-7545-4E59-9448-32E2ACA21F1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{09311BEB-4FE8-4795-A927-ED72709BE4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09311BEB-4FE8-4795-A927-ED72709BE4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09311BEB-4FE8-4795-A927-ED72709BE4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFDE6A51-7545-4E59-9448-32E2ACA21F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFDE6A51-7545-4E59-9448-32E2ACA21F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFDE6A51-7545-4E59-9448-32E2ACA21F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFDE6A51-7545-4E59-9448-32E2ACA21F1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
