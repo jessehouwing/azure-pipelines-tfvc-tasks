@@ -151,7 +151,7 @@ function Get-SourceProvider {
 
             if ($provider.Workspace.Location -eq "Server")
             {
-                Write-Waring "Server workspace support is experimental."
+                Write-Warning "Server workspace support is experimental."
             }
 
             $provider.Workspace.Refresh()
