@@ -10,3 +10,7 @@
 !/vsts-tfvc-shared/*.psm1
 /.cr
 /vsts-tfvc-*/ps_modules
+/vsts-tfvc-add/node_modules
+/vsts-tfvc-add/node_modules
+/vsts-tfvc-add/TfvcAdd.js.map
+/vsts-tfvc-add/TfvcAdd.js
