@@ -92,7 +92,12 @@
     {
       "path": "vsts-tfvc-add/icon.png"
     },
-
+    {
+      "path": "vsts-tfvc-add/TfvcAdd.js"
+    },
+    {
+      "path": "vsts-tfvc-add/node_modules"
+    },
 
 
     {
