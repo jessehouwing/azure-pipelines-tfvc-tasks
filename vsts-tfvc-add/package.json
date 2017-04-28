@@ -1,0 +1,21 @@
+{
+  "name": "vsts-tfvc-add",
+  "version": "1.0.0",
+  "description": "",
+  "main": "TfvcAdd.js",
+  "scripts": {
+    "test": "snyk test"
+  },
+  "author": "Jesse Houwing",
+  "license": "MIT",
+  "dependencies": {
+    "vsts-task-lib": "^2.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.14",
+    "@types/q": "^1.0.0",
+    "snyk": "^1.29.0",
+    "tslint": "^5.1.0",
+    "typescript": "^2.3.1"
+  }
+}
