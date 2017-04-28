@@ -62,6 +62,10 @@
     "PowerShell": {
       "target": "$(currentDirectory)\\TfvcAdd.ps1",
       "argumentFormat": ""
+    },
+    "Node": {
+      "target": "$(currentDirectory)\\TfvcAdd.js",
+      "argumentFormat": ""
     }
   }
 }
