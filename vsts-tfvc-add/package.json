@@ -4,8 +4,12 @@
   "description": "",
   "main": "TfvcAdd.js",
   "scripts": {
-    "test": "snyk test"
+    "test": "snyk test",
+    "initdev:npm": "npm install",
+    "initdev": "npm run initdev:npm",
+    "build": "tsc && npm dedupe && npm prune --production"
   },
+
   "author": "Jesse Houwing",
   "license": "MIT",
   "dependencies": {
