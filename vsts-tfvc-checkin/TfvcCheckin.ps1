@@ -260,7 +260,7 @@ Try
             if (($override -eq $null) -or $OverridePolicy)
             {
                 $checkInParameters = new-object Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters(@($pendingChanges), $Comment)
-                $checkinParameters.Author = $env:BUILD_QUEUEDBY
+                $checkinParameters.Author = $env:BUILD_QUEUEDBYID
                 if ($CheckinNotes -ne $null)
                 {
                     $checkInParameters.CheckinNotes = $CheckinNotes
