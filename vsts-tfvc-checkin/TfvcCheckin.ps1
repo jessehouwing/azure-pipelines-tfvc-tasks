@@ -269,9 +269,12 @@ Try
 					"RequestedForId" { $AuthorCustom = $env:BUILD_REQUESTEDFORID }
 					"QueuedBy" { $AuthorCustom = $env:BUILD_QUEUEDBY }
 					"QueuedById" { $AuthorCustom = $env:BUILD_QUEUEDBYID }
-					"None" { $AuthorCustom = "" }
+					"None" { $AuthorCustom = $null }
 				}
-				$checkinParameters.Author = $AuthorCustom
+				if ($AuthorCustom -ne $null)
+                {
+					$checkinParameters.Author = $AuthorCustom
+				}
 
                 if ($CheckinNotes -ne $null)
                 {
