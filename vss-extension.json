@@ -61,8 +61,8 @@
       "description": "Chat"
     },
     {
-      "href": "https://jessehouwing.visualstudio.com/DefaultCollection/vsts-tfvc-tasks/_build",
-      "uri": "https://jessehouwing.visualstudio.com/DefaultCollection/_apis/public/build/definitions/25755ae1-d9b8-43e3-a7a2-6c964c760d09/28/badge",
+      "href": "https://jessehouwing.visualstudio.com/vsts-extensions/vsts-extensions%20Team/_build/index?context=allDefinitions&path=%5Cvsts-tfvc-tasks&definitionId=49&_a=completed",
+      "uri": "https://jessehouwing.visualstudio.com/_apis/public/build/definitions/a88536a2-a889-45a3-a955-ddf1af8aeba1/49/badge",
       "description": "Build"
     }
   ],
