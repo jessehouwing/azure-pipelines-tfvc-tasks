@@ -1,4 +1,8 @@
 # Release Notes
+> **24-11-2017**
+
+> - FIX: Make Author field configurable. Will allow people to circumvent `TF14045: The identity XXXX is not a recognized identity.`
+
 > **1-12-2016**
 
 > - Add: throw error on server workspaces. They are not supported. Please upgrade to Agent 2.0 or configure your Project Collection to default to local workspaces.
