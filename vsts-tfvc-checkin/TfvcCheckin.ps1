@@ -17,7 +17,9 @@ param(
     [string] $SkipShelveset = $true,
     [string] $AutoDetectAdds = $false,
     [string] $AutoDetectDeletes = $false,
-    [string] $BypassGatedCheckin = $false
+    [string] $BypassGatedCheckin = $false,
+	[string] $Author,
+	[string] $AuthorCustom
 )
 
 Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
@@ -260,17 +262,27 @@ Try
             if (($override -eq $null) -or $OverridePolicy)
             {
                 $checkInParameters = new-object Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters(@($pendingChanges), $Comment)
-                $checkinParameters.Author = $env:BUILD_QUEUEDBYID
+                
+				switch ($Author)
+				{
+					"RequestedFor" { $AuthorCustom = $env:BUILD_REQUESTEDFOR }
+					"RequestedForId" { $AuthorCustom = $env:BUILD_REQUESTEDFORID }
+					"QueuedBy" { $AuthorCustom = $env:BUILD_QUEUEDBY }
+					"QueuedById" { $AuthorCustom = $env:BUILD_QUEUEDBYID }
+					"None" { $AuthorCustom = "" }
+				}
+				$checkinParameters.Author = $AuthorCustom
+
                 if ($CheckinNotes -ne $null)
                 {
                     $checkInParameters.CheckinNotes = $CheckinNotes
                 }
+
                 $checkInParameters.PolicyOverride = $override
                 $checkInParameters.QueueBuildForGatedCheckIn = -not ($BypassGatedCheckin -eq $true)
                 $checkInParameters.OverrideGatedCheckIn = ($BypassGatedCheckin -eq $true)
                 $checkInParameters.AllowUnchangedContent = $false
                 $checkInParameters.NoAutoResolve = $false
-                #$checkInParameters.CheckinDate = Get-Date
 
                 Write-Verbose "Entering Workspace-Checkin"
                 $provider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
