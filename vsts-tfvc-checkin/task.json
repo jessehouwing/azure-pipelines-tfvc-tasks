@@ -151,6 +151,33 @@
       "type": "pickList"
     },
     {
+      "defaultValue": "RequestedForId",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "The Username or Id supplied as Author for the changeset See also: [How are identities set](https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/build/variables?tabs=batch#identity_values).<br/><br/>Note: Due to some users reporting issues with previously hardcoded options, this is now configurable.",
+      "label": "Author",
+      "name": "Author",
+      "required": true,
+      "type": "pickList",
+      "options": {
+        "None": "None",
+        "QueuedByName": "Queued by Username",
+        "QueuedById": "Queued by Id",
+        "RequestedFor": "Requested for Username",
+        "RequestedForId": "Requested for Id",
+        "Custom": "Custom"
+      }
+    },
+    {
+      "defaultValue": "",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Specify a custom username or variable expression to use as Author (must evaluate to a known user in VSTS/TFS).",
+      "label": "Custom Author",
+      "name": "AuthorCustom",
+      "required": true,
+      "type": "string",
+      "visibleRule": "Author = Custom"
+    },
+    {
       "defaultValue": "",
       "groupName": "configurationOptions",
       "helpMarkdown": "The comment which will show up in the source control history for this changeset.",
