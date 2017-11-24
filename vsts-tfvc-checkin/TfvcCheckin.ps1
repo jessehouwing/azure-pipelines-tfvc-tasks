@@ -270,6 +270,7 @@ Try
 					"QueuedBy" { $AuthorCustom = $env:BUILD_QUEUEDBY }
 					"QueuedById" { $AuthorCustom = $env:BUILD_QUEUEDBYID }
 					"None" { $AuthorCustom = $null }
+					default { $AuthorCustom = $null }
 				}
 				if ($AuthorCustom -ne $null)
                 {
