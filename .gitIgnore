@@ -10,3 +10,5 @@
 !/vsts-tfvc-shared/*.psm1
 /.cr
 /vsts-tfvc-*/ps_modules
+node_modules/
+obj/

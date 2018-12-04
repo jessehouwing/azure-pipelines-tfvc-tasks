@@ -11,7 +11,7 @@
   ],
   "description": "Build extensions that enable you to interact with TFVC repositories.",
   "categories": [
-    "Build and release"
+    "Azure Pipelines"
   ],
   "tags": [
     "tfvc",
