@@ -104,7 +104,12 @@ function Get-SourceProvider {
     $success = $false
     try {
         if ($provider.Name -eq 'TfsVersionControl') {
-            $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
+			$RepositoryName = $env:BUILD_REPOSITORY_NAME
+			if ($env:BUILD_REPOSITORY_NAME -eq '')
+			{
+				$RepositoryName = $env:SYSTEM_TEAMPROJECT
+			}
+            $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $RepositoryName
             $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
 
             $provider.TfsTeamProjectCollection = New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
