@@ -123,7 +123,7 @@ function Get-TfsTeamProjectCollection()
             $RepositoryName = $env:SYSTEM_TEAMPROJECT
         }
 
-        $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
+        $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $RepositoryName
         $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
             
         return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
