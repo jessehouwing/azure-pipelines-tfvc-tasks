@@ -8,7 +8,7 @@ $Recursion                  = Get-VstsInput -Name Recursion                  -De
 $Recursive                  = Get-VstsInput -Name Recursive                  -Default $false        -AsBool
 $ApplyLocalitemExclusions   = Get-VstsInput -Name ApplyLocalitemExclusions   -Default $false        -AsBool
 
-Import-Module VstsTfvcShared -DisableNameChecking
+Import-Module ".\ps_modules\VstsTfvcShared\VstsTfvcShared.psm1" -DisableNameChecking
 Write-Message -Type "Verbose"  "Importing modules"
 Write-Message -Type "Verbose"  "Entering script $($MyInvocation.MyCommand.Name)"
 

@@ -1,3 +1,40 @@
+function Write-Message{
+    param(
+        [string] $Message,
+        [string] $Type = "Output"
+    )
+    
+    if (-not (Get-Module "VstsTaskSdk"))
+    {
+        switch ($Type)
+        {
+            "Output"  { Write-Output $Message }
+            "Debug"   { Write-VstsTaskDebug $Message }
+            "Warning" { Write-VstsTaskWarning $Message }
+            "Error"   { Write-VstsTaskError $Message }
+            "Verbose" { Write-VstsTaskVerbose $Message }
+        }
+    }
+    else
+    {
+        switch ($Type)
+        {
+            "Output"  { Write-Output $Message }
+            "Debug"   { Write-Debug $Message }
+            "Warning" { Write-Warning $Message }
+            "Error"   { Write-Error $Message }
+            "Verbose" { Write-Verbose $message }
+        }
+    }
+}
+
+function Find-VisualStudio {
+    $ErrorActionPreference = 'Stop'
+    $path = vswhere -latest -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
+    $path = join-path $path '\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\'
+    return $path
+}
+
 function Load-Assembly {
     [cmdletbinding()]
     param(
@@ -22,17 +59,7 @@ function Load-Assembly {
             $ProbingPaths += $env:AGENT_SERVEROMDIRECTORY
         }
 
-        $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-        if ($VS1464Path -ne $null)
-        {
-            $ProbingPaths += (Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
-        }
-
-        $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-        if ($VS1432Path -ne $null)
-        {
-            $ProbingPaths += (Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
-        }
+        $ProbingPaths += Find-VisualStudio
     }
 
     foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
@@ -48,6 +75,7 @@ function Load-Assembly {
     foreach ($path in $ProbingPaths)
     {
         $path = [System.IO.Path]::Combine($path, "$($assemblyToLoad.Name).dll")
+        Write-Message -Type Debug "Trying: $path"
         if (Test-Path -PathType Leaf -LiteralPath $path)
         {
             if ([System.Reflection.AssemblyName]::GetAssemblyName($path).Name -eq $assemblyToLoad.Name)
@@ -62,31 +90,7 @@ function Load-Assembly {
     throw "Could not load assembly: $Name"
 }
 
-Load-Assembly "Microsoft.TeamFoundation.Client"
-Load-Assembly "Microsoft.TeamFoundation.Common"
-Load-Assembly "Microsoft.TeamFoundation.VersionControl.Client"
-Load-Assembly "Microsoft.TeamFoundation.WorkItemTracking.Client"
-Load-Assembly "Microsoft.TeamFoundation.Diff"
 
-$OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
-    param($sender, $e)
-
-    if ($e.Exception -ne $null -and $e.Exception.Message -ne $null)
-    {
-        Write-Message -Type Warning  $e.Exception.Message
-    }
-    if ($e.Failure -ne $null -and $e.Failure.Message -ne $null)
-    {
-        Write-Message -Type Warning  $e.Failure.Message
-        if ($e.Failure.Warnings -ne $null -and $e.Failure.Warnings.Length -gt 0)
-        {
-            foreach ($warning in $e.Failure.Warnings)
-            {
-                Write-Message -Type Warning $warning.ParentOrChildTask 
-            }
-        }
-    }
-}
 
 function Get-TfsTeamProjectCollection()
 {
@@ -320,36 +324,33 @@ function Convert-ToItemSpecs {
     return @([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($Paths, $RecursionType))
 }
 
-function Write-Message{
-    param(
-        [string] $Message,
-        [string] $Type = "Output"
-    )
-    
-    if ((Get-Command Get-VstsTaskError))
+Load-Assembly "Microsoft.TeamFoundation.Client"
+Load-Assembly "Microsoft.TeamFoundation.Common"
+Load-Assembly "Microsoft.TeamFoundation.VersionControl.Client"
+Load-Assembly "Microsoft.TeamFoundation.WorkItemTracking.Client"
+Load-Assembly "Microsoft.TeamFoundation.Diff"
+
+$OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
+    param($sender, $e)
+
+    if ($e.Exception -ne $null -and $e.Exception.Message -ne $null)
     {
-        switch ($Type)
-        {
-            "Output"  { Write-Output $Message }
-            "Debug"   { Write-VstsTaskDebug $Message }
-            "Warning" { Write-VstsTaskWarning $Message }
-            "Error"   { Write-VstsTaskError $Message }
-            "Verbose" { Write-VstsTaskVerbose $Message }
-        }
+        Write-Message -Type Warning  $e.Exception.Message
     }
-    else
+    if ($e.Failure -ne $null -and $e.Failure.Message -ne $null)
     {
-        switch ($Type)
+        Write-Message -Type Warning  $e.Failure.Message
+        if ($e.Failure.Warnings -ne $null -and $e.Failure.Warnings.Length -gt 0)
         {
-            "Output"  { Write-Output $Message }
-            "Debug"   { Write-Debug $Message }
-            "Warning" { Write-Warning $Message }
-            "Error"   { Write-Error $Message }
-            "Verbose" { Write-Verbose $message }
+            foreach ($warning in $e.Failure.Warnings)
+            {
+                Write-Message -Type Warning $warning.ParentOrChildTask 
+            }
         }
     }
 }
 
+Export-ModuleMember -Function Write-Message
 Export-ModuleMember -Function Invoke-DisposeSourceProvider
 Export-ModuleMember -Function Get-SourceProvider
 Export-ModuleMember -Function AutoPend-WorkspaceChanges
