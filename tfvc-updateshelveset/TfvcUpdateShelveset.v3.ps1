@@ -5,7 +5,7 @@ param()
 Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
 
 $Itemspec             = Get-VstsInput -Name ItemSpec             -Require 
-$Recursion            = Get-VstsInput -Name Recursion            -Require               -AsBool
+$Recursion            = Get-VstsInput -Name Recursion            -Default "Full"               
 $SkipNonGated         = Get-VstsInput -Name SkipNonGated         -Default $true         -AsBool
 $AutoDetectAdds       = Get-VstsInput -Name AutoDetectAdds       -Default $false        -AsBool
 $AutoDetectDeletes    = Get-VstsInput -Name AutoDetectDeletes    -Default $false        -AsBool
@@ -21,12 +21,12 @@ Try
 {
     $provider = Get-SourceProvider
     
-    $IsShelvesetBuild = (Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset") -ne ""
+    $IsShelvesetBuild = (Get-VstsTaskVariable -Name "Build.SourceTfvcShelveset") -ne ""
     $shelvesets = @()
 
     if ($IsShelvesetBuild)
     {
-        $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
+        $BuildId = Get-VstsTaskVariable -Name "Build.BuildId"
         $ShelvesetName = "_Build_$BuildId"
         $Owner = $provider.VersionControlServer.AuthorizedIdentity.UniqueName
 
