@@ -60,6 +60,18 @@ function Load-Assembly {
         }
 
         $ProbingPaths += Find-VisualStudio
+
+        $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+        if ($VS1464Path -ne $null)
+        {
+            $ProbingPaths += (Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
+        }
+
+        $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+        if ($VS1432Path -ne $null)
+        {
+            $ProbingPaths += (Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
+        }
     }
 
     foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
@@ -96,7 +108,7 @@ function Get-TfsTeamProjectCollection()
 {
     if ((Get-Module "VstsTaskSdk"))
     {
-        $ProjectCollectionUri = Get-VstsTaskVariable "System.TeamFoundationCollectionUri" -Require
+        $ProjectCollectionUri = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
         $tfsClientCredentials = Get-VstsTfsClientCredentials
             
         return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
@@ -105,6 +117,12 @@ function Get-TfsTeamProjectCollection()
     }
     else
     {
+        $RepositoryName = $env:BUILD_REPOSITORY_NAME
+        if ($env:BUILD_REPOSITORY_NAME -eq '')
+        {
+            $RepositoryName = $env:SYSTEM_TEAMPROJECT
+        }
+
         $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $env:BUILD_REPOSITORY_NAME
         $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
             
@@ -127,17 +145,7 @@ function Get-SourceProvider {
     $success = $false
     try {
         if ($provider.Name -eq 'TfsVersionControl') {
-			$RepositoryName = $env:BUILD_REPOSITORY_NAME
-			if ($env:BUILD_REPOSITORY_NAME -eq '')
-			{
-				$RepositoryName = $env:SYSTEM_TEAMPROJECT
-			}
-            $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $RepositoryName
-            $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
-
-            $provider.TfsTeamProjectCollection = New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
-                $serviceEndpoint.Url,
-                $tfsClientCredentials)
+            $provider.TfsTeamProjectCollection = Get-TfsTeamProjectCollection
 
             $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
             $versionControlServer.add_NonFatalError($OnNonFatalError)
