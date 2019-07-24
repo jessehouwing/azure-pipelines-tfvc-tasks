@@ -7,8 +7,9 @@ Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
 $Itemspec                   = Get-VstsInput -Name ItemSpec                   -Default "$/" 
 $Recursion                  = Get-VstsInput -Name Recursion                  -Default "None"
 
-Write-VstsTaskVerbose "Importing modules"
-Import-Module VstsTfvcShared -DisableNameChecking
+Import-Module ".\ps_modules\VstsTfvcShared\VstsTfvcShared.psm1" -DisableNameChecking
+Write-Message -Type "Verbose"  "Importing modules"
+Write-Message -Type "Verbose"  "Entering script $($MyInvocation.MyCommand.Name)"
 
 [string[]] $FilesToCheckout = $ItemSpec -split ';|\r?\n'
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion

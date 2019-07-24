@@ -18,8 +18,9 @@ $AutoDetectAdds       = Get-VstsInput -Name AutoDetectAdds       -Default $false
 $AutoDetectDeletes    = Get-VstsInput -Name AutoDetectDeletes    -Default $false        -AsBool
 $BypassGatedCheckin   = Get-VstsInput -Name BypassGatedCheckin   -Default $false        -AsBool
 
-Write-VstsTaskVerbose "Importing modules"
-Import-Module VstsTfvcShared -DisableNameChecking
+Import-Module ".\ps_modules\VstsTfvcShared\VstsTfvcShared.psm1" -DisableNameChecking
+Write-Message -Type "Verbose"  "Importing modules"
+Write-Message -Type "Verbose"  "Entering script $($MyInvocation.MyCommand.Name)"
 
 
 if (-not ($ConfirmUnderstand -eq $true))

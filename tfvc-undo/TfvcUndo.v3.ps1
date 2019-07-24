@@ -8,8 +8,9 @@ $Itemspec             = Get-VstsInput -Name ItemSpec             -Require
 $Recursion            = Get-VstsInput -Name Recursion            -Require
 $DeleteAdds           = Get-VstsInput -Name DeleteAdds           -Default $false         -AsBool
 
-Write-VstsTaskVerbose "Importing modules"
-Import-Module VstsTfvcShared -DisableNameChecking
+Import-Module ".\ps_modules\VstsTfvcShared\VstsTfvcShared.psm1" -DisableNameChecking
+Write-Message -Type "Verbose"  "Importing modules"
+Write-Message -Type "Verbose"  "Entering script $($MyInvocation.MyCommand.Name)"
 
 [string[]] $FilesToUndo = $ItemSpec -split ';|\r?\n'
     
