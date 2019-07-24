@@ -43,16 +43,16 @@
   },
   "links": {
     "getstarted": {
-      "uri": "https://github.com/jessehouwing/vsts-tfvc-tasks/wiki"
+      "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki"
     },
     "support": {
-      "uri": "https://github.com/jessehouwing/vsts-tfvc-tasks/issues"
+      "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues"
     }
   },
   "badges": [
     {
       "href": "https://paypal.me/jessehouwing/5",
-      "uri": "https://github.com/jessehouwing/vsts-snyk-task/blob/master/extension/images/donate.png?raw=true",
+      "uri": "https://github.com/jessehouwing/azure-pipelines-snyk-task/blob/master/extension/images/donate.png?raw=true",
       "description": "Donate"
     },
     {
@@ -61,15 +61,15 @@
       "description": "Chat"
     },
     {
-      "href": "https://jessehouwing.visualstudio.com/vsts-extensions/vsts-extensions%20Team/_build/index?context=allDefinitions&path=%5Cvsts-tfvc-tasks&definitionId=49&_a=completed",
-      "uri": "https://jessehouwing.visualstudio.com/_apis/public/build/definitions/a88536a2-a889-45a3-a955-ddf1af8aeba1/49/badge",
+      "href": "https://dev.azure.com/jessehouwing/azure-devops-extensions/_build/latest?definitionId=49&branchName=master",
+      "uri": "https://dev.azure.com/jessehouwing/azure-devops-extensions/_apis/build/status/azure-pipelines-tfvc-tasks/azure-pipelines-tfvc-tasks-release?branchName=master",
       "description": "Build"
     }
   ],
 
   "repository": {
     "type": "git",
-    "uri": "https://github.com/jessehouwing/vsts-tfvc-tasks"
+    "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks"
   },
   "branding": {
     "color": "rgb(36, 43, 50)",
@@ -81,88 +81,99 @@
 
   "files": [
     {
-      "path": "vsts-tfvc-add/TfvcAdd.ps1"
+      "path": "tfvc-add/TfvcAdd.ps1"
     },
     {
-      "path": "vsts-tfvc-add/TfvcAdd.v3.ps1"
+      "path": "tfvc-add/TfvcAdd.v3.ps1"
     },
     {
-      "path": "vsts-tfvc-add/task.json"
+      "path": "tfvc-add/task.json"
     },
     {
-      "path": "vsts-tfvc-add/icon.png"
+      "path": "tfvc-add/icon.png"
     },
     {
-      "path": "vsts-tfvc-add/ps_modules"
-    },
-
-
-
-    {
-      "path": "vsts-tfvc-checkin/TfvcCheckin.ps1"
-    },
-    {
-      "path": "vsts-tfvc-checkin/TfvcCheckin.v3.ps1"
-    },
-    {
-      "path": "vsts-tfvc-checkin/task.json"
-    },
-    {
-      "path": "vsts-tfvc-checkin/icon.png"
-    },
-    {
-      "path": "vsts-tfvc-checkin/ps_modules"
-    },
-
-
-
-    {
-      "path": "vsts-tfvc-delete/TfvcDelete.ps1"
-    },
-    {
-      "path": "vsts-tfvc-delete/TfvcDelete.v3.ps1"
-    },
-    {
-      "path": "vsts-tfvc-delete/task.json"
-    },
-    {
-      "path": "vsts-tfvc-delete/icon.png"
-    },
-    {
-      "path": "vsts-tfvc-delete/ps_modules"
-    },
-
-
-    {
-      "path": "vsts-tfvc-undo/TfvcUndo.ps1"
-    },
-    {
-      "path": "vsts-tfvc-undo/TfvcUndo.v3.ps1"
-    },
-    {
-      "path": "vsts-tfvc-undo/task.json"
-    },
-    {
-      "path": "vsts-tfvc-undo/icon.png"
-    },
-    {
-      "path": "vsts-tfvc-undo/ps_modules"
+      "path": "tfvc-add/ps_modules"
     },
 
     {
-      "path": "vsts-tfvc-updateshelveset/TfvcUpdateShelveset.ps1"
+      "path": "tfvc-checkout/TfvcCheckout.ps1"
     },
     {
-      "path": "vsts-tfvc-updateshelveset/TfvcUpdateShelveset.v3.ps1"
+      "path": "tfvc-checkout/TfvcCheckout.v3.ps1"
     },
     {
-      "path": "vsts-tfvc-updateshelveset/task.json"
+      "path": "tfvc-checkout/task.json"
     },
     {
-      "path": "vsts-tfvc-updateshelveset/icon.png"
+      "path": "tfvc-checkout/icon.png"
     },
     {
-      "path": "vsts-tfvc-updateshelveset/ps_modules"
+      "path": "tfvc-checkout/ps_modules"
+    },
+
+    {
+      "path": "tfvc-checkin/TfvcCheckin.ps1"
+    },
+    {
+      "path": "tfvc-checkin/TfvcCheckin.v3.ps1"
+    },
+    {
+      "path": "tfvc-checkin/task.json"
+    },
+    {
+      "path": "tfvc-checkin/icon.png"
+    },
+    {
+      "path": "tfvc-checkin/ps_modules"
+    },
+
+    {
+      "path": "tfvc-delete/TfvcDelete.ps1"
+    },
+    {
+      "path": "tfvc-delete/TfvcDelete.v3.ps1"
+    },
+    {
+      "path": "tfvc-delete/task.json"
+    },
+    {
+      "path": "tfvc-delete/icon.png"
+    },
+    {
+      "path": "tfvc-delete/ps_modules"
+    },
+
+    {
+      "path": "tfvc-undo/TfvcUndo.ps1"
+    },
+    {
+      "path": "tfvc-undo/TfvcUndo.v3.ps1"
+    },
+    {
+      "path": "tfvc-undo/task.json"
+    },
+    {
+      "path": "tfvc-undo/icon.png"
+    },
+    {
+      "path": "tfvc-undo/ps_modules"
+    },
+
+    {
+      "path": "tfvc-updateshelveset/TfvcUpdateShelveset.ps1"
+    },
+    {
+      "path": "tfvc-updateshelveset/TfvcUpdateShelveset.v3.ps1"
+    },
+    {
+      "path": "tfvc-updateshelveset/task.json"
+    },
+    {
+      "path": "tfvc-updateshelveset/icon.png"
+    },
+    {
+      "path": "tfvc-updateshelveset/ps_modules"
     }
 
   ],
@@ -174,7 +185,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "vsts-tfvc-add"
+        "name": "tfvc-add"
       }
     },
     {
@@ -184,7 +195,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "vsts-tfvc-checkin"
+        "name": "tfvc-checkin"
       }
     },
     {
@@ -194,7 +205,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "vsts-tfvc-checkout"
+        "name": "tfvc-checkout"
       }
     },
     {
@@ -204,7 +215,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "vsts-tfvc-delete"
+        "name": "tfvc-delete"
       }
     },
     {
@@ -214,7 +225,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "vsts-tfvc-undo"
+        "name": "tfvc-undo"
       }
     },
     {
@@ -224,7 +235,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "vsts-tfvc-updateshelveset"
+        "name": "tfvc-updateshelveset"
       }
     }
   ]

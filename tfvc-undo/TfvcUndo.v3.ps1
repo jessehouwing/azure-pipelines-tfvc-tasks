@@ -1,9 +1,8 @@
 ﻿[cmdletbinding()]
 param() 
 
-Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
-
 Import-Module VstsTaskSdk
+Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
 
 $Itemspec             = Get-VstsInput -Name ItemSpec             -Require 
 $Recursion            = Get-VstsInput -Name Recursion            -Require

@@ -1,17 +1,24 @@
 ﻿[cmdletbinding()]
-param() 
-Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
+param(
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [string] $Itemspec = "$/",
+    [Parameter(Mandatory=$true)]
+    [ValidateSet("None", "Full", "OneLevel")]
+    [string] $Recursion = "None",
+    [string] $AutoDetectAdds = $false,
+    [string] $AutoDetectDeletes = $false,
+    [string] $SkipNonGated = $true
+) 
 
-Import-Module VstsTaskSdk
+Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
+Write-Verbose "Parameter Values"
+$PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
 
-$Itemspec             = Get-VstsInput -Name ItemSpec             -Require 
-$Recursion            = Get-VstsInput -Name Recursion            -Require               -AsBool
-$SkipNonGated         = Get-VstsInput -Name SkipNonGated         -Default $true         -AsBool
-$AutoDetectAdds       = Get-VstsInput -Name AutoDetectAdds       -Default $false        -AsBool
-$AutoDetectDeletes    = Get-VstsInput -Name AutoDetectDeletes    -Default $false        -AsBool
-
-Write-VstsTaskVerbose "Importing modules"
-Import-Module VstsTfvcShared -DisableNameChecking
+Write-Verbose "Importing modules"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
+Import-Module -DisableNameChecking "$PSScriptRoot/ps_modules/VstsTfvcShared/VstsTfvcShared.psm1"
 
 [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
@@ -19,9 +26,13 @@ $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$
 Try
 {
     $provider = Get-SourceProvider
+    if (-not $provider)
+    {
+        return;
+    }
     
     $IsShelvesetBuild = (Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset") -ne ""
-    $shevesets = @()
+    $shelvesets = @()
 
     if ($IsShelvesetBuild)
     {

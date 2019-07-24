@@ -1,31 +1,39 @@
 [cmdletbinding()]
-param()
+param(
+    [string] $Comment = "",
+    [string] $IncludeNoCIComment = $true,
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [string] $Itemspec = "$/*",
+    [Parameter(Mandatory=$true)]
+    [ValidateSet("None", "Full", "OneLevel")]
+    [string] $Recursion = "Full",
+    [Parameter(Mandatory=$true)]
+    [string] $ConfirmUnderstand = $false,
+    [string] $OverridePolicy = $false,
+    [string] $OverridePolicyReason = "",
+    [string] $Notes = "",
+    [string] $SkipGated = $true,
+    [string] $SkipShelveset = $true,
+    [string] $AutoDetectAdds = $false,
+    [string] $AutoDetectDeletes = $false,
+    [string] $BypassGatedCheckin = $false,
+	[string] $Author,
+	[string] $AuthorCustom
+)
 
-Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
+Write-Verbose "Entering script $($MyInvocation.MyCommand.Name)"
+Write-Verbose "Parameter Values"
+$PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
 
-Import-Module VstsTaskSdk
-
-$Comment              = Get-VstsInput -Name Comment              -Default ""
-$IncludeNoCIComment   = Get-VstsInput -Name IncludeNoCIComment   -Default $true         -AsBool
-$Itemspec             = Get-VstsInput -Name ItemSpec             -Require 
-$Recursion            = Get-VstsInput -Name Recursion            -Require               -AsBool
-$ConfirmUnderstand    = Get-VstsInput -Name ConfirmUnderstand    -Require               -AsBool
-$OverridePolicy       = Get-VstsInout -Name OverridePolicy       -Default $false        -AsBool
-$OverridePolicyReason = Get-VstsInput -Name OverridePolicyReason -Default ""
-$Noted                = Get-VstsInput -Name Notes                -Default ""
-$Skipgated            = Get-VstsInput -Name SkipGated            -Default $true         -AsBool
-$SkipShelveset        = Get-VstsInput -Name SkipShelveset        -Default $true         -AsBool
-$AutoDetectAdds       = Get-VstsInput -Name AutoDetectAdds       -Default $false        -AsBool
-$AutoDetectDeletes    = Get-VstsInput -Name AutoDetectDeletes    -Default $false        -AsBool
-$BypassGatedCheckin   = Get-VstsInput -Name BypassGatedCheckin   -Default $false        -AsBool
-
-Write-VstsTaskVerbose "Importing modules"
-Import-Module VstsTfvcShared -DisableNameChecking
-
+Write-Verbose "Importing modules"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
+import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
+Import-Module -DisableNameChecking "$PSScriptRoot/ps_modules/VstsTfvcShared/VstsTfvcShared.psm1"
 
 if (-not ($ConfirmUnderstand -eq $true))
 {
-    Write-VstsTaskError "Checking in sources during build can cause delays in your builds, recursive builds, mismatches between sources and symbols and other issues."
+    Write-Error "Checking in sources during build can cause delays in your builds, recursive builds, mismatches between sources and symbols and other issues."
 }
 
 Function Evaluate-Checkin {
@@ -41,7 +49,7 @@ Function Evaluate-Checkin {
         [ref] $passed
     )
 
-    Write-VstsTaskVerbose "Entering Evaluate-Checkin"
+    Write-Verbose "Entering Evaluate-Checkin"
     Try
     {
         $passed = $true
@@ -53,11 +61,11 @@ Function Evaluate-Checkin {
             {
                 if ($conflict.Resolvable)
                 {
-                    Write-VstsTaskWarning $conflict.Message
+                    Write-Warning $conflict.Message
                 }
                 else
                 {
-                    Write-VstsTaskError $conflict.Message
+                    Write-Error $conflict.Message
                 }
             }
         }
@@ -65,20 +73,20 @@ Function Evaluate-Checkin {
         {
             foreach ($noteFailure in $result.NoteFailures)
             {
-                Write-VstsTaskWarning "$($noteFailure.Definition.Name): $($noteFailure.Message)"
+                Write-Warning "$($noteFailure.Definition.Name): $($noteFailure.Message)"
             }
             $passed = $false;
         }
         if ($result.PolicyEvaluationException -ne $null)
         {
-            Write-VstsTaskError($result.PolicyEvaluationException.Message);
+            Write-Error($result.PolicyEvaluationException.Message);
             $passed = $false;
         }
         return $result
     }
     Finally
     {
-        Write-VstsTaskVerbose "Leaving Evaluate-Checkin"
+        Write-Verbose "Leaving Evaluate-Checkin"
     }
 }
 
@@ -90,7 +98,7 @@ Function Handle-PolicyOverride {
         [ref] $passed
     )
 
-    Write-VstsTaskVerbose "Entering Handle-PolicyOverride"
+    Write-Verbose "Entering Handle-PolicyOverride"
 
     Try
     {
@@ -100,7 +108,7 @@ Function Handle-PolicyOverride {
         {
             foreach ($failure in $policyFailures)
             {
-                Write-VstsTaskWarning "$($failure.Message)"
+                Write-Warning "$($failure.Message)"
             }
             if ($overrideComment -ne "")
             {
@@ -112,7 +120,7 @@ Function Handle-PolicyOverride {
     }
     Finally
     {
-        Write-VstsTaskVerbose "Leaving Handle-PolicyOverride"
+        Write-Verbose "Leaving Handle-PolicyOverride"
     }
 }
 
@@ -143,26 +151,26 @@ function Parse-CheckinNotes {
 
             if ($note.Count -eq 1)
             {
-                Write-VstsTaskError "Ignoring Checkin note without value"
+                Write-Error "Ignoring Checkin note without value"
                 return $null
             }
             elseif ($note.Count -ne 2)
             {
-                Write-VstsTaskError "Unable to parse checkin note"
+                Write-Error "Unable to parse checkin note"
                 return $null
             }
 
             return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0].Trim(), $note[1].Trim())
         } | ?{$_ -ne $null} )
 
-        Write-VstsTaskWarning "Using old Notes notation, please switch to the new Json format:"
+        Write-Warning "Using old Notes notation, please switch to the new Json format:"
         $ParsedNotes = "{ }" | ConvertFrom-Json
         foreach ($fieldValue in $fieldValues)
         {
             Add-Member -InputObject $ParsedNotes -NotePropertyName  $fieldValue.Name -NotePropertyValue $fieldValue.Value -Force
         }
         
-        Write-VstsTaskWarning ($ParsedNotes | ConvertTo-Json -Depth 5 )
+        Write-Warning ($ParsedNotes | ConvertTo-Json -Depth 5 )
     }
 
     if ($fieldValues.Length -gt 0)
@@ -174,9 +182,13 @@ function Parse-CheckinNotes {
 Try
 {
     $provider = Get-SourceProvider
+    if (-not $provider)
+    {
+        return;
+    }
 
     $BuildSourceTfvcShelveset = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
-    Write-VstsTaskDebug "Build.SourceTfvcShelveset = '$BuildSourceTfvcShelveset'."
+    Write-Debug "Build.SourceTfvcShelveset = '$BuildSourceTfvcShelveset'."
     $IsShelvesetBuild = "$BuildSourceTfvcShelveset" -ne ""
     $IsGatedBuild = $false
     
@@ -252,28 +264,42 @@ Try
             if (($override -eq $null) -or $OverridePolicy)
             {
                 $checkInParameters = new-object Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters(@($pendingChanges), $Comment)
-                $checkinParameters.Author = $env:BUILD_QUEUEDBY
+                
+				switch ($Author)
+				{
+					"RequestedFor" { $AuthorCustom = $env:BUILD_REQUESTEDFOR }
+					"RequestedForId" { $AuthorCustom = $env:BUILD_REQUESTEDFORID }
+					"QueuedBy" { $AuthorCustom = $env:BUILD_QUEUEDBY }
+					"QueuedById" { $AuthorCustom = $env:BUILD_QUEUEDBYID }
+					"None" { $AuthorCustom = $null }
+					default { $AuthorCustom = $null }
+				}
+				if ($AuthorCustom -ne $null)
+                {
+					$checkinParameters.Author = $AuthorCustom
+				}
+
                 if ($CheckinNotes -ne $null)
                 {
                     $checkInParameters.CheckinNotes = $CheckinNotes
                 }
+
                 $checkInParameters.PolicyOverride = $override
                 $checkInParameters.QueueBuildForGatedCheckIn = -not ($BypassGatedCheckin -eq $true)
                 $checkInParameters.OverrideGatedCheckIn = ($BypassGatedCheckin -eq $true)
                 $checkInParameters.AllowUnchangedContent = $false
                 $checkInParameters.NoAutoResolve = $false
-                #$checkInParameters.CheckinDate = Get-Date
 
-                Write-VstsTaskVerbose "Entering Workspace-Checkin"
+                Write-Verbose "Entering Workspace-Checkin"
                 $provider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
 
                 $changeset = $provider.Workspace.CheckIn($checkInParameters)
                 Write-Output "Checked in changeset: $changeset"
-                Write-VstsTaskVerbose "Leaving Workspace-Checkin"
+                Write-Verbose "Leaving Workspace-Checkin"
             }
             else
             {
-                Write-VstsTaskError "Checkin policy failed"
+                Write-Error "Checkin policy failed"
             }
         }
         else
@@ -286,6 +312,3 @@ Finally
 {
     Invoke-DisposeSourceProvider -Provider $provider
 }
-
-
-

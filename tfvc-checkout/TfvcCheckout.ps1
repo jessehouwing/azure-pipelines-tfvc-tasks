@@ -1,12 +1,16 @@
 [cmdletbinding()]
-param()
+param(
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [string] $Itemspec = "$/",
+    [ValidateSet("None", "Full", "OneLevel")]
+    [string] $Recursion = "None"
+  ) 
 
-Import-Module VstsTaskSdk
-
-$Itemspec                   = Get-VstsInput -Name ItemSpec                   -Default "$/" 
-$Recursion                  = Get-VstsInput -Name Recursion                  -Default "None"
-
-Import-Module VstsTfvcShared -DisableNameChecking
+Import-Module -DisableNameChecking "$PSScriptRoot/ps_modules/VstsTfvcShared/VstsTfvcShared.psm1"
+Write-Message -Type "Verbose""Entering script $($MyInvocation.MyCommand.Name)"
+Write-Message -Type "Verbose""Parameter Values"
+$PSBoundParameters.Keys | %{ Write-Verbose "$_ = $($PSBoundParameters[$_])" }
 
 [string[]] $FilesToCheckout = $ItemSpec -split ';|\r?\n'
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
