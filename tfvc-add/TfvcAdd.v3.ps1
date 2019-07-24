@@ -1,7 +1,7 @@
 [cmdletbinding()]
 param()
 
-Import-Module VstsTaskSdk
+#Import-Module VstsTaskSdk
 
 $Itemspec                   = Get-VstsInput -Name ItemSpec                   -Default "$/" 
 $Recursion                  = Get-VstsInput -Name Recursion                  -Default "None"

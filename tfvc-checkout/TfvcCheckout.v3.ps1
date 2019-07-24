@@ -1,7 +1,7 @@
 [cmdletbinding()]
 param()
 
-Import-Module VstsTaskSdk
+#Import-Module VstsTaskSdk
 Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
 
 $Itemspec                   = Get-VstsInput -Name ItemSpec                   -Default "$/" 
