@@ -4,18 +4,7 @@ function Write-Message{
         [string] $Type = "Output"
     )
     
-    if (-not (Get-Module "VstsTaskSdk"))
-    {
-        switch ($Type)
-        {
-            "Output"  { Write-Output $Message }
-            "Debug"   { Write-VstsTaskDebug $Message }
-            "Warning" { Write-VstsTaskWarning $Message }
-            "Error"   { Write-VstsTaskError $Message }
-            "Verbose" { Write-VstsTaskVerbose $Message }
-        }
-    }
-    else
+    if ((Get-Module "VstsTaskSdk"))
     {
         switch ($Type)
         {
@@ -24,6 +13,17 @@ function Write-Message{
             "Warning" { Write-Warning $Message }
             "Error"   { Write-Error $Message }
             "Verbose" { Write-Verbose $message }
+        }
+    }
+    else
+    {
+        switch ($Type)
+        {
+            "Output"  { Write-Output $Message }
+            "Debug"   { Write-VstsTaskDebug $Message }
+            "Warning" { Write-VstsTaskWarning $Message }
+            "Error"   { Write-VstsTaskError $Message }
+            "Verbose" { Write-VstsTaskVerbose $Message }
         }
     }
 }
@@ -94,7 +94,7 @@ function Load-Assembly {
 
 function Get-TfsTeamProjectCollection()
 {
-    if ((Get-Command Get-VstsTaskVariable))
+    if ((Get-Module "VstsTaskSdk"))
     {
         $ProjectCollectionUri = Get-VstsTaskVariable "System.TeamFoundationCollectionUri" -Require
         $tfsClientCredentials = Get-VstsTfsClientCredentials
