@@ -15,7 +15,7 @@ Write-Message -Type "Verbose"  "Entering script $($MyInvocation.MyCommand.Name)"
 [string[]] $FilesToDelete = $ItemSpec -split ';|\r?\n'
 $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
     
-Write-Output "Deleting ItemSpec: $ItemSpec, Recursive: $RecursionType, Auto-detect: $Detect"
+Write-Message "Deleting ItemSpec: $ItemSpec, Recursive: $RecursionType, Auto-detect: $Detect"
 
 Try
 {
@@ -23,12 +23,12 @@ Try
 
     if ($Detect -eq $true)
     {
-        Write-VstsTaskDebug "Auto-Detect enabled"
+        Write-Message -Type "Debug" "Auto-Detect enabled"
         AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToDelete) -RecursionType $RecursionType -ChangeType "Delete"
     }
     else
     {
-        Write-VstsTaskDebug "Auto-Detect disabled"
+        Write-Message -Type "Debug" "Auto-Detect disabled"
         
         Foreach ($change in $FilesToDelete)
         {

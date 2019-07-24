@@ -14,7 +14,7 @@ Write-Message -Type "Verbose"  "Entering script $($MyInvocation.MyCommand.Name)"
 
 [string[]] $FilesToUndo = $ItemSpec -split ';|\r?\n'
     
-Write-Output "Undo ItemSpec: $ItemSpec, Recursive: $Recursion, Delete Adds: $DeleteAdds"
+Write-Message "Undo ItemSpec: $ItemSpec, Recursive: $Recursion, Delete Adds: $DeleteAdds"
 
 Try
 {
@@ -25,8 +25,8 @@ Try
     # Pending any deleted files to ensure they're picked up by Undo.
     AutoPend-WorkspaceChanges -Provider $provider -Items @($FilesToUndo) -RecursionType $Recursion -ChangeType "Delete" | Out-Null
 
-    Write-Output "Undoing:"
-    $ItemSpecs | %{ Write-Output $_.Item }
+    Write-Message "Undoing:"
+    $ItemSpecs | %{ Write-Message $_.Item }
 
     $provider.Workspace.Undo(
         @($ItemSpecs),

@@ -22,7 +22,7 @@ Try
     $provider = Get-SourceProvider
     
     $IsShelvesetBuild = (Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset") -ne ""
-    $shevesets = @()
+    $shelvesets = @()
 
     if ($IsShelvesetBuild)
     {

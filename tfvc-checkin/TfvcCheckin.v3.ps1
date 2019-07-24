@@ -41,7 +41,7 @@ Function Evaluate-Checkin {
         [ref] $passed
     )
 
-    Write-VstsTaskVerbose "Entering Evaluate-Checkin"
+    Write-Message -Type "Verbose" "Entering Evaluate-Checkin"
     Try
     {
         $passed = $true
@@ -53,11 +53,11 @@ Function Evaluate-Checkin {
             {
                 if ($conflict.Resolvable)
                 {
-                    Write-VstsTaskWarning $conflict.Message
+                    Write-Message -Type "Warning" $conflict.Message
                 }
                 else
                 {
-                    Write-VstsTaskError $conflict.Message
+                    Write-Message -Type "Error" $conflict.Message
                 }
             }
         }
@@ -65,20 +65,20 @@ Function Evaluate-Checkin {
         {
             foreach ($noteFailure in $result.NoteFailures)
             {
-                Write-VstsTaskWarning "$($noteFailure.Definition.Name): $($noteFailure.Message)"
+                Write-Message -Type "Warning" "$($noteFailure.Definition.Name): $($noteFailure.Message)"
             }
             $passed = $false;
         }
         if ($result.PolicyEvaluationException -ne $null)
         {
-            Write-VstsTaskError($result.PolicyEvaluationException.Message);
+            Write-Message -Type "Error" $result.PolicyEvaluationException.Message;
             $passed = $false;
         }
         return $result
     }
     Finally
     {
-        Write-VstsTaskVerbose "Leaving Evaluate-Checkin"
+        Write-Message -Type "Verbose" "Leaving Evaluate-Checkin"
     }
 }
 
@@ -90,7 +90,7 @@ Function Handle-PolicyOverride {
         [ref] $passed
     )
 
-    Write-VstsTaskVerbose "Entering Handle-PolicyOverride"
+    Write-Message -Type "Verbose" "Entering Handle-PolicyOverride"
 
     Try
     {
@@ -112,7 +112,7 @@ Function Handle-PolicyOverride {
     }
     Finally
     {
-        Write-VstsTaskVerbose "Leaving Handle-PolicyOverride"
+        Write-Message -Type "Verbose" "Leaving Handle-PolicyOverride"
     }
 }
 
@@ -138,31 +138,31 @@ function Parse-CheckinNotes {
 
     if ($JsonParseFailed)
     {
-        [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = (($notes -split "\s*(?:;|\r?\n)\s*") | ForEach {
+        [Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue[]] $fieldValues = (($notes -split "\s*(?:;|\r?\n)\s*") | %{
             [string[]] $note = $_ -split "\s*[:=]\s*"
 
             if ($note.Count -eq 1)
             {
-                Write-VstsTaskError "Ignoring Checkin note without value"
+                Write-Message -Type "Error" "Ignoring Checkin note without value"
                 return $null
             }
             elseif ($note.Count -ne 2)
             {
-                Write-VstsTaskError "Unable to parse checkin note"
+                Write-Message -Type "Error" "Unable to parse checkin note"
                 return $null
             }
 
             return new-object Microsoft.TeamFoundation.VersionControl.Client.CheckinNoteFieldValue($note[0].Trim(), $note[1].Trim())
         } | ?{$_ -ne $null} )
 
-        Write-VstsTaskWarning "Using old Notes notation, please switch to the new Json format:"
+        Write-Message -Type "Warning" "Using old Notes notation, please switch to the new Json format:"
         $ParsedNotes = "{ }" | ConvertFrom-Json
         foreach ($fieldValue in $fieldValues)
         {
             Add-Member -InputObject $ParsedNotes -NotePropertyName  $fieldValue.Name -NotePropertyValue $fieldValue.Value -Force
         }
         
-        Write-VstsTaskWarning ($ParsedNotes | ConvertTo-Json -Depth 5 )
+        Write-Message -Type "Warning" ($ParsedNotes | ConvertTo-Json -Depth 5 )
     }
 
     if ($fieldValues.Length -gt 0)
@@ -175,15 +175,15 @@ Try
 {
     $provider = Get-SourceProvider
 
-    $BuildSourceTfvcShelveset = Get-TaskVariable $distributedTaskContext "Build.SourceTfvcShelveset"
-    Write-VstsTaskDebug "Build.SourceTfvcShelveset = '$BuildSourceTfvcShelveset'."
+    $BuildSourceTfvcShelveset = Get-VstsTaskVariable -Name "Build.SourceTfvcShelveset"
+    Write-Message -Type "Debug" "Build.SourceTfvcShelveset = '$BuildSourceTfvcShelveset'."
     $IsShelvesetBuild = "$BuildSourceTfvcShelveset" -ne ""
     $IsGatedBuild = $false
     
     if ($SkipGated -eq $false -and $IsShelvesetBuild)
     {
         $Shevesets = @()
-        $BuildId = Get-TaskVariable $distributedTaskContext "Build.BuildId"
+        $BuildId = Get-VstsTaskVariable -Name "Build.BuildId"
         $ShelvesetName = "_Build_$BuildId"
         $Owner = $provider.VersionControlServer.AuthorizedIdentity.UniqueName
 
@@ -193,11 +193,11 @@ Try
 
     if (($SkipShelveset -eq $true) -and $IsShelvesetBuild)
     {
-        Write-Output "Shelveset build. Ignoring."
+        Write-Message "Shelveset build. Ignoring."
     }
     elseif (($SkipGated -eq $true) -and $IsGatedBuild)
     {
-        Write-Output "Gated build. Ignoring."
+        Write-Message "Gated build. Ignoring."
     }
     else
     {
@@ -217,7 +217,7 @@ Try
         $RecursionType = [Microsoft.TeamFoundation.VersionControl.Client.RecursionType]$Recursion
 
         [string[]] $FilesToCheckin = $ItemSpec -split "(;|\r?\n)"
-        Write-Output $FilesToCheckin
+        Write-Message $FilesToCheckin
 
         if ($AutoDetectAdds -eq $true)
         {
@@ -264,21 +264,21 @@ Try
                 $checkInParameters.NoAutoResolve = $false
                 #$checkInParameters.CheckinDate = Get-Date
 
-                Write-VstsTaskVerbose "Entering Workspace-Checkin"
+                Write-Message -Type "Verbose" "Entering Workspace-Checkin"
                 $provider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
 
                 $changeset = $provider.Workspace.CheckIn($checkInParameters)
-                Write-Output "Checked in changeset: $changeset"
-                Write-VstsTaskVerbose "Leaving Workspace-Checkin"
+                Write-Message "Checked in changeset: $changeset"
+                Write-Message -Type "Verbose" "Leaving Workspace-Checkin"
             }
             else
             {
-                Write-VstsTaskError "Checkin policy failed"
+                Write-Message -Type "Error" "Checkin policy failed"
             }
         }
         else
         {
-            Write-Output "No changes to check in"
+            Write-Message "No changes to check in"
         }
     }
 }
