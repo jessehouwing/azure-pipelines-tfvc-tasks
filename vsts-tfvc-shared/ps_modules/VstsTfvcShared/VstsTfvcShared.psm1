@@ -334,6 +334,7 @@ function Write-Message{
             "Debug"   { Write-VstsTaskDebug $Message }
             "Warning" { Write-VstsTaskWarning $Message }
             "Error"   { Write-VstsTaskError $Message }
+            "Verbose" { Write-VstsTaskVerbose $Message }
         }
     }
     else
@@ -344,6 +345,7 @@ function Write-Message{
             "Debug"   { Write-Debug $Message }
             "Warning" { Write-Warning $Message }
             "Error"   { Write-Error $Message }
+            "Verbose" { Write-Verbose $message }
         }
     }
 }
