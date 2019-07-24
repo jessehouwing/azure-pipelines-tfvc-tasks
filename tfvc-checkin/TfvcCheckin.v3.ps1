@@ -7,7 +7,7 @@ Write-VstsTaskVerbose "Entering script $($MyInvocation.MyCommand.Name)"
 $Comment              = Get-VstsInput -Name Comment              -Default ""
 $IncludeNoCIComment   = Get-VstsInput -Name IncludeNoCIComment   -Default $true         -AsBool
 $Itemspec             = Get-VstsInput -Name ItemSpec             -Require 
-$Recursion            = Get-VstsInput -Name Recursion            -Require               -AsBool
+$Recursion            = Get-VstsInput -Name Recursion            -Default "Full"               
 $ConfirmUnderstand    = Get-VstsInput -Name ConfirmUnderstand    -Require               -AsBool
 $OverridePolicy       = Get-VstsInput -Name OverridePolicy       -Default $false        -AsBool
 $OverridePolicyReason = Get-VstsInput -Name OverridePolicyReason -Default ""
@@ -262,7 +262,6 @@ Try
                 $checkInParameters.OverrideGatedCheckIn = ($BypassGatedCheckin -eq $true)
                 $checkInParameters.AllowUnchangedContent = $false
                 $checkInParameters.NoAutoResolve = $false
-                #$checkInParameters.CheckinDate = Get-Date
 
                 Write-Message -Type "Verbose" "Entering Workspace-Checkin"
                 $provider.VersionControlServer.StripUnsupportedCheckinOptions($checkInParameters)
