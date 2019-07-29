@@ -12,10 +12,6 @@ function Load-Assembly {
     {
         Write-Debug "Setting default assembly locations"
 
-        if ($PSScriptRoot -ne $null )
-        {
-            $ProbingPaths += $PSScriptRoot
-        }
         if ($env:AGENT_HOMEDIRECTORY -ne $null )
         {
             $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
