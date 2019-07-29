@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "jessehouwing-vsts-tfvc-tasks",
   "name": "TFVC Build Tasks",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "publisher": "jessehouwing",
   "targets": [
     {
@@ -81,101 +81,23 @@
 
   "files": [
     {
-      "path": "tfvc-add/TfvcAdd.ps1"
+      "path": "tf-vc-add"
     },
     {
-      "path": "tfvc-add/TfvcAdd.v3.ps1"
+      "path": "tf-vc-checkout"
     },
     {
-      "path": "tfvc-add/task.json"
+      "path": "tf-vc-checkin"
     },
     {
-      "path": "tfvc-add/icon.png"
+      "path": "tf-vc-delete"
     },
     {
-      "path": "tfvc-add/ps_modules"
-    },
-
-    {
-      "path": "tfvc-checkout/TfvcCheckout.ps1"
+      "path": "tf-vc-undo"
     },
     {
-      "path": "tfvc-checkout/TfvcCheckout.v3.ps1"
-    },
-    {
-      "path": "tfvc-checkout/task.json"
-    },
-    {
-      "path": "tfvc-checkout/icon.png"
-    },
-    {
-      "path": "tfvc-checkout/ps_modules"
-    },
-
-    {
-      "path": "tfvc-checkin/TfvcCheckin.ps1"
-    },
-    {
-      "path": "tfvc-checkin/TfvcCheckin.v3.ps1"
-    },
-    {
-      "path": "tfvc-checkin/task.json"
-    },
-    {
-      "path": "tfvc-checkin/icon.png"
-    },
-    {
-      "path": "tfvc-checkin/ps_modules"
-    },
-
-    {
-      "path": "tfvc-delete/TfvcDelete.ps1"
-    },
-    {
-      "path": "tfvc-delete/TfvcDelete.v3.ps1"
-    },
-    {
-      "path": "tfvc-delete/task.json"
-    },
-    {
-      "path": "tfvc-delete/icon.png"
-    },
-    {
-      "path": "tfvc-delete/ps_modules"
-    },
-
-    {
-      "path": "tfvc-undo/TfvcUndo.ps1"
-    },
-    {
-      "path": "tfvc-undo/TfvcUndo.v3.ps1"
-    },
-    {
-      "path": "tfvc-undo/task.json"
-    },
-    {
-      "path": "tfvc-undo/icon.png"
-    },
-    {
-      "path": "tfvc-undo/ps_modules"
-    },
-
-    {
-      "path": "tfvc-updateshelveset/TfvcUpdateShelveset.ps1"
-    },
-    {
-      "path": "tfvc-updateshelveset/TfvcUpdateShelveset.v3.ps1"
-    },
-    {
-      "path": "tfvc-updateshelveset/task.json"
-    },
-    {
-      "path": "tfvc-updateshelveset/icon.png"
-    },
-    {
-      "path": "tfvc-updateshelveset/ps_modules"
+      "path": "tf-vc-shelveset-update"
     }
-
   ],
   "contributions": [
     {
@@ -185,7 +107,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "tfvc-add"
+        "name": "tf-vc-add"
       }
     },
     {
@@ -195,7 +117,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "tfvc-checkin"
+        "name": "tf-vc-checkin"
       }
     },
     {
@@ -205,7 +127,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "tfvc-checkout"
+        "name": "tf-vc-checkout"
       }
     },
     {
@@ -215,7 +137,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "tfvc-delete"
+        "name": "tf-vc-delete"
       }
     },
     {
@@ -225,7 +147,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "tfvc-undo"
+        "name": "tf-vc-undo"
       }
     },
     {
@@ -235,7 +157,7 @@
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "tfvc-updateshelveset"
+        "name": "tf-vc-shelveset-update"
       }
     }
   ]
