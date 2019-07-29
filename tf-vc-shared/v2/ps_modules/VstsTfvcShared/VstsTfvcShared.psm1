@@ -30,7 +30,8 @@ function Write-Message{
 
 function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
-    $path = vswhere -latest -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
+    
+    $path = & $PSScriptRoot/vswhere.exe -latest -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
     $path = join-path $path '\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\'
     return $path
 }
