@@ -1,0 +1,68 @@
+{
+  "id": "07161921-2369-47cc-8475-81623b554215",
+  "name": "TFVCDelete",
+  "friendlyName": "TFVC - Delete files #{Extension.Tag}#",
+  "description": "Adds deleted files to Pending changes.",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Delete)",
+  "category": "Utility",
+  "author": "Jesse Houwing",
+  "version": {
+    "Major": 1,
+    "Minor": 4,
+    "Patch": 0
+  },
+  "deprecated": false,
+  "minimumAgentVersion": "1.83.0",
+  "groups": [
+    {
+      "name": "configurationOptions",
+      "displayName": "Configuration",
+      "isExpanded": true
+    }
+  ],
+  "inputs": [
+    {
+      "name": "ItemSpec",
+      "type": "multiLine",
+      "label": "Files to delete",
+      "defaultValue": "$/",
+      "required": true,
+      "groupName": "configurationOptions",
+      "helpMarkDown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.<br/><br/>Example: `$/MyTeamproject/Main/AssemblyInfo.cs`<br/>",
+      "properties": {
+        "resizable": true,
+        "rows": "5"
+      }
+    },
+    {
+      "defaultValue": "None",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Controls whether you'll be deleting just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+      "label": "Recursion",
+      "name": "Recursion",
+      "options": {
+        "None": "None",
+        "Full": "Full",
+        "OneLevel": "One Level"
+      },
+      "required": true,
+      "type": "pickList"
+    },
+    {
+      "name": "Detect",
+      "type": "boolean",
+      "label": "Auto-detect",
+      "defaultValue": "false",
+      "required": true,
+      "groupName": "configurationOptions",
+      "helpMarkDown": "Detects files deleted earlier in your build process and pends them."
+    }
+  ],
+  "instanceNameFormat": "Delete files from source control",
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\TfvcDelete.ps1",
+      "argumentFormat": ""
+    }
+  }
+}

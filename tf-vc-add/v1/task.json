@@ -1,0 +1,68 @@
+{
+  "id": "2ef90ef1-5298-4f6a-8b99-12933fed4de4",
+  "name": "TFVCAdd",
+  "friendlyName": "TFVC - Add new files #{Extension.Tag}#",
+  "description": "Adds file to Pending changes.",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Add)",
+  "category": "Utility",
+  "author": "Jesse Houwing",
+  "version": {
+    "Major": 1,
+    "Minor": 4,
+    "Patch": 0
+  },
+  "deprecated": false,
+  "minimumAgentVersion": "1.83.0",
+  "groups": [
+    {
+      "name": "configurationOptions",
+      "displayName": "Configuration",
+      "isExpanded": true
+    }
+  ],
+  "inputs": [
+    {
+      "name": "ItemSpec",
+      "type": "multiLine",
+      "label": "Files to add",
+      "defaultValue": "$/",
+      "required": true,
+      "groupName": "configurationOptions",
+      "helpMarkDown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.<br/><br/>Example: `$/MyTeamproject/Main/AssemblyInfo.cs`<br/>",
+      "properties": {
+        "resizable": true,
+        "rows": "5"
+      }
+    },
+    {
+      "defaultValue": "None",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Controls whether you'll be adding in just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+      "label": "Recursion",
+      "name": "Recursion",
+      "options": {
+        "None": "None",
+        "Full": "Full",
+        "OneLevel": "One Level"
+      },
+      "required": true,
+      "type": "pickList"
+    },
+    {
+      "name": "ApplyLocalitemExclusions",
+      "type": "boolean",
+      "label": "Apply Localitem Exclusions",
+      "defaultValue": "true",
+      "required": true,
+      "groupName": "configurationOptions",
+      "helpMarkDown": "Will ignore files that are specified in your `.tfignore` file if your repository has one."
+    }
+  ],
+  "instanceNameFormat": "Adding files to source control",
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\TfvcAdd.ps1",
+      "argumentFormat": ""
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "id": "7164ddbc-7979-4e2c-a2f8-e7a89b6ba026",
+  "name": "TFVCUpdateShelveset",
+  "friendlyName": "TFVC - Update gated changes #{Extension.Tag}#",
+  "description": "Updates the gated changes with the local workspace prior to checking in.",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Shelve)",
+  "category": "Utility",
+  "author": "Jesse Houwing",
+  "version": {
+    "Major": 1,
+    "Minor": 4,
+    "Patch": 0
+  },
+  "deprecated": false,
+  "minimumAgentVersion": "1.83.0",
+  "groups": [
+    {
+      "name": "configurationOptions",
+      "displayName": "Configuration",
+      "isExpanded": true
+    },
+    {
+      "name": "autoDetectOptions",
+      "displayName": "Auto-detect changes",
+      "isExpanded": true
+    }
+  ],
+  "inputs": [
+    {
+      "name": "ItemSpec",
+      "type": "multiLine",
+      "label": "Files to update",
+      "defaultValue": "$/",
+      "required": true,
+      "groupName": "configurationOptions",
+      "helpMarkDown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.<br/><br/>Example: `$/MyTeamproject/Main/AssemblyInfo.cs`<br/>",
+      "properties": {
+        "resizable": true,
+        "rows": "5"
+      }
+    },
+    {
+      "defaultValue": "None",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Controls whether you'll be shelving just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+      "label": "Recursion",
+      "name": "Recursion",
+      "options": {
+        "None": "None",
+        "Full": "Full",
+        "OneLevel": "One Level"
+      },
+      "required": true,
+      "type": "pickList"
+    },
+    {
+      "defaultValue": false,
+      "groupName": "autoDetectOptions",
+      "helpMarkdown": "Auto-detects any files added to the workspace. Always applies local workspace exclusions.",
+      "label": "Adds",
+      "name": "autoDetectAdds",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": false,
+      "groupName": "autoDetectOptions",
+      "helpMarkdown": "Auto-detects any files deleted from the workspace. Always applies local workspace exclusions.",
+      "label": "Deletes",
+      "name": "autoDetectDeletes",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": "true",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Will skip this task when the build is not a gated build.",
+      "label": "Skip on non-gated build",
+      "name": "SkipNonGated",
+      "required": true,
+      "type": "boolean"
+    }
+
+  ],
+  "instanceNameFormat": "Update gated changes",
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\TfvcUpdateShelveset.ps1",
+      "argumentFormat": ""
+    }
+  }
+}

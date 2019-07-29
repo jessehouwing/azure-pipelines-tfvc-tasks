@@ -1,0 +1,59 @@
+{
+  "id": "e5ca5a91-35ff-4a7b-a316-d9804c1a436b",
+  "name": "TFVCCheckout",
+  "friendlyName": "TFVC - Check out files #{Extension.Tag}#",
+  "description": "Checks out files and adds them to Pending changes.",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Add)",
+  "category": "Utility",
+  "author": "Jesse Houwing",
+  "version": {
+    "Major": 1,
+    "Minor": 4,
+    "Patch": 0
+  },
+  "deprecated": true,
+  "minimumAgentVersion": "1.83.0",
+  "groups": [
+    {
+      "name": "configurationOptions",
+      "displayName": "Configuration",
+      "isExpanded": true
+    }
+  ],
+  "inputs": [
+    {
+      "name": "ItemSpec",
+      "type": "multiLine",
+      "label": "Files to checkout",
+      "defaultValue": "$/",
+      "required": true,
+      "groupName": "configurationOptions",
+      "helpMarkDown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.<br/><br/>Example: `$/MyTeamproject/Main/AssemblyInfo.cs`<br/>",
+      "properties": {
+        "resizable": true,
+        "rows": "5"
+      }
+    },
+    {
+      "defaultValue": "None",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Controls whether you'll be adding in just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+      "label": "Recursion",
+      "name": "Recursion",
+      "options": {
+        "None": "None",
+        "Full": "Full",
+        "OneLevel": "One Level"
+      },
+      "required": true,
+      "type": "pickList"
+    }
+  ],
+  "instanceNameFormat": "Checking out files from source control",
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\TfvcCheckout.ps1",
+      "argumentFormat": ""
+    }
+  }
+}

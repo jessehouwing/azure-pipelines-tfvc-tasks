@@ -1,0 +1,73 @@
+{
+  "id": "6e2cb46a-ad8b-4571-b183-5f0f81d2b2ba",
+  "name": "TFVCUndo",
+  "friendlyName": "TFVC - Undo pending changes #{Extension.Tag}#",
+  "description": "Reverts file in the workspace to their original state.",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Undo)",
+  "category": "Utility",
+  "author": "Jesse Houwing",
+  "version": {
+    "Major": 1,
+    "Minor": 4,
+    "Patch": 0
+  },
+  "deprecated": false,
+  "minimumAgentVersion": "1.83.0",
+  "groups": [
+    {
+      "name": "configurationOptions",
+      "displayName": "Configuration",
+      "isExpanded": true
+    },
+    {
+      "name": "advancedOptions",
+      "displayName": "Advanced",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "name": "ItemSpec",
+      "type": "multiLine",
+      "label": "Files to undo",
+      "defaultValue": "$/",
+      "required": true,
+      "groupName": "configurationOptions",
+      "helpMarkDown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build task and do **not** support the recursive wildcard `**`.<br/><br/>Example: `$/MyTeamproject/Main/AssemblyInfo.cs`<br/>",
+      "properties": {
+        "resizable": true,
+        "rows": "5"
+      }
+    },
+    {
+      "defaultValue": "None",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Controls whether you'll be undoing just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+      "label": "Recursion",
+      "name": "Recursion",
+      "options": {
+        "None": "None",
+        "Full": "Full",
+        "OneLevel": "One Level"
+      },
+      "required": true,
+      "type": "pickList"
+    },
+    {
+      "name": "DeleteAdds",
+      "type": "boolean",
+      "label": "Delete Adds",
+      "defaultValue": "false",
+      "required": true,
+      "groupName": "advancedOptions",
+      "helpMarkDown": "Deletes added files."
+    }
+  ],
+  "instanceNameFormat": "Undo changes in workspace",
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\TfvcUndo.ps1",
+      "argumentFormat": ""
+    }
+  }
+}

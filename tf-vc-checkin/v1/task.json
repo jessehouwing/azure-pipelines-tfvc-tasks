@@ -1,0 +1,220 @@
+{
+  "id": "31f040e5-e040-4556-878a-59a47c7128bd",
+  "name": "TFVCCheckin",
+  "friendlyName": "TFVC - Check-in changes #{Extension.Tag}#",
+  "description": "Checks in any files changed in the repository.",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Check-in)",
+  "category": "Utility",
+  "author": "Jesse Houwing",
+  "version": {
+    "Major": 1,
+    "Minor": 4,
+    "Patch": 0
+  },
+  "deprecated": false,
+  "visibility": [
+    "Build"
+  ],
+  "demands": [
+    "visualstudio"
+  ],
+  "minimumAgentVersion": "1.83.0",
+  "groups": [
+    {
+      "name": "confirmationOptions",
+      "displayName": "Checking in files from a build is generally a bad idea",
+      "isExpanded": true
+    },
+    {
+      "name": "configurationOptions",
+      "displayName": "Configuration",
+      "isExpanded": true
+    },
+    {
+      "name": "autoDetectOptions",
+      "displayName": "Auto-detect changes",
+      "isExpanded": true
+    },
+    {
+      "name": "notesOptions",
+      "displayName": "Notes",
+      "isExpanded": false
+    },
+    {
+      "name": "overrideOptions",
+      "displayName": "Policy Override",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "defaultValue": false,
+      "groupName": "confirmationOptions",
+      "helpMarkdown": "If your build system dived into an endless loop, uses up all your build minutes or destroys your source tree by accident. You've signaled you understand this risk, the task won't work without this consent. <br/><br/>[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki)",
+      "label": "I understand",
+      "name": "ConfirmUnderstand",
+      "required": true,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": true,
+      "groupName": "overrideOptions",
+      "helpMarkdown": "Adds a special string to the check-in comment to ensure that no other build is triggered.",
+      "label": "Bypass CI on check-in",
+      "name": "IncludeNoCIComment",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": false,
+      "groupName": "overrideOptions",
+      "helpMarkdown": "Bypasses the gated checkin if one is enabled for this build.",
+      "label": "Bypass gated on check-in",
+      "name": "BypassGatedCheckin",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": false,
+      "groupName": "autoDetectOptions",
+      "helpMarkdown": "Auto-detects any files added to the workspace. Always applies local workspace exclusions.",
+      "label": "Adds",
+      "name": "autoDetectAdds",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": false,
+      "groupName": "autoDetectOptions",
+      "helpMarkdown": "Auto-detects any files deleted from the workspace. Always applies local workspace exclusions.",
+      "label": "Deletes",
+      "name": "autoDetectDeletes",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": false,
+      "groupName": "overrideOptions",
+      "helpMarkdown": "To override any check-in policies or changeset-notes that may be required by your administrator.",
+      "label": "Override policies",
+      "name": "OverridePolicy",
+      "required": false,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": "",
+      "groupName": "overrideOptions",
+      "helpMarkdown": "When enabling Override Policies, you're required to specify a reason. This reason is stored with the changeset.",
+      "label": "Override reason",
+      "name": "OverridePolicyReason",
+      "required": true,
+      "type": "string",
+      "visibleRule": "OverridePolicy = true"
+    },
+    {
+      "defaultValue": "$/*",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Specify one or more paths, separated by `;` or newline. While wildcards (`?`, `*`) are supported, they're not the same as the minimatch patterns used by other build tasks and do **not** support the recursive wildcard `**`. <br/><br/>Example: `$/MyTeamproject/Main/*.cs`",
+      "label": "Files to check in",
+      "name": "ItemSpec",
+      "required": true,
+      "type": "multiLine",
+      "properties": {
+        "resizable": true,
+        "rows": "5"
+      }
+    },
+    {
+      "defaultValue": "",
+      "groupName": "notesOptions",
+      "helpMarkdown": "Specify one or more checkin notes using the following format `{ \"NameA\": \"Value\" , \"NameB\": \"Value\" }`, or using the old syntax: `Name=Value` or `Name:Value` separated by `;` or newline.",
+      "label": "Notes",
+      "name": "Notes",
+      "required": false,
+      "type": "multiLine",
+      "properties": {
+        "resizable": true,
+        "rows": "8"
+      }
+    },
+    {
+      "defaultValue": "None",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Controls whether you'll be checking in just the current folder/file (None), one level below the selected path (One Level) or all levels below the selected path (Full).",
+      "label": "Recursion",
+      "name": "Recursion",
+      "options": {
+        "None": "None",
+        "Full": "Full",
+        "OneLevel": "One Level"
+      },
+      "required": true,
+      "type": "pickList"
+    },
+    {
+      "defaultValue": "RequestedForId",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "The Username or Id supplied as Author for the changeset See also: [How are identities set](https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/build/variables?tabs=batch#identity_values).<br/><br/>Note: Due to some users reporting issues with previously hardcoded options, this is now configurable.",
+      "label": "Author",
+      "name": "Author",
+      "required": true,
+      "type": "pickList",
+      "options": {
+        "None": "None",
+        "QueuedByName": "Queued by Username",
+        "QueuedById": "Queued by Id",
+        "RequestedFor": "Requested for Username",
+        "RequestedForId": "Requested for Id",
+        "Custom": "Custom"
+      }
+    },
+    {
+      "defaultValue": "",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Specify a custom username or variable expression to use as Author (must evaluate to a known user in VSTS/TFS).",
+      "label": "Custom Author",
+      "name": "AuthorCustom",
+      "required": true,
+      "type": "string",
+      "visibleRule": "Author = Custom"
+    },
+    {
+      "defaultValue": "",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "The comment which will show up in the source control history for this changeset.",
+      "label": "Check-in comment",
+      "name": "Comment",
+      "required": false,
+      "type": "multiLine",
+      "properties": {
+        "resizable": true,
+        "rows": "5"
+      }
+    },
+    {
+      "defaultValue": "true",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Will skip this task when the build is a gated build.",
+      "label": "Skip on gated build",
+      "name": "SkipGated",
+      "required": true,
+      "type": "boolean"
+    },
+    {
+      "defaultValue": "true",
+      "groupName": "configurationOptions",
+      "helpMarkdown": "Will skip this task when the build is a shelveset build.",
+      "label": "Skip on shelveset build",
+      "name": "SkipShelveset",
+      "required": true,
+      "type": "boolean"
+    }
+  ],
+  "instanceNameFormat": "Check changes into source control",
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\TfvcCheckin.ps1",
+      "argumentFormat": ""
+    }
+  }
+}
