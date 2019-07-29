@@ -7,6 +7,6 @@
 /obj
 /.vs
 *.psm1
-!/tfvc-shared/*.psm1
 ps_modules/
-!/tfvc-shared/ps_modules/
+!tf-vc-shared/**/*.psm1
+!tf-vc-shared/**/ps_modules/
