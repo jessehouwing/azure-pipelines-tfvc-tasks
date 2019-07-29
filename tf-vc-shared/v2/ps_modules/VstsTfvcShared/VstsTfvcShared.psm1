@@ -47,10 +47,8 @@ function Load-Assembly {
     {
         Write-Message -Type Debug "Setting default assembly locations"
 
-        if ($PSScriptRoot -ne $null )
-        {
-            $ProbingPaths += $PSScriptRoot
-        }
+        $ProbingPaths += Find-VisualStudio
+
         if ($env:AGENT_HOMEDIRECTORY -ne $null )
         {
             $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
@@ -59,8 +57,6 @@ function Load-Assembly {
         {
             $ProbingPaths += $env:AGENT_SERVEROMDIRECTORY
         }
-
-        $ProbingPaths += Find-VisualStudio
 
         $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
         if ($VS1464Path -ne $null)
@@ -364,3 +360,4 @@ Export-ModuleMember -Function Invoke-DisposeSourceProvider
 Export-ModuleMember -Function Get-SourceProvider
 Export-ModuleMember -Function AutoPend-WorkspaceChanges
 Export-ModuleMember -Function Convert-ToItemSpecs
+Export-ModuleMember -Function Find-VisualStudio 
