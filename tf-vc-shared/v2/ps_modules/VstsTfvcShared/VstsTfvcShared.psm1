@@ -135,31 +135,31 @@ function Get-SourceProvider {
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
 
             if (!$provider.Workspace) {
-                Write-Message -Type Verbose "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
-                Write-Message -Type Verbose "Attempting to resolve workspace recursively from locally cached info."
+                Write-Message -Type Debug "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
+                Write-Message -Type Debug "Attempting to resolve workspace recursively from locally cached info."
                 
                 $workspaceInfos = $workstation.GetLocalWorkspaceInfoRecursively($provider.SourcesRootPath);
                 if ($workspaceInfos) {
                     foreach ($workspaceInfo in $workspaceInfos) {
-                        Write-Message -Type Verbose "Cached workspace info discovered. Server URI: $($workspaceInfo.ServerUri) ; Name: $($workspaceInfo.Name) ; Owner Name: $($workspaceInfo.OwnerName)"
+                        Write-Message -Type Debug "Cached workspace info discovered. Server URI: $($workspaceInfo.ServerUri) ; Name: $($workspaceInfo.Name) ; Owner Name: $($workspaceInfo.OwnerName)"
                         try {
                             $provider.Workspace = $versionControlServer.GetWorkspace($workspaceInfo)
                             break
                         } catch {
-                            Write-Message -Type Verbose "Determination failed. Exception: $_"
+                            Write-Message -Type Debug "Determination failed. Exception: $_"
                         }
                     }
                 }
             }
 
             if ((!$provider.Workspace) -and $env:BUILD_REPOSITORY_TFVC_WORKSPACE) {
-                Write-Message -Type Verbose "Attempting to resolve workspace by name: $env:BUILD_REPOSITORY_TFVC_WORKSPACE"
+                Write-Message -Type Debug "Attempting to resolve workspace by name: $env:BUILD_REPOSITORY_TFVC_WORKSPACE"
                 try {
                     $provider.Workspace = $versionControlServer.GetWorkspace($env:BUILD_REPOSITORY_TFVC_WORKSPACE, '.')
                 } catch [Microsoft.TeamFoundation.VersionControl.Client.WorkspaceNotFoundException] {
-                    Write-Message -Type Verbose "Workspace not found."
+                    Write-Message -Type Debug "Workspace not found."
                 } catch {
-                    Write-Message -Type Verbose "Determination failed. Exception: $_"
+                    Write-Message -Type Debug "Determination failed. Exception: $_"
                 }
             }
 
