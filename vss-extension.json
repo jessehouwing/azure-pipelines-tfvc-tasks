@@ -52,7 +52,7 @@
   "badges": [
     {
       "href": "https://paypal.me/jessehouwing/5",
-      "uri": "https://github.com/jessehouwing/azure-pipelines-snyk-task/blob/master/extension/images/donate.png?raw=true",
+      "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/blob/master/extension/images/donate.png?raw=true",
       "description": "Donate"
     },
     {

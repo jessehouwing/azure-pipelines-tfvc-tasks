@@ -3,7 +3,7 @@
   "name": "tf-vc-checkin",
   "friendlyName": "TFVC - Check-in changes #{Extension.Tag}#",
   "description": "Checks in any files changed in the repository.",
-  "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Check-in)",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Check-in)",
   "category": "Utility",
   "author": "Jesse Houwing",
   "version": {
@@ -50,7 +50,7 @@
     {
       "defaultValue": false,
       "groupName": "confirmationOptions",
-      "helpMarkdown": "If your build system dived into an endless loop, uses up all your build minutes or destroys your source tree by accident. You've signaled you understand this risk, the task won't work without this consent. <br/><br/>[More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki)",
+      "helpMarkdown": "If your build system dived into an endless loop, uses up all your build minutes or destroys your source tree by accident. You've signaled you understand this risk, the task won't work without this consent. <br/><br/>[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki)",
       "label": "I understand",
       "name": "ConfirmUnderstand",
       "required": true,

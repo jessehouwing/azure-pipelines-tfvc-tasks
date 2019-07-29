@@ -3,7 +3,7 @@
   "name": "tf-vc-undo",
   "friendlyName": "TFVC - Undo pending changes #{Extension.Tag}#",
   "description": "Reverts file in the workspace to their original state.",
-  "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Undo)",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Undo)",
   "category": "Utility",
   "author": "Jesse Houwing",
   "version": {

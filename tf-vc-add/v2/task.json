@@ -3,7 +3,7 @@
   "name": "tf-vc-add",
   "friendlyName": "TFVC - Add new files #{Extension.Tag}#",
   "description": "Adds file to Pending changes.",
-  "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Add)",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Add)",
   "category": "Utility",
   "author": "Jesse Houwing",
   "version": {

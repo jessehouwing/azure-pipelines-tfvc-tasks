@@ -3,7 +3,7 @@
   "name": "TFVCDelete",
   "friendlyName": "TFVC - Delete files #{Extension.Tag}#",
   "description": "Adds deleted files to Pending changes.",
-  "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-tfvc-tasks/wiki/Delete)",
+  "helpMarkDown": "[More Information](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Delete)",
   "category": "Utility",
   "author": "Jesse Houwing",
   "version": {
