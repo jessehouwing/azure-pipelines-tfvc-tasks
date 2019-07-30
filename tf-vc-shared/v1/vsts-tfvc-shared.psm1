@@ -114,6 +114,10 @@ function Get-SourceProvider {
 
             $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
             $versionControlServer.add_NonFatalError($OnNonFatalError)
+
+            $workstation = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current
+            $workstation.EnsureUpdateWorkspaceInfoCache($versionControlServer, $versionControlServer.AuthorizedUser)
+            
             $provider.VersionControlServer = $versionControlServer;
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
 
