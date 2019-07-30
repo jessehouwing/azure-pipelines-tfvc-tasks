@@ -182,8 +182,6 @@ function Get-SourceProvider {
 
         Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")
         return
-    } catch {
-        Write-Error $_
     } finally {
         if (!$success) {
             Invoke-DisposeSourceProvider -Provider $provider
