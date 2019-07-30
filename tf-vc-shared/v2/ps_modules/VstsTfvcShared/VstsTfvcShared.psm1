@@ -3,28 +3,13 @@ function Write-Message{
         [string] $Message,
         [string] $Type = "Output"
     )
-    
-    if ((Get-Module "VstsTaskSdk"))
+    switch ($Type)
     {
-        switch ($Type)
-        {
-            "Output"  { Write-Output $Message }
-            "Debug"   { Write-Debug $Message }
-            "Warning" { Write-Warning $Message }
-            "Error"   { Write-Error $Message }
-            "Verbose" { Write-Verbose $message }
-        }
-    }
-    else
-    {
-        switch ($Type)
-        {
-            "Output"  { Write-Output $Message }
-            "Debug"   { Write-VstsTaskDebug $Message }
-            "Warning" { Write-VstsTaskWarning $Message }
-            "Error"   { Write-VstsTaskError $Message }
-            "Verbose" { Write-VstsTaskVerbose $Message }
-        }
+        "Output"  { Write-Output $Message }
+        "Debug"   { Write-Debug $Message }
+        "Warning" { Write-Warning $Message }
+        "Error"   { Write-Error $Message }
+        "Verbose" { Write-Debug $Message }
     }
 }
 
@@ -32,8 +17,11 @@ function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
     $path = & $PSScriptRoot/vswhere.exe -latest -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
-    $path = join-path $path '\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\'
-    return $path
+    if ( -not [string]::IsNullOrWhiteSpace($path)) {
+        $path = join-path $path '\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\'
+        return $path
+    }
+    return $null
 }
 
 function Load-Assembly {
@@ -47,8 +35,11 @@ function Load-Assembly {
     {
         Write-Message -Type Debug "Setting default assembly locations"
 
-        $ProbingPaths += Find-VisualStudio
-
+        $TeamExplorerPath = Find-VisualStudio
+        if ($TeamExplorerPath -ne $null)
+        {
+            $ProbingPaths += $TeamExplorerPath
+        }
         if ($env:AGENT_HOMEDIRECTORY -ne $null )
         {
             $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
