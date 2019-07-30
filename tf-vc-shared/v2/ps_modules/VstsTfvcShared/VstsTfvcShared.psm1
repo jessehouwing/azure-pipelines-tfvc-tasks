@@ -103,30 +103,12 @@ function Load-Assembly {
 
 function Get-TfsTeamProjectCollection()
 {
-    if ((Get-Module "VstsTaskSdk"))
-    {
-        $ProjectCollectionUri = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
-        $tfsClientCredentials = Get-VstsTfsClientCredentials
-            
-        return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
-            $ProjectCollectionUri,
-            $tfsClientCredentials)
-    }
-    else
-    {
-        $RepositoryName = $env:BUILD_REPOSITORY_NAME
-        if ($env:BUILD_REPOSITORY_NAME -eq '')
-        {
-            $RepositoryName = $env:SYSTEM_TEAMPROJECT
-        }
-
-        $serviceEndpoint = Get-ServiceEndpoint -Context $distributedTaskContext -Name $RepositoryName
-        $tfsClientCredentials = Get-TfsClientCredentials -ServiceEndpoint $serviceEndpoint
-            
-        return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
-            $serviceEndpoint.Url,
-            $tfsClientCredentials)
-    }
+    $ProjectCollectionUri = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
+    $tfsClientCredentials = Get-VstsTfsClientCredentials -OMDirectory $(Find-VisualStudio)
+        
+    return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
+        $ProjectCollectionUri,
+        $tfsClientCredentials)
 }
 
 function Get-SourceProvider {
@@ -146,34 +128,39 @@ function Get-SourceProvider {
 
             $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
             $versionControlServer.add_NonFatalError($OnNonFatalError)
+            
+            $workstation = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current
+            $workstation.EnsureUpdateWorkspaceInfoCache($versionControlServer, $versionControlServer.AuthorizedUser)
+
             $provider.VersionControlServer = $versionControlServer;
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
 
             if (!$provider.Workspace) {
-                Write-Message -Type Verbose "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
-                Write-Message -Type Verbose "Attempting to resolve workspace recursively from locally cached info."
-                $workspaceInfos = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current.GetLocalWorkspaceInfoRecursively($provider.SourcesRootPath);
+                Write-Message -Type Debug "Unable to determine workspace from source folder: $($provider.SourcesRootPath)"
+                Write-Message -Type Debug "Attempting to resolve workspace recursively from locally cached info."
+                
+                $workspaceInfos = $workstation.GetLocalWorkspaceInfoRecursively($provider.SourcesRootPath);
                 if ($workspaceInfos) {
                     foreach ($workspaceInfo in $workspaceInfos) {
-                        Write-Message -Type Verbose "Cached workspace info discovered. Server URI: $($workspaceInfo.ServerUri) ; Name: $($workspaceInfo.Name) ; Owner Name: $($workspaceInfo.OwnerName)"
+                        Write-Message -Type Debug "Cached workspace info discovered. Server URI: $($workspaceInfo.ServerUri) ; Name: $($workspaceInfo.Name) ; Owner Name: $($workspaceInfo.OwnerName)"
                         try {
                             $provider.Workspace = $versionControlServer.GetWorkspace($workspaceInfo)
                             break
                         } catch {
-                            Write-Message -Type Verbose "Determination failed. Exception: $_"
+                            Write-Message -Type Debug "Determination failed. Exception: $_"
                         }
                     }
                 }
             }
 
             if ((!$provider.Workspace) -and $env:BUILD_REPOSITORY_TFVC_WORKSPACE) {
-                Write-Message -Type Verbose "Attempting to resolve workspace by name: $env:BUILD_REPOSITORY_TFVC_WORKSPACE"
+                Write-Message -Type Debug "Attempting to resolve workspace by name: $env:BUILD_REPOSITORY_TFVC_WORKSPACE"
                 try {
                     $provider.Workspace = $versionControlServer.GetWorkspace($env:BUILD_REPOSITORY_TFVC_WORKSPACE, '.')
                 } catch [Microsoft.TeamFoundation.VersionControl.Client.WorkspaceNotFoundException] {
-                    Write-Message -Type Verbose "Workspace not found."
+                    Write-Message -Type Debug "Workspace not found."
                 } catch {
-                    Write-Message -Type Verbose "Determination failed. Exception: $_"
+                    Write-Message -Type Debug "Determination failed. Exception: $_"
                 }
             }
 
@@ -195,6 +182,8 @@ function Get-SourceProvider {
 
         Write-Warning ("Only TfsVersionControl source providers are supported for TFVC tasks. Repository type: $provider")
         return
+    } catch {
+        Write-Error $_
     } finally {
         if (!$success) {
             Invoke-DisposeSourceProvider -Provider $provider

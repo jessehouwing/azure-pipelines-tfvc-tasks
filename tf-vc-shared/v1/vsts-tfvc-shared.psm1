@@ -12,10 +12,6 @@ function Load-Assembly {
     {
         Write-Debug "Setting default assembly locations"
 
-        if ($PSScriptRoot -ne $null )
-        {
-            $ProbingPaths += $PSScriptRoot
-        }
         if ($env:AGENT_HOMEDIRECTORY -ne $null )
         {
             $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
@@ -118,6 +114,10 @@ function Get-SourceProvider {
 
             $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
             $versionControlServer.add_NonFatalError($OnNonFatalError)
+
+            $workstation = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current
+            $workstation.EnsureUpdateWorkspaceInfoCache($versionControlServer, $versionControlServer.AuthorizedUser)
+            
             $provider.VersionControlServer = $versionControlServer;
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
 
