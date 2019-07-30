@@ -104,7 +104,7 @@ function Load-Assembly {
 function Get-TfsTeamProjectCollection()
 {
     $ProjectCollectionUri = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
-    $tfsClientCredentials = Get-VstsTfsClientCredentials
+    $tfsClientCredentials = Get-VstsTfsClientCredentials -OMDirectory $(Find-VisualStudio)
         
     return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
         $ProjectCollectionUri,
@@ -126,11 +126,12 @@ function Get-SourceProvider {
         if ($provider.Name -eq 'TfsVersionControl') {
             $provider.TfsTeamProjectCollection = Get-TfsTeamProjectCollection
 
-            $workstation = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current
-            $workstation.ReloadCache()
-
             $versionControlServer = $provider.TfsTeamProjectCollection.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlServer])
             $versionControlServer.add_NonFatalError($OnNonFatalError)
+            
+            $workstation = [Microsoft.TeamFoundation.VersionControl.Client.Workstation]::Current
+            $workstation.EnsureUpdateWorkspaceInfoCache($versionControlServer, $versionControlServer.AuthorizedUser)
+
             $provider.VersionControlServer = $versionControlServer;
             $provider.Workspace = $versionControlServer.TryGetWorkspace($provider.SourcesRootPath)
 
