@@ -38,7 +38,10 @@
       "path": "readme.md"
     },
     "license": {
-      "path": "license.txt"
+      "path": "LICENSE.md"
+    },
+    "privacy": {
+      "path": "PRIVACY.md"
     }
   },
   "links": {
@@ -47,6 +50,12 @@
     },
     "support": {
       "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues"
+    },
+    "license": {
+      "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/LICENSE.md"
+    },
+    "privacypolicy": {
+      "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/blob/master/PRIVACY.md"
     }
   },
   "badges": [
