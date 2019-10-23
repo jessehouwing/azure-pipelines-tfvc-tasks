@@ -310,11 +310,13 @@ function Convert-ToItemSpecs {
     return @([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($Paths, $RecursionType))
 }
 
+Load-Assembly "Newtonsoft.Json"
 Load-Assembly "Microsoft.TeamFoundation.Client"
 Load-Assembly "Microsoft.TeamFoundation.Common"
 Load-Assembly "Microsoft.TeamFoundation.VersionControl.Client"
 Load-Assembly "Microsoft.TeamFoundation.WorkItemTracking.Client"
 Load-Assembly "Microsoft.TeamFoundation.Diff"
+
 
 $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
     param($sender, $e)
