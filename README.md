@@ -1,4 +1,8 @@
 # Release Notes
+> **23-10-2019**
+
+> - [Fixed "Could not load Newtonsoft.JSon" when Visual Studio 2019 is installed on the agent](https://github.com/microsoft/azure-pipelines-task-lib/issues/580).
+
 > **29-07-2019**
 
 > - Moved to the PowerShell3 task handler for task version 2.0. 
