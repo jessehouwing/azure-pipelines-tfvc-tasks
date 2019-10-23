@@ -90,6 +90,22 @@ function Load-Assembly {
     throw "Could not load assembly: $Name"
 }
 
+# Add a binding redirect and try again. Parts of the Dev15 preview SDK have a
+# dependency on the 6.0.0.0 Newtonsoft.Json DLL, while other parts reference
+# the 8.0.0.0 Newtonsoft.Json DLL.
+Write-Verbose "Adding assembly resolver."
+$onAssemblyResolve = [System.ResolveEventHandler] {
+    param($sender, $e)
+
+    if ($e.Name -like 'Newtonsoft.Json, *') {
+        Write-Verbose "Resolving '$($e.Name)'"
+        return Load-Assembly "Newtonsoft.Json"
+    }
+
+    Write-Verbose "Unable to resolve assembly name '$($e.Name)'"
+    return $null
+}
+[System.AppDomain]::CurrentDomain.add_AssemblyResolve($onAssemblyResolve)
 
 
 function Get-TfsTeamProjectCollection()
