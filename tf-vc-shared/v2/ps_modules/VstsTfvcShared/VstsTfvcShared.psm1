@@ -90,16 +90,17 @@ function Load-Assembly {
     throw "Could not load assembly: $Name"
 }
 
-
-
 function Get-TfsTeamProjectCollection()
 {
     $ProjectCollectionUri = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
     $tfsClientCredentials = Get-VstsTfsClientCredentials -OMDirectory $(Find-VisualStudio)
         
-    return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
+    $collection = New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
         $ProjectCollectionUri,
         $tfsClientCredentials)
+    $collection.EnsureAuthenticated()
+
+    return $collection
 }
 
 function Get-SourceProvider {
@@ -307,11 +308,13 @@ function Convert-ToItemSpecs {
     return @([Microsoft.TeamFoundation.VersionControl.Client.ItemSpec]::FromStrings($Paths, $RecursionType))
 }
 
+Load-Assembly "Newtonsoft.Json"
 Load-Assembly "Microsoft.TeamFoundation.Client"
 Load-Assembly "Microsoft.TeamFoundation.Common"
 Load-Assembly "Microsoft.TeamFoundation.VersionControl.Client"
 Load-Assembly "Microsoft.TeamFoundation.WorkItemTracking.Client"
 Load-Assembly "Microsoft.TeamFoundation.Diff"
+
 
 $OnNonFatalError = [Microsoft.TeamFoundation.VersionControl.Client.ExceptionEventHandler] {
     param($sender, $e)
