@@ -97,9 +97,12 @@ function Get-TfsTeamProjectCollection()
     $ProjectCollectionUri = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
     $tfsClientCredentials = Get-VstsTfsClientCredentials -OMDirectory $(Find-VisualStudio)
         
-    return New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
+    $collection = New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
         $ProjectCollectionUri,
         $tfsClientCredentials)
+    $collection.EnsureAuthenticated()
+
+    return $collection
 }
 
 function Get-SourceProvider {
