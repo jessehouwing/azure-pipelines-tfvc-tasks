@@ -13,6 +13,9 @@ function Write-Message{
     }
 }
 
+Import-Module $PSScriptRoot/TlsHelper
+Add-Tls12InSession
+
 function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
