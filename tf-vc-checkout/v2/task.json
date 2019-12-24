@@ -11,7 +11,7 @@
     "Minor": 2,
     "Patch": 0
   },
-  "preview": true,
+  "preview": false,
   "deprecated": true,
   "minimumAgentVersion": "1.83.0",
   "groups": [

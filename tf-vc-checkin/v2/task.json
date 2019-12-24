@@ -11,7 +11,7 @@
     "Minor": 2,
     "Patch": 0
   },
-  "preview": true,
+  "preview": false,
   "visibility": [
     "Build"
   ],
