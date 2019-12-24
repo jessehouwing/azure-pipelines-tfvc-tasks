@@ -1,4 +1,8 @@
 # Release Notes
+> **23-12-2019**
+
+> - Fixed [#91 Azure DevOps Agent running on https failed with TLS 1.2](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/91).
+
 > **23-10-2019**
 
 > - [Fixed "Could not load Newtonsoft.JSon" when Visual Studio 2019 is installed on the agent](https://github.com/microsoft/azure-pipelines-task-lib/issues/580).
@@ -9,8 +13,6 @@
 >   - This deprecates TFS 2015 using agent 1.x.
 >   - Removes warning issued by recent agents.
 >   - Speeds up task execution.
-
-> **Version 2.0 is currently in preview**. Please report any issues on [GitHub](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues)
 
 
 # Description

@@ -1,6 +1,8 @@
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Internal"
 import-module "Microsoft.TeamFoundation.DistributedTask.Task.Common"
 
+Write-Warning ("Version 1.x of this task is deprecated. Please update to 2.x before logging any issues.")
+
 function Load-Assembly {
     [cmdletbinding()]
     param(
