@@ -18,6 +18,9 @@ $AutoDetectAdds       = Get-VstsInput -Name AutoDetectAdds       -Default $false
 $AutoDetectDeletes    = Get-VstsInput -Name AutoDetectDeletes    -Default $false        -AsBool
 $BypassGatedCheckin   = Get-VstsInput -Name BypassGatedCheckin   -Default $false        -AsBool
 
+$Author               = Get-VstsInput -Name Author               -Default ""
+$AuthorCustom         = Get-VstsInput -Name AuthorCustom         -Default ""
+
 Import-Module ".\ps_modules\VstsTfvcShared\VstsTfvcShared.psm1" -DisableNameChecking
 Write-Message -Type "Verbose"  "Importing modules"
 Write-Message -Type "Verbose"  "Entering script $($MyInvocation.MyCommand.Name)"
@@ -252,7 +255,21 @@ Try
             if (($override -eq $null) -or $OverridePolicy)
             {
                 $checkInParameters = new-object Microsoft.TeamFoundation.VersionControl.Client.WorkspaceCheckInParameters(@($pendingChanges), $Comment)
-                $checkinParameters.Author = $env:BUILD_QUEUEDBY
+                
+                switch ($Author)
+				{
+					"RequestedFor" { $AuthorCustom = $env:BUILD_REQUESTEDFOR }
+					"RequestedForId" { $AuthorCustom = $env:BUILD_REQUESTEDFORID }
+					"QueuedBy" { $AuthorCustom = $env:BUILD_QUEUEDBY }
+					"QueuedById" { $AuthorCustom = $env:BUILD_QUEUEDBYID }
+					"None" { $AuthorCustom = $null }
+					default { $AuthorCustom = $null }
+				}
+				if ($AuthorCustom -ne $null)
+                {
+					$checkInParameters.Author = $AuthorCustom
+				}
+                
                 if ($CheckinNotes -ne $null)
                 {
                     $checkInParameters.CheckinNotes = $CheckinNotes
