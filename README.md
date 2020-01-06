@@ -1,5 +1,5 @@
 # Release Notes
-> **02-01-2019**
+> **02-01-2020**
 
 > - Fixed [#95 Checkin V2 task doesn't support custom author (but task.json has them)](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/95). 
 
