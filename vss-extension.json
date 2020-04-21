@@ -105,6 +105,9 @@
       "path": "tf-vc-undo"
     },
     {
+      "path": "tf-vc-dontsync"
+    },
+    {
       "path": "tf-vc-shelveset-update"
     }
   ],
@@ -157,6 +160,16 @@
       ],
       "properties": {
         "name": "tf-vc-undo"
+      }
+    },
+    {
+      "id": "vsts-tfvc-dontsync",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "tf-vc-dontsync"
       }
     },
     {

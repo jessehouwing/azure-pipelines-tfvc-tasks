@@ -1,0 +1,1 @@
+﻿Set-VstsTaskVariable -name "Build.SyncSources" -value "false"
