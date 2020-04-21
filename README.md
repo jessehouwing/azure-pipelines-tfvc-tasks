@@ -1,4 +1,8 @@
 # Release Notes
+> **21-04-2020**
+
+> - Added do not sync sources step. Prevents Azure Pipelines from automatically checking out the sources.
+
 > **02-01-2020**
 
 > - Fixed [#95 Checkin V2 task doesn't support custom author (but task.json has them)](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/95). 
@@ -19,6 +23,7 @@ A set of Build tasks for Team Foundation Server, Azure DevOps Server and Azure P
 * [Delete](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Delete)
 * [Undo changes](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Undo) 
 * [Update gated changes](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Shelve) 
+* Do not Sync Sources
 
 # Documentation
 
