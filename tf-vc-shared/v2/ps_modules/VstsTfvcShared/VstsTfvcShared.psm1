@@ -38,20 +38,14 @@ function Load-Assembly {
     {
         Write-Message -Type Debug "Setting default assembly locations"
 
+        # Visual Studio 2017 and newer
         $TeamExplorerPath = Find-VisualStudio
         if ($TeamExplorerPath -ne $null)
         {
             $ProbingPaths += $TeamExplorerPath
         }
-        if ($env:AGENT_HOMEDIRECTORY -ne $null )
-        {
-            $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
-        } 
-        if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
-        {
-            $ProbingPaths += $env:AGENT_SERVEROMDIRECTORY
-        }
 
+        # visual studio 2015
         $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
         if ($VS1464Path -ne $null)
         {
@@ -62,6 +56,16 @@ function Load-Assembly {
         if ($VS1432Path -ne $null)
         {
             $ProbingPaths += (Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
+        }
+
+        # fallback to agent binaries
+        if ($env:AGENT_HOMEDIRECTORY -ne $null )
+        {
+            $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
+        } 
+        if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
+        {
+            $ProbingPaths += $env:AGENT_SERVEROMDIRECTORY
         }
     }
 
