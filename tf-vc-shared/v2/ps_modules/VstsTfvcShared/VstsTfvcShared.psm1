@@ -61,6 +61,7 @@ function Load-Assembly {
         # fallback to agent binaries
         if ($env:AGENT_HOMEDIRECTORY -ne $null )
         {
+            $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\externals\tf")
             $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
         } 
         if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
