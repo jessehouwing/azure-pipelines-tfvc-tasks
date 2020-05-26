@@ -20,10 +20,51 @@ function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
     $path = & $PSScriptRoot/vswhere.exe -latest -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
-    if ( -not [string]::IsNullOrWhiteSpace($path)) {
+    if ( -not [string]::IsNullOrWhiteSpace($path)) 
+    {
+        Write-Message -Type Debug "Found Visual Studio 2017 or newer."
         $path = join-path $path '\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\'
         return $path
     }
+
+    # visual studio 2015
+    $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+    if ($VS1464Path -ne $null)
+    {
+        $path = (Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
+        if (Test-Path -PathType Container -LiteralPath $path)
+        {
+            Write-Message -Type Debug "Found Visual Studio 2015."
+            return $path
+        }
+    }
+
+    $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
+    if ($VS1432Path -ne $null)
+    {
+        $path = (Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
+        if (Test-Path -PathType Container -LiteralPath $path)
+        {
+            Write-Message -Type Debug "Found Visual Studio 2015."
+            return $path
+        }
+    }
+
+    # Fall back to agent binaries
+    $agentExternalsTf =  (Join-Path $env:AGENT_HOMEDIRECTORY "\externals\tf")
+    if (Test-Path -PathType Container -LiteralPath $agentExternalsTf)
+    {
+        Write-Message -Type Warning "Couldn't find Team Explorer, falling back to the Agent Externals."
+        return $agentExternalsTf
+    }
+
+    $agentServerOM = $env:AGENT_SERVEROMDIRECTORY
+    if (Test-Path -PathType Container -LiteralPath $agentServerOM)
+    {
+        Write-Message -Type Warning "Couldn't find Team Explorer, falling back to Agent Server OM directory."
+        return $agentServerOM
+    }
+    
     return $null
 }
 
@@ -37,37 +78,7 @@ function Load-Assembly {
     if ($ProbingPaths.Length -eq 0)
     {
         Write-Message -Type Debug "Setting default assembly locations"
-
-        # Visual Studio 2017 and newer
-        $TeamExplorerPath = Find-VisualStudio
-        if ($TeamExplorerPath -ne $null)
-        {
-            $ProbingPaths += $TeamExplorerPath
-        }
-
-        # visual studio 2015
-        $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-        if ($VS1464Path -ne $null)
-        {
-            $ProbingPaths += (Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
-        }
-
-        $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-        if ($VS1432Path -ne $null)
-        {
-            $ProbingPaths += (Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
-        }
-
-        # fallback to agent binaries
-        if ($env:AGENT_HOMEDIRECTORY -ne $null )
-        {
-            $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\externals\tf")
-            $ProbingPaths += (Join-Path $env:AGENT_HOMEDIRECTORY "\Agent\Worker\")
-        } 
-        if ($env:AGENT_SERVEROMDIRECTORY -ne $null)
-        {
-            $ProbingPaths += $env:AGENT_SERVEROMDIRECTORY
-        }
+        $ProbingPaths += Find-VisualStudio
     }
 
     foreach($a in [System.AppDomain]::CurrentDomain.GetAssemblies())
