@@ -55,13 +55,13 @@
       "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/LICENSE.md"
     },
     "privacypolicy": {
-      "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/blob/master/PRIVACY.md"
+      "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/blob/main/PRIVACY.md"
     }
   },
   "badges": [
     {
       "href": "https://paypal.me/jessehouwing/5",
-      "uri": "https://raw.githubusercontent.com/jessehouwing/azure-pipelines-tfvc-tasks/master/extension/Images/donate.png",
+      "uri": "https://raw.githubusercontent.com/jessehouwing/azure-pipelines-tfvc-tasks/main/extension/Images/donate.png",
       "description": "Donate"
     },
     {
