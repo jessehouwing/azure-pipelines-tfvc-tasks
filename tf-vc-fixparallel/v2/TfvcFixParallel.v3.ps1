@@ -10,8 +10,8 @@ $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
 $jobAttempt = Get-VstsTaskVariable -Name "System.JobAttempt" -Require
 $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
 
-& az config set extension.use_dynamic_install=yes_without_prompt
-& az extension add --name azure-devops
+#& az config set extension.use_dynamic_install=yes_without_prompt
+#& az extension add --name azure-devops
 & az devops configure --defaults organization=$org project=$teamProject
 $vssCredential | &  az devops login --org $org
 
