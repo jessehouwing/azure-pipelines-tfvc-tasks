@@ -13,7 +13,7 @@ $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
 $vssCredential | &  az devops login --org $org
 
 # Create header with PAT
-$vssCredential = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($vssCredential)"))
+#$vssCredential = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($vssCredential)"))
 $header = @{authorization = "Bearer $vssCredential"}
 
 function get-timeline 
@@ -71,7 +71,7 @@ function has-checkout
         $job
     )
 
-    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task --eq $null) }
+    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) }
     if ($tasks)
     {
         return true;
@@ -87,7 +87,7 @@ function hasfinished-checkout
         $job
     )
 
-    $initTasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name like "Checkout *") -and ($_.task --eq $null) -and ($_.state  -eq "completed") }
+    $initTasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") }
     if ($initTasks)
     {
         return true;
@@ -107,8 +107,7 @@ function must-yield
 
         foreach ($job in $jobs)
         {
-            if (-not $run.Id -eq $buildId -and $job.id -eq $jobId)
-            if (has-checkout -job $job -timeline $timeline)
+            if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and (has-checkout -job $job -timeline $timeline))
             {
                 $hostname = get-hostname -timeline $timeline -job $job
                 if ($hostname -eq $currentHostname)
