@@ -38,9 +38,8 @@ function get-jobs
     param(
         $timeline
     )
-
+    Write-VstsTaskDebug  ("Entering: get-jobs")
     $jobs = $timeline.records | ?{ $_.type -eq "Job" }
-    Write-VstsTaskDebug ($jobs | ConvertTo-Json)
     return $jobs
 }
 
