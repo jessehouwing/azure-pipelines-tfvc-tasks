@@ -23,7 +23,9 @@ function get-timeline
         $run
     )
 
-
+    $url = $run._links.timeline.href
+    $timeline = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers $header | ConvertFrom-Json 
+    return $timeline
 }
 
 function get-jobs 
@@ -33,7 +35,8 @@ function get-jobs
         $timeline
     )
 
-
+    $jobs = $timeline.records | ?{ $_.type -eq "Job" }
+    return $jobs
 }
 
 function get-hostname 
@@ -44,8 +47,38 @@ function get-hostname
         $job
     )
 
-    return $currentHostname
+    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -startsWith "Initialize job") -and ($_.state  -eq "completed") }
+    
+    if ($tasks)
+    {
+        $url = $tasks[0].log.url
+        $log = Invoke-WebRequest -Uri $url -Headers $header
+
+        if ($log.Contains("Agent machine name"))
+        {
+            $log -match ("(?<=Agent machine name:\s+')[^']*")
+            return $Matches[0]
+        }
+    }
+    return ""
 }
+
+function has-checkout 
+{
+    [cmdletbinding()]
+    param(
+        $timeline,
+        $job
+    )
+
+    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -startsWith "Checkout ") -and ($_.task --eq $null) }
+    if ($tasks)
+    {
+        return true;
+    }
+    return $false
+}
+
 
 function hasfinished-checkout 
 {
@@ -55,7 +88,12 @@ function hasfinished-checkout
         $job
     )
 
-    return true;
+    $initTasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -startsWith "Checkout ") -and ($_.task --eq $null) -and ($_.state  -eq "completed") }
+    if ($initTasks)
+    {
+        return true;
+    }
+    return $false
 }
 
 function must-yield
@@ -70,16 +108,19 @@ function must-yield
 
         foreach ($job in $jobs)
         {
-            $hostname = get-hostname -timeline $timeline -job $job
-            if ($hostname -eq $currentHostname)
+            if (has-checkout -job $job -timeline $timeline)
             {
-                $finishedCheckout = hasfinished-checkout -timeline $timeline -job $job
-
-                if (-not $finishedCheckout)
+                $hostname = get-hostname -timeline $timeline -job $job
+                if ($hostname -eq $currentHostname)
                 {
-                    if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
+                    $finishedCheckout = hasfinished-checkout -timeline $timeline -job $job
+
+                    if (-not $finishedCheckout)
                     {
-                        return $true
+                        if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
+                        {
+                            return $true
+                        }
                     }
                 }
             }
