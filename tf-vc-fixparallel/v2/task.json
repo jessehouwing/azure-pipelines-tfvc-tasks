@@ -1,5 +1,5 @@
 {
-  "id": "b4fbc710-26d3-4255-aa10-283425727fe4",
+  "id": "379b4b77-75d2-4fb8-84a3-05b51d97154c",
   "name": "tf-vc-fixparallel",
   "friendlyName": "TFVC - fix parallel execution on hosted agent #{Extension.Tag}#",
   "description": "Fix parallel execution on hosted agent.",
