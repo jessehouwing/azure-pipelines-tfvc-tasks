@@ -40,6 +40,7 @@ function get-jobs
     )
 
     $jobs = $timeline.records | ?{ $_.type -eq "Job" }
+    Write-VstsTaskDebug $jobs
     return $jobs
 }
 
@@ -57,7 +58,7 @@ function get-hostname
     {
         $url = $tasks[0].log.url
         $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
-        
+        Write-VstsTaskDebug $log
 
         if ($log.Contains("Agent machine name"))
         {
@@ -77,6 +78,7 @@ function has-checkout
     )
 
     $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) }
+    Write-VstsTaskDebug $tasks
     if ($tasks)
     {
         return $true;
@@ -92,8 +94,9 @@ function hasfinished-checkout
         $job
     )
 
-    $initTasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") }
-    if ($initTasks)
+    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") }
+    Write-VstsTaskDebug $tasks
+    if ($tasks)
     {
         return $true;
     }
@@ -112,13 +115,16 @@ function must-yield
 
         foreach ($job in $jobs)
         {
-            if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and (has-checkout -job $job -timeline $timeline))
+            $hasCheckout = has-checkout -job $job -timeline $timeline
+            if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and hasCheckout)
             {
                 $hostname = get-hostname -timeline $timeline -job $job
+                Write-VstsTaskDebug "Hostname: $hostname"
+
                 if ($hostname -eq $currentHostname)
                 {
                     $finishedCheckout = hasfinished-checkout -timeline $timeline -job $job
-
+                    Write-VstsTaskDebug "Finished Checkout: $finishedCheckout"
                     if (-not $finishedCheckout)
                     {
                         if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
@@ -135,6 +141,6 @@ function must-yield
 
 while (must-yield)
 {
-    Write-VstsTaskWarning "Two agents with the same hostname detected. Waiting 15 seconds..."
+    Write-VstsTaskMessage "Two agents with the same hostname detected. Waiting 15 seconds..."
     Start-Sleep -seconds 15
 }
