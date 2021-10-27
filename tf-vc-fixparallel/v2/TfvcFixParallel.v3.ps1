@@ -57,12 +57,15 @@ function get-hostname
     if ($tasks.Length -gt 0)
     {
         $url = $tasks[0].log.url
-        $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
-
-        if ($log.Contains("Agent machine name: "))
+        if (-not "$url" -eq "")
         {
-            $machineName = ($log | Select-string -Pattern "(?<=Agent machine name:\s+')[^']*").Matches[0].Value
-            return $machineName
+            $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
+
+            if ($log.Contains("Agent machine name: "))
+            {
+                $machineName = ($log | Select-string -Pattern "(?<=Agent machine name:\s+')[^']*").Matches[0].Value
+                return $machineName
+            }
         }
     }
     return ""
@@ -142,6 +145,7 @@ function must-yield
                     if ($hostname -eq "")
                     {
                         # in case we're uncertain, it's better to wait.
+                        Write-VstsTaskWarning "Job with an undetermined hostname. Waiting 15 seconds..."
                         return $true
                     }
 
@@ -153,6 +157,7 @@ function must-yield
                         {
                             if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
                             {
+                                Write-VstsTaskWarning "Two agents with the same hostname detected. Waiting 15 seconds..."
                                 return $true
                             }
                         }
@@ -166,6 +171,5 @@ function must-yield
 
 while (must-yield)
 {
-    Write-VstsTaskWarning "Two agents with the same hostname detected. Waiting 15 seconds..."
     Start-Sleep -seconds 15
 }
