@@ -121,7 +121,7 @@ function is-hostedjob
 
 function must-yield
 {
-    $runsRaw = & az pipelines runs list --org $org --status inProgress --project $teamProject --top 25
+    $runsRaw = & az pipelines runs list --org $org --status inProgress --project $teamProject --top 50
     $runs = $runsRaw | ConvertFrom-Json 
 
     foreach ($run in $runs)
