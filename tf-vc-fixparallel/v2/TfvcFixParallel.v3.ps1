@@ -116,7 +116,9 @@ function must-yield
         foreach ($job in $jobs)
         {
             $hasCheckout = has-checkout -job $job -timeline $timeline
-            if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and hasCheckout)
+            Write-VstsTaskDebug "HasCheckout: $hasCheckout"
+
+            if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and $hasCheckout)
             {
                 $hostname = get-hostname -timeline $timeline -job $job
                 Write-VstsTaskDebug "Hostname: $hostname"
