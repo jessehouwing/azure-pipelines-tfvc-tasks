@@ -47,7 +47,7 @@ function get-hostname
         $job
     )
 
-    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -startsWith "Initialize job") -and ($_.state  -eq "completed") }
+    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Initialize job") -and ($_.state  -eq "completed") }
     
     if ($tasks)
     {
@@ -71,14 +71,13 @@ function has-checkout
         $job
     )
 
-    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -startsWith "Checkout ") -and ($_.task --eq $null) }
+    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task --eq $null) }
     if ($tasks)
     {
         return true;
     }
     return $false
 }
-
 
 function hasfinished-checkout 
 {
@@ -88,7 +87,7 @@ function hasfinished-checkout
         $job
     )
 
-    $initTasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -startsWith "Checkout ") -and ($_.task --eq $null) -and ($_.state  -eq "completed") }
+    $initTasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name like "Checkout *") -and ($_.task --eq $null) -and ($_.state  -eq "completed") }
     if ($initTasks)
     {
         return true;
@@ -108,6 +107,7 @@ function must-yield
 
         foreach ($job in $jobs)
         {
+            if (-not $run.Id -eq $buildId -and $job.id -eq $jobId)
             if (has-checkout -job $job -timeline $timeline)
             {
                 $hostname = get-hostname -timeline $timeline -job $job
