@@ -60,10 +60,10 @@ function get-hostname
         $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
         Write-VstsTaskDebug $log
 
-        if ($log.Contains("Agent machine name"))
+        if ($log.Contains("Agent machine name: "))
         {
-            $log -match ("(?<=Agent machine name:\s+')[^']*")
-            return "$Matches[0]"
+            $machineName = ($log | Select-string -Pattern "(?<=Agent machine name:\s+')[^']*").Matches[0].Value
+            return $machineName
         }
     }
     return ""
