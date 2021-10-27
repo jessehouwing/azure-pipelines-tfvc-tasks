@@ -8,6 +8,7 @@ $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
 $buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
 $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
 $jobAttempt = Get-VstsTaskVariable -Name "System.JobAttempt" -Require
+$teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
 
 $vssCredential | &  az devops login --org $org
 
@@ -59,7 +60,7 @@ function hasfinished-checkout
 
 function must-yield
 {
-    $runsRaw = & az pipelines runs list --org $org --status inProgress --project cumulus --top 25
+    $runsRaw = & az pipelines runs list --org $org --status inProgress --project $teamProject --top 25
     $runs = $runsRaw | ConvertFrom-Json 
 
     foreach ($run in $runs)
