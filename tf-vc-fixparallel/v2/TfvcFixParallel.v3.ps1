@@ -58,7 +58,6 @@ function get-hostname
     {
         $url = $tasks[0].log.url
         $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
-        Write-VstsTaskDebug $log
 
         if ($log.Contains("Agent machine name: "))
         {
@@ -78,7 +77,6 @@ function has-checkout
     )
     Write-VstsTaskDebug  ("Entering: has-checkout")
     $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) })
-    Write-VstsTaskDebug  ($tasks | ConvertTo-Json)
     if ($tasks.Length -gt 0)
     {
         return $true;
@@ -95,7 +93,6 @@ function hasfinished-checkout
     )
     Write-VstsTaskDebug  ("Entering: hasfinished-checkout")
     $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") })
-    Write-VstsTaskDebug  ($tasks | ConvertTo-Json)
     if ($tasks.Length -gt 0)
     {
         return $true;
@@ -143,6 +140,6 @@ function must-yield
 
 while (must-yield)
 {
-    Write-VstsTaskDebug "Two agents with the same hostname detected. Waiting 15 seconds..."
+    Write-VstsTaskWarning "Two agents with the same hostname detected. Waiting 15 seconds..."
     Start-Sleep -seconds 15
 }
