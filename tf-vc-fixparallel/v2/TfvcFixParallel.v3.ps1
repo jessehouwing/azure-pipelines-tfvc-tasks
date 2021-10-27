@@ -52,7 +52,7 @@ function get-hostname
         $job
     )
     Write-VstsTaskDebug  ("Entering: get-hostname")
-    $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Initialize job") -and ($_.state  -eq "completed") }
+    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Initialize job") -and ($_.state  -eq "completed") })
     
     if ($tasks.Length -gt 0)
     {
