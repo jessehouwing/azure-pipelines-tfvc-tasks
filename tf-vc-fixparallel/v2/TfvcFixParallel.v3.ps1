@@ -8,6 +8,7 @@ $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
 $buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
 $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
 $jobAttempt = Get-VstsTaskVariable -Name "System.JobAttempt" -Require
+$agentId = Get-VstsTaskVariable -Name "Agent.Id" -Require
 $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
 
 #& az config set extension.use_dynamic_install=yes_without_prompt
@@ -99,6 +100,22 @@ function hasfinished-checkout
     return $false
 }
 
+function is-hostedjob
+{
+    [cmdletbinding()]
+    param(
+        $job
+    )
+    Write-VstsTaskDebug  ("Entering: is-hostedjob")
+
+    if ($job.workerName -like "Azure Pipelines*" -or
+        $job.workerName -like "Hosted*")
+    {
+        return $true
+    }
+    return $false
+}
+
 function must-yield
 {
     $runsRaw = & az pipelines runs list --org $org --status inProgress --project $teamProject --top 25
@@ -111,23 +128,28 @@ function must-yield
 
         foreach ($job in $jobs)
         {
-            $hasCheckout = has-checkout -job $job -timeline $timeline
-            Write-VstsTaskDebug "HasCheckout: $hasCheckout"
-
-            if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and $hasCheckout)
+            $isHosted = is-hostedjob $job
+            Write-VstsTaskDebug "IsHosted: $isHosted"
+            if ($isHosted)
             {
-                $hostname = get-hostname -timeline $timeline -job $job
-                Write-VstsTaskDebug "Hostname: $hostname"
+                $hasCheckout = has-checkout -job $job -timeline $timeline
+                Write-VstsTaskDebug "HasCheckout: $hasCheckout"
 
-                if ($hostname -eq $currentHostname)
+                if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and $hasCheckout)
                 {
-                    $finishedCheckout = hasfinished-checkout -timeline $timeline -job $job
-                    Write-VstsTaskDebug "Finished Checkout: $finishedCheckout"
-                    if (-not $finishedCheckout)
+                    $hostname = get-hostname -timeline $timeline -job $job
+                    Write-VstsTaskDebug "Hostname: $hostname"
+
+                    if ($hostname -eq $currentHostname)
                     {
-                        if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
+                        $finishedCheckout = hasfinished-checkout -timeline $timeline -job $job
+                        Write-VstsTaskDebug "Finished Checkout: $finishedCheckout"
+                        if (-not $finishedCheckout)
                         {
-                            return $true
+                            if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
+                            {
+                                return $true
+                            }
                         }
                     }
                 }
