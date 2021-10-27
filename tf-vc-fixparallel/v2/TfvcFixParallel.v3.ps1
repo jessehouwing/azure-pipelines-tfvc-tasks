@@ -135,6 +135,6 @@ function must-yield
 
 while (must-yield)
 {
-    Write-Message "Waiting 15 seconds..."
+    Write-VstsTaskWarning "Two agents with the same hostname detected. Waiting 15 seconds..."
     Start-Sleep -seconds 15
 }
