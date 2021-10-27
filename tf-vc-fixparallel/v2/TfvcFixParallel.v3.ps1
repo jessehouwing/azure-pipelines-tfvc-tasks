@@ -51,7 +51,7 @@ function get-hostname
         $timeline,
         $job
     )
-
+    Write-VstsTaskDebug  ("Entering: get-hostname")
     $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Initialize job") -and ($_.state  -eq "completed") }
     
     if ($tasks.Length -gt 0)
@@ -76,7 +76,7 @@ function has-checkout
         $timeline,
         $job
     )
-
+    Write-VstsTaskDebug  ("Entering: has-checkout")
     $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) }
     Write-VstsTaskDebug  ($tasks | ConvertTo-Json)
     if ($tasks.Length -gt 0)
@@ -93,7 +93,7 @@ function hasfinished-checkout
         $timeline,
         $job
     )
-
+    Write-VstsTaskDebug  ("Entering: hasfinished-checkout")
     $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") }
     Write-VstsTaskDebug  ($tasks | ConvertTo-Json)
     if ($tasks.Length -gt 0)
