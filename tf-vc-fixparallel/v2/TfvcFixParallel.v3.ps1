@@ -139,6 +139,11 @@ function must-yield
                 {
                     $hostname = get-hostname -timeline $timeline -job $job
                     Write-VstsTaskDebug "Hostname: $hostname"
+                    if ($hostname -eq "")
+                    {
+                        # in case we're uncertain, it's better to wait.
+                        return $true
+                    }
 
                     if ($hostname -eq $currentHostname)
                     {
