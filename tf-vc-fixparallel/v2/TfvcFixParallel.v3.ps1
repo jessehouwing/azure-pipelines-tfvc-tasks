@@ -40,7 +40,7 @@ function get-jobs
     )
 
     $jobs = $timeline.records | ?{ $_.type -eq "Job" }
-    Write-VstsTaskDebug $jobs
+    Write-VstsTaskDebug ($jobs | ConvertTo-Json)
     return $jobs
 }
 
@@ -78,7 +78,7 @@ function has-checkout
     )
 
     $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) }
-    Write-VstsTaskDebug $tasks
+    Write-VstsTaskDebug  ($tasks | ConvertTo-Json)
     if ($tasks)
     {
         return $true;
@@ -95,7 +95,7 @@ function hasfinished-checkout
     )
 
     $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") }
-    Write-VstsTaskDebug $tasks
+    Write-VstsTaskDebug  ($tasks | ConvertTo-Json)
     if ($tasks)
     {
         return $true;
