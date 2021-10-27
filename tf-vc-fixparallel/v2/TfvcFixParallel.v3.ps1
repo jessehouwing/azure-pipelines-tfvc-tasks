@@ -10,6 +10,9 @@ $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
 $jobAttempt = Get-VstsTaskVariable -Name "System.JobAttempt" -Require
 $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
 
+& az config set extension.use_dynamic_install=yes_without_prompt
+& az extension add --name azure-devops
+& az devops configure --defaults organization=$org project=$teamProject
 $vssCredential | &  az devops login --org $org
 
 # Create header with PAT
@@ -23,8 +26,9 @@ function get-timeline
         $run
     )
 
-    $url = $run._links.timeline.href
-    $timeline = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers $header | ConvertFrom-Json 
+    $build = Invoke-RestMethod -Uri $run.url -Method Get -ContentType "application/json" -Headers $header
+    $url = $build._links.timeline.href
+    $timeline = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers $header 
     return $timeline
 }
 
@@ -52,7 +56,8 @@ function get-hostname
     if ($tasks)
     {
         $url = $tasks[0].log.url
-        $log = Invoke-WebRequest -Uri $url -Headers $header
+        $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
+        
 
         if ($log.Contains("Agent machine name"))
         {
@@ -74,7 +79,7 @@ function has-checkout
     $tasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) }
     if ($tasks)
     {
-        return true;
+        return $true;
     }
     return $false
 }
@@ -90,7 +95,7 @@ function hasfinished-checkout
     $initTasks = $timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") }
     if ($initTasks)
     {
-        return true;
+        return $true;
     }
     return $false
 }
