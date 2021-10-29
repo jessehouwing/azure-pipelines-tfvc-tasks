@@ -144,7 +144,7 @@ function must-yield
 
     foreach ($run in $runs)
     {
-        Write-VstsTaskDebug $run._links.web.href
+        
         
         if (-not (is-tfvcbuild -run $run))
         {
@@ -153,11 +153,13 @@ function must-yield
 
         $timeline = get-timeline -run $run
         $jobs = get-inprogressjobs -timeline $timeline
+        $self = $jobs | ?{ $_.id = $jobId }
 
         foreach ($job in $jobs)
         {
-            # skip self
-            if (-not ($run.Id -eq $buildId -and $job.id -eq $jobId))
+            Write-VstsTaskDebug "$($run._links.web.href)&view=logs&j=$($job.id)"
+
+            if (-not ($job.id -eq $self.id))
             {
                 $isJobTypeUnknown = is-jobtypeunknown -job $job
                 if ($isJobTypeUnknown)
@@ -185,10 +187,11 @@ function must-yield
                     {
                         $finishedCheckout = hasfinished-checkout -timeline $timeline -job $job
                         Write-VstsTaskDebug "Finished Checkout: $finishedCheckout"
+                        
                         if (-not $finishedCheckout)
                         {
-                            Write-VstsTaskDebug "BuildId: $($run.Id) < $buildId or $($job.id) < $jobId"
-                            if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
+                            $isCheckingOut = is-checkingout -timeline $timeline -job $job
+                            if ($isCheckingOut -or ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.startTime -lt $self.startTime)))
                             {
                                 Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
                                 return $true
@@ -205,7 +208,7 @@ function must-yield
 
 if ($repositoryKind -eq "TfsVersionControl")
 {
-    $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
+    endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
     $vssCredential = [string]$endpoint.auth.parameters.AccessToken
     $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
     $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
@@ -214,7 +217,7 @@ if ($repositoryKind -eq "TfsVersionControl")
     $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
     $header = @{authorization = "Bearer $vssCredential"}
 
-    while (must-yield -and must-yield)
+    while (must-yield)
     {
         Start-Sleep -seconds 15
     }
