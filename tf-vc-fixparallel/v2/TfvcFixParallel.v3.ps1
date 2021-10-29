@@ -1,24 +1,18 @@
 ﻿[cmdletbinding()]
 param()
 
-$endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
-$vssCredential = [string]$endpoint.auth.parameters.AccessToken
-$org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
-$currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
-$buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
-$jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
-$jobAttempt = Get-VstsTaskVariable -Name "System.JobAttempt" -Require
-$agentId = Get-VstsTaskVariable -Name "Agent.Id" -Require
-$teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
+$repositoryKind = Get-VstsTaskVariable -Name "Build.Repository.Provider"
 
-#& az config set extension.use_dynamic_install=yes_without_prompt
-#& az extension add --name azure-devops
-#& az devops configure --defaults organization=$org project=$teamProject
-$vssCredential | &  az devops login --org $org
-
-# Create header with PAT
-#$vssCredential = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($vssCredential)"))
-$header = @{authorization = "Bearer $vssCredential"}
+function get-runs
+{
+    [cmdletbinding()]
+    param(
+        $top
+    )
+    Write-VstsTaskDebug  ("Entering: get-runs")
+    $runs = Invoke-RestMethod -Uri "$org$teamProject/_apis/build/Builds?statusFilter=inProgress&`$top=$top" -Method Get -ContentType "application/json" -Headers $header
+    return $runs
+}
 
 function get-timeline 
 {
@@ -26,9 +20,9 @@ function get-timeline
     param(
         $run
     )
-
-    $build = Invoke-RestMethod -Uri $run.url -Method Get -ContentType "application/json" -Headers $header
-    $url = $build._links.timeline.href
+    Write-VstsTaskDebug  ("Entering: get-timeline")
+    $runId = $run.Id
+    $url = "$org$teamProject/_apis/build/builds/$runId/Timeline"
     $timeline = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers $header 
     return $timeline
 }
@@ -69,6 +63,16 @@ function get-hostname
         }
     }
     return ""
+}
+
+function is-tfvcbuild
+{
+    [cmdletbinding()]
+    param(
+        $run
+    )
+    Write-VstsTaskDebug  ("Entering: is-tfvcbuild")
+    return ($run.repository.type -eq "TfsVersionControl")
 }
 
 function has-checkout 
@@ -121,11 +125,15 @@ function is-hostedjob
 
 function must-yield
 {
-    $runsRaw = & az pipelines runs list --org $org --status inProgress --project $teamProject --top 50
-    $runs = $runsRaw | ConvertFrom-Json 
+    $runs = (get-runs -top 50).Value
 
     foreach ($run in $runs)
     {
+        if (-not (is-tfvcbuild -run $run))
+        {
+            return $false;
+        }
+
         $timeline = get-timeline -run $run
         $jobs = get-jobs -timeline $timeline
 
@@ -169,7 +177,23 @@ function must-yield
     return $false
 }
 
-while (must-yield)
+if ($repositoryKind -eq "TfsVersionControl")
 {
-    Start-Sleep -seconds 15
+    $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
+    $vssCredential = [string]$endpoint.auth.parameters.AccessToken
+    $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
+    $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
+    $buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
+    $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
+    $jobAttempt = Get-VstsTaskVariable -Name "System.JobAttempt" -Require
+    $agentId = Get-VstsTaskVariable -Name "Agent.Id" -Require
+    $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
+    $header = @{authorization = "Bearer $vssCredential"}
+
+    while (must-yield)
+    {
+        Start-Sleep -seconds 15
+    }
 }
+
+Write-Host "##vso[task.complete result=Succeeded;]"
