@@ -208,7 +208,7 @@ function must-yield
 
 if ($repositoryKind -eq "TfsVersionControl")
 {
-    endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
+    $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
     $vssCredential = [string]$endpoint.auth.parameters.AccessToken
     $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
     $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
