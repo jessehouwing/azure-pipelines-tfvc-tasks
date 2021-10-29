@@ -38,6 +38,17 @@ function get-inprogressjobs
     return $jobs
 }
 
+function get-self
+{
+    [cmdletbinding()]
+    param(
+        $timeline
+    )
+    Write-VstsTaskDebug  ("Entering: get-self")
+    $job = @($timeline.records | ?{ ($_.type -eq "Job") -and ($_.id -eq $jobId) })
+    return $job[0]
+}
+
 function get-hostname 
 {
     [cmdletbinding()]
@@ -160,16 +171,14 @@ function must-yield
 
     foreach ($run in $runs)
     {
-        
-        
         if (-not (is-tfvcbuild -run $run))
         {
             return $false;
         }
 
         $timeline = get-timeline -run $run
+        $self = get-self -timeline $timeline
         $jobs = get-inprogressjobs -timeline $timeline
-        $self = $jobs | ?{ $_.id = $jobId }
 
         foreach ($job in $jobs)
         {
@@ -207,6 +216,7 @@ function must-yield
                         if (-not $finishedCheckout)
                         {
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
+                            Write-VstsTaskDebug "Is checking out: $finishedCheckout"
                             if ($isCheckingOut -or ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.startTime -lt $self.startTime)))
                             {
                                 Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
