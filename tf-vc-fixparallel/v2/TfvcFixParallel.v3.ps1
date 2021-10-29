@@ -107,6 +107,22 @@ function hasfinished-checkout
     return $false
 }
 
+function is-checkingout 
+{
+    [cmdletbinding()]
+    param(
+        $timeline,
+        $job
+    )
+    Write-VstsTaskDebug  ("Entering: hasfinished-checkout")
+    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "inProgress") })
+    if ($tasks.Length -gt 0)
+    {
+        return $true;
+    }
+    return $false
+}
+
 function is-jobtypeunknown
 {
     [cmdletbinding()]
