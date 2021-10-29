@@ -27,14 +27,14 @@ function get-timeline
     return $timeline
 }
 
-function get-jobs 
+function get-inprogressjobs 
 {
     [cmdletbinding()]
     param(
         $timeline
     )
     Write-VstsTaskDebug  ("Entering: get-jobs")
-    $jobs = $timeline.records | ?{ $_.type -eq "Job" }
+    $jobs = $timeline.records | ?{ ($_.type -eq "Job") -and ($_.state -eq "inProgress") }
     return $jobs
 }
 
@@ -46,7 +46,7 @@ function get-hostname
         $job
     )
     Write-VstsTaskDebug  ("Entering: get-hostname")
-    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Initialize job") -and ($_.state  -eq "completed") })
+    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Initialize job") -and ($_.state -eq "completed") })
     
     if ($tasks.Length -gt 0)
     {
@@ -107,6 +107,21 @@ function hasfinished-checkout
     return $false
 }
 
+function is-jobtypeunknown
+{
+    [cmdletbinding()]
+    param(
+        $job
+    )
+    Write-VstsTaskDebug  ("Entering: is-jobtypeunknown")
+    $workername = $job.workerName
+    if ("$workername" -eq "")
+    {
+        return $true
+    }
+    return $false
+}
+
 function is-hostedjob
 {
     [cmdletbinding()]
@@ -125,7 +140,7 @@ function is-hostedjob
 
 function must-yield
 {
-    $runs = (get-runs -top 50).Value
+    $runs = (get-runs -top 100).Value
 
     foreach ($run in $runs)
     {
@@ -135,11 +150,21 @@ function must-yield
         }
 
         $timeline = get-timeline -run $run
-        $jobs = get-jobs -timeline $timeline
+        $jobs = get-inprogressjobs -timeline $timeline
 
         foreach ($job in $jobs)
         {
-            $isHosted = is-hostedjob $job
+            $isJobTypeUnknown = is-jobtypeunknown -job $job
+            if ($isJobTypeUnknown)
+            {
+                # in case we're uncertain, it's better to wait.
+                Write-VstsTaskDebug "Job with an undetermined agent pool..."
+                Write-VstsTaskDebug $job._links.web.href
+                return $true
+            }
+
+            $isHosted = is-hostedjob -job $job
+            
             Write-VstsTaskDebug "IsHosted: $isHosted"
             if ($isHosted)
             {
@@ -153,7 +178,8 @@ function must-yield
                     if ($hostname -eq "")
                     {
                         # in case we're uncertain, it's better to wait.
-                        Write-VstsTaskWarning "Job with an undetermined hostname. Waiting 15 seconds..."
+                        Write-VstsTaskDebug "Job with an undetermined hostname..."
+                        Write-VstsTaskDebug $job._links.web.href
                         return $true
                     }
 
@@ -165,7 +191,8 @@ function must-yield
                         {
                             if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
                             {
-                                Write-VstsTaskWarning "Two agents with the same hostname detected. Waiting 15 seconds..."
+                                Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
+                                Write-VstsTaskDebug $job._links.web.href
                                 return $true
                             }
                         }
@@ -185,8 +212,6 @@ if ($repositoryKind -eq "TfsVersionControl")
     $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
     $buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
     $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
-    $jobAttempt = Get-VstsTaskVariable -Name "System.JobAttempt" -Require
-    $agentId = Get-VstsTaskVariable -Name "Agent.Id" -Require
     $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
     $header = @{authorization = "Bearer $vssCredential"}
 
