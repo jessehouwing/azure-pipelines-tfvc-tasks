@@ -144,6 +144,8 @@ function must-yield
 
     foreach ($run in $runs)
     {
+        Write-VstsTaskDebug $run._links.web.href
+        
         if (-not (is-tfvcbuild -run $run))
         {
             return $false;
@@ -154,32 +156,28 @@ function must-yield
 
         foreach ($job in $jobs)
         {
-            $isJobTypeUnknown = is-jobtypeunknown -job $job
-            if ($isJobTypeUnknown)
+            # skip self
+            if (-not ($run.Id -eq $buildId -and $job.id -eq $jobId))
             {
-                # in case we're uncertain, it's better to wait.
-                Write-VstsTaskDebug "Job with an undetermined agent pool..."
-                Write-VstsTaskDebug $job._links.web.href
-                return $true
-            }
+                $isJobTypeUnknown = is-jobtypeunknown -job $job
+                if ($isJobTypeUnknown)
+                {
+                    # in case we're uncertain, it's better to wait.
+                    Write-VstsTaskDebug "Job with an undetermined agent pool..."
+                    return $true
+                }
 
-            $isHosted = is-hostedjob -job $job
-            
-            Write-VstsTaskDebug "IsHosted: $isHosted"
-            if ($isHosted)
-            {
-                $hasCheckout = has-checkout -job $job -timeline $timeline
-                Write-VstsTaskDebug "HasCheckout: $hasCheckout"
-
-                if ((-not ($run.Id -eq $buildId -and $job.id -eq $jobId)) -and $hasCheckout)
+                $isHosted = is-hostedjob -job $job
+                
+                Write-VstsTaskDebug "IsHosted: $isHosted"
+                if ($isHosted)
                 {
                     $hostname = get-hostname -timeline $timeline -job $job
                     Write-VstsTaskDebug "Hostname: $hostname"
-                    if ($hostname -eq "")
+                    if ("$hostname" -eq "")
                     {
                         # in case we're uncertain, it's better to wait.
                         Write-VstsTaskDebug "Job with an undetermined hostname..."
-                        Write-VstsTaskDebug $job._links.web.href
                         return $true
                     }
 
@@ -189,10 +187,10 @@ function must-yield
                         Write-VstsTaskDebug "Finished Checkout: $finishedCheckout"
                         if (-not $finishedCheckout)
                         {
+                            Write-VstsTaskDebug "BuildId: $($run.Id) < $buildId or $($job.id) < $jobId"
                             if ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.id -lt $jobId))
                             {
                                 Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
-                                Write-VstsTaskDebug $job._links.web.href
                                 return $true
                             }
                         }
@@ -201,6 +199,7 @@ function must-yield
             }
         }
     }
+    Write-VstsTaskDebug "Taking right of way..."
     return $false
 }
 
@@ -215,7 +214,7 @@ if ($repositoryKind -eq "TfsVersionControl")
     $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
     $header = @{authorization = "Bearer $vssCredential"}
 
-    while (must-yield)
+    while (must-yield -and must-yield)
     {
         Start-Sleep -seconds 15
     }
