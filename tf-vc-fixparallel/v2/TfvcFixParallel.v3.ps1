@@ -125,7 +125,7 @@ function is-checkingout
         $timeline,
         $job
     )
-    Write-VstsTaskDebug  ("Entering: hasfinished-checkout")
+    Write-VstsTaskDebug  ("Entering: is-checkingout")
     $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "inProgress") })
     if ($tasks.Length -gt 0)
     {
@@ -216,10 +216,15 @@ function must-yield
                         if (-not $finishedCheckout)
                         {
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
-                            Write-VstsTaskDebug "Is checking out: $finishedCheckout"
+                            Write-VstsTaskDebug "Is checking out: $isCheckingOut"
                             if ($isCheckingOut -or ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.startTime -lt $self.startTime)))
                             {
-                                Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
+                                if (-not $warned)
+                                {
+                                    Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
+                                    $warned = $true
+                                }
+                                Write-Host "$($run._links.web.href)&view=logs&j=$($job.id)"
                                 return $true
                             }
                         }
@@ -234,6 +239,7 @@ function must-yield
 
 if ($repositoryKind -eq "TfsVersionControl")
 {
+    $warned = $false
     $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
     $vssCredential = [string]$endpoint.auth.parameters.AccessToken
     $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
