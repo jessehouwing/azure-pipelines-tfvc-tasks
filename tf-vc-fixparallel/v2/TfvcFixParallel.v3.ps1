@@ -217,7 +217,7 @@ function must-yield
                         {
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
                             Write-VstsTaskDebug "Is checking out: $isCheckingOut"
-                            if ($isCheckingOut -or $job.startTime -lt $self.startTime -or ($job.buildId -eq $self.buildId -and $job.order -lt $self.order))
+                            if ($isCheckingOut -or $job.startTime -lt $self.startTime -or ($job.buildId -eq $self.buildId -and $job.order -lt $self.order) -or ($job.startTime -eq $self.startTime -and $job.id -lt $self.id))
                             {
                                 if (-not $warned)
                                 {
