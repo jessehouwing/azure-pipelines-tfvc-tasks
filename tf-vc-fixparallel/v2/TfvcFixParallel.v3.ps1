@@ -224,12 +224,11 @@ function must-yield
                                     Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
                                     $warned = $true
                                 }
-                                Write-Host "$($run._links.web.href)&view=logs&j=$($job.id)"
+                                Write-Host "Waiting for: $($run._links.web.href)&view=logs&j=$($job.id)"
                                 return $true
                             }
                             else {
-                                Write-VstsTaskDebug "Taking right of way..."
-                                Write-Host "$($run._links.web.href)&view=logs&j=$($job.id)"
+                                Write-Host "Cutting in front of: $($run._links.web.href)&view=logs&j=$($job.id)"
                             }
                         }
                     }
@@ -237,7 +236,7 @@ function must-yield
             }
         }
     }
-    Write-VstsTaskDebug "Taking right of way..."
+    Write-Host "Found no conflicting builds..."
     return $false
 }
 
