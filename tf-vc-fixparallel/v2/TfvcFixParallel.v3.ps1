@@ -256,6 +256,11 @@ if ($repositoryKind -eq "TfsVersionControl")
     {
         Start-Sleep -seconds 15
     }
+    Start-Sleep -seconds 5
+    while (must-yield)
+    {
+        Start-Sleep -seconds 15
+    }
 }
 
 Write-Host "##vso[task.complete result=Succeeded;]"
