@@ -217,7 +217,7 @@ function must-yield
                         {
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
                             Write-VstsTaskDebug "Is checking out: $isCheckingOut"
-                            if ($isCheckingOut -or ($run.Id -lt $buildId -or ($run.Id -eq $buildId -and $job.startTime -lt $self.startTime)))
+                            if ($isCheckingOut -or $job.startTime -lt $self.startTime -or ($job.buildId -eq $self.buildId -and $job.order -lt $self.order))
                             {
                                 if (-not $warned)
                                 {
@@ -226,6 +226,10 @@ function must-yield
                                 }
                                 Write-Host "$($run._links.web.href)&view=logs&j=$($job.id)"
                                 return $true
+                            }
+                            else {
+                                Write-VstsTaskDebug "Taking right of way..."
+                                Write-Host "$($run._links.web.href)&view=logs&j=$($job.id)"
                             }
                         }
                     }
