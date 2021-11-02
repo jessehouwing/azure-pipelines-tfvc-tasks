@@ -218,8 +218,8 @@ function must-yield
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
                             Write-VstsTaskDebug "Is checking out: $isCheckingOut"
                             if ($isCheckingOut -or 
-                                ($job.buildId -lt $self.buildId) -or
-                                ($job.buildId -eq $self.buildId -and $job.order -lt $self.order))
+                                ($run.id -lt $buildId) -or
+                                ($run.id -eq $buildId -and $job.order -lt $self.order))
                             {
                                 if (-not $warned)
                                 {
@@ -227,14 +227,14 @@ function must-yield
                                     $warned = $true
                                 }
                                 Write-Host "Waiting for: $($run._links.web.href)&view=logs&j=$($job.id)"
-                                Write-Host "This job: IsCheckingOut: false, BuildId: $($self.buildId), JobOrder: $($self.order)."
-                                Write-Host "That job: IsCheckingOut: $(isCheckingOut), BuildId: $($job.buildId), JobOrder: $($job.order)."
+                                Write-Host "This job: IsCheckingOut: false, BuildId: $buildId, JobOrder: $($self.order)."
+                                Write-Host "That job: IsCheckingOut: $isCheckingOut, BuildId: $($run.id), JobOrder: $($job.order)."
                                 return $true
                             }
                             else {
                                 Write-Host "Cutting in front of: $($run._links.web.href)&view=logs&j=$($job.id)"
-                                Write-Host "This job: IsCheckingOut: false, BuildId: $($self.buildId), JobOrder: $($self.order)."
-                                Write-Host "That job: IsCheckingOut: $(isCheckingOut), BuildId: $($job.buildId), JobOrder: $($job.order)."
+                                Write-Host "This job: IsCheckingOut: false, BuildId: $buildId, JobOrder: $($self.order)."
+                                Write-Host "That job: IsCheckingOut: $isCheckingOut, BuildId: $($run.id), JobOrder: $($job.order)."
                             }
                         }
                     }
@@ -265,7 +265,7 @@ if ($repositoryKind -eq "TfsVersionControl")
         }
         catch {
             Write-VstsTaskWarning "Error occurred checking for other jobs..."
-            $mustyield = true
+            $mustyield = $true
         }
         if ($mustyield)
         {
