@@ -1,0 +1,6 @@
+﻿Write-Host "System.JobId:$env:SYSTEM_JOBID"
+Write-Host "System.JobAttempt:$env:SYSTEM_JOBATTEMPT"
+Write-Host "Agent.AgentId:$env:AGENT_ID"
+Write-Host "System.ServerType:$env:SYSTEM_SERVERTYPE"
+Write-Host "Agent.MachineName:$env:AGENT_MACHINENAME"
+Write-Host "Build.Repository.Tfvc.Workspace:ws_$(Split-Path $env:AGENT_BUILDDIRECTORY -leaf)_$env:AGENT_ID"

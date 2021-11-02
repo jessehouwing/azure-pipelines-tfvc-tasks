@@ -1,8 +1,8 @@
 {
-  "id": "379b4b77-75d2-4fb8-84a3-05b51d97154c",
-  "name": "tf-vc-fixparallel",
-  "friendlyName": "TFVC - fix parallel execution on hosted agent 2/2",
-  "description": "Fix parallel execution on hosted agent. 2/2",
+  "id": "250d3e04-70e6-4da3-b09d-db51085dcc6d",
+  "name": "tf-vc-fixparallel-log",
+  "friendlyName": "TFVC - fix parallel execution on hosted agent 1/2",
+  "description": "Fix parallel execution on hosted agent. 1/2",
   "helpMarkDown": "https://jessehouwing.net/azure-pipelines-fixing-massive-parallel-builds-with-tfvc/",
   "category": "Utility",
   "author": "Jesse Houwing",
