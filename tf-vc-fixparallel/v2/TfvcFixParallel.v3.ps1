@@ -224,6 +224,7 @@ function must-yield
                                 if ($workspaceConflict) { Write-VstsTaskWarning "Another job running is on workspace '$desiredWorkspace'..." }
 
                                 Write-Host "Waiting for: $($run._links.web.href)&view=logs&j=$($job.id)"
+                                Start-Sleep -seconds 20
                                 return $true
                             }
                             else {
@@ -251,7 +252,7 @@ function wait-whenyielding
         }
         if ($mustyield)
         {
-            Start-Sleep -seconds 15
+            Start-Sleep -seconds 10
         }        
     } until (-not $mustyield)
 }
