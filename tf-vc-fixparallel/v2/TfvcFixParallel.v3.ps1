@@ -277,17 +277,14 @@ if ($repositoryKind -eq "TfsVersionControl")
     start-sleep 10
     wait-whenyielding
 
-    if ((Get-VstsTaskVariable -Name "TryTfCleanUp") -eq "true")
-    {
-        Write-Host "Cleaning up workspaces..."
-        $tf = [System.IO.Path]::Combine($agentHomeDirectory, "externals", "tf", "tf.exe")
-        [xml] $workspaces = & $tf vc workspaces $desiredWorkspace /computer:* /format:xml /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+    Write-Host "Cleaning up workspaces..."
+    $tf = [System.IO.Path]::Combine($agentHomeDirectory, "externals", "tf", "tf.exe")
+    [xml] $workspaces = & $tf vc workspaces $desiredWorkspace /computer:* /format:xml /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
 
-        foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
-        {
-            Write-Host "Deleting: $desiredWorkspace;$($workspace.owner)"
-            & $tf vc workspace /delete "$desiredWorkspace;$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
-        }
+    foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
+    {
+        Write-Host "Deleting: $desiredWorkspace;$($workspace.owner)"
+        & $tf vc workspace /delete "$desiredWorkspace;$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
     }
 }
 
