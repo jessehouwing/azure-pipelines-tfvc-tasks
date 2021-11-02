@@ -45,7 +45,7 @@ function get-self
         $timeline
     )
     Write-VstsTaskDebug  ("Entering: get-self")
-    $job = @($timeline.records | ?{ ($_.type -eq "Job") -and ($_.id -eq $jobId) })
+    $job = @($timeline.records | ?{ ($_.type -eq "Job") -and ($_.state -eq "inProgress") -and ($_.id -eq $jobId) })
     return $job[0]
 }
 
