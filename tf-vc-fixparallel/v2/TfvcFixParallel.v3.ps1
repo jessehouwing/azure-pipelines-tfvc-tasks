@@ -1,7 +1,4 @@
-﻿[cmdletbinding()]
-param()
-
-$repositoryKind = Get-VstsTaskVariable -Name "Build.Repository.Provider"
+﻿$repositoryKind = Get-VstsTaskVariable -Name "Build.Repository.Provider"
 
 function get-runs
 {
@@ -49,15 +46,15 @@ function get-self
     return $job[0]
 }
 
-function get-hostname 
+function get-additionalmetadata
 {
     [cmdletbinding()]
     param(
         $timeline,
         $job
     )
-    Write-VstsTaskDebug  ("Entering: get-hostname")
-    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Initialize job") -and ($_.state -eq "completed") })
+    Write-VstsTaskDebug  ("Entering: get-additionalmetadata")
+    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -eq "Pre-job: Fix parallel execution on hosted agent 1/2.") -and ($_.state -eq "completed") })
     
     if ($tasks.Length -gt 0)
     {
@@ -66,14 +63,17 @@ function get-hostname
         {
             $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
 
-            if ($log.Contains("Agent machine name: "))
-            {
-                $machineName = ($log | Select-string -Pattern "(?<=Agent machine name:\s+')[^']*").Matches[0].Value
-                return $machineName
+            $metadata = @{ 
+                AgentMachineName = (($log | Select-string -Pattern "(?<=Agent.MachineName:)[^\r\n]*").Matches[0].Value)
+                AgentAgentId = (($log | Select-string -Pattern "(?<=Agent.AgentId:)[^\r\n]*").Matches[0].Value)
+                SystemServerType = (($log | Select-string -Pattern "(?<=System.ServerType:)[^\r\n]*").Matches[0].Value)
+                BuildRepositoryTfvcWorkspace = (($log | Select-string -Pattern "(?<=Build.Repository.Tfvc.Workspace:)[^\r\n]*").Matches[0].Value)
             }
+
+            return $metadata
         }
     }
-    return ""
+    return $null
 }
 
 function is-tfvcbuild
@@ -149,22 +149,6 @@ function is-jobtypeunknown
     return $false
 }
 
-function is-hostedjob
-{
-    [cmdletbinding()]
-    param(
-        $job
-    )
-    Write-VstsTaskDebug  ("Entering: is-hostedjob")
-
-    if ($job.workerName -like "Azure Pipelines*" -or
-        $job.workerName -like "Hosted*")
-    {
-        return $true
-    }
-    return $false
-}
-
 function must-yield
 {
     $runs = (get-runs -top 100).Value
@@ -193,22 +177,27 @@ function must-yield
                     Write-VstsTaskDebug "Job with an undetermined agent pool..."
                     return $true
                 }
+                
+                $metadata = get-additionalmetadata -job $job -timeline $timeline
+                if (-not $metadata)
+                {
+                    # in case we're uncertain, it's better to wait.
+                    Write-VstsTaskDebug "Waiting for job metadata..."
+                    return $true
+                }
 
-                $isHosted = is-hostedjob -job $job
+                $isHosted = $metadata.SystemServerType -eq "Hosted"
                 
                 Write-VstsTaskDebug "IsHosted: $isHosted"
                 if ($isHosted)
                 {
-                    $hostname = get-hostname -timeline $timeline -job $job
+                    $hostname = $metadata.AgentMachineName
                     Write-VstsTaskDebug "Hostname: $hostname"
-                    if ("$hostname" -eq "")
-                    {
-                        # in case we're uncertain, it's better to wait.
-                        Write-VstsTaskDebug "Job with an undetermined hostname..."
-                        return $true
-                    }
 
-                    if ($hostname -eq $currentHostname)
+                    $hostnameConflict = $hostname -eq $currentHostname
+                    $workspaceConflict = $metadata.BuildRepositoryTfvcWorkspace -eq $desiredWorkspace
+
+                    if ($hostnameConflict -or $workspaceConflict)
                     {
                         $finishedCheckout = hasfinished-checkout -timeline $timeline -job $job
                         Write-VstsTaskDebug "Finished Checkout: $finishedCheckout"
@@ -230,11 +219,10 @@ function must-yield
                                     ($job.startTime -eq $self.startTime -and $run.id -eq $buildId -and $job.order -lt $self.order)
                                )
                             {
-                                if (-not $warned)
-                                {
-                                    Write-VstsTaskWarning "Another job running is on '$currentHostname'..."
-                                    $warned = $true
-                                }
+
+                                if ($hostnameConflict) { Write-VstsTaskWarning "Another job running is on host: '$currentHostname'..." }
+                                if ($workspaceConflict) { Write-VstsTaskWarning "Another job running is on workspace '$desiredWorkspace'..." }
+
                                 Write-Host "Waiting for: $($run._links.web.href)&view=logs&j=$($job.id)"
                                 return $true
                             }
@@ -250,8 +238,6 @@ function must-yield
     Write-Host "Found no conflicting builds..."
     return $false
 }
-
-$warned = $false
 
 function wait-whenyielding
 {
@@ -279,6 +265,9 @@ if ($repositoryKind -eq "TfsVersionControl")
     $buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
     $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
     $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
+    $agentBuildDirectory = Get-VstsTaskVariable -Name "Agent.BuildDirectory" -Require
+    $agentId = Get-VstsTaskVariable -Name "Agent.Id" -Require
+    $desiredWorkspace = "ws_$(Split-Path $agentBuildDirectory -leaf)_$agentId"
     $header = @{authorization = "Bearer $vssCredential"}
 
     wait-whenyielding
