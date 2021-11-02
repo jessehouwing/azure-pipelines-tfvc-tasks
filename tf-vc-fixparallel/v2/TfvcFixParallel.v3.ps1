@@ -271,10 +271,26 @@ if ($repositoryKind -eq "TfsVersionControl")
     $agentId = Get-VstsTaskVariable -Name "Agent.Id" -Require
     $desiredWorkspace = "ws_$(Split-Path $agentBuildDirectory -leaf)_$agentId"
     $header = @{authorization = "Bearer $vssCredential"}
+    $agentHomeDirectory = Get-VstsTaskVariable -Name "Agent.HomeDirectory" -Require
 
     wait-whenyielding
     start-sleep 10
     wait-whenyielding
+
+    if ((Get-VstsTaskVariable -Name "TryTfCleanUp") -eq "true")
+    {
+        Write-Host "Cleaning up workspaces..."
+        $tf = [System.IO.Path]::Combine($agentHomeDirectory, "externals", "tf", "tf.exe")
+        [xml] $workspaces = & $tf vc workspaces $desiredWorkspace /computer:* /format:xml /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+
+        foreach ($workspace in @($workspaces.Workspaces))
+        {
+            if (-not [System.String]::IsNullOrWhiteSpace($workspace)){
+                Write-Host "Deleting: $desiredWorkspace;$($workspace.ownerid)"
+                & $tf vc workspace /delete "$desiredWorkspace;$($workspace.ownerid)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+            }
+        }
+    }
 }
 
 Write-Host "##vso[task.complete result=Succeeded;]"
