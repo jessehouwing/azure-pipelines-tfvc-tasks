@@ -217,9 +217,18 @@ function must-yield
                         {
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
                             Write-VstsTaskDebug "Is checking out: $isCheckingOut"
-                            if ($isCheckingOut -or 
-                                ($run.id -lt $buildId) -or
-                                ($run.id -eq $buildId -and $job.order -lt $self.order))
+
+                            Write-Host "This job: IsCheckingOut: false, Start: $($self.startTime), BuildId: $buildId, JobOrder: $($self.order)."
+                            Write-VstsTaskDebug ($self | ConvertTo-Json)
+                            Write-Host "That job: IsCheckingOut: $isCheckingOut, Start: $($job.startTime), BuildId: $($run.id), JobOrder: $($job.order)."
+                            Write-VstsTaskDebug ($job | ConvertTo-Json)
+
+                            if (
+                                    $isCheckingOut -or 
+                                    ($job.startTime -lt $self.startTime) -or 
+                                    ($job.startTime -eq $self.startTime -and $run.id -lt $buildId) -or
+                                    ($job.startTime -eq $self.startTime -and $run.id -eq $buildId -and $job.order -lt $self.order)
+                               )
                             {
                                 if (-not $warned)
                                 {
@@ -227,14 +236,10 @@ function must-yield
                                     $warned = $true
                                 }
                                 Write-Host "Waiting for: $($run._links.web.href)&view=logs&j=$($job.id)"
-                                Write-Host "This job: IsCheckingOut: false, BuildId: $buildId, JobOrder: $($self.order)."
-                                Write-Host "That job: IsCheckingOut: $isCheckingOut, BuildId: $($run.id), JobOrder: $($job.order)."
                                 return $true
                             }
                             else {
                                 Write-Host "Cutting in front of: $($run._links.web.href)&view=logs&j=$($job.id)"
-                                Write-Host "This job: IsCheckingOut: false, BuildId: $buildId, JobOrder: $($self.order)."
-                                Write-Host "That job: IsCheckingOut: $isCheckingOut, BuildId: $($run.id), JobOrder: $($job.order)."
                             }
                         }
                     }
@@ -248,17 +253,8 @@ function must-yield
 
 $warned = $false
 
-if ($repositoryKind -eq "TfsVersionControl")
+function wait-whenyielding
 {
-    $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
-    $vssCredential = [string]$endpoint.auth.parameters.AccessToken
-    $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
-    $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
-    $buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
-    $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
-    $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
-    $header = @{authorization = "Bearer $vssCredential"}
-
     do {
         try {
             $mustyield = must-yield
@@ -272,6 +268,22 @@ if ($repositoryKind -eq "TfsVersionControl")
             Start-Sleep -seconds 15
         }        
     } until (-not $mustyield)
+}
+
+if ($repositoryKind -eq "TfsVersionControl")
+{
+    $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
+    $vssCredential = [string]$endpoint.auth.parameters.AccessToken
+    $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
+    $currentHostname = Get-VstsTaskVariable -Name "Agent.MachineName" -Require
+    $buildId = Get-VstsTaskVariable -Name "Build.BuildId" -Require
+    $jobId = Get-VstsTaskVariable -Name "System.JobId" -Require
+    $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
+    $header = @{authorization = "Bearer $vssCredential"}
+
+    wait-whenyielding
+    start-sleep 10
+    wait-whenyielding
 }
 
 Write-Host "##vso[task.complete result=Succeeded;]"
