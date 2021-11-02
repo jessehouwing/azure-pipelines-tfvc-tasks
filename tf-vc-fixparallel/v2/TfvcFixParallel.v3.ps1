@@ -7,8 +7,7 @@ function get-runs
         $top
     )
     Write-VstsTaskDebug  ("Entering: get-runs")
-    $runs = Invoke-RestMethod -Uri "$org$teamProject/_apis/build/Builds?statusFilter=inProgress&`$top=$top" -Method Get -ContentType "application/json" -Headers $header
-    return $runs
+    return Invoke-RestMethod -Uri "$org$teamProject/_apis/build/Builds?statusFilter=inProgress&`$top=$top" -Method Get -ContentType "application/json" -Headers $header
 }
 
 function get-timeline 
@@ -19,8 +18,7 @@ function get-timeline
     )
     Write-VstsTaskDebug  ("Entering: get-timeline")
     $url = "$org$teamProject/_apis/build/builds/$runId/Timeline"
-    $timeline = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers $header 
-    return $timeline
+    return Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers $header 
 }
 
 function get-inprogressjobs 
@@ -30,8 +28,7 @@ function get-inprogressjobs
         $timeline
     )
     Write-VstsTaskDebug  ("Entering: get-jobs")
-    $jobs = $timeline.records | ?{ ($_.type -eq "Job") -and ($_.state -eq "inProgress") }
-    return $jobs
+    return $timeline.records | ?{ ($_.type -eq "Job") -and ($_.state -eq "inProgress") }
 }
 
 function get-self
@@ -41,8 +38,7 @@ function get-self
         $timeline
     )
     Write-VstsTaskDebug  ("Entering: get-self")
-    $job = @($timeline.records | ?{ ($_.type -eq "Job") -and ($_.state -eq "inProgress") -and ($_.id -eq $jobId) })
-    return $job[0]
+    return @($timeline.records | ?{ ($_.type -eq "Job") -and ($_.state -eq "inProgress") -and ($_.id -eq $jobId) })[0]
 }
 
 function get-additionalmetadata
@@ -62,14 +58,12 @@ function get-additionalmetadata
         {
             $log = (Invoke-WebRequest -Uri $url -Headers $header -UseBasicParsing).Content
 
-            $metadata = @{ 
+            return @{ 
                 AgentMachineName = (($log | Select-string -Pattern "(?<=Agent.MachineName:)[^\r\n]*").Matches[0].Value)
                 AgentAgentId = (($log | Select-string -Pattern "(?<=Agent.AgentId:)[^\r\n]*").Matches[0].Value)
                 SystemServerType = (($log | Select-string -Pattern "(?<=System.ServerType:)[^\r\n]*").Matches[0].Value)
                 BuildRepositoryTfvcWorkspace = (($log | Select-string -Pattern "(?<=Build.Repository.Tfvc.Workspace:)[^\r\n]*").Matches[0].Value)
             }
-
-            return $metadata
         }
     }
     return $null
@@ -93,7 +87,7 @@ function has-checkout
         $job
     )
     Write-VstsTaskDebug  ("Entering: has-checkout")
-    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) })
+    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($null -eq $_.task) })
     if ($tasks.Length -gt 0)
     {
         return $true;
@@ -109,7 +103,7 @@ function hasfinished-checkout
         $job
     )
     Write-VstsTaskDebug  ("Entering: hasfinished-checkout")
-    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "completed") })
+    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($null -eq $_.task) -and ($_.state  -eq "completed") })
     if ($tasks.Length -gt 0)
     {
         return $true;
@@ -125,7 +119,7 @@ function is-checkingout
         $job
     )
     Write-VstsTaskDebug  ("Entering: is-checkingout")
-    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($_.task -eq $null) -and ($_.state  -eq "inProgress") })
+    $tasks = @($timeline.records | ?{ ($_.parentId -eq $job.id) -and ($_.type -eq "Task") -and ($_.name -like "Checkout *") -and ($null -eq $_.task) -and ($_.state  -eq "inProgress") })
     if ($tasks.Length -gt 0)
     {
         return $true;
@@ -191,15 +185,16 @@ function must-yield
                 }
 
                 $isHosted = $metadata.SystemServerType -eq "Hosted"
-                
                 Write-VstsTaskDebug "IsHosted: $isHosted"
+
                 if ($isHosted)
                 {
                     $hostname = $metadata.AgentMachineName
-                    Write-VstsTaskDebug "Hostname: $hostname"
+                    Write-VstsTaskDebug "Their Hostname: '$hostname', mine: '$currentHostname'"
 
                     $hostnameConflict = $hostname -eq $currentHostname
                     $workspaceConflict = $metadata.BuildRepositoryTfvcWorkspace -eq $desiredWorkspace
+                    Write-VstsTaskDebug "Their Workspace: '$($metadata.BuildRepositoryTfvcWorkspace)', mine: '$desiredWorkspace'"
 
                     if ($hostnameConflict -or $workspaceConflict)
                     {
@@ -211,11 +206,13 @@ function must-yield
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
                             Write-VstsTaskDebug "Is checking out: $isCheckingOut"
 
-                            Write-Host "This job: IsCheckingOut: false, Start: $($self.startTime), BuildId: $buildId, JobOrder: $($self.order)."
-                            Write-VstsTaskDebug ($self | ConvertTo-Json)
-                            Write-Host "That job: IsCheckingOut: $isCheckingOut, Start: $($job.startTime), BuildId: $($run.id), JobOrder: $($job.order)."
-                            Write-VstsTaskDebug ($job | ConvertTo-Json)
+                            Write-VstsTaskDebug "Their StartTime: '$($job.startTime)', mine: '$($self.startTime)'"
+                            Write-VstsTaskDebug "Their BuildId: '$($run.id)', mine: '$buildId'"
+                            Write-VstsTaskDebug "Their Job Order: '$($self.order)', mine: '$($job.order)'"
 
+                            Write-VstsTaskDebug "Their: $($job | ConvertTo-Json)"
+                            Write-VstsTaskDebug "Mine:  $($self | ConvertTo-Json)"
+                            
                             if (
                                     $isCheckingOut -or 
                                     ($job.startTime -lt $self.startTime) -or 
@@ -223,7 +220,6 @@ function must-yield
                                     ($job.startTime -eq $self.startTime -and $run.id -eq $buildId -and $job.order -lt $self.order)
                                )
                             {
-
                                 if ($hostnameConflict) { Write-VstsTaskWarning "Another job running is on host: '$currentHostname'..." }
                                 if ($workspaceConflict) { Write-VstsTaskWarning "Another job running is on workspace '$desiredWorkspace'..." }
 
