@@ -259,15 +259,19 @@ if ($repositoryKind -eq "TfsVersionControl")
     $teamProject = Get-VstsTaskVariable -Name "System.TeamProject" -Require
     $header = @{authorization = "Bearer $vssCredential"}
 
-    while (must-yield)
-    {
-        Start-Sleep -seconds 15
-    }
-    Start-Sleep -seconds 5
-    while (must-yield)
-    {
-        Start-Sleep -seconds 15
-    }
+    do {
+        try {
+            $mustyield = must-yield
+        }
+        catch {
+            Write-VstsTaskWarning "Error occurred checking for other jobs..."
+            $mustyield = true
+        }
+        if ($mustyield)
+        {
+            Start-Sleep -seconds 15
+        }        
+    } until (-not $mustyield)
 }
 
 Write-Host "##vso[task.complete result=Succeeded;]"
