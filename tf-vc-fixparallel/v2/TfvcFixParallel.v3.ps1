@@ -283,12 +283,10 @@ if ($repositoryKind -eq "TfsVersionControl")
         $tf = [System.IO.Path]::Combine($agentHomeDirectory, "externals", "tf", "tf.exe")
         [xml] $workspaces = & $tf vc workspaces $desiredWorkspace /computer:* /format:xml /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
 
-        foreach ($workspace in @($workspaces.Workspaces))
+        foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
         {
-            if (-not [System.String]::IsNullOrWhiteSpace($workspace.ownerid)){
-                Write-Host "Deleting: $desiredWorkspace;$($workspace.ownerid)"
-                & $tf vc workspace /delete "$desiredWorkspace;$($workspace.ownerid)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
-            }
+            Write-Host "Deleting: $desiredWorkspace;$($workspace.owner)"
+            & $tf vc workspace /delete "$desiredWorkspace;$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
         }
     }
 }
