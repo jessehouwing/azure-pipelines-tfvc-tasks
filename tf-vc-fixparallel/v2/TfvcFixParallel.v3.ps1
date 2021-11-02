@@ -285,7 +285,7 @@ if ($repositoryKind -eq "TfsVersionControl")
 
         foreach ($workspace in @($workspaces.Workspaces))
         {
-            if (-not [System.String]::IsNullOrWhiteSpace($workspace)){
+            if (-not [System.String]::IsNullOrWhiteSpace($workspace.ownerid)){
                 Write-Host "Deleting: $desiredWorkspace;$($workspace.ownerid)"
                 & $tf vc workspace /delete "$desiredWorkspace;$($workspace.ownerid)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
             }
