@@ -217,7 +217,9 @@ function must-yield
                         {
                             $isCheckingOut = is-checkingout -timeline $timeline -job $job
                             Write-VstsTaskDebug "Is checking out: $isCheckingOut"
-                            if ($isCheckingOut -or $job.startTime -lt $self.startTime -or ($job.buildId -eq $self.buildId -and $job.order -lt $self.order) -or ($job.startTime -eq $self.startTime -and $job.id -lt $self.id))
+                            if ($isCheckingOut -or 
+                                ($job.buildId -lt $self.buildId) -or
+                                ($job.buildId -eq $self.buildId -and $job.order -lt $self.order))
                             {
                                 if (-not $warned)
                                 {
@@ -225,10 +227,14 @@ function must-yield
                                     $warned = $true
                                 }
                                 Write-Host "Waiting for: $($run._links.web.href)&view=logs&j=$($job.id)"
+                                Write-Host "This job: IsCheckingOut: false, BuildId: $($self.buildId), JobOrder: $($self.order)."
+                                Write-Host "That job: IsCheckingOut: $(isCheckingOut), BuildId: $($job.buildId), JobOrder: $($job.order)."
                                 return $true
                             }
                             else {
                                 Write-Host "Cutting in front of: $($run._links.web.href)&view=logs&j=$($job.id)"
+                                Write-Host "This job: IsCheckingOut: false, BuildId: $($self.buildId), JobOrder: $($self.order)."
+                                Write-Host "That job: IsCheckingOut: $(isCheckingOut), BuildId: $($job.buildId), JobOrder: $($job.order)."
                             }
                         }
                     }
@@ -240,9 +246,10 @@ function must-yield
     return $false
 }
 
+$warned = $false
+
 if ($repositoryKind -eq "TfsVersionControl")
 {
-    $warned = $false
     $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
     $vssCredential = [string]$endpoint.auth.parameters.AccessToken
     $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
