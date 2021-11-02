@@ -15,10 +15,9 @@ function get-timeline
 {
     [cmdletbinding()]
     param(
-        $run
+        $runId
     )
     Write-VstsTaskDebug  ("Entering: get-timeline")
-    $runId = $run.Id
     $url = "$org$teamProject/_apis/build/builds/$runId/Timeline"
     $timeline = Invoke-RestMethod -Uri $url -Method Get -ContentType "application/json" -Headers $header 
     return $timeline
@@ -153,6 +152,12 @@ function must-yield
 {
     $runs = (get-runs -top 100).Value
 
+    if (-not $self)
+    {
+        $ownTimeline = get-timeline -run $buildId
+        $self = get-self -timeline $ownTimeline
+    }
+
     foreach ($run in $runs)
     {
         if (-not (is-tfvcbuild -run $run))
@@ -160,8 +165,7 @@ function must-yield
             return $false;
         }
 
-        $timeline = get-timeline -run $run
-        $self = get-self -timeline $timeline
+        $timeline = get-timeline -run $run.id
         $jobs = get-inprogressjobs -timeline $timeline
 
         foreach ($job in $jobs)
@@ -258,6 +262,7 @@ function wait-whenyielding
 
 if ($repositoryKind -eq "TfsVersionControl")
 {
+    $self = $null
     $endpoint = (Get-VstsEndpoint -Name SystemVssConnection -Require)
     $vssCredential = [string]$endpoint.auth.parameters.AccessToken
     $org = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
