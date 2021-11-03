@@ -290,8 +290,11 @@ if ($repositoryKind -eq "TfsVersionControl")
     $workspaces = [xml] (& $tf vc workspaces /format:xml /collection:$org /computer:$currentHostname /loginType:OAuth /login:.,$vssCredential /noprompt)
     foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
     {
-        Write-Host "Deleting: $($workspace.name);$($workspace.owner) on $($workspace.computer)"
-        & $tf vc workspace /delete "$($workspace.name);$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+        if ($workspace.name -like "ws_$(Split-Path $agentBuildDirectory -leaf)_*")
+        {
+            Write-Host "Deleting: $($workspace.name);$($workspace.owner) on $($workspace.computer)"
+            & $tf vc workspace /delete "$($workspace.name);$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+        }
     }
 }
 
