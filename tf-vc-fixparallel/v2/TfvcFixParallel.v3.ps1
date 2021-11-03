@@ -293,23 +293,26 @@ if ($repositoryKind -eq "TfsVersionControl")
     start-sleep 10
     wait-whenyielding
 
-    Write-Host "Cleaning up workspaces..."
-    $tf = [System.IO.Path]::Combine($agentHomeDirectory, "externals", "tf", "tf.exe")
-    
-    $workspaces = [xml] (& $tf vc workspaces $desiredWorkspace /computer:* /format:xml /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt)
-    foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
+    if (is-hostedjob -job $self)
     {
-        Write-Host "Deleting: $desiredWorkspace;$($workspace.owner) on $($workspace.computer)"
-        & $tf vc workspace /delete "$desiredWorkspace;$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
-    }
-
-    $workspaces = [xml] (& $tf vc workspaces /format:xml /collection:$org /computer:$currentHostname /loginType:OAuth /login:.,$vssCredential /noprompt)
-    foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
-    {
-        if ($workspace.name -like "ws_$(Split-Path $agentBuildDirectory -leaf)_*")
+        Write-Host "Cleaning up workspaces..."
+        $tf = [System.IO.Path]::Combine($agentHomeDirectory, "externals", "tf", "tf.exe")
+        
+        $workspaces = [xml] (& $tf vc workspaces $desiredWorkspace /computer:* /format:xml /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt)
+        foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
         {
-            Write-Host "Deleting: $($workspace.name);$($workspace.owner) on $($workspace.computer)"
-            & $tf vc workspace /delete "$($workspace.name);$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+            Write-Host "Deleting: $desiredWorkspace;$($workspace.owner) on $($workspace.computer)"
+            & $tf vc workspace /delete "$desiredWorkspace;$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+        }
+
+        $workspaces = [xml] (& $tf vc workspaces /format:xml /collection:$org /computer:$currentHostname /loginType:OAuth /login:.,$vssCredential /noprompt)
+        foreach ($workspace in $workspaces.SelectNodes("Workspaces/*"))
+        {
+            if ($workspace.name -like "ws_$(Split-Path $agentBuildDirectory -leaf)_*")
+            {
+                Write-Host "Deleting: $($workspace.name);$($workspace.owner) on $($workspace.computer)"
+                & $tf vc workspace /delete "$($workspace.name);$($workspace.owner)" /collection:$org /loginType:OAuth /login:.,$vssCredential /noprompt
+            }
         }
     }
 }
