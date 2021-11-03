@@ -127,6 +127,22 @@ function is-checkingout
     return $false
 }
 
+function is-hostedjob
+{
+    [cmdletbinding()]
+    param(
+        $job
+    )
+    Write-VstsTaskDebug  ("Entering: is-hostedjob")
+
+    if ($job.workerName -like "Azure Pipelines*" -or
+        $job.workerName -like "Hosted*")
+    {
+        return $true
+    }
+    return $false
+}
+
 function is-jobtypeunknown
 {
     [cmdletbinding()]
@@ -184,7 +200,7 @@ function must-yield
                     return $true
                 }
 
-                $isHosted = $metadata.SystemServerType -eq "Hosted"
+                $isHosted = is-hostedjob -job $job
                 Write-VstsTaskDebug "IsHosted: $isHosted"
 
                 if ($isHosted)
