@@ -6,6 +6,7 @@
   "helpMarkDown": "https://jessehouwing.net/azure-pipelines-fixing-massive-parallel-builds-with-tfvc/",
   "category": "Utility",
   "author": "Jesse Houwing",
+  "deprecated": true,
   "version": {
     "Major": 2,
     "Minor": 2,
