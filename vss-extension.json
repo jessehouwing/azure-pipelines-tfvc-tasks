@@ -108,12 +108,6 @@
       "path": "tf-vc-dontsync"
     },
     {
-      "path": "tf-vc-fixparallel"
-    },
-    {
-      "path": "tf-vc-fixparallel-log"
-    },
-    {
       "path": "tf-vc-shelveset-update"
     }
   ],
@@ -186,26 +180,6 @@
       ],
       "properties": {
         "name": "tf-vc-shelveset-update"
-      }
-    },
-    {
-      "id": "vsts-tfvc-fixparallel",
-      "type": "ms.vss-distributed-task.task",
-      "targets": [
-        "ms.vss-distributed-task.tasks"
-      ],
-      "properties": {
-        "name": "tf-vc-fixparallel"
-      }
-    },
-    {
-      "id": "vsts-tfvc-fixparallel-log",
-      "type": "ms.vss-distributed-task.task",
-      "targets": [
-        "ms.vss-distributed-task.tasks"
-      ],
-      "properties": {
-        "name": "tf-vc-fixparallel-log"
       }
     }
   ]
