@@ -60,9 +60,9 @@
   },
   "badges": [
     {
-      "href": "https://paypal.me/jessehouwing/5",
-      "uri": "https://raw.githubusercontent.com/jessehouwing/azure-pipelines-tfvc-tasks/main/extension/Images/donate.png",
-      "description": "Donate"
+      "href": "https://github.com/sponsors/jessehouwing",
+      "uri": "https://img.shields.io/github/sponsors/jessehouwing",
+      "description": "GitHub Sponsors"
     },
     {
       "href": "//gitter.im/jessehouwing/vsts-tfvc-tasks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge",
@@ -75,7 +75,6 @@
       "description": "Build"
     }
   ],
-
   "repository": {
     "type": "git",
     "uri": "https://github.com/jessehouwing/azure-pipelines-tfvc-tasks"
