@@ -1,0 +1,221 @@
+name: '2.6$(rev:.r)'
+
+trigger:
+- main
+- features/*
+
+pr:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - name: 'extensionId'
+    value: 'jessehouwing-vsts-tfvc-tasks'
+  - name: 'tfxVersion'
+    value: '0.x'
+  - name: 'nodeVersion'
+    value: '16.x'
+  - name: 'marketplaceServiceConnection'
+    value: '24325a98-0d4b-4180-9936-c930a4156258' 
+
+stages:
+- stage: 'Build'
+  displayName: 'Build'
+  jobs:
+  - job: 
+    displayName: 'Build'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: $(nodeVersion)
+      displayName: 'Install Node.js'
+
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+      displayName: 'Replace tokens in **\*.json'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**\*.json'
+        encoding: 'utf-8'
+        writeBOM: false
+
+    - task: TfxInstaller@4
+      displayName: 'Use Node CLI for Azure DevOps'
+      inputs:
+        version: $(tfxVersion)
+        checkLatest: true
+
+    - task: PackageAzureDevOpsExtension@4
+      displayName: 'Package Extension: $(Build.SourcesDirectory)'
+      name: 'packageStep'
+      inputs:
+        rootFolder: '$(Build.SourcesDirectory)'
+        outputPath: '$(Build.ArtifactStagingDirectory)\$(extensionId).vsix'
+        publisherId: 'jessehouwing'
+        extensionId: $(extensionId)
+        extensionTag: '-build'
+        extensionName: 'Variable Toolbox'
+        extensionVersion: '$(Build.BuildNumber)'
+        updateTasksVersion: true
+        updateTasksVersionType: patch
+        extensionVisibility: private
+    
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish vsix'
+      inputs:
+        publishLocation: pipeline
+        targetPath: '$(packageStep.Extension.OutputPath)'
+        artifact: 'vsix'
+      condition: succeededOrFailed()
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish tasks'
+      inputs:
+        publishLocation: pipeline
+        targetPath: '$(Build.SourcesDirectory)\_output'
+        artifact: 'tasks'
+      condition: succeededOrFailed()
+
+- stage: PublishDev
+  displayName: 'Publish privately'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  dependsOn: 'Build'
+  jobs:
+    - deployment: 
+      environment: Publisher JesseHouwing (privately)
+      strategy: 
+        runOnce:
+         deploy:
+          steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: $(nodeVersion)
+            displayName: 'Install Node.js'
+
+          - task: TfxInstaller@4
+            displayName: 'Use Node CLI for Azure DevOps'
+            inputs:
+              version: $(tfxVersion)
+              checkLatest: true
+
+          - task: AzureCLI@2
+            displayName: 'Authenticate with Service Principal'
+            inputs:
+              azureSubscription: 'azure-devops-marketplace'
+              scriptType: 'pscore'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                $accessToken = az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" --output tsv
+                write-host "##vso[task.setsecret]$accessToken"
+                write-host "##vso[task.setendpoint id=$env:MARKETPLACESERVICECONNECTION;field=authParameter;key=password]$accessToken"
+            
+          - task: PublishAzureDevOpsExtension@4
+            name: 'publishDev'
+            inputs:
+              connectTo: 'VsTeam'
+              connectedServiceName: '$(marketplaceServiceConnection)'
+              fileType: 'vsix'
+              vsixFile: '$(Pipeline.Workspace)/vsix/$(extensionId).vsix'
+              publisherId: 'jessehouwing'
+              extensionId: '$(extensionId)'
+              extensionTag: 'DEV'
+              updateTasksVersion: false
+              extensionVisibility: 'privatepreview'
+              shareWith: 'jessehouwing-dev'
+              noWaitValidation: true
+        
+          - task: IsAzureDevOpsExtensionValid@4
+            inputs:
+              connectTo: 'VsTeam'
+              connectedServiceName: '$(marketplaceServiceConnection)'
+              method: 'vsix'
+              vsixFile: '$(publishDev.Extension.OutputPath)'
+
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish vsix'
+            inputs:
+              publishLocation: pipeline
+              targetPath: '$(publishDev.Extension.OutputPath)'
+              artifact: 'dev'
+            condition: succeededOrFailed()
+
+- stage: PublishProd
+  displayName: 'Publish publicly'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  dependsOn: 'PublishDev'
+  jobs:
+    - deployment: 
+      environment: Publisher JesseHouwing (publicly)
+      strategy: 
+        runOnce:
+         deploy:
+          steps:
+
+          - task: NodeTool@0
+            inputs:
+              versionSpec: $(nodeVersion)
+            displayName: 'Install Node.js'
+            
+          - task: TfxInstaller@3
+            displayName: 'Use Node CLI for Azure DevOps'
+            inputs:
+              version: $(tfxVersion)
+              checkLatest: true
+
+          - task: AzureCLI@2
+            displayName: 'Authenticate with Service Principal'
+            inputs:
+              azureSubscription: 'azure-devops-marketplace'
+              scriptType: 'pscore'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                $accessToken = az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" --output tsv
+                write-host "##vso[task.setsecret]$accessToken"
+                write-host "##vso[task.setendpoint id=$env:MARKETPLACESERVICECONNECTION;field=authParameter;key=password]$accessToken"
+                
+          - task: PublishAzureDevOpsExtension@4
+            name: 'publishProd'
+            inputs:
+              connectTo: 'VsTeam'
+              connectedServiceName: '$(marketplaceServiceConnection)'
+              fileType: 'vsix'
+              vsixFile: '$(Pipeline.Workspace)/vsix/$(extensionId).vsix'
+              publisherId: 'jessehouwing'
+              extensionId: $(extensionId)
+              updateTasksVersion: false
+              extensionVisibility: 'public'
+              noWaitValidation: true
+          
+          - task: IsAzureDevOpsExtensionValid@4
+            inputs:
+              connectTo: 'VsTeam'
+              connectedServiceName: '$(marketplaceServiceConnection)'
+              method: 'vsix'
+              vsixFile: '$(publishProd.Extension.OutputPath)'
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish vsix'
+            inputs:
+              publishLocation: pipeline
+              targetPath: '$(publishProd.Extension.OutputPath)'
+              artifact: 'prod'
+            condition: succeededOrFailed()
+
+          - task: GitHubRelease@1
+            inputs:
+              gitHubConnection: 'GitHub - jessehouwing'
+              repositoryName: '$(Build.Repository.Name)'
+              action: 'create'
+              target: '$(Build.SourceVersion)'
+              tagSource: 'userSpecifiedTag'
+              tag: 'v$(Build.BuildNumber)'
+              title: 'v$(Build.BuildNumber)'
+              releaseNotesSource: 'inline'
+              assets: |
+                $(publishProd.Extension.OutputPath)*
+                $(Pipeline.Workspace)/tasks/*
+              changeLogCompareToRelease: 'lastFullRelease'
+              changeLogType: 'issueBased'
+              changeLogLabels: '[{ "state" : "closed" }]'
