@@ -32,7 +32,7 @@ stages:
         versionSpec: $(nodeVersion)
       displayName: 'Install Node.js'
 
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
       displayName: 'Replace tokens in **\*.json'
       inputs:
         rootDirectory: '$(System.DefaultWorkingDirectory)'
