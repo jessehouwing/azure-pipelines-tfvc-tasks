@@ -62,7 +62,7 @@ stages:
         publisherId: 'jessehouwing'
         extensionId: $(extensionId)
         extensionTag: '-build'
-        extensionName: 'Variable Toolbox'
+        extensionName: 'TFVC Build Tasks'
         extensionVersion: '$(Build.BuildNumber)'
         updateTasksVersion: true
         updateTasksVersionType: patch
