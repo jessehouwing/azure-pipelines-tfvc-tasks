@@ -32,13 +32,20 @@ stages:
         versionSpec: $(nodeVersion)
       displayName: 'Install Node.js'
 
-    - task: qetza.replacetokens.replacetokens-task.replacetokens@5
-      displayName: 'Replace tokens in **\*.json'
-      inputs:
-        rootDirectory: '$(System.DefaultWorkingDirectory)'
-        targetFiles: '**\*.json'
-        encoding: 'utf-8'
-        writeBOM: false
+- task: replacetokens@5
+  inputs:
+    rootDirectory: '$(System.DefaultWorkingDirectory)'
+    targetFiles: '**\*.json'
+    encoding: 'utf-8'
+    tokenPattern: 'default'
+    writeBOM: false
+    actionOnMissing: 'continue'
+    keepToken: false
+    actionOnNoFiles: 'continue'
+    enableTransforms: false
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
 
     - task: TfxInstaller@4
       displayName: 'Use Node CLI for Azure DevOps'
