@@ -46,6 +46,9 @@ stages:
         enableRecursion: false
         useLegacyPattern: false
         enableTelemetry: true
+    
+    - pwsh: |
+        . .\pre-build.ps1
 
     - task: TfxInstaller@4
       displayName: 'Use Node CLI for Azure DevOps'
