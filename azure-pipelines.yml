@@ -161,7 +161,7 @@ stages:
               versionSpec: $(nodeVersion)
             displayName: 'Install Node.js'
             
-          - task: TfxInstaller@3
+          - task: TfxInstaller@4
             displayName: 'Use Node CLI for Azure DevOps'
             inputs:
               version: $(tfxVersion)
