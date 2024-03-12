@@ -32,7 +32,7 @@ stages:
         versionSpec: $(nodeVersion)
       displayName: 'Install Node.js'
 
-    - task: replacetokens@5
+    - task: replacetokens@6
       inputs:
         rootDirectory: '$(System.DefaultWorkingDirectory)'
         targetFiles: '**\*.json'
