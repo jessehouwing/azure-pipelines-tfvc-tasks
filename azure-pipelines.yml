@@ -32,20 +32,12 @@ stages:
         versionSpec: $(nodeVersion)
       displayName: 'Install Node.js'
 
-    - task: replacetokens@5
+    - task: replacetokens@6
       inputs:
-        rootDirectory: '$(System.DefaultWorkingDirectory)'
-        targetFiles: '**\*.json'
+        root: '$(System.DefaultWorkingDirectory)'
+        sources: '**\*.json'
         encoding: 'utf-8'
-        tokenPattern: 'default'
-        writeBOM: false
-        actionOnMissing: 'continue'
-        keepToken: false
-        actionOnNoFiles: 'continue'
-        enableTransforms: false
-        enableRecursion: false
-        useLegacyPattern: false
-        enableTelemetry: true
+        missingVarLog: 'off'
     
     - pwsh: |
         . .\pre-build.ps1
