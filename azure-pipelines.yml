@@ -17,8 +17,6 @@ variables:
     value: '0.x'
   - name: 'nodeVersion'
     value: '16.x'
-  - name: 'marketplaceServiceConnection'
-    value: '24325a98-0d4b-4180-9936-c930a4156258' 
 
 stages:
 - stage: 'Build'
@@ -38,17 +36,18 @@ stages:
         sources: '**\*.json'
         encoding: 'utf-8'
         missingVarLog: 'off'
+        missingVarAction: none
     
     - pwsh: |
         . .\pre-build.ps1
 
-    - task: TfxInstaller@4
+    - task: TfxInstaller@5
       displayName: 'Use Node CLI for Azure DevOps'
       inputs:
         version: $(tfxVersion)
         checkLatest: true
 
-    - task: PackageAzureDevOpsExtension@4
+    - task: PackageAzureDevOpsExtension@5
       displayName: 'Package Extension: $(Build.SourcesDirectory)'
       name: 'packageStep'
       inputs:
@@ -87,29 +86,17 @@ stages:
               versionSpec: $(nodeVersion)
             displayName: 'Install Node.js'
 
-          - task: TfxInstaller@4
+          - task: TfxInstaller@5
             displayName: 'Use Node CLI for Azure DevOps'
             inputs:
               version: $(tfxVersion)
               checkLatest: true
 
-          - task: AzureCLI@2
-            displayName: 'Authenticate with Service Principal'
-            inputs:
-              azureSubscription: 'azure-devops-marketplace'
-              scriptType: 'pscore'
-              scriptLocation: 'inlineScript'
-              useGlobalConfig: true
-              inlineScript: |
-                $accessToken = az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" --output tsv
-                write-host "##vso[task.setsecret]$accessToken"
-                write-host "##vso[task.setendpoint id=$env:MARKETPLACESERVICECONNECTION;field=authParameter;key=password]$accessToken"
-            
-          - task: PublishAzureDevOpsExtension@4
+          - task: PublishAzureDevOpsExtension@5
             name: 'publishDev'
             inputs:
-              connectTo: 'VsTeam'
-              connectedServiceName: '$(marketplaceServiceConnection)'
+              connectTo: 'AzureRM'
+              connectedServiceNameAzureRM: azure-devops-marketplace
               fileType: 'vsix'
               vsixFile: '$(Pipeline.Workspace)/vsix/$(extensionId).vsix'
               publisherId: 'jessehouwing'
@@ -120,10 +107,10 @@ stages:
               shareWith: 'jessehouwing-dev'
               noWaitValidation: true
         
-          - task: IsAzureDevOpsExtensionValid@4
+          - task: IsAzureDevOpsExtensionValid@5
             inputs:
-              connectTo: 'VsTeam'
-              connectedServiceName: '$(marketplaceServiceConnection)'
+              connectTo: 'AzureRM'
+              connectedServiceNameAzureRM: azure-devops-marketplace
               method: 'vsix'
               vsixFile: '$(publishDev.Extension.OutputPath)'
 
@@ -153,29 +140,17 @@ stages:
               versionSpec: $(nodeVersion)
             displayName: 'Install Node.js'
             
-          - task: TfxInstaller@4
+          - task: TfxInstaller@5
             displayName: 'Use Node CLI for Azure DevOps'
             inputs:
               version: $(tfxVersion)
               checkLatest: true
 
-          - task: AzureCLI@2
-            displayName: 'Authenticate with Service Principal'
-            inputs:
-              azureSubscription: 'azure-devops-marketplace'
-              scriptType: 'pscore'
-              scriptLocation: 'inlineScript'
-              useGlobalConfig: true
-              inlineScript: |
-                $accessToken = az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 --query "accessToken" --output tsv
-                write-host "##vso[task.setsecret]$accessToken"
-                write-host "##vso[task.setendpoint id=$env:MARKETPLACESERVICECONNECTION;field=authParameter;key=password]$accessToken"
-                
-          - task: PublishAzureDevOpsExtension@4
+          - task: PublishAzureDevOpsExtension@5
             name: 'publishProd'
             inputs:
-              connectTo: 'VsTeam'
-              connectedServiceName: '$(marketplaceServiceConnection)'
+              connectTo: 'AzureRM'
+              connectedServiceNameAzureRM: azure-devops-marketplace
               fileType: 'vsix'
               vsixFile: '$(Pipeline.Workspace)/vsix/$(extensionId).vsix'
               publisherId: 'jessehouwing'
@@ -184,10 +159,10 @@ stages:
               extensionVisibility: 'public'
               noWaitValidation: true
           
-          - task: IsAzureDevOpsExtensionValid@4
+          - task: IsAzureDevOpsExtensionValid@5
             inputs:
-              connectTo: 'VsTeam'
-              connectedServiceName: '$(marketplaceServiceConnection)'
+              connectTo: 'AzureRM'
+              connectedServiceNameAzureRM: azure-devops-marketplace
               method: 'vsix'
               vsixFile: '$(publishProd.Extension.OutputPath)'
 
