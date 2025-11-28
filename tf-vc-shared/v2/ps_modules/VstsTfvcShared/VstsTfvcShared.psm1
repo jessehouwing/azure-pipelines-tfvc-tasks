@@ -19,7 +19,7 @@ Add-Tls12InSession
 function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
-    $path = & $PSScriptRoot/vswhere.exe -latest -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
+    $path = & $PSScriptRoot/vswhere.exe -version "[15.0,18.0)" -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
     if ( -not [string]::IsNullOrWhiteSpace($path)) 
     {
         Write-Message -Type Debug "Found Visual Studio 2017 or newer."
