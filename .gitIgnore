@@ -11,3 +11,4 @@ ps_modules/
 !tf-vc-shared/**/*.psm1
 !tf-vc-shared/**/ps_modules/
 tf-vc-shared/**/ps_modules/*/lib/
+*/v3/test.ps1
