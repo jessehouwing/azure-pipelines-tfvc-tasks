@@ -13,6 +13,14 @@ Copy-Item $PSScriptRoot\tf-vc-shared\v2\* $PSScriptRoot\tf-vc-checkout\v2 -force
 Copy-Item $PSScriptRoot\tf-vc-shared\v2\* $PSScriptRoot\tf-vc-shelveset-update\v2 -force -recurse -exclude *.*proj
 Copy-Item $PSScriptRoot\tf-vc-shared\v2\ps_modules\VstsTaskSdk\* $PSScriptRoot\tf-vc-dontsync\v2\ps_modules\VstsTaskSdk\ -force -recurse -exclude *.*proj
 
+$script:UsePreviewVersions = $true
+$script:PackageVersionOverrides = @{
+    'microsoft.teamfoundation.extendedclient'         = '[16.0.0,17.0.0)'
+    'microsoft.teamfoundationserver.extendedclient'   = '[16.0.0,17.0.0)'
+    'microsoft.teamfoundation.client'                 = '[16.0.0,17.0.0)'
+    'microsoft.teamfoundationserver.client'           = '[16.0.0,17.0.0)'
+}
+
 function Invoke-WithTls12Support {
     param([ScriptBlock]$ScriptBlock)
 
@@ -78,8 +86,12 @@ function Resolve-NuGetVersion {
     param(
         [string]$PackageId,
         [string]$VersionRange,
-        [switch]$AllowPrerelease
+        [bool]$AllowPrerelease
     )
+
+    if (-not $script:UsePreviewVersions) {
+        $AllowPrerelease = $false
+    }
 
     $versions = Invoke-WithTls12Support {
         $url = "https://api.nuget.org/v3-flatcontainer/$($PackageId.ToLowerInvariant())/index.json"
@@ -344,14 +356,22 @@ function Restore-NuGetPackage {
         [string]$TempRoot,
         [hashtable]$ResolvedPackages,
         [string]$VersionRange,
-        [switch]$AllowPrerelease
+        [bool]$AllowPrerelease
     )
 
     if ($ResolvedPackages.ContainsKey($PackageId)) {
         return
     }
 
-    $version = Resolve-NuGetVersion -PackageId $PackageId -VersionRange $VersionRange -AllowPrerelease:$AllowPrerelease
+    $allowPreview = $AllowPrerelease -and $script:UsePreviewVersions
+
+    $packageKey = $PackageId.ToLowerInvariant()
+    $effectiveVersionRange = $VersionRange
+    if ($script:PackageVersionOverrides.ContainsKey($packageKey)) {
+        $effectiveVersionRange = $script:PackageVersionOverrides[$packageKey]
+    }
+
+    $version = Resolve-NuGetVersion -PackageId $PackageId -VersionRange $effectiveVersionRange -AllowPrerelease:$allowPreview
     $ResolvedPackages[$PackageId] = $version
     Write-Host "Restoring $PackageId $version"
 
@@ -363,7 +383,11 @@ function Restore-NuGetPackage {
     $dependencies = Get-NuGetDependencies -PackageRoot $packageRoot -FrameworkPreference $dependencyFrameworks
 
     foreach ($dependency in $dependencies) {
-        $isPrerelease = $AllowPrerelease -or ($dependency.Version -and $dependency.Version -match '-')
+        $isPrerelease = ($allowPreview -or ($dependency.Version -and $dependency.Version -match '-'))
+        if (-not $script:UsePreviewVersions) {
+            $isPrerelease = $false
+        }
+
         Restore-NuGetPackage -PackageId $dependency.Id -Destination $Destination -PreferredFrameworks $PreferredFrameworks -FallbackFrameworks $FallbackFrameworks -TempRoot $TempRoot -ResolvedPackages $ResolvedPackages -VersionRange $dependency.Version -AllowPrerelease:$isPrerelease
     }
 
@@ -445,7 +469,7 @@ function Update-VstsTaskSdkContent {
         }
         New-Item -Path $libDestination -ItemType Directory -Force | Out-Null
 
-        Restore-NuGetPackage -PackageId $ExtendedClientPackage -Destination $libDestination -PreferredFrameworks $preferredFrameworks -FallbackFrameworks $fallbackFrameworks -TempRoot $tempRoot -ResolvedPackages $resolvedPackages -VersionRange $null -AllowPrerelease
+        Restore-NuGetPackage -PackageId $ExtendedClientPackage -Destination $libDestination -PreferredFrameworks $preferredFrameworks -FallbackFrameworks $fallbackFrameworks -TempRoot $tempRoot -ResolvedPackages $resolvedPackages -VersionRange $null -AllowPrerelease:$script:UsePreviewVersions
     }
     finally {
         if (Test-Path $tempRoot) {

@@ -19,7 +19,9 @@ Add-Tls12InSession
 function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
-    return join-path $PSScriptRoot, "..\VstsTaskSdk\lib\"
+    $path = Resolve-Path (Join-Path -Path $PSScriptRoot -ChildPath '..\VstsTaskSdk\lib\')
+    Write-Warning "Visual Studio path resolved to: $path"
+    return $path
 }
 
 function Load-Assembly {
@@ -65,15 +67,20 @@ function Load-Assembly {
 
 function Get-TfsTeamProjectCollection()
 {
-    $ProjectCollectionUri = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
-    $tfsClientCredentials = Get-VstsTfsClientCredentials -OMDirectory $(Find-VisualStudio)
-        
-    $collection = New-Object Microsoft.TeamFoundation.Client.TfsTeamProjectCollection(
-        $ProjectCollectionUri,
-        $tfsClientCredentials)
-    $collection.EnsureAuthenticated()
+    $credentials = Get-VstsTfsClientCredentials -OMDirectory (Find-VisualStudio)
 
-    return $collection
+    $collectionUri = [System.Uri]::new((Get-VstsTaskVariable -Name 'System.TeamFoundationCollectionUri' -Require))
+    $typedCredentials = $credentials
+
+    # Explicit types prevent constructor overload ambiguity on newer PowerShell runtimes.
+    $tfsTeamProjectCollection = [Microsoft.TeamFoundation.Client.TfsTeamProjectCollection]::new(
+        $collectionUri,
+        $typedCredentials)
+
+
+    $tfsTeamProjectCollection.EnsureAuthenticated()
+
+    return $tfsTeamProjectCollection
 }
 
 function Get-SourceProvider {
@@ -283,6 +290,7 @@ function Convert-ToItemSpecs {
 
 Load-Assembly "Newtonsoft.Json"
 Load-Assembly "Microsoft.TeamFoundation.Client"
+Load-Assembly "Microsoft.VisualStudio.Services.Client.Interactive"
 Load-Assembly "Microsoft.TeamFoundation.Common"
 Load-Assembly "Microsoft.TeamFoundation.VersionControl.Client"
 Load-Assembly "Microsoft.TeamFoundation.WorkItemTracking.Client"
@@ -315,3 +323,4 @@ Export-ModuleMember -Function Get-SourceProvider
 Export-ModuleMember -Function AutoPend-WorkspaceChanges
 Export-ModuleMember -Function Convert-ToItemSpecs
 Export-ModuleMember -Function Find-VisualStudio 
+Export-ModuleMember -Function Get-TfsTeamProjectCollection
