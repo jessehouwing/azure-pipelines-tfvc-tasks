@@ -11,7 +11,7 @@
     "Minor": 0,
     "Patch": 0
   },
-  "preview": false,
+  "preview": true,
   "minimumAgentVersion": "1.83.0",
   "groups": [],
   "inputs": [],
