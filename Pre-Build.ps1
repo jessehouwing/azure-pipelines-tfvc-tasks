@@ -19,4 +19,6 @@ Copy-Item $PSScriptRoot\tf-vc-shared\v3\* $PSScriptRoot\tf-vc-undo\v3 -force -re
 Copy-Item $PSScriptRoot\tf-vc-shared\v3\* $PSScriptRoot\tf-vc-checkin\v3 -force -recurse -exclude *.*proj
 Copy-Item $PSScriptRoot\tf-vc-shared\v3\* $PSScriptRoot\tf-vc-checkout\v3 -force -recurse -exclude *.*proj
 Copy-Item $PSScriptRoot\tf-vc-shared\v3\* $PSScriptRoot\tf-vc-shelveset-update\v3 -force -recurse -exclude *.*proj
-Copy-Item $PSScriptRoot\tf-vc-shared\v3\ps_modules\VstsTaskSdk\* $PSScriptRoot\tf-vc-dontsync\v3\ps_modules\VstsTaskSdk\ -force -recurse -exclude *.*proj
+Copy-Item $PSScriptRoot\tf-vc-shared\v3\ps_modules\VstsTaskSdk `
+          $PSScriptRoot\tf-vc-dontsync\v3\ps_modules\ `
+          -Force -Recurse -Exclude *.*proj
