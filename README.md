@@ -1,4 +1,6 @@
 # Release Notes
+> - **28-11-2015** - Added preview support for runners with Visual Studio 2026, required v3 of the extension and tasks.
+> - **28-11-2025** - Fixed [#118 Error: Cannot convert the "Microsoft.TeamFoundation.Client.TfsClientCredentials" value of type "System.String" to type "System.Type".](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/118)
 > - **26-05-2020** - Fixed [#99 Error: Get-VstsTfsClientCredentials : ScriptHalted](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/99)
 > - **21-04-2020** - Added do not sync sources step. Prevents Azure Pipelines from automatically checking out the sources.
 > - **02-01-2020** - Fixed [#95 Checkin V2 task doesn't support custom author (but task.json has them)](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/95). 
