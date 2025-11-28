@@ -19,7 +19,7 @@ Add-Tls12InSession
 function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
-    return "$PSScriptRoot/../VstsTaskSdk/lib/"
+    return join-path $PSScriptRoot, "..\VstsTaskSdk\lib\"
 }
 
 function Load-Assembly {
