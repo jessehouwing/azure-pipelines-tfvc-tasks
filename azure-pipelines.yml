@@ -14,7 +14,7 @@ variables:
   - name: 'extensionId'
     value: 'jessehouwing-vsts-tfvc-tasks'
   - name: 'tfxVersion'
-    value: '0.x'
+    value: 'builtin'
   - name: 'nodeVersion'
     value: '16.x'
 
