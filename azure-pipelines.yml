@@ -1,4 +1,4 @@
-name: '2.6$(rev:.r)'
+name: '3.0$(rev:.r)'
 
 trigger:
 - main
