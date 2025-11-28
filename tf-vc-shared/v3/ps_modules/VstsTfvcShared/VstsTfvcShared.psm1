@@ -20,7 +20,7 @@ function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
     $path = Resolve-Path (Join-Path -Path $PSScriptRoot -ChildPath '..\VstsTaskSdk\lib\')
-    Write-Warning "Visual Studio path resolved to: $path"
+    Write-Debug "Visual Studio path resolved to: $path"
     return $path
 }
 
