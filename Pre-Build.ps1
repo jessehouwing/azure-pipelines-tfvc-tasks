@@ -375,6 +375,8 @@ function Restore-PowerShellModule {
 
     Expand-Archive -Path $modulePackage -DestinationPath $extractPath -Force
 
+    Get-ChildItem -Path $extractPath -Recurse -Filter '[Content_Types].xml' -File | Remove-Item -Force
+
     $manifest = Get-ChildItem -Path $extractPath -Recurse -Filter "$ModuleName.psd1" | Select-Object -First 1
     if (-not $manifest) {
         throw "Module manifest '$ModuleName.psd1' was not found in the downloaded package."
