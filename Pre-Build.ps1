@@ -77,7 +77,8 @@ function Compare-Version {
 function Resolve-NuGetVersion {
     param(
         [string]$PackageId,
-        [string]$VersionRange
+        [string]$VersionRange,
+        [switch]$AllowPrerelease
     )
 
     $versions = Invoke-WithTls12Support {
@@ -86,15 +87,26 @@ function Resolve-NuGetVersion {
         return @($response.versions)
     }
 
-    $stableVersions = $versions | Where-Object { $_ -and ($_ -notmatch '-') }
-    if (-not $stableVersions) {
+    $availableStable = $versions | Where-Object { $_ -and ($_ -notmatch '-') }
+    $availableAll = $versions | Where-Object { $_ }
+
+    if (-not $availableAll) {
+        throw "No versions found for package '$PackageId'."
+    }
+
+    if (-not $availableStable -and -not $AllowPrerelease) {
         throw "No stable versions found for package '$PackageId'."
     }
 
-    $sortedVersions = $stableVersions | Sort-Object { ConvertTo-VersionObject $_ }
+    $sortedStable = $availableStable | Sort-Object { ConvertTo-VersionObject $_ }
+    $sortedAll = $availableAll | Sort-Object { ConvertTo-VersionObject $_ }
 
     if ([string]::IsNullOrWhiteSpace($VersionRange)) {
-        return $sortedVersions[-1]
+        if ($AllowPrerelease) {
+            return $sortedAll[-1]
+        }
+
+        return $sortedStable[-1]
     }
 
     $range = $VersionRange.Trim()
@@ -124,7 +136,9 @@ function Resolve-NuGetVersion {
         if ($upperValue) { $upper = ConvertTo-VersionObject $upperValue }
     }
 
-    $matching = foreach ($version in $sortedVersions) {
+    $candidates = if ($AllowPrerelease) { $sortedAll } else { $sortedStable }
+
+    $matching = foreach ($version in $candidates) {
         $candidate = ConvertTo-VersionObject $version
 
         if ($lower) {
@@ -329,14 +343,15 @@ function Restore-NuGetPackage {
         [string[]]$FallbackFrameworks,
         [string]$TempRoot,
         [hashtable]$ResolvedPackages,
-        [string]$VersionRange
+        [string]$VersionRange,
+        [switch]$AllowPrerelease
     )
 
     if ($ResolvedPackages.ContainsKey($PackageId)) {
         return
     }
 
-    $version = Resolve-NuGetVersion -PackageId $PackageId -VersionRange $VersionRange
+    $version = Resolve-NuGetVersion -PackageId $PackageId -VersionRange $VersionRange -AllowPrerelease:$AllowPrerelease
     $ResolvedPackages[$PackageId] = $version
     Write-Host "Restoring $PackageId $version"
 
@@ -348,7 +363,8 @@ function Restore-NuGetPackage {
     $dependencies = Get-NuGetDependencies -PackageRoot $packageRoot -FrameworkPreference $dependencyFrameworks
 
     foreach ($dependency in $dependencies) {
-        Restore-NuGetPackage -PackageId $dependency.Id -Destination $Destination -PreferredFrameworks $PreferredFrameworks -FallbackFrameworks $FallbackFrameworks -TempRoot $TempRoot -ResolvedPackages $ResolvedPackages -VersionRange $dependency.Version
+        $isPrerelease = $AllowPrerelease -or ($dependency.Version -and $dependency.Version -match '-')
+        Restore-NuGetPackage -PackageId $dependency.Id -Destination $Destination -PreferredFrameworks $PreferredFrameworks -FallbackFrameworks $FallbackFrameworks -TempRoot $TempRoot -ResolvedPackages $ResolvedPackages -VersionRange $dependency.Version -AllowPrerelease:$isPrerelease
     }
 
     Get-ChildItem -Path $Destination -Recurse -Force -Include '*.xml', '*.pdb' -File | Remove-Item -Force
@@ -429,7 +445,7 @@ function Update-VstsTaskSdkContent {
         }
         New-Item -Path $libDestination -ItemType Directory -Force | Out-Null
 
-        Restore-NuGetPackage -PackageId $ExtendedClientPackage -Destination $libDestination -PreferredFrameworks $preferredFrameworks -FallbackFrameworks $fallbackFrameworks -TempRoot $tempRoot -ResolvedPackages $resolvedPackages -VersionRange $null
+        Restore-NuGetPackage -PackageId $ExtendedClientPackage -Destination $libDestination -PreferredFrameworks $preferredFrameworks -FallbackFrameworks $fallbackFrameworks -TempRoot $tempRoot -ResolvedPackages $resolvedPackages -VersionRange $null -AllowPrerelease
     }
     finally {
         if (Test-Path $tempRoot) {
