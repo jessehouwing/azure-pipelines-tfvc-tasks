@@ -1,0 +1,975 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Discussion.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.CommentId">
+            <summary>
+            Represents the unique identifier of a comment in a team project collection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.Comment">
+            <summary>
+            A comment is a part of a discussion. When a discussion is initiated, it should
+            have a root comment by the initiator, and other comments by the contributors.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.Id">
+            <summary>
+            The Id of a comment. Id is 0 when the comment is first created
+            and gets assigned to an incrementing value after being saved to the server.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.DiscussionId">
+            <summary>
+            Id of the discussion that owns the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.Discussion">
+            <summary>
+            This is a client-only property to reference the discussion thread 
+            of this comment entry. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.Author">
+            <summary>
+            The person who creates the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.CommentType">
+            <summary>
+            Indicates whether the comment is a text or a code change, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.Content">
+            <summary>
+            The content of the comment. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.IsDeleted">
+            <summary>
+            True if the comment is deleted.
+            </summary>
+            <remarks>
+            When a comment is deleted, its content will be cleared. 
+            When all of its sub comments are also deleted, the comment
+            and its sub comments will be removed from the tree.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.PublishedDate">
+            <summary>
+            Time when the comment is published and can be viewed by others.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.ParentComment">
+            <summary>
+            The direct parent comment of the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.NeedsSave">
+            <summary>
+            True if the comment has changed and can be saved to the local store. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.ChildList">
+            <summary>
+            The internal list of child comments.
+            </summary>
+            <remarks>
+            Use the <c>ChildListLock</c> to ensure thread-safety 
+            if this list is used in multi-threading scenarios.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.ChildListLock">
+            <summary>
+            Locks to protect the list of child comments if it is 
+            potentially accessed by a different thread at the same time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.CommentId">
+            <summary>
+            The unique comment Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.ParentId">
+            <summary>
+            The parent comment Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.AuthorIdentity">
+            <summary>
+            The Team Foundation Id of the author.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.ClonedFrom">
+            <summary>
+            References the comment which this comment is cloned from.
+            A null value means the instance is not a cloned discussion. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Comment.SavedDate">
+            <summary>
+            The DateTime of when the comment was saved locally.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.GetChildComments">
+            <summary>
+            Returns the direct child comments of this comment. The method
+            wraps a copy of the list of child comments in a readonly collection.
+            </summary>        
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PrePublish(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment}@,System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment}@)">
+            <summary>
+            Snapshots the comment and its sub comments to publish.
+            </summary>
+            <returns>True if there is at least one new comment to publish.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PostPublish(System.Int16,System.DateTime)">
+            <summary>
+            Updates the comment after the publish succeeds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PostFailedPublish(Microsoft.TeamFoundation.Discussion.Client.Comment)">
+            <summary>
+            Updates the comment after the publish fails.
+            </summary>
+            <param name="clone">The version of this comment that was cloned for publish.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PreSave(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment}@)">
+            <summary>
+            Snapshots the comment and its sub comments to save.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.Save(Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage)">
+            <summary>
+            Merges this comment with the current content of the local store.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PostSave">
+            <summary>
+            Updates the comment after the save succeeds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PostFailedSave(Microsoft.TeamFoundation.Discussion.Client.Comment)">
+            <summary>
+            Updates the comment after the save fails.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.WriteToXml(System.Xml.XmlWriter)">
+            <summary>
+            Writes the comment as an XML element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PostQuery(System.Collections.Generic.Dictionary{System.Guid,Microsoft.TeamFoundation.Framework.Client.TeamFoundationIdentity})">
+            <summary>
+            Updates the comment post server query or local load.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.Load(Microsoft.TeamFoundation.Discussion.Client.Comment)">
+            <summary>
+            Loads the comment properties and flags from the local storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.PruneDeletedTrees(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Prunes all the sub trees whose comments are deleted, starting from this comment.
+            </summary>
+            <param name="deletedTrees"> Contains top comments of the deleted sub trees if not null.</param>
+            <returns>True if this comment and its children are deleted.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.GetComments(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Returns the comment and all the comments below it.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.HasSaveReason(Microsoft.TeamFoundation.Discussion.Client.CommentSaveReasons)">
+            <summary>
+            Checks if the comment has the given <c>CommentSaveReason</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.CloneProperties">
+            <summary>
+            Creates a cloned comment with cloned properties only. This cloned version
+            will have its ClonedFrom property reference the original comment. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Discussion.Client.Comment.m_lock">
+            <summary>
+            Locks the concurrent non-atomic operations during an async publish or save call.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Discussion.Client.Comment.m_childListLock">
+            <summary>
+            Locks to protect concurent list accesses during an async publish or save.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.Comment.ReadFromXml(System.Xml.XmlReader)">
+            <summary>
+            Reads the comment from an XML element.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionTraceKeywordSets">
+            <summary>
+            Set of common trace keyword arrays for Discussion Object Model.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.SaveOperation.Save(System.Boolean)">
+            <summary>
+            Saves the discussions and comments.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.SaveOperation.PostSave(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Updates the discussions and comments after the save succeeds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.SaveOperation.PostFailedSave(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Updates the discussions and comments after the save fails.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.PublishOperation.EndPublish(System.IAsyncResult)">
+            <summary>
+            Ends the publish call from server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.PublishOperation.SavePostPublish">
+            <summary>
+            Updates the published discussions in the local store and removes the deleted discussions 
+            and comments from the local store.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.PublishOperation.PostPublish(System.Int32[],System.Int16[],System.DateTime)">
+            <summary>
+            Updates the discussions and comments after the publish succeeds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.PublishOperation.PostFailedPublish">
+            <summary>
+            Updates the discussions and comments after the publish fails.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.PublishOperation.ResetPublishFlag">
+            <summary>
+            Resets the IsBeingPublished flag after the publish is completed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.QueryOperation.EndQuery(System.IAsyncResult)">
+            <summary>
+            Ends the query call from server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.QueryOperation.PostServerQuery(Microsoft.TeamFoundation.Discussion.Client.DiscussionThread[],Microsoft.TeamFoundation.Discussion.Client.Comment[],Microsoft.TeamFoundation.Framework.Client.TeamFoundationIdentity[])">
+            <summary>
+            Prepares the discussions and comments retrieved from server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.QueryOperation.QueryLocal">
+            <summary>
+            Queries discussions and comments from the local storage.
+            Returns false if the file is corrupted and cannot be loaded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.QueryOperation.FilterLocalDiscussions(System.Collections.Generic.ICollection{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread})">
+            <summary>
+            Updates the given collection of discussions with the saved discussions from the local storage.
+            </summary>
+            <param name="serverDiscussions">The collection of discussions to be updated.</param>
+            <param name="savedDiscussions">The discussions from the local storage.</param>
+            <returns>The map of updated discussions and their IDs.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.QueryOperation.FilterLocalComments(System.Collections.Generic.Dictionary{System.Int32,Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Updates the given collection of discussions with the saved comments from the local storage.
+            </summary>
+            <param name="discussionMap">The map of discussions that the comments should belong to.</param>
+            <param name="comments">The comments from the local storage that are grouped by discussion.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.QueryOperation.GetAuthorsForLocalComments(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Gets the TeamFoundationIdentity objects for the authors of the comments loaded from the local store.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionManager.QueryOperation.BuildCommentTrees(Microsoft.TeamFoundation.Discussion.Client.DiscussionThread[],Microsoft.TeamFoundation.Discussion.Client.Comment[])">
+            <summary>
+            Builds the trees of comments and associates them to the right discussions post query.
+            The query returns the discussions and all of their comments.
+            
+            Since the discussions and comments are both sorted by DiscussionId, we iterate through
+            the discussions and comments to match them up. 
+            
+            The comments also have CommentId as a second sort criteria, so when we iterate through
+            the comments of a discussion, we know that if comments[i] is the parent of comments[j]
+            then i must be smaller than j. Moreover, the list of child comments of a comment will 
+            be guaranteed to be ordered by the CommentId. 
+            </summary>
+            <param name="discussions">Discussion array sorted by DiscussionId</param>
+            <param name="comments">Comment array sorted by DiscussionId and CommentId.</param>
+            <returns>The discussions with their comment trees.</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition">
+            <summary>
+            Position of the discussion within a file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Constructs a discussion position instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Constructs a discussion position instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.StartLine">
+            <summary>
+            Line number of the start position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.EndLine">
+            <summary>
+            Line number of the end position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.StartColumn">
+            <summary>
+            Column number of the start position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.EndColumn">
+            <summary>
+            Column number of the end position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.StartCharPosition">
+            <summary>
+            Character number of the start position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.EndCharPosition">
+            <summary>
+            Character number of the end position.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition.PositionContext">
+            <summary>
+            Any other metadata we need about the comment 
+            to recreate and position it properly.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread">
+            <summary>
+            A discussion is a comment thread associated with a block of code, a file or a code review.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.#ctor(Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager,System.Int32,System.Uri)">
+            <summary>
+            Constructs a discussion.
+            </summary>
+            <param name="workItemId">Workitem Id of the code review request.</param>
+            <param name="versionUri">Can only be a uri of a changeset or a shelveset.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.#ctor(Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager,System.Int32,System.Uri,System.String)">
+            <summary>
+            Constructs a discussion.
+            </summary>
+            <param name="workItemId">Workitem Id of the code review request.</param>
+            <param name="versionUri">Can only be a uri of a changeset or a shelveset.</param>
+            <param name="itemPath">Server path of the file that contains the discussion.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.#ctor(Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager,System.Int32,System.Uri,System.String,Microsoft.TeamFoundation.Discussion.Client.DiscussionPosition)">
+            <summary>
+            Constructs a discussion.
+            </summary>
+            <param name="workItemId">Workitem Id of the code review request.</param>
+            <param name="versionUri">Can only be a uri of a changeset or a shelveset.</param>
+            <param name="itemPath">Server path of the file that contains the discussion.</param>
+            <param name="position">Position of the discussion within the file.</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Id">
+            <summary>
+            The unique Id of a discussion. Id is 0 when the discussion is created
+            and gets assigned to a unique value after being saved to the server.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Status">
+            <summary>
+            Indicates the status of the discussion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Severity">
+            <summary>
+            Indicates the severity of the discussion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.WorkItemId">
+            <summary>
+            WorkItem Id of the code review request associated with the discussion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.VersionUri">
+            <summary>
+            Uri of the shelveset or the changeset associated with the discussion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.ItemPath">
+            <summary>
+            Server path of the file in which the discussion occurs.
+            </summary>
+            <remarks>
+            If null, the discussion is at the code review level.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Position">
+            <summary>
+            Position within the file of the discussion.
+            </summary>
+            <remarks>
+            If null, the discussion is at the file or code review level.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PublishedDate">
+            <summary>
+            Time when the discussion is published and can be viewed by others.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.RootComment">
+            <summary>
+            The root comment of the discussion. Setter only works for
+            the first time only, when the RootComment is null, to ensure
+            the  discussion's threaded comments cannot be updated.
+            </summary>
+            <remarks>
+            The author of this comment is the author of the discussion.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.LastUpdatedDate">
+            <summary>
+            Time when the discussion is last updated on this client. This property
+            only gets updated when the client polls for updates.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Revision">
+            <summary>
+            Revision is incremented on the server everytime a discussion is published. 
+            However, a publish call will not update the revision of the client discussion.
+            The client revision only gets updated when the client polls for updates.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.NeedsSave">
+            <summary>
+            True if the discussion has changed and can be saved to the local store. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.ReadStatus">
+            <summary>
+            Tracks whether or not the discussion has been read.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Manager">
+            <summary>
+            Keeps a reference to the DiscussionManager object
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.IsBeingPublished">
+            <summary>
+            Marks the discussion as being published.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.ClonedFrom">
+            <summary>
+            References the discussion which this discussion is cloned from. 
+            A null value means the instance is not a cloned discussion. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.LocalId">
+            <summary>
+            The local Id of the discussion when it has not been published.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.SavedDate">
+            <summary>
+            The DateTime of when the discussion was saved locally.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.AddComment(Microsoft.TeamFoundation.Framework.Client.TeamFoundationIdentity,Microsoft.TeamFoundation.Discussion.Client.CommentType,System.String,Microsoft.TeamFoundation.Discussion.Client.Comment)">
+            <summary>
+            Adds a new comment to this discussion. 
+            
+            An exception will be thrown if:
+                1. The <c>parentComment</c> is null but:
+                    a. The discussion has a root comment.
+                    b. The discussion is already deleted.
+                2. The <c>parentComment</c> has not yet been published to the server.
+                
+            </summary>
+            <remarks>
+            This method does not make a server trip.
+            </remarks>
+            <param name="author">Author of the new comment.</param>
+            <param name="commentType">Type of the new comment.</param>
+            <param name="content">Content of the new comment.</param>
+            <param name="parentComment">
+            Parent of the new comment. If null, the new comment can be the root.
+            </param>
+            <returns>The new comment added.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.AddComment(Microsoft.TeamFoundation.Discussion.Client.Comment,Microsoft.TeamFoundation.Discussion.Client.Comment)">
+            <summary>
+            Adds a given comment to this discussion. 
+            
+            An exception will be thrown if:
+                1. The <c>parentComment</c> is null but:
+                    a. The discussion has a root comment.
+                    b. The discussion is already deleted.
+                2. The <c>parentComment</c> has not yet been published to the server.
+                
+            </summary>
+            <remarks>
+            This method does not make a server trip.
+            </remarks>
+            <param name="comment">The comment to be added.</param>
+            <param name="parentComment">
+            Parent of the given comment. If null, the new comment will be the root.
+            </param>
+            <returns>The new comment added.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PrePublish(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment}@,System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment}@)">
+            <summary>
+            Snaphots the discussion to publish.
+            </summary>
+            <returns>
+            The cloned version of the discussion if it needs publish. 
+            Null if this discussion does not need publish.
+            </returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PostPublish(System.Int32,System.DateTime)">
+            <summary>
+            Updates the discussion after the publish succeeds.
+            </summary>
+            <remarks>
+            The publish call does not sync the server version of the discussion
+            with the client. Thus, only newly published discussions are updated
+            so they appear published at the client.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PostFailedPublish(Microsoft.TeamFoundation.Discussion.Client.DiscussionThread)">
+            <summary>
+            Updates the discussion after the publish fails.
+            </summary>
+            <param name="clone">The version of this discussion that was cloned for publish.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PreSave(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment}@)">
+            <summary>
+            Snapshots the discussion to save.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Save(Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage)">
+            <summary>
+            Merges this discussion with the current content of the local store.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PostSave(System.Int32)">
+            <summary>
+            Updates the discussion after the save succeeds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PostFailedSave(Microsoft.TeamFoundation.Discussion.Client.DiscussionThread)">
+            <summary>
+            Updates the discussion after the save fails.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.WriteToXml(System.Xml.XmlWriter)">
+            <summary>
+            Writes the discussion as an XML element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PostQuery(Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager)">
+            <summary>
+            Updates the discussion post server query.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.Load(Microsoft.TeamFoundation.Discussion.Client.DiscussionThread)">
+            <summary>
+            Loads the discussion properties and flags from the local storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.PostLoad(Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager)">
+            <summary>
+            Updates the discussion post local load.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.SetSaveReason(Microsoft.TeamFoundation.Discussion.Client.DiscussionSaveReasons)">
+            <summary>
+            Sets the given <c>DiscussionSaveReasons</c> on the discussion.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.CloneProperties(System.Collections.Generic.List{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Creates a cloned discussion with cloned properties only. This cloned version
+            will have its ClonedFrom property reference the original discussion. 
+            </summary>
+            <param name="deletedTrees">
+            The list of deleted sub trees that are removed from the discussion. We keep
+            a reference to them in the cloned discussion so we can re-add them if the publish fails.
+            </param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.HasSaveReason(Microsoft.TeamFoundation.Discussion.Client.DiscussionSaveReasons)">
+            <summary>
+            Checks if the discussion has the given <c>DiscussionSaveReasons</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.GenerateLocalCommentId">
+            <summary>
+            Returns a unique negative value for a local CommentId within the discussion scope.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.m_lock">
+            <summary>
+            Locks the concurrent non-atomic operations during an async publish or save call.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionThread.ReadFromXml(System.Xml.XmlReader)">
+            <summary>
+            Reads the discussion from an XML element.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionStatus">
+            <summary>
+            The status of a discussion.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionSeverity">
+            <summary>
+            The severity of a discussion.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.ReadStatus">
+            <summary>
+            The read status of a discussion.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.CommentType">
+            <summary>
+            The type of a comment.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.QueryStoreOptions">
+            <summary>
+            The option to query for discussions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionSaveReasons">
+            <summary>
+            The reason a discussion needs to be updated in the local store.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.CommentSaveReasons">
+            <summary>
+            The reason a comment needs to be updated in the local store.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionException">
+            <summary>
+            Base class for all exceptions thrown by the Tfs Discussion API.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager">
+            <summary>
+            Manages publishing and querying the discussions against Team Foundation Server. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.LocalDataRetentionDays">
+            <summary>
+            The number of days the local data will be retained since the last saved date.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.BeginSave(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.AsyncCallback,System.Object)">
+            <summary>
+            Saves the changed discussions to the local storage.
+            </summary>
+            <remarks>
+            This method does not make a server trip. Thus, the unpublished discussions
+            will not be published to the server. 
+            </remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.EndSave(System.IAsyncResult)">
+            <summary>
+            Ends saving the discussions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.BeginCleanup(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.AsyncCallback,System.Object)">
+            <summary>
+            Cleans up the discussions in the local storage.
+            </summary>
+            <remarks>
+            This method does not make a server trip. The discussions and comments are
+            not changed or deleted, they are only removed from local storage.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.EndCleanup(System.IAsyncResult)">
+            <summary>
+            Ends cleaning up the discussions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.BeginPublish(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.AsyncCallback,System.Object)">
+            <summary>
+            Publishes the discussions so other viewers can see them.
+            </summary>
+            <remarks>
+            Publish does not sync the client objects with the server. 
+            There can be only one invocation at a time. An exception
+            is thrown if BeginPublish is called when IsPublishing is true.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.EndPublish(System.IAsyncResult)">
+            <summary>
+            Ends publishing the discussions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.BeginQueryByVersion(System.Uri,Microsoft.TeamFoundation.Discussion.Client.QueryStoreOptions,System.AsyncCallback,System.Object)">
+            <summary>
+            Queries the discussions associated with the specified changeset or shelveset. 
+            The results can come from the server or the local store, or both, by setting
+            the <c>option</c>, whose default value is <c>QueryStoreOption.ServerOnly</c>.
+            </summary>
+            <remarks>
+            We don't currently support <c>QueryStoreOption.LocalOnly</c>. To query for
+            local discussions, you need to use <c>QueryStoreOption.ServerAndLocal</c>
+            which will first query the server for the existing discussions, then update
+            them with the locally saved ones.
+            
+            Any local discussion or comment that no longer exists on the server will not
+            be retrieved.
+            </remarks>
+            <param name="storeOptions">Specifies the stores from which the discussions are retrieved.</param>
+            <param name="versionUri">Can only be a uri of a changeset or a shelveset.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.EndQueryByVersion(System.IAsyncResult)">
+            <summary>
+            Ends querying discussions by the specified changeset or shelveset. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.BeginQueryByCodeReviewRequest(System.Int32,Microsoft.TeamFoundation.Discussion.Client.QueryStoreOptions,System.AsyncCallback,System.Object)">
+            <summary>
+            Queries the discussions associated with the specified code review request.
+            The results can come from the server or the local store, or both, by setting
+            the <c>option</c>, whose default value is <c>QueryStoreOption.ServerOnly</c>.
+            </summary>
+            <remarks>
+            We don't currently support <c>QueryStoreOption.LocalOnly</c>. To query for
+            local discussions, you need to use <c>QueryStoreOption.ServerAndLocal</c>
+            which will first query the server for the existing discussions, then update
+            them with the locally saved ones.
+            
+            Any local discussion or comment that no longer exists on the server will not
+            be retrieved.
+            </remarks>
+            <param name="storeOptions">Specifies the stores from which the discussions are retrieved.</param>
+            <param name="workItemId">Workitem Id of the code review request.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.EndQueryByCodeReviewRequest(System.IAsyncResult)">
+            <summary>
+            Ends querying discussions by the specified code review request. 
+            </summary>
+        </member>
+        <member name="E:Microsoft.TeamFoundation.Discussion.Client.IDiscussionManager.LocalDataLost">
+            <summary>
+            Notifies that the local storage is corrupted and existing data is lost.
+            </summary>
+            <remarks>
+            This event gets raised during a save or query operation. During
+            a save operation, the existing data is lost but the new data is stored.
+            During a query operation, the local data will not be returned.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage">
+            <summary>
+            Handles read and write to the discussion local storage.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.UnpublishedDiscussionId">
+            <summary>
+            The available unique local ID for the new discussions 
+            that have not been saved or published.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Discussions">
+            <summary>
+            The map of the discussions in the local storage and their IDs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Comments">
+            <summary>
+            The map of the comments in the local storage and their IDs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.FileCorrupted">
+            <summary>
+            True if the local file is corrupted and cannot be loaded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.DiscussionManager">
+            <summary>
+            The discussion manager.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.TraceKeywords">
+            <summary>
+            Tracing keywords for discussion client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Initialize(System.Object)">
+            <summary>
+            Overrides initialization before loading the table from disk.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Load(Microsoft.Win32.SafeHandles.SafeFileHandle)">
+            <summary>
+            Called by the base class to load the table from disk.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Save(Microsoft.Win32.SafeHandles.SafeFileHandle)">
+            <summary>
+            Called by the base class to save the table to disk.
+            Only called if we return true for IsDirty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Store(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.DiscussionThread},System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.Comment})">
+            <summary>
+            Saves the discussions and comments to the local storage. This method
+            iterates over the discussions and/or comments that need to be saved
+            and merges them with what are currently in the local store. It does
+            not write the changes to disk until this class is disposed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Delete(System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.CommentId})">
+            <summary>
+            Deletes the discussions and comments from the local storage. This method
+            iterates over the list of discussion and/or comment Ids and removes them
+            from the local store content. It does not write the changes to disk until
+            this class is disposed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.Retrieve(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Discussion.Client.Comment}@)">
+            <summary>
+            Loads the discussions and comments from the local storage. This method
+            returns the content in memory that were loaded from the local storage
+            when this class is constructed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.ReadDiscussion(System.Xml.XmlReader)">
+            <summary>
+            Reads a discussion from the XML and stores it to the dictionary in overwrite mode.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.DiscussionStorage.ReadComment(System.Xml.XmlReader)">
+            <summary>
+            Reads a comment from the XML and stores it to the dictionary in overwrite mode.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.ArgumentInvalidError">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; is invalid..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.ArgumentNullError">
+            <summary>
+              Looks up a localized string similar to The argument &apos;{0}&apos; is null..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.CannotAddAnotherRootComment">
+            <summary>
+              Looks up a localized string similar to The comment cannot be added because the discussion has been deleted or already had a root comment..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.CannotDeleteCommentByOtherAuthors">
+            <summary>
+              Looks up a localized string similar to The comment cannot be deleted because it belongs to another author. You can only delete your comments..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.CannotPublishCommentWithNoContent">
+            <summary>
+              Looks up a localized string similar to The comment cannot be published or saved because its content has not been set. .
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.CannotPublishDiscussionWithNoRootComment">
+            <summary>
+              Looks up a localized string similar to One of the discussions being published or saved has no root comment. A discussion must have at least one comment at the root in order to be published or saved..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.CannotUndeletePublishedComment">
+            <summary>
+              Looks up a localized string similar to The comment cannot be undeleted because it has already been published..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.CommentHasUnsupportedCharacters">
+            <summary>
+              Looks up a localized string similar to The comment contains unsupported characters..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.DiscussionIsBeingPublished">
+            <summary>
+              Looks up a localized string similar to One of the discussions has already been being published or saved. Wait until the previous publishing or saving completes then try again..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.LocalStoreXmlValidationError">
+            <summary>
+              Looks up a localized string similar to The local storage file is invalid. Error: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.ParentCommentInDifferentDiscussion">
+            <summary>
+              Looks up a localized string similar to The comment cannot be added to the parent comment because the parent comment is in a different discussion..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.ParentCommentUnpublished">
+            <summary>
+              Looks up a localized string similar to The comment cannot be added to an unpublished comment. Publish the discussion first then retry..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.PropertyCannotBeChanged">
+            <summary>
+              Looks up a localized string similar to The property &apos;{0}&apos; cannot be changed because the discussion or comment has been published..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.PublishingFailed">
+            <summary>
+              Looks up a localized string similar to Publishing failed with the following error: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Discussion.Client.Resources.SavingFailed">
+            <summary>
+              Looks up a localized string similar to Saving failed with the following error: {0}.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Discussion.Client.TeamFoundationDiscussionService">
+            <summary>
+            The entry point of Team Foundation Discussion Service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Discussion.Client.TeamFoundationDiscussionService.CreateDiscussionManager">
+            <summary>
+            Returns a new instance of the <c>IDiscussionManager</c> interface.
+            </summary>
+        </member>
+    </members>
+</doc>

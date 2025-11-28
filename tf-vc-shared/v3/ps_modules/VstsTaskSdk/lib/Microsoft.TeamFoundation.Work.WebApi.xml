@@ -1,0 +1,2441 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Work.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsApiConstants">
+            <summary>
+            Constants for the TeamSettings WebApi interface.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.TaskBacklog">
+            <summary>
+            Task backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.RequirementBacklog">
+            <summary>
+            Requirement backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.PortfolioBacklogs">
+            <summary>
+            Portfolio backlog descriptors
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.WorkItemTypeMappedStates">
+            <summary>
+            Mapped states for work item types
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.BacklogFields">
+            <summary>
+            Behavior/type field mapping
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.BugsBehavior">
+            <summary>
+            Bugs behavior
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.HiddenBacklogs">
+            <summary>
+            Hidden Backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogConfiguration.IsBugsBehaviorConfigured">
+            <summary>
+            Is BugsBehavior Configured in the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogFields.TypeFields">
+            <summary>
+            Field Type (e.g. Order, Activity) to Field Reference Name map
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.Id">
+            <summary>
+            Backlog Id (for Legacy Backlog Level from process config it can be categoryref name)
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.Name">
+            <summary>
+            Backlog Name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.Rank">
+            <summary>
+            Backlog Rank (Taskbacklog is 0)
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.WorkItemCountLimit">
+            <summary>
+            Max number of work items to show in the given backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.AddPanelFields">
+            <summary>
+            List of fields to include in Add Panel
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.ColumnFields">
+            <summary>
+            Default list of columns for the backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.WorkItemTypes">
+            <summary>
+            Work Item types participating in this backlog as known by the project/Process, can be overridden by team settings for bugs
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.DefaultWorkItemType">
+            <summary>
+            Default Work Item Type for the backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.Color">
+            <summary>
+            Color for the backlog level
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.IsHidden">
+            <summary>
+            Indicates whether the backlog level is hidden
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelConfiguration.Type">
+            <summary>
+            The type of this backlog level
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.BacklogType">
+            <summary>
+            Definition of the type of backlog level
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.BacklogType.Portfolio">
+            <summary>
+            Portfolio backlog level
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.BacklogType.Requirement">
+            <summary>
+            Requirement backlog level
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.BacklogType.Task">
+            <summary>
+            Task backlog level
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelWorkItems">
+            <summary>
+            Represents work items in a backlog level
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevelWorkItems.WorkItems">
+            <summary>
+            A list of work items within a backlog level
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.WorkItemTypeStateInfo.WorkItemTypeName">
+            <summary>
+            Work Item type name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.WorkItemTypeStateInfo.States">
+            <summary>
+            State name to state category map
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.ReorderOperation">
+            <summary>
+            Represents a reorder request for one or more work items.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ReorderOperation.ParentId">
+            <summary>
+            Parent ID for all of the work items involved in this operation.
+            Can use 0 to indicate the items don't have a parent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ReorderOperation.PreviousId">
+            <summary>
+            ID of the work item that should be before the reordered items.
+            Can use 0 to specify the beginning of the list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ReorderOperation.NextId">
+            <summary>
+            ID of the work item that should be after the reordered items.
+            Can use 0 to specify the end of the list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ReorderOperation.Ids">
+            <summary>
+            IDs of the work items to be reordered.  Must be valid WorkItem Ids.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ReorderOperation.IterationPath">
+            <summary>
+            IterationPath for reorder operation. This is only used when we reorder from the Iteration Backlog
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.ReorderResult">
+            <summary>
+            Represents a reorder result for a work item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ReorderResult.Id">
+            <summary>
+            The ID of the work item that was reordered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ReorderResult.Order">
+            <summary>
+            The updated order value of the work item that was reordered.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadgeColumnOptions">
+            <summary>
+            Determines what columns to include on the board badge
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadgeColumnOptions.InProgressColumns">
+            <summary>
+            Only include In Progress columns
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadgeColumnOptions.AllColumns">
+            <summary>
+            Include all columns
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadgeColumnOptions.CustomColumns">
+            <summary>
+            Include a custom set of columns
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadge">
+            <summary>
+            Represents a board badge.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadge.BoardId">
+            <summary>
+            The ID of the board represented by this badge.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadge.ImageUrl">
+            <summary>
+            A link to the SVG resource.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Contracts.ProcessConfiguration">
+            <summary>
+            Process Configurations for the project
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.ProcessConfiguration.TypeFields">
+            <summary>
+            Type fields for the process configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.ProcessConfiguration.TaskBacklog">
+            <summary>
+            Details of task backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.ProcessConfiguration.RequirementBacklog">
+            <summary>
+            Details of requirement backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.ProcessConfiguration.PortfolioBacklogs">
+            <summary>
+            Details about portfolio backlogs
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.ProcessConfiguration.BugWorkItems">
+            <summary>
+            Details about bug work items
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Contracts.CategoryConfiguration">
+            <summary>
+            Details about a given backlog category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.CategoryConfiguration.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.CategoryConfiguration.ReferenceName">
+            <summary>
+            Category Reference Name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.CategoryConfiguration.WorkItemTypes">
+            <summary>
+            Work item types for the backlog category
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumn">
+            <summary>
+            Represents the taskbord column
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumn.Id">
+            <summary>
+            Column ID
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumn.Name">
+            <summary>
+            Column name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumn.Order">
+            <summary>
+            Column position relative to other columns in the same board
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumn.Mappings">
+            <summary>
+            Work item type states mapped to this column to support auto state update when column is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumns.IsCustomized">
+            <summary>
+            Are the columns cutomized for this team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumns.IsValid">
+            <summary>
+            Specifies if the referenced WIT and State is valid
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumns.ValidationMesssage">
+            <summary>
+            Details of validation failure if the state to column mapping is invalid
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumnMapping">
+            <summary>
+            Represents the state to column mapping per work item type
+            This allows auto state update when the column changes
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumnMapping.WorkItemType">
+            <summary>
+            Work Item Type name who's state is mapped to the column
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardColumnMapping.State">
+            <summary>
+            State of the work item type mapped to the column
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardWorkItemColumn">
+            <summary>
+            Column value of a work item in the taskboard
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardWorkItemColumn.WorkItemId">
+            <summary>
+            Work item id
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardWorkItemColumn.State">
+            <summary>
+            Work Item state value
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardWorkItemColumn.Column">
+            <summary>
+            Work item column value in the taskboard
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.TaskboardWorkItemColumn.ColumnId">
+            <summary>
+            Work item column id in the taskboard
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.UpdateTaskboardColumn.Id">
+            <summary>
+            Column ID, keep it null for new column
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.UpdateTaskboardColumn.Name">
+            <summary>
+            Column name is required
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.UpdateTaskboardColumn.Order">
+            <summary>
+            Column position relative to other columns in the same board
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.UpdateTaskboardColumn.m_Mappings">
+            <summary>
+            Work item type states mapped to this column to support auto state update when column is updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BoardChart.Settings">
+            <summary>
+            The settings for the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BoardChart.Links">
+            <summary>
+            The links for the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BoardChartReference.Name">
+            <summary>
+            Name of the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BoardChartReference.Url">
+            <summary>
+            Full http link to the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BoardReference.Id">
+            <summary>
+            Id of the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BoardReference.Url">
+            <summary>
+            Full http link to the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BoardReference.Name">
+            <summary>
+            Name of the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ShallowReference.Id">
+            <summary>
+            Id of the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ShallowReference.Url">
+            <summary>
+            Full http link to the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.ShallowReference.Name">
+            <summary>
+            Name of the resource
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.IdentityDisplayFormat">
+            <summary>
+            Enum for the various modes of identity picker
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.IdentityDisplayFormat.AvatarOnly">
+            <summary>
+            Display avatar only
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.IdentityDisplayFormat.FullName">
+            <summary>
+            Display Full name only
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.IdentityDisplayFormat.AvatarAndFullName">
+            <summary>
+            Display Avatar and Full name
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings">
+            <summary>
+            Card settings, such as fields and rules
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.ShowId">
+            <summary>
+            Flag indicating whether to show ID on cards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.ShowAssignedTo">
+            <summary>
+            Flag indicating whether to show assigned to field on cards.
+            When true, AssignedToDisplayFormat will determine how the field will be displayed
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.AssignedToDisplayFormat">
+            <summary>
+            Display format for the assigned to field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.ShowState">
+            <summary>
+            Flag indicating whether to show state field on cards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.ShowTags">
+            <summary>
+            Flag indicating whether to show tags on cards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.ShowParent">
+            <summary>
+            Flag indicating whether to show parent field on cards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.ShowEmptyFields">
+            <summary>
+            Flag indicating whether to show empty fields on cards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.ShowChildRollup">
+            <summary>
+            Flag indicating whether to show child rollup on cards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.AdditionalFields">
+            <summary>
+            A collection of field information of additional fields on cards.
+            The index in the collection signifies the order of the field among the additional fields.
+            Currently unused. Should be used with User Story 691539: Card setting: additional fields
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardFieldSettings.CoreFields">
+            <summary>
+            A collection of field information of rendered core fields on cards.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.CardSettings">
+            <summary>
+            Card settings, such as fields and rules
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.CardSettings.Fields">
+            <summary>
+            A collection of settings related to rendering of fields on cards
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData">
+            <summary>
+            Data contract for Data of Delivery View
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.StartDate">
+            <summary>
+            The start date for the delivery view data
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.EndDate">
+            <summary>
+            The end date of the delivery view data
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.Teams">
+            <summary>
+            All the team data
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.ChildIdToParentIdMap">
+            <summary>
+            Work item child id to parent id map
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.CriteriaStatus">
+            <summary>
+            Filter criteria status of the timeline
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.MaxExpandedTeams">
+            <summary>
+            Max number of teams that can be configured for a delivery plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.ParentItemMaps">
+            <summary>
+            Mapping between parent id, title and all the child work item ids
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.WorkItemViolations">
+            <summary>
+            List of all work item ids that have a violation
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewData.WorkItemDependencies">
+            <summary>
+            List of all work item ids that have a dependency but not a violation
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineCriteriaStatusCode.OK">
+            <summary>
+            No error - filter is good.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineCriteriaStatusCode.InvalidFilterClause">
+            <summary>
+            One of the filter clause is invalid.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineCriteriaStatusCode.Unknown">
+            <summary>
+            Unknown error.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.WorkItemColor">
+            <summary>
+            Work item color and icon.
+            </summary>    
+            <remarks>
+            This DTO object basically maps from VSO\Tfs\Service\WebAccess\WorkItemTracking.Common\Settings\WorkItemColor.cs WorkItemColor to VSO\Tfs\Service\WebAccess\Presentation\Scripts\TFS\TFS.OM.Common.ts IWorkItemColor
+            This is brittle and IWorkItemColor should be exported from a common location but it currently isn't.
+            //FUTURE: fix the above.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.Id">
+            <summary>
+            The id of the team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.Name">
+            <summary>
+            The name of the team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.ProjectId">
+            <summary>
+            The project id the team belongs team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.OrderByField">
+            <summary>
+            The order by field name of this team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.TeamFieldName">
+            <summary>
+            The team field name of this team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.TeamFieldDefaultValue">
+            <summary>
+            The team field default value
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.TeamFieldValues">
+            <summary>
+            The team field values
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.FieldReferenceNames">
+            <summary>
+            The field reference names of the work item data
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.PartiallyPagedFieldReferenceNames">
+            <summary>
+            The field reference names of the partially paged work items, such as ID, WorkItemType
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.WorkItemTypeColors">
+            <summary>
+            Colors for the work item types.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.Iterations">
+            <summary>
+            The iteration data, including the work items, in the queried date range.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.WorkItems">
+            <summary>
+            Work items associated with the team that are not under any of the team's iterations
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.IsExpanded">
+            <summary>
+            Was iteration and work item data retrieved for this team. 
+            <remarks>
+            Teams with IsExpanded false have not had their iteration, work item, and field related data queried and will never contain this data. 
+            If true then these items are queried and, if there are items in the queried range, there will be data.
+            </remarks>
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.Status">
+            <summary>
+            Status for this team.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.Backlog">
+            <summary>
+            Backlog matching the mapped backlog associated with this team.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamData.RollupWorkItemTypes">
+            <summary>
+            Work item types for which we will collect roll up data on the client side
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamStatusCode.OK">
+            <summary>
+            No error - all data for team is good.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamStatusCode.DoesntExistOrAccessDenied">
+            <summary>
+            Team does not exist or access is denied.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamStatusCode.MaxTeamsExceeded">
+            <summary>
+            Maximum number of teams was exceeded. No team data will be returned for this team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamStatusCode.MaxTeamFieldsExceeded">
+            <summary>
+            Maximum number of team fields (ie Area paths) have been exceeded. No team data will be returned for this team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamStatusCode.BacklogInError">
+            <summary>
+            Backlog does not exist or is missing crucial information. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamStatusCode.MissingTeamFieldValue">
+            <summary>
+            Team field value is not set for this team. No team data will be returned for this team
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamStatusCode.NoIterationsExist">
+            <summary>
+            Team does not have a single iteration with date range.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.CssNodeId">
+            <summary>
+            The iteration CSS Node Id
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.Name">
+            <summary>
+            The iteration name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.Path">
+            <summary>
+            The iteration path
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.StartDate">
+            <summary>
+            The start date of the iteration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.FinishDate">
+            <summary>
+            The end date of the iteration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.WorkItems">
+            <summary>
+            The work items that have been paged in this iteration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.PartiallyPagedWorkItems">
+            <summary>
+            All the partially paged workitems in this iteration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TimelineTeamIteration.Status">
+            <summary>
+            The status of this iteration
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineIterationStatusCode.OK">
+            <summary>
+            No error - iteration data is good.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.TimelineIterationStatusCode.IsOverlapping">
+            <summary>
+            This iteration overlaps with another iteration, no data is returned for this iteration.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.BacklogLevel">
+            <summary>
+            Contract representing a backlog level
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevel.CategoryReferenceName">
+            <summary>
+            Reference name of the corresponding WIT category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevel.PluralName">
+            <summary>
+            Plural name for the backlog level
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevel.WorkItemTypes">
+            <summary>
+            Collection of valid workitem type names for the given backlog level
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.BacklogLevel.WorkItemStates">
+            <summary>
+            Collection of work item states that are included in the plan. The server will filter to only these work item types.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.FieldInfo">
+            <summary>
+            Object bag storing the set of permissions relevant to this plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.FieldInfo.ReferenceName">
+            <summary>
+            The additional field reference name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.FieldInfo.DisplayName">
+            <summary>
+            The additional field display name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.FieldInfo.FieldType">
+            <summary>
+            The additional field type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.FieldInfo.IsIdentity">
+            <summary>
+            Indicates if the field definition is for an identity field.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Marker">
+            <summary>
+            Client serialization contract for Delivery Timeline Markers.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.Marker.Date">
+            <summary>
+            Where the marker should be displayed on the timeline.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.Marker.Label">
+            <summary>
+            Label/title for the marker.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.Marker.Color">
+            <summary>
+            Color associated with the marker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.CreatePlan.Name">
+            <summary>
+            Name of the plan to create.
+            </summary>
+            <remarks>
+            Character limit: 255, no character restrictions.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.CreatePlan.Type">
+            <summary>
+            Type of plan to create.
+            </summary>
+            <remarks>
+            Must be one of the defined plan types.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.CreatePlan.Properties">
+            <summary>
+            Plan properties.
+            </summary>
+            <remarks>
+            Properties must be valid per the plan type.
+            For DeliveryTimelineView plan type, Properties is of type DeliveryViewPropertyCollection.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.CreatePlan.Description">
+            <summary>
+            Description of the plan
+            </summary>
+            <remarks>
+            Character limit: 256, no character restrictions.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.UpdatePlan.Type">
+            <summary>
+            Type of the plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.UpdatePlan.Revision">
+            <summary>
+            Revision of the plan that was updated - the value used here should match the one the server gave the client in the Plan.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.UpdatePlan.Name">
+            <summary>
+            Name of the plan to create.
+            </summary>
+            <remarks>
+            Character limit: 255, no character restrictions.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.UpdatePlan.Description">
+            <summary>
+            Description of the plan
+            </summary>
+            <remarks>
+            Character limit: 256, no character restrictions.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.UpdatePlan.Properties">
+            <summary>
+            Plan properties.
+            </summary>
+            <remarks>
+            Properties must be valid per the plan type.
+            For DeliveryTimelineView plan type, Properties is of type DeliveryViewPropertyCollection.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.UpdatePlan.CardSettings">
+            <summary>
+            Card settings such as fields and rules
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Plan">
+            <summary>
+            Data contract for the plan definition
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Id">
+            <summary>
+            Id of the plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Revision">
+            <summary>
+            Revision of the plan. Used to safeguard users from overwriting each other's changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Name">
+            <summary>
+            Name of the plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Type">
+            <summary>
+            Type of the plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Properties">
+            <summary>
+            The PlanPropertyCollection instance associated with the plan. These are dependent on the type of the plan.
+            For example, DeliveryTimelineView, it would be of type DeliveryViewPropertyCollection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.CreatedDate">
+            <summary>
+            Date when the plan was created
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.CreatedByIdentity">
+            <summary>
+            Identity that created this plan. Defaults to null for records before upgrading to ScaledAgileViewComponent4.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.ModifiedDate">
+            <summary>
+            Date when the plan was last modified. Default to CreatedDate when the plan is first created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.ModifiedByIdentity">
+            <summary>
+            Identity that last modified this plan. Defaults to null for records before upgrading to ScaledAgileViewComponent4.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Url">
+            <summary>
+            The resource url to locate the plan via rest api
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Description">
+            <summary>
+            Description of the plan
+            </summary>
+            <remarks>
+            Character limit: 2000, no character restrictions.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.UserPermissions">
+            <summary>
+            Bit flag indicating set of permissions a user has to the plan.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.LastAccessed">
+            <summary>
+            Date when the plan was last accessed. Default is null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.OwnerId">
+            <summary>
+            OBSOLETE - This property is deprecated and will not be populated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.CreatedBy">
+            <summary>
+            OBSOLETE - This property is deprecated and will not be populated. Use CreatedByIdentity property instead
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.ModifiedBy">
+            <summary>
+            OBSOLETE - This property is deprecated and will not be populated. Use ModifiedByIdentity property instead
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.CardSettings">
+            <summary>
+            Card settings such as fields and rules
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.Plan.Permissions">
+            <summary>
+            OBSOLETE - This property is deprecated and will not be populated. Use userPermissions property instead
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PlanPermissions">
+            <summary>
+            Object bag storing the set of permissions relevant to this plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanPermissions.Edit">
+            <summary>
+            Whether the user has permission to edit this plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanPermissions.Delete">
+            <summary>
+            Whether the user has permission to delete this plan
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PlanMetadata">
+            <summary>
+            Metadata about a plan definition that is stored in favorites service
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanMetadata.Description">
+            <summary>
+            Description of plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanMetadata.ModifiedDate">
+            <summary>
+            Last modified date of the plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanMetadata.CreatedBy">
+            <summary>
+            OBSOLETE - This property is deprecated and will not be populated. Use CreatedByIdentity property instead
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanMetadata.CreatedByIdentity">
+            <summary>
+            Identity of the creator of the plan
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanMetadata.Permissions">
+            <summary>
+            OBSOLETE - This property is deprecated and will not be populated. Use userPermissions property instead
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.PlanMetadata.UserPermissions">
+            <summary>
+            Bit flag indicating set of permissions a user has to the plan.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PlanPropertyCollection">
+            <summary>
+            Base class for properties of a scaled agile plan
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewPropertyCollection">
+            <summary>
+            Collection of properties, specific to the DeliveryTimelineView
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewPropertyCollection.TeamBacklogMappings">
+            <summary>
+            Team backlog mappings
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewPropertyCollection.Criteria">
+            <summary>
+            Field criteria
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewPropertyCollection.CardSettings">
+            <summary>
+            Card settings
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewPropertyCollection.Markers">
+            <summary>
+            Markers. Will be missing/null if there are no markers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewPropertyCollection.CardStyleSettings">
+            <summary>
+            Card style settings
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewPropertyCollection.TagStyleSettings">
+            <summary>
+            tag style settings
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamBacklogMapping">
+            <summary>
+            Mapping of teams to the corresponding work item category
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PlanType">
+            <summary>
+            Enum for the various types of plans
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PlanUserPermissions">
+            <summary>
+            Flag for permissions a user can have for this plan.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PlanUserPermissions.None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PlanUserPermissions.View">
+            <summary>
+            Permission to view this plan.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PlanUserPermissions.Edit">
+            <summary>
+            Permission to update this plan.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PlanUserPermissions.Delete">
+            <summary>
+            Permission to delete this plan.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PlanUserPermissions.Manage">
+            <summary>
+            Permission to manage this plan.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PlanUserPermissions.AllPermissions">
+            <summary>
+            Full control permission for this plan.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PlanViewData">
+            <summary>
+            Base class for plan view data contracts. Anything common goes here.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.CapacityContractBase.Activities">
+            <summary>
+            Collection of capacities associated with the team member
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.CapacityContractBase.DaysOff">
+            <summary>
+            The days off associated with the team member
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamMemberCapacity">
+            <summary>
+            Represents capacity for a specific team member
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamMemberCapacity.TeamMember">
+            <summary>
+            Shallow Ref to the associated team member
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamMemberCapacityIdentityRef">
+            <summary>
+            Represents capacity for a specific team member
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamMemberCapacityIdentityRef.TeamMember">
+            <summary>
+            Identity ref of the associated team member
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.CapacityPatch">
+            <summary>
+            Expected data from PATCH
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamCapacity">
+            <summary>
+            Represents team member capacity with totals aggregated
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamCapacityTotals">
+            <summary>
+            Team information with total capacity and days off 
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.IterationCapacity">
+            <summary>
+            Capacity and teams for all teams in an iteration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DateRange.Start">
+            <summary>
+            Start of the date range.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.DateRange.End">
+            <summary>
+            End of the date range.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.IterationWorkItems">
+            <summary>
+            Represents work items in an iteration backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.IterationWorkItems.WorkItemRelations">
+            <summary>
+            Work item relations
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.FieldReference">
+            <summary>
+            An abstracted reference to a field
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.FieldReference.ReferenceName">
+            <summary>
+            fieldRefName for the field
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.FieldReference.Url">
+            <summary>
+            Full http link to more information about the field
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamFieldValue">
+            <summary>
+            Represents a single TeamFieldValue
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamFieldValues">
+            <summary>
+            Essentially a collection of team field values
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamFieldValues.Field">
+            <summary>
+            Shallow ref to the field being used as a team field
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamFieldValues.DefaultValue">
+            <summary>
+            The default team field value
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamFieldValues.Values">
+            <summary>
+            Collection of all valid team field values
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamFieldValuesPatch">
+            <summary>
+            Expected data from PATCH
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.BugsBehavior">
+            <summary>
+            The behavior of the work item types that are in the work item category 
+            specified in the BugWorkItems section in the Process Configuration
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamSetting">
+            <summary>
+            Data contract for TeamSettings
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSetting.BacklogIteration">
+            <summary>
+            Backlog Iteration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSetting.BugsBehavior">
+            <summary>
+            BugsBehavior (Off, AsTasks, AsRequirements, ...)
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSetting.WorkingDays">
+            <summary>
+            Days that the team is working
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSetting.BacklogVisibilities">
+            <summary>
+            Information about categories that are visible on the backlog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSetting.DefaultIteration">
+            <summary>
+            Default Iteration, the iteration used when creating a new work item on the queries page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSetting.DefaultIterationMacro">
+            <summary>
+            Default Iteration macro (if any)
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsPatch">
+            <summary>
+            Data contract for what we expect to receive when PATCH
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsDataContractBase">
+            <summary>
+            Base class for TeamSettings data contracts. Anything common goes here.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsDataContractBase.Url">
+            <summary>
+            Full http link to the resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsDataContractBase.Links">
+            <summary>
+            Collection of links relevant to resource
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamIterationAttributes.StartDate">
+            <summary>
+            Start date of the iteration. Date-only, correct unadjusted at midnight in UTC.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamIterationAttributes.FinishDate">
+            <summary>
+            Finish date of the iteration. Date-only, correct unadjusted at midnight in UTC.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamIterationAttributes.TimeFrame">
+            <summary>
+            Time frame of the iteration, such as past, current or future.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsIteration">
+            <summary>
+            Represents a shallow ref for a single iteration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsIteration.Id">
+            <summary>
+            Id of the iteration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsIteration.Name">
+            <summary>
+            Name of the iteration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsIteration.Path">
+            <summary>
+            Relative path of the iteration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.TeamSettingsIteration.Attributes">
+            <summary>
+            Attributes of the iteration such as start and end date.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.TimeFrame">
+            The time frame of the iteration.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewTypeDoesNotExistException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewPropertiesFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewPropertiesMissingException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.TeamDoesNotExistException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.NoPermissionReadTeamException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.CardSettingsInvalidFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewRevisionMismatchException">
+            <summary>
+            Exception mapped to the SQL error DAL_Err_ScaledAgileViewRevisionError
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewRevisionMismatchException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.CardSettingsDuplicateAdditionalFieldsException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.CardSettingsInvalidFieldIdentifierException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.CardSettingsMaxAdditionalFieldsExceededException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.CardSettingsInvalidAdditionalFieldException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ScaledAgileInvalidPermissionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.PlanLimitExceededException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ScaledAgileViewDefinitionInvalidException.#ctor">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ScaledAgileViewDefinitionInvalidException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewNotFoundException.#ctor(System.String)">
+            <summary>
+            Initializes with a message.
+            </summary>
+            <param name="message">Message for the exception.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewNotFoundException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes with a message and an inner exception.
+            </summary>
+            <param name="message">Message for the exception.</param>
+            <param name="innerException">Inner exception to associate with the exception.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.Exceptions.ViewNotFoundException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            For serialization purpose. This must be there.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateAutomationRuleAsync(Microsoft.TeamFoundation.Work.WebApi.Contracts.AutomationRules.TeamAutomationRulesSettingsRequestModel,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates/updates an automation rules settings
+            </summary>
+            <param name="ruleRequestModel">Required parameters to create/update an automation rules settings</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBacklogConfigurationsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets backlog configuration for a team
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBacklogLevelWorkItemsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a list of work items within a backlog level
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="backlogId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBacklogAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a backlog level
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="id">The id of the backlog level</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBacklogsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] List all backlog levels
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardBadgeAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Nullable{Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadgeColumnOptions},System.Collections.Generic.IEnumerable{System.String},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a badge that displays the status of columns on the board.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="id">The id of the board.</param>
+            <param name="columnOptions">Determines what columns to show.</param>
+            <param name="columns">If &lt;paramref name=&quot;columnOptions&quot; /&gt; is set to custom, specify the list of column names.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardBadgeDataAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Nullable{Microsoft.TeamFoundation.Work.WebApi.Contracts.BoardBadgeColumnOptions},System.Collections.Generic.IEnumerable{System.String},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a badge that displays the status of columns on the board.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="id">The id of the board.</param>
+            <param name="columnOptions">Determines what columns to show.</param>
+            <param name="columns">If &lt;paramref name=&quot;columnOptions&quot; /&gt; is set to custom, specify the list of column names.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetColumnSuggestedValuesAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get available board columns in a project
+            </summary>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetColumnSuggestedValuesAsync(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get available board columns in a project
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetColumnSuggestedValuesAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get available board columns in a project
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardMappingParentItemsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns the list of parent field filter model for the given list of workitem ids
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="childBacklogContextCategoryRefName"></param>
+            <param name="workitemIds"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetRowSuggestedValuesAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get available board rows in a project
+            </summary>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetRowSuggestedValuesAsync(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get available board rows in a project
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetRowSuggestedValuesAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get available board rows in a project
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get board
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="id">identifier for board, either board&apos;s backlog level name (Eg:&quot;Stories&quot;) or Id</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get boards
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.SetBoardOptionsAsync(System.Collections.Generic.IDictionary{System.String,System.String},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update board options
+            </summary>
+            <param name="options">options to updated</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="id">identifier for board, either category plural name (Eg:&quot;Stories&quot;) or guid</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardUserSettingsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get board user settings for a board id
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Board ID or Name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateBoardUserSettingsAsync(System.Collections.Generic.IDictionary{System.String,System.String},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update board user settings for the board id
+            </summary>
+            <param name="boardUserSettings"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetCapacitiesWithIdentityRefAndTotalsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a team&apos;s capacity including total capacity and days off
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetCapacityWithIdentityRefAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a team member&apos;s capacity
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="teamMemberId">ID of the team member</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.ReplaceCapacitiesWithIdentityRefAsync(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Work.WebApi.TeamMemberCapacityIdentityRef},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Replace a team&apos;s capacity
+            </summary>
+            <param name="capacities">Team capacity to replace</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateCapacityWithIdentityRefAsync(Microsoft.TeamFoundation.Work.WebApi.CapacityPatch,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update a team member&apos;s capacity
+            </summary>
+            <param name="patch">Updated capacity</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="teamMemberId">ID of the team member</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardCardRuleSettingsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get board card Rule settings for the board id or board by name
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateBoardCardRuleSettingsAsync(Microsoft.TeamFoundation.Work.WebApi.BoardCardRuleSettings,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update board card Rule settings for the board id or board by name
+            </summary>
+            <param name="boardCardRuleSettings"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateTaskboardCardRuleSettingsAsync(Microsoft.TeamFoundation.Work.WebApi.BoardCardRuleSettings,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update taskboard card Rule settings
+            </summary>
+            <param name="boardCardRuleSettings"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardCardSettingsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get board card settings for the board id or board by name
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateBoardCardSettingsAsync(Microsoft.TeamFoundation.Work.WebApi.BoardCardSettings,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update board card settings for the board id or board by name
+            </summary>
+            <param name="boardCardSettingsToSave"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateTaskboardCardSettingsAsync(Microsoft.TeamFoundation.Work.WebApi.BoardCardSettings,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update taskboard card settings
+            </summary>
+            <param name="boardCardSettingsToSave"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardChartImageAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a board chart image.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Identifier for board, either board&apos;s backlog level name (e.g. &quot;Issues&quot;) or Id.</param>
+            <param name="name">The chart name. e.g. CumulativeFlow.</param>
+            <param name="width">The width of the chart in pixels. Must be greater than 0.</param>
+            <param name="height">The height of the chart in pixels. Must be greater than 0.</param>
+            <param name="showDetails">Whether or not the chart should include detailed information (e.g. axis labels, titles, trend lines, etc.).</param>
+            <param name="title">The title of the chart. Can only be dislayed if ShowLabels is true.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetIterationChartImageAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get an iteration chart image.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration.</param>
+            <param name="name">The chart name. e.g. Burndown.</param>
+            <param name="width">The width of the chart in pixels. Must be greater than 0.</param>
+            <param name="height">The height of the chart in pixels. Must be greater than 0.</param>
+            <param name="showDetails">Whether or not the chart should include detailed information (e.g. axis labels, titles, trend lines, etc.)</param>
+            <param name="title">The title of the chart. Can only be dislayed if ShowLabels is true.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetIterationsChartImageAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get an iterations chart image.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="name">The chart name. e.g. Velocity.</param>
+            <param name="iterationsNumber">Number of iterations the chart is for.</param>
+            <param name="width">The width of the chart in pixels. Must be greater than 0.</param>
+            <param name="height">The height of the chart in pixels. Must be greater than 0.</param>
+            <param name="showDetails">Whether or not the chart should include detailed information (e.g. axis labels, titles, trend lines, etc.)</param>
+            <param name="title">The title of the chart. Can only be dislayed if ShowLabels is true.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardChartAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a board chart
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Identifier for board, either board&apos;s backlog level name (Eg:&quot;Stories&quot;) or Id</param>
+            <param name="name">The chart name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardChartsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get board charts
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Identifier for board, either board&apos;s backlog level name (Eg:&quot;Stories&quot;) or Id</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateBoardChartAsync(Microsoft.TeamFoundation.Work.WebApi.BoardChart,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update a board chart
+            </summary>
+            <param name="chart"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Identifier for board, either board&apos;s backlog level name (Eg:&quot;Stories&quot;) or Id</param>
+            <param name="name">The chart name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardColumnsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get columns on a board
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Name or ID of the specific board</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateBoardColumnsAsync(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Work.WebApi.BoardColumn},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update columns on a board
+            </summary>
+            <param name="boardColumns">List of board columns to update</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Name or ID of the specific board</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetDeliveryTimelineDataAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get Delivery View Data
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="id">Identifier for delivery view</param>
+            <param name="revision">Revision of the plan for which you want data. If the current plan is a different revision you will get an ViewRevisionMismatchException exception. If you do not supply a revision you will get data for the latest revision.</param>
+            <param name="startDate">The start date of timeline</param>
+            <param name="endDate">The end date of timeline</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetDeliveryTimelineDataAsync(System.Guid,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get Delivery View Data
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="id">Identifier for delivery view</param>
+            <param name="revision">Revision of the plan for which you want data. If the current plan is a different revision you will get an ViewRevisionMismatchException exception. If you do not supply a revision you will get data for the latest revision.</param>
+            <param name="startDate">The start date of timeline</param>
+            <param name="endDate">The end date of timeline</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetTotalIterationCapacitiesAsync(System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get an iteration&apos;s capacity for all teams in iteration
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetTotalIterationCapacitiesAsync(System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get an iteration&apos;s capacity for all teams in iteration
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.DeleteTeamIterationAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Delete a team&apos;s iteration by iterationId
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="id">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetTeamIterationAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get team&apos;s iteration by iterationId
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="id">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetTeamIterationsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a team&apos;s iterations using timeframe filter
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="timeframe">A filter for which iterations are returned based on relative time. Only &lt;see cref=&quot;F:Microsoft.TeamFoundation.Work.WebApi.TimeFrame.Current&quot; /&gt; is supported currently.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.PostTeamIterationAsync(Microsoft.TeamFoundation.Work.WebApi.TeamSettingsIteration,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Add an iteration to the team
+            </summary>
+            <param name="iteration">Iteration to add</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.CreatePlanAsync(Microsoft.TeamFoundation.Work.WebApi.CreatePlan,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Add a new plan for the team
+            </summary>
+            <param name="postedPlan">Plan definition</param>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.CreatePlanAsync(Microsoft.TeamFoundation.Work.WebApi.CreatePlan,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Add a new plan for the team
+            </summary>
+            <param name="postedPlan">Plan definition</param>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.DeletePlanAsync(System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Delete the specified plan
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="id">Identifier of the plan</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.DeletePlanAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Delete the specified plan
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="id">Identifier of the plan</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPlanAsync(System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the information for the specified plan
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="id">Identifier of the plan</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPlanAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the information for the specified plan
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="id">Identifier of the plan</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPlansAsync(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the information for all the plans configured for the given team
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPlansAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the information for all the plans configured for the given team
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdatePlanAsync(Microsoft.TeamFoundation.Work.WebApi.UpdatePlan,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update the information for the specified plan
+            </summary>
+            <param name="updatedPlan">Plan definition to be updated</param>
+            <param name="project">Project ID or project name</param>
+            <param name="id">Identifier of the plan</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdatePlanAsync(Microsoft.TeamFoundation.Work.WebApi.UpdatePlan,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update the information for the specified plan
+            </summary>
+            <param name="updatedPlan">Plan definition to be updated</param>
+            <param name="project">Project ID</param>
+            <param name="id">Identifier of the plan</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPredefinedQueriesAsync(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Retrieves the set of known queries
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPredefinedQueriesAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Retrieves the set of known queries
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPredefinedQueryResultsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Retrieves the specified predefined query including the query results
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="id">Id of the query to run</param>
+            <param name="top">The maximum number of items to return</param>
+            <param name="includeCompleted">Whether or not to retrieve the &apos;completed&apos; work items (work items in the &apos;completed&apos; meta state)</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetPredefinedQueryResultsAsync(System.Guid,System.String,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Retrieves the specified predefined query including the query results
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="id">Id of the query to run</param>
+            <param name="top">The maximum number of items to return</param>
+            <param name="includeCompleted">Whether or not to retrieve the &apos;completed&apos; work items (work items in the &apos;completed&apos; meta state)</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetProcessConfigurationAsync(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get process configuration
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetProcessConfigurationAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get process configuration
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetBoardRowsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get rows on a board
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Name or ID of the specific board</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateBoardRowsAsync(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Work.WebApi.BoardRow},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update rows on a board
+            </summary>
+            <param name="boardRows">List of board rows to update</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board">Name or ID of the specific board</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetColumnsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateColumnsAsync(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.UpdateTaskboardColumn},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="updateColumns"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetWorkItemColumnsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateWorkItemColumnAsync(Microsoft.TeamFoundation.Work.WebApi.Contracts.Taskboard.UpdateTaskboardWorkItemColumn,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Int32,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="updateColumn"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId"></param>
+            <param name="workItemId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetTeamDaysOffAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get team&apos;s days off for an iteration
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateTeamDaysOffAsync(Microsoft.TeamFoundation.Work.WebApi.TeamSettingsDaysOffPatch,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Set a team&apos;s days off for an iteration
+            </summary>
+            <param name="daysOffPatch">Team&apos;s days off patch containing a list of start and end dates</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetTeamFieldValuesAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a collection of team field values
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateTeamFieldValuesAsync(Microsoft.TeamFoundation.Work.WebApi.TeamFieldValuesPatch,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update team field values
+            </summary>
+            <param name="patch"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetTeamSettingsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a team&apos;s settings
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.UpdateTeamSettingsAsync(Microsoft.TeamFoundation.Work.WebApi.TeamSettingsPatch,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update a team&apos;s settings
+            </summary>
+            <param name="teamSettingsPatch">TeamSettings changes</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.GetIterationWorkItemsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get work items for iteration
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.ReorderBacklogWorkItemsAsync(Microsoft.TeamFoundation.Work.WebApi.ReorderOperation,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Reorder Product Backlog/Boards Work Items
+            </summary>
+            <param name="operation"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkHttpClientBase.ReorderIterationWorkItemsAsync(Microsoft.TeamFoundation.Work.WebApi.ReorderOperation,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Reorder Sprint Backlog/Taskboard Work Items
+            </summary>
+            <param name="operation"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">The id of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter">
+            <summary>
+            Class to specify the various filter paramaters for the given plan
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter.ExpandedTeamBacklogMappings">
+            <summary>
+            Set of team backlog mappings for which the settings should be retrieved
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter.UnExpandedTeamBacklogMappings">
+            <summary>
+            Set of teamIds for which only the shallow reference (Display Name) should be returned
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter.StartDate">
+            <summary>
+            Start date filter
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter.EndDate">
+            <summary>
+            End date filter
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter.AdditionalFields">
+            <summary>
+            Additional fields
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter.Criteria">
+            <summary>
+            A list of filter clauses
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.DeliveryViewFilter.FilterClauses">
+            <summary>
+            A list of rules wiql strings
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PlanViewFilter">
+            <summary>
+            Base class for the various types of plan filters
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PlanViewFilter.Revision">
+            <summary>
+            Revision of the plan
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PredefinedQueryIdentifiers">
+            <summary>
+            The set of known pre-defined queries
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.PredefinedQuery">
+            <summary>
+            Represents a single pre-defined query.  
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PredefinedQuery.Id">
+            <summary>
+            Id of the query
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PredefinedQuery.Name">
+            <summary>
+            Localized name of the query
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PredefinedQuery.Url">
+            <summary>
+            REST API Url to use to retrieve results for this query
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PredefinedQuery.WebUrl">
+            <summary>
+            Url to use to display a page in the browser with the results of this query
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PredefinedQuery.HasMore">
+            <summary>
+            Whether or not the query returned the complete set of data or if the data was truncated.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Work.WebApi.PredefinedQuery.Results">
+            <summary>
+            The results of the query.  This will be a set of WorkItem objects with only the 'id' set.  The client
+            is responsible for paging in the data as needed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkCompatHttpClientBase.GetBoardFilterSettingsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] No longer functional.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkCompatHttpClientBase.UpdateBoardFilterSettingsAsync(Microsoft.TeamFoundation.Work.WebApi.BoardFilterSettings,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] No longer functional.
+            </summary>
+            <param name="filterSettings"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="board"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkCompatHttpClientBase.GetCapacitiesAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a team's capacity
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkCompatHttpClientBase.GetCapacityAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a team member's capacity
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="teamMemberId">ID of the team member</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkCompatHttpClientBase.ReplaceCapacitiesAsync(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Work.WebApi.TeamMemberCapacity},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Replace a team's capacity
+            </summary>
+            <param name="capacities">Team capacity to replace</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkCompatHttpClientBase.UpdateCapacityAsync(Microsoft.TeamFoundation.Work.WebApi.CapacityPatch,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update a team member's capacity
+            </summary>
+            <param name="patch">Updated capacity</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="teamMemberId">ID of the team member</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Work.WebApi.WorkCompatHttpClientBase.GetCapacitiesWithIdentityRefAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a team's capacity
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="iterationId">ID of the iteration</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Work.WebApi.AgileResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.CardSettingsDuplicateAdditionalFieldsException">
+            <summary>
+              Looks up a localized string similar to Field identifier &apos;{0}&apos; is present more than once..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.CardSettingsInvalidAdditionalFieldException">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; field should not be specified as additional field..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.CardSettingsInvalidFieldIdentifierException">
+            <summary>
+              Looks up a localized string similar to Field identifier &apos;{0}&apos; does not exist or is invalid..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.CardSettingsInvalidFormatException">
+            <summary>
+              Looks up a localized string similar to The card settings are not in a valid format..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.CardSettingsMaxAdditionalFieldsExceededException">
+            <summary>
+              Looks up a localized string similar to Number of additional fields exceeds the maximum limit of &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.NoPermissionReadTeamException">
+            <summary>
+              Looks up a localized string similar to You have no permission to read team(s) : {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.NotAvailable">
+            <summary>
+              Looks up a localized string similar to The API is removed from preview..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.PlanLimitExceededException">
+            <summary>
+              Looks up a localized string similar to Unable to create plan because the number of plans exceeds the limit for this project..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.TeamDoesNotExistException">
+            <summary>
+              Looks up a localized string similar to TF401501: The team does not exist in this timeline..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.TeamFieldValuesNoTeamFieldValuesSelected">
+            <summary>
+              Looks up a localized string similar to There are no team field values specified for your team. You must specify at least one team field value to enable features such as your product backlog or the task board..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.ViewNotFoundExceptionMessage">
+            <summary>
+              Looks up a localized string similar to VS403161: The specified plan was not found. It may have been deleted or you do not have permission to view it..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.ViewPropertiesFormatException">
+            <summary>
+              Looks up a localized string similar to The view properties are not in a valid format, for the specified type of the view..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.ViewPropertiesMissingException">
+            <summary>
+              Looks up a localized string similar to The view&apos;s properties are missing. Please specify at least one property for the specified type of the view..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.ViewRevisionMismatchException">
+            <summary>
+              Looks up a localized string similar to VS403179: The revision does not match. Plan settings have been updated by another user..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.ViewTypeDoesNotExistException">
+            <summary>
+              Looks up a localized string similar to The view type does not exist..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.BoardPageWorkItemsLimitException">
+            <summary>
+              Looks up a localized string similar to Number of work items paged for the board {0} is invalid.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Work.WebApi.AgileResources.TeamFieldValuesContainsDuplicate">
+            <summary>
+              Looks up a localized string similar to The team field value must be unique. The team field values contains these duplicate entries: {0}. .
+            </summary>
+        </member>
+    </members>
+</doc>

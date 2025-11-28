@@ -1,0 +1,2857 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Build.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.Validate`1">
+            <summary>
+            Delegate used to validate an object of type T.
+            </summary>
+            <typeparam name="T">The type object to validate</typeparam>
+            <param name="argumentName">The name of the argument to validate</param>
+            <param name="obj">The object to validate</param>
+            <param name="allowNull">Whether or not null values should be allowed</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.ValidateType`1">
+            <summary>
+            Delegate used to validate an object of type T.
+            </summary>
+            <typeparam name="T">The type object to validate</typeparam>
+            <param name="argumentName">The name of the argument to validate</param>
+            <param name="obj">The object to validate</param>
+            <param name="type">Artifact type</param>
+            <param name="allowNull">Whether or not null values should be allowed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.Check(System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            Check a string for validity by testing for null.
+            </summary>
+            <param name="argumentName">The name of the argument</param>
+            <param name="argument">The object to check</param>
+            <param name="allowNull">Whether or not null should be allowed</param>
+            <exception cref="T:System.ArgumentNullException" />        
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.Check(System.String,System.Object,System.Boolean)">
+            <summary>
+            Check an object for validity by testing for null.
+            </summary>
+            <param name="argumentName">The name of the argument</param>
+            <param name="argument">The object to check</param>
+            <param name="allowNull">Whether or not null should be allowed</param>
+            <exception cref="T:System.ArgumentNullException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckArray``1(System.String,System.Collections.Generic.IList{``0},Microsoft.TeamFoundation.Build.Common.Validate{``0},System.Boolean,System.String)">
+            <summary>
+            Generic method for checking array data for validity.
+            </summary>
+            <typeparam name="T">The type of object the array contains</typeparam>
+            <param name="argumentName">The argument name of the array</param>
+            <param name="argument">The array to check</param>
+            <param name="validate">A callback method for validating individual indices of the array</param>
+            <param name="allowNull">Whether or not null values should be allowed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckArray``1(System.String,System.Collections.Generic.IList{``0},Microsoft.TeamFoundation.Build.Common.ValidateType{``0},System.String,System.Boolean,System.String)">
+            <summary>
+            Generic method for checking array data for validity.
+            </summary>
+            <typeparam name="T">The type of object the array contains</typeparam>
+            <param name="argumentName">The argument name of the array</param>
+            <param name="argument">The array to check</param>
+            <param name="validate">A callback method for validating individual indices of the array</param>
+            <param name="type">Artifact type</param>
+            <param name="allowNull">Whether or not null values should be allowed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckBound(System.String,System.Int32,System.Int32)">
+            <summary>
+            Check an integer parameter against a lower bound.
+            </summary>
+            <param name="argumentName">The name of the argument</param>
+            <param name="argument">The value to check</param>
+            <param name="lowerBound">The lower bound to verify</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckBound(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Check an integer parameter against a valid range. An exception is thrown if the argument is
+            less than lower bound or greater than upper bound.
+            </summary>
+            <param name="argumentName">The name of the argument</param>
+            <param name="argument">The value to check</param>
+            <param name="lowerBound">The lower bound to verify</param>
+            <param name="upperBound">The upper bound to verify</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckUri(System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            Check a TFS Artifact URI parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name of the URI to check</param>
+            <param name="argument">The value to check for URI validity</param>
+            <param name="allowNull">Whether not null/empty values should be allowed.</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckUri(System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            Check a TFS Artifact URI parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name of the URI to check</param>
+            <param name="argument">The value to check for URI validity</param>
+            <param name="type">The expected type to verify the URI against</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckBuildDirectory(System.String,System.String@,System.Boolean)">
+            <summary>
+            Check a build directory parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name</param>
+            <param name="argument">The path to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+            <exception cref="T:Microsoft.TeamFoundation.InvalidPathException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckBuildMachine(System.String,System.String,System.Boolean)">
+            <summary>
+            Check a build machine parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name</param>
+            <param name="argument">The machine name to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckBuildNumber(System.String,System.String,System.Boolean)">
+            <summary>
+            Check a build number parameter for validity.
+            </summary>
+            <param name="argumentName">The name of the build number argument</param>
+            <param name="argument">The build number to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckBuildType(System.String,System.String,System.Boolean)">
+            <summary>
+            Check a build type parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name</param>
+            <param name="argument">The build type string to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckConfiguration(System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            Check a build configuration parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name</param>
+            <param name="argument">The platform/flavor name to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckDropLocation(System.String,System.String@,System.Boolean,System.String)">
+            <summary>
+            Check a drop location parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name</param>
+            <param name="argument">The path to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckDropLocation(System.String,System.String@,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Check a drop location parameter for validity. In case it does not allow vc drop location
+            it still checks if drop location is server path ang gives a message about not supporting it
+            </summary>
+            <param name="argumentName">The argument name</param>
+            <param name="argument">The path to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+            <param name="allowVCDrop">Whether or not allow vc drop location (hosted)</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckLogLocation(System.String,System.String@,System.Boolean,System.String)">
+            <summary>
+            Check a drop location parameter for validity.
+            </summary>
+            <param name="argumentName">The argument name</param>
+            <param name="argument">The path to check</param>
+            <param name="allowNull">Whether or not null/empty values should be allowed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckItemPath(System.String,System.String@,System.Boolean,System.Boolean)">
+            <summary>
+            Check an item path to ensure that it is valid. If the path is valid then it will be canonicalized
+            before the method returns.
+            </summary>
+            <param name="argumentName">The name of the argument to validate</param>
+            <param name="argument">The argument to validate</param>
+            <param name="allowNull">If false then null or empty values will be disallowed</param>
+            <param name="allowWildcards">If false then wild card characters will be disallowed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckShelvesetName(System.String,System.String,System.Boolean)">
+            <summary>
+            Check a shelveset name to ensure that it is valid.
+            </summary>
+            <param name="argumentName">The name of the argument to validate</param>
+            <param name="argument">The argument to validate</param>
+            <param name="allowNull">If false then null or empty values will be disallowed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckSharedResourceName(System.String,System.String)">
+            <summary>
+            Check a shared resource name for validity.
+            </summary>
+            <param name="argumentName">The name of the argument to validate</param>
+            <param name="argument">The argument to validate</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckUriArray(System.String,System.Collections.Generic.IList{System.String},System.Boolean,System.String)">
+            <summary>
+            Verifies that an array of Team Foundation URIs is valid.
+            </summary>
+            <param name="argumentName">The name of the array argument</param>
+            <param name="array">The array to check</param>
+            <param name="allowNull">Whether or not null values are allowed for this object</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ArgumentValidation.CheckUriArray(System.String,System.Collections.Generic.IList{System.String},System.String,System.Boolean,System.String)">
+            <summary>
+            Verifies that an array of Team Foundation URIs is valid.
+            </summary>
+            <param name="argumentName">The name of the array argument</param>
+            <param name="array">The array to check</param>
+            <param name="type">Artifact type</param>
+            <param name="allowNull">Whether or not null values are allowed for this object</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.BuildRegistryKeyPath">
+            <summary>
+            Gets the registry key path where build-specific settings should be stored.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.BuildAgentIdVariable">
+            <summary>
+            Gets the variable to use when referencing the build agent ID in an agent's BuildDirectory property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.BuildAgentNameVariable">
+            <summary>
+            Gets the variable to use when referencing the build agent name in an agent's BuildDirectory property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.BuildDefinitionIdVariable">
+            <summary>
+            Gets the variable to use when referencing the build definition ID in an agent's BuildDirectory property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.BuildDefinitionPathVariable">
+            <summary>
+            Gets the variable to use when referencing the build definition path in an agent's BuildDirectory property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.BuildDirEnvironmentVariable">
+            <summary>
+            Gets the environment variable to use when referencing the build directory on 
+            a given agent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.NoCICheckInComment">
+            <summary>
+            Gets the comment that should be placed in the check-in comment to ensure that CI ignores the changeset, but scheduled builds still happen
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.NoTriggerCheckInComment">
+            <summary>
+            Gets the comment that should be placed in the check-in comment to ensure that CI, and Scheduled builds ignore the changeset
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.DoNotCopyLogsToFileContainer">
+            <summary>
+            Definition property that tells build machine not to upload diagnostic logs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.SourceDirEnvironmentVariable">
+            <summary>
+            Gets the sources directory, into which all source files are mapped by default. This is equivalent to 
+            BuildDirEnvironmentVariable\SourceSubdirectory.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.DefaultWorkingDirectory">
+            <summary>
+            Gets the default working directory for build agents.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.DefaultHostedWorkingDirectory">
+            <summary>
+            Gets the default working directory for hosted build agents.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.DefaultAgentPort">
+            <summary>
+            Gets the default port for build agents.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.IsStar(System.String)">
+            <summary>
+            Returns true if the string s is the wildcard string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.IsDefaultDateTime(System.DateTime)">
+            <summary>
+            Determines whether or not the DateTime is the default. The default
+            DateTime is returned from the server when the field is not set.
+            </summary>
+            <param name="value">The value to check against the default</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.DateTimeToString(System.DateTime)">
+            <summary>
+            Format a DateTime string for printing to the user. The default value will
+            be displayed as String.Empty.
+            </summary>
+            <param name="value">The value to format</param>
+            <returns>A string to display to the user</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.GetCommonLocalPath(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Determines the longest common root path between all provided items.
+            </summary>
+            <param name="serverItems">The server paths</param>
+            <returns>The most common path or the empty string</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.GetCommonServerPath(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Determines the longest common root path between all provided items.
+            </summary>
+            <param name="serverItems">The server paths</param>
+            <returns>The most common path or the empty string</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.Replace(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Performs a string replacement.
+            </summary>
+            <param name="original">The original string</param>
+            <param name="pattern">The pattern to replace in the original</param>
+            <param name="replacement">The value to use as the replacement</param>
+            <param name="ignoreCase">Indicates whether or not to perform a case-sensitive replacement</param>
+            <returns>The original string with each occurrence of pattern replaced with replacement</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.ExpandEnvironmentVariables(System.String)">
+            <summary>
+            Expands environment variables which are of the format '$(...)' where the '...'
+            portion of the string is any valid combination of letters and numbers. Any patterns
+            recognized as environment variables which do not expand to an existing variable in
+            the current environment are left as-is in the output path.
+            </summary>
+            <param name="inputValue">The input string with variables to expand</param>
+            <returns>A string with all environment variables expanded and removed</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.ExpandEnvironmentVariables(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Expand environment variables with optional variable replacements
+            </summary>
+            <param name="inputValue"></param>
+            <param name="additionalVariableReplacements"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.ExpandEnvironmentVariables(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Func{System.String,System.String,System.String})">
+            <summary>
+            Expands environment variables which are of the format '$(...)' where the '...'
+            portion of the string is any valid combination of letters and numbers. Any patterns
+            recognized as environment variables which do not expand to an existing variable in
+            the current environment are matched with the keys in the string dictionary and replaced
+            with the dictionaries value. If a pattern does not match an environment variable or 
+            a key in the dictionary it is left as-is in the output path.
+            </summary>
+            <param name="inputValue">The input string with variables to expand</param>
+            <param name="variables">A dictionary of addition name value pairs that should be replaced</param>
+            <param name="expandVariable">Optional function that takes variable name and possible replacement value, returns the final value to replace</param>
+            <returns>A string with all environment variables expanded and removed</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.IsEnvironmentVariable(System.String)">
+            <summary>
+            Determines whether or not the input string contains an environment variable of the form $(...).
+            </summary>
+            <param name="value">The input string to test</param>
+            <returns>True if the string contains an environment variable, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.GetRegistryValue``1(System.String,System.String,``0)">
+            <summary>
+            Attempts to read a setting from the specified registry key. The first read attempt is made in
+            HKCU, then if the key is not found a fallback to HKLM is performed. If the key cannot be found
+            in either location then the default value is returned.
+            </summary>
+            <param name="keyPath">The registry sub key which should be opened</param>
+            <param name="name">The name of the value to read from the key</param>
+            <param name="defaultValue">The default value to use if the key is not found</param>
+            <returns>The value read from the key, or the default value if no key is found</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.VariableInUse(System.String)">
+            <summary>
+            Checks if the value has $(...)
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.SetRegistryValue``1(System.String,System.String,``0)">
+            <summary>
+            Attempts to set a setting on the specified registry key.
+            </summary>
+            <param name="keyPath">The registry sub key which should be opened</param>
+            <param name="name">The name of the value to set in the key</param>
+            <param name="value">The value to set it to</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildCommonUtil.GetBuildReportUrl(Microsoft.TeamFoundation.Client.TfsTeamProjectCollection,System.Uri)">
+            <summary>
+            Retrieves the appropriate build report URL for the target server version.
+            </summary>
+            <param name="collection">The project collection</param>
+            <param name="buildUri">The URI of the build</param>
+            <returns>A URL which may be used to view the build in a web browser</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.BuildServiceHostLabStatus">
+            <summary>
+            Enum used by the BuildServiceHost running in Lab mode to indicate its operation status.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.CleanupPolicy.DeleteProfile">
+            <summary>
+            Remove the user profile and terminate processes.  Leave machine online
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.CleanupPolicy.Reimage">
+            <summary>
+            The Host VM is reimaged
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildConstants.MaxPathLength">
+            <summary>
+            The maximum length for a path from windef.h
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildConstants.MaxUriLength">
+            <summary>
+            Maximum length of a Team Foundation URI.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildConstants.WebRequestRetryCount">
+            <summary>
+            How many time should we retry http web requests
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.AdministrationService3Identifier">
+            <summary>
+            Gets the identifier for the TFS 2010 AdministrationService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.AdministrationService4Identifier">
+            <summary>
+            Gets the identifier for the TFS 2012 AdministrationService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.AgentReservationService3Identifier">
+            <summary>
+            Gets the identifier for the TFS 2010 AgentReservationService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.AgentReservationService4Identifier">
+            <summary>
+            Gets the identifier for the TFS 2012 AgentReservationService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildControllerServiceIdentifier">
+            <summary>
+            Gets the identifier for the TFS 2005 BuildControllerService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildQueueService3Identifier">
+            <summary>
+            Gets the identifier for the TFS 2010 BuildQueueService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildQueueService4Identifier">
+            <summary>
+            Gets the identifier for the TFS 2012 BuildQueueService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildServiceIdentifier">
+            <summary>
+            Gets the identifier for the TFS 2008 BuildService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildService3Identifier">
+            <summary>
+            Gets the identifier for the TFS 2010 BuildService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildService4Identifier">
+            <summary>
+            Gets the identifier for the TFS 2012 BuildService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildService5Identifier">
+            <summary>
+            Gets the identifier for the TFS 2013 BuildService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildStoreServiceIdentifier">
+            <summary>
+            Gets the identifier for the TFS 2005 BuildStoreService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.SharedResourceService3Identifier">
+            <summary>
+            Gets the identifier for the TFS 2010 SharedResourceService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.SharedResourceService4Identifier">
+            <summary>
+            Gets the identifier for the TFS 2012 SharedResourceService.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.BuildDeploymentServiceIdentifier">
+            <summary>
+            Gets the identifier for the TFS 2012 BuildDeploymentService
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildServiceConstants.HostedBuildPoolServiceIdentifier">
+            <summary>
+            Gets the identifier for the TFS 2012 elastic build machine pool service.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.BuildWellKnownBatchIds">
+            <summary>
+            Contains well known identifiers for system-managed batches.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildWellKnownBatchIds.DynamicBatch">
+            <summary>
+            Dynamically batch based on the configured batch size.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildWellKnownBatchIds.DynamicBatchId">
+            <summary>
+            Gets a String representation of DynamicBatch.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.BuildWellKnownGroups">
+            <summary>
+            Contains security identifiers for well-known Team Foundation Build groups.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildWellKnownGroups.BuildServicesIdentifier">
+            <summary>
+            Gets the well-known security identifier for the team project collection Build Services group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildWellKnownGroups.BuildAdministratorsIdentifier">
+            <summary>
+            Gets the well-known security identifier for the team project collection Build Administrators group.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.GatedCheckInErrorCode">
+            <summary>
+            Provides access to the error codes returned by the server when a check in is gated.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolDescription">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolIsDefault">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolVMImageName">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolVMSize">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolMachineCount">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolControllerName">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolServiceUserName">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.RegistryKeys.MachinePoolServicePassword">
+            <summary>
+            Do not use!!!
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.BuildContainerPath">
+            <summary>
+            Provides utility methods for build container paths.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.Combine(System.String[])">
+            <summary>
+            Combines path segments into one canonicalized path.
+            </summary>
+            <returns>A string representing the combination of relative and parent</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.IsValidPath(System.String@,System.String@)">
+            <summary>
+            Validates a server drop path and canonicalizes it if it is valid. The output value
+            error is set when the path is not valid.
+            </summary>
+            <param name="path">The path which should be validated</param>
+            <param name="error">The error, if any, which caused the method to fail</param>
+            <returns>True if the path is valid, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.GetFullPath(System.String)">
+            <summary>
+            Canonicalize a server drop path. This will ensure that, if used, wild cards are not 
+            used and that separators are consistent.
+            </summary>
+            <param name="path">The input path</param>
+            <returns>A canonicalized path string</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.GetContainerIdAndPath(System.String,System.Int64@,System.String@)">
+            <summary>
+            Splits a path into its two major components of container id and item path.
+            </summary>
+            <param name="buildPath">The canonicalized path to parse</param>
+            <param name="containerId">The container ID to return</param>
+            <param name="itemPath">Anything past the container ID, if applicable</param>
+            <exception cref="T:System.ArgumentNullException" />
+            <exception cref="T:Microsoft.TeamFoundation.InvalidPathException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.MakeRelative(System.String,System.String)">
+            <summary>
+            Checks to see if fullPath starts with the parentPath. If so,
+            the parent path is removed from fullPath and the remaining part of 
+            fullPath is returned.
+            </summary>
+            <param name="parentPath">parent build container path</param>
+            <param name="fullPath">full build container path</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.GetFolderName(System.String)">
+            <summary>
+            Takes a build container path as either #/id/foo/bar or the http address and
+            strips off the last part of the path. If there is not a '/' in the path the original
+            path is returned.
+            </summary>
+            <param name="fullPath">build container path</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.IsHttpUrl(System.String)">
+            <summary>
+            Takes a logLocation stored in an Intermediate build information node and returns 
+            whether the path starts with "http".
+            </summary>
+            <param name="logLocation">http location of the intermediate logs folder</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.GetContainerId(System.String,System.Int64@)">
+            <summary>
+            Finds the containerId from a build container path. 
+            </summary>
+            <param name="buildPath">The canonicalized path to parse</param>
+            <param name="containerId">The container ID to return</param>
+            <exception cref="T:System.ArgumentNullException" />
+            <exception cref="T:Microsoft.TeamFoundation.InvalidPathException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.GetItemName(System.String)">
+            <summary>
+            Returns just the file name portion of a path. If the path contains only a team project
+            then the file name will be empty. 
+            </summary>
+            <param name="path">The path from which to retrieve the item name</param>
+            <returns>A string representing the leaf name of the path (same as GetFileName)</returns>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.RootFolder">
+            <summary>
+            Gets the root folder
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.PathSeparator">
+            <summary>
+            Gets the path element separator as a String
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildContainerPath.PathSeparatorChar">
+            <summary>
+            Gets the path element separator as a Char
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.UM_SHOW_BUILD_STATUS">
+            <summary>
+            A message that informs the notification app main window to show the build status dialog.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.BuildNotificationRootKey">
+            <summary>
+            Stores the root key for configuration information used by the notification app.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.Subscriptions">
+            <summary>
+            Stores the subscriptions the user has selected through the UI.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.GatedBuilds">
+            <summary>
+            Stores the gated builds which are being monitored explicitly.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.AutoStartValue">
+            <summary>
+            Stores the global setting for automatically starting the notification app on gated check-in.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.EventsSubscribedValue">
+            <summary>
+            Stores the global setting for the events the user would like to be notified about.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.PollingIntervalValue">
+            <summary>
+            Stores the global setting for the interval of queue polling.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.TriggerSubscribedValue">
+            <summary>
+            Stores the global setting for the trigger type the user has selected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildNotificationConstants.BuildDefinitionSubscriptionTypeValue">
+            <summary>
+            Stores a flag on a definition describing whether or not this is a system subscription.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.DropType">
+            <summary>
+            Identifies the type of build drop being used
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.DropType.None">
+            <summary>
+            This build has no drop
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.DropType.Server">
+            <summary>
+            Build drop stored in server (container)
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.DropType.Unc">
+            <summary>
+            Build drop stored at UNC path
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.DropType.Uri">
+            <summary>
+            Build drop stored in a file URI
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.DropType.VersionControl">
+            <summary>
+            Build drop stored in version control
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.Combine(System.String,System.String)">
+            <summary>
+            Combines two path segments into one canonicalized path.
+            </summary>
+            <param name="parent">The parent portion of the path</param>
+            <param name="relative">The child portion of the path</param>
+            <returns>A string representing the combination of relative and parent</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.IsRecursive(System.String)">
+            <summary>
+            Signifies whether or not the query path contains the full recursion operator.
+            This method assumes that the input path has been canonicalized.
+            </summary>
+            <param name="queryPath">The query path to check for recursiveness</param>
+            <returns>True if the string is recursive, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.IsValidPath(System.String@,System.Boolean,System.String@)">
+            <summary>
+            Validates a build item path and canonicalizes it if it is valid. The output value
+            error is set when the path is not valid.
+            </summary>
+            <param name="path">The path which should be validated</param>
+            <param name="allowWildcards">Whether or not wild card characters should be allowed</param>
+            <param name="error">The error, if any, which caused the method to fail</param>
+            <returns>True if the path is valid, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.GetDropType(System.String)">
+            <summary>
+            Determines which drop type the given location is using.
+            </summary>
+            <param name="dropLocation"></param>
+            <returns>Drop type or Unknown if unknown</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.GetFullPath(System.String)">
+            <summary>
+            Canonicalize a query path. This will ensure that, if used, the recursion operator 
+            is the next to last element of a path and that wild cards are not used except for the last 
+            element of the path.
+            </summary>
+            <param name="queryPathSpec">The input query path</param>
+            <returns>A canonicalized query path string</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.GetRelativePath(System.String,System.String)">
+            <summary>
+            Gets a relative path to the given path from the provided basePath.
+            </summary>
+            <param name="basePath">The folder path to calculate the relative path from.</param>
+            <param name="path">The absolute path.</param>
+            <returns>A relative path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.GetTeamProject(System.String)">
+            <summary>
+            Returns the team project portion of the build path. This method assumes that
+            the path has been canonicalized already.
+            </summary>
+            <param name="queryPath">The path from which to retrieve the team project</param>
+            <returns>The team project portion of the query path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.GetItemDepth(System.String)">
+            <summary>
+            Given a fully qualified path this method will determine the depth level relative
+            to the root folder and return an integer signifying the computed depth. The path
+            should be canonicalized before being passed in.
+            </summary>
+            <param name="buildPath">The path which should be determined</param>
+            <returns>An integer representing the depth of the path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.GetItemName(System.String)">
+            <summary>
+            Returns just the file name portion of a path. If the path contains only a team project
+            then the file name will be empty. 
+            </summary>
+            <param name="buildPath">The path from which to retrieve the item name</param>
+            <returns>A string representing the leaf name of the path (same as GetFileName)</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.RemoveTeamProject(System.String)">
+            <summary>
+            Given a fully qualified path this method will remove the team project component of
+            a path. The returned path will begin with a '\' character.
+            </summary>
+            <param name="path">The path which should have the team project removed</param>
+            <returns>A path, beginning with '\', without the team project portion</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.Root(System.String,System.String)">
+            <summary>
+            Given a root and a path this method will return a combined path which is
+            canonicalized and rooted at the new root.
+            </summary>
+            <param name="rootPath">The new root which should be used</param>
+            <param name="relativePath">The path which should be appended to the new root</param>
+            <returns>A fully-qualified, canonicalized path formed by combining the two paths</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.RootNoCanonicalize(System.String,System.String)">
+            <summary>
+            Given a root and a path this method will return the path combination. However,
+            no canonicalization will be done so it should be canonicalized before being
+            passed in.
+            </summary>
+            <param name="rootPath">The new path root which should be used</param>
+            <param name="relativePath">The path which should be made a relative of the root</param>
+            <returns>A path with a root as the provided root and relative portion as path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildPath.SplitTeamProject(System.String,System.String@,System.String@)">
+            <summary>
+            Splits a path into its two major components of folder path and item name. In the
+            case that the path is just pointing to a TeamProject folder the item name will be 
+            empty.
+            </summary>
+            <param name="buildPath">The canonicalized path to parse</param>
+            <param name="teamProject">The team project portion of the given path</param>
+            <param name="groupPath">The group portion of the given path</param>
+            <exception cref="T:System.ArgumentNullException" />
+            <exception cref="T:Microsoft.TeamFoundation.InvalidPathException" />
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildPath.RootFolder">
+            <summary>
+            Gets the root folder
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildPath.RecursionOperator">
+            <summary>
+            Gets the recursion operator
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildPath.PathSeparator">
+            <summary>
+            Gets the path element separator as a String
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.BuildPath.PathSeparatorChar">
+            <summary>
+            Gets the path element separator as a Char
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildSecurity.PrivilegesToken">
+            <summary>
+            This token is used by both the administration and service collection namespaces.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.BuildSecurity.NamespaceSeparator">
+            <summary>
+            This separator is used by all of the hierarchical build namespaces
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSecurity.GetPermissionStrings(System.Guid,System.Int32)">
+            <summary>
+            Maps permission integers to their localized string.
+            </summary>
+            <param name="namespaceId"></param>
+            <param name="permissions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSecurity.GetSecurityTokenPath(System.String)">
+            <summary>
+            Gets tokenized path from the given path to fit in to build hierarchical security
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSecurity.ConvertAuthPermissionsToBuildPermissions(System.Int32)">
+            <summary>
+            Converts auth project permissions to build permissions.
+            </summary>
+            <param name="authPermissions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSecurity.ConvertBuildPermissionsToAuthPermissions(System.Int32)">
+            <summary>
+            Converts the Dev10 build permissions to the Orcas project permissions.
+            </summary>
+            <param name="buildPermissions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders">
+            <summary>
+            This class encapsulates the list of well known providers and helper classes/methods for them.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders.GitProperties.ParseBranchSpec(System.String,System.Boolean@,System.String@)">
+            <summary>
+            This is old matching code and exists for API compatibility as part of the client.
+            For branch filters, use <c>IsRepositoryBranchIncluded</c> instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders.GitProperties.ParseBranchSpec(System.String,System.Boolean@,System.String@,System.Boolean@,System.Boolean)">
+            <summary>
+            This is old matching code and exists for API compatibility as part of the client.
+            For branch filters, use <c>IsRepositoryBranchIncluded</c> instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders.GitProperties.IsRepositoryBranchIncluded(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Match <c>branch</c> against a list of include and exclude filters.
+            Filters may include * and ? wildcards in any position.
+            If an include and exclude filter both match, exclude filters always take precedence.
+            Note: This can also include tags
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders.GitProperties.IsFilePathIncluded(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Match <c>filePath</c> against a list of path filters.
+            Filters may include * and ? wildcards in any position.
+            If an include and exclude filter both match, exclude filters always take precedence.
+            Deeper folder in path filters always take precedence.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders.GitProperties.BranchToRefName(System.String)">
+            <summary>
+            Add refs/heads/ to the branch name if it doesn't already start with refs/.
+            </summary>
+            <param name="branch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders.GitProperties.RefToBranchName(System.String)">
+            <summary>
+            Remove refs/heads/ from the branch name if it has one.
+            </summary>
+            <param name="branch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildSourceProviders.GitProperties.TryResolvePath(System.String,System.String,System.String@)">
+            <summary>
+            Attempts to root unrooted paths, normalizes slashes, and remove redundant relative pathing.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.CertHelper.X509CertificateCreationOptions.None">
+            <summary>
+                Do not set any flags when creating the certificate
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.BuildTypeInfo">
+            <summary>
+            This class stores the configuration details
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.InformationTypes">
+            <summary>
+            Encapsulates the built-in information node type names
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.InformationFields">
+            <summary>
+            Encapsulates the built-in information node field names
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper">
+            <summary>
+            Provides helper methods for interacting between objects and the string representations
+            used in the BuildInformation objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.GetString(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Returns a string from the specified field. If the fieldName is missing from the 
+            dictionary, String.Empty is returned.
+            </summary>
+            <param name="dictionary">The dictonary which contains the value</param>
+            <param name="fieldName">The name of the field which contains the value</param>
+            <returns>The value as a string if found, String.Empty otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.GetBool(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Returns a boolean from the specified field. If the boolean cannot be parsed then
+            false is returned.
+            </summary>
+            <param name="dictionary">The dictonary which contains the value</param>
+            <param name="fieldName">The name of the field which contains the value</param>
+            <returns>The value as a boolean if parsed correctly, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.SetBool(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.Boolean)">
+            <summary>
+            Stores a boolean into the dictionary at the specified field name.
+            </summary>
+            <param name="dictionary">The dictionary in which to store the value</param>
+            <param name="fieldName">The name of the field which should contain the value</param>
+            <param name="value">The value to store</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.GetDateTime(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Attempts to parse a DateTime object back from the string representation. The string must be
+            formatted using the InvariantInfo provider for DateTime formatting and must be in the RoundTrip
+            format <see>http://msdn2.microsoft.com/en-us/library/az4se3k1.aspx</see>. If these conditions
+            are not met and the DateTime cannot be parsed then DateTime.MinValue is returned.
+            </summary>
+            <param name="dictionary">The dictionary which contains the DateTime to parse</param>
+            <param name="fieldName">The name at which the DateTime can be found in the dictionary</param>
+            <returns>A DateTime object translated to the current local time zone</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.SetDateTime(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.DateTime)">
+            <summary>
+            Writes a DateTime object into a string which will be readable by the GetDateTime method.
+            </summary>
+            <param name="dictionary">The dictionary to which the value should be written</param>
+            <param name="fieldName">The name of the field at which the DateTime should be stored</param>
+            <param name="value">The DateTime which should be written to the dictionary</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.GetEnum``1(System.Collections.Generic.IDictionary{System.String,System.String},System.String,``0)">
+            <summary>
+            Attempts to return an enumeration value from the specified enumeration type which is
+            stored in the dictionary at the field name specified.
+            </summary>
+            <param name="dictionary">The dictionary which contains the value</param>
+            <param name="fieldName">The key at which the value may be found</param>
+            <param name="enumType">The type of enumeration which the value represents</param>
+            <param name="defaultValue">The default value to use if the parsing fails</param>
+            <returns>An object which may be safely cast to the input type</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.SetEnum``1(System.Collections.Generic.IDictionary{System.String,System.String},System.String,``0)">
+            <summary>
+            Stores the enumeration type into the dictionary at the specified field name.
+            </summary>
+            <param name="dictionary">The dictionary in which the value should be stored</param>
+            <param name="fieldName">The key at which the value should be stored</param>
+            <param name="enumType">The type of enumeration being stored</param>
+            <param name="value">The value which should be stored</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.GetInt(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Retreives an integer from the dictionary out of the specified field.
+            </summary>
+            <param name="dictionary">The dictionary which contains the field</param>
+            <param name="fieldName">The name of the field which contains the integer</param>
+            <returns>An integer parsed from the string</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.GetInt(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.Int32)">
+            <summary>
+            Retreives an integer from the dictionary out of the specified field.
+            </summary>
+            <param name="dictionary">The dictionary which contains the field</param>
+            <param name="fieldName">The name of the field which contains the integer</param>
+            <param name="invalidValue">An integer value that should be returned if the field 
+            is not present or not an integer.</param>
+            <returns>An integer parsed from the string</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.SetInt(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.Int32)">
+            <summary>
+            Converts an integer to a string representation and stores it at the specified field.
+            </summary>
+            <param name="dictionary">The dictonary in which to store the value</param>
+            <param name="fieldName">The name of the field in which to store the value</param>
+            <param name="value">The value which should be stored</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.GetUri(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Gets a URI object from the requested field. If the field value is emtpy then null is
+            returned instead.
+            </summary>
+            <param name="dictionary">The dictionary from which to retrieve the URI</param>
+            <param name="fieldName">The name of the field which contains the URI</param>
+            <returns>A URI object if the value is non-empty, null otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.SetUri(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.Uri)">
+            <summary>
+            Sets the value of the specified field to the URI as a string.
+            </summary>
+            <param name="dictionary">The dictionary in which the value should be stored</param>
+            <param name="fieldName">The name of the field at which the value should be stored</param>
+            <param name="value">The value to store</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.ToDateTime(System.String)">
+            <summary>
+            Attempts to convert a string into a DateTime object. The string must be in the round
+            trip format ("o") and should have been created using the InvariantInfo format
+            provider. If the date cannot be parsed using these conditions then the minimum
+            value is returned.
+            </summary>
+            <param name="value">The string value which should be parsed</param>
+            <returns>A DateTime object which the string represents, if any</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.ToEnum``1(System.String,``0)">
+            <summary>
+            Parses an enumeration string and returns the discovered value. If the value cannot be parsed
+            then the provided default value is returned.
+            </summary>
+            <param name="value">The string value which should be parsed</param>
+            <param name="t">The type of enumeration which is being parsed</param>
+            <param name="defaultValue">The default value to use if parsing fails</param>
+            <returns>The enumeration value parsed from the string if successful, the default value otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.ToInt(System.String)">
+            <summary>
+            Converts a string into the equivalent integer representation. If the string
+            cannot be parsed then 0 is returned.
+            </summary>
+            <param name="value">The value which should be parsed</param>
+            <returns>An integer if parsed, 0 if the string is non-parsable</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.ToInt(System.String,System.Int32)">
+            <summary>
+            Converts a string into the equivalent integer representation. If the string
+            cannot be parsed then invalid value is returned.
+            </summary>
+            <param name="value">The value which should be parsed</param>
+            <param name="invalidValue">An integer value that should be returned if the field 
+            is not present or not an integer.</param>
+            <returns>An integer if parsed, invalidValue if the string is non-parsable</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.EnumToString``1(``0)">
+            <summary>
+            Converts an enumeration value into the appropriate string representation.
+            </summary>
+            <param name="value">The value which should be converted into a string</param>
+            <param name="enumType">The enumeration which should be converted</param>
+            <returns>The string representation of the enumeration if possible</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.ToString(System.DateTime)">
+            <summary>
+            Converts a DateTime object into string format using the round-trip format.
+            </summary>
+            <param name="value">The value to convert</param>
+            <returns>A string representation of the given DateTime</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.CommonInformationHelper.ToString(System.Int32)">
+            <summary>
+            Converts the given integer into the appropriate string representation using
+            a digits-only format.
+            </summary>
+            <param name="value">The value to convert to a string</param>
+            <returns>A string representation of the given value</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ConfigurationHelper.FreeUrlPrefix(System.String)">
+            <summary>
+            Frees a reservation on the url prefix if one exists.
+            </summary>
+            <param name="urlPrefix">The URL prefix which should be freed</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ConfigurationHelper.ReserveUrlPrefixInternal(System.String,System.String)">
+            <summary>
+            Reserves the URL prefix and places the provided security descriptor on the prefix.
+            </summary>
+            <param name="urlPrefix">The prefix which should be reserved</param>
+            <param name="securityDescriptor">The permissions which should be placed on the URL</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ConfigurationHelper.ReserveUrlPrefix(System.String,System.String)">
+            <summary>
+            Places a GENERIC_EXECUTE acl for the provided user on the specified URL prefix.
+            </summary>
+            <param name="userName">The user which should be granted permission</param>
+            <param name="urlPrefix">The URL prefix to which the user should be granted permission</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ConfigurationHelper.AddSslCertificate(System.Net.IPAddress,System.Int32,System.Security.Cryptography.X509Certificates.X509Certificate,System.Guid,System.Boolean,System.Security.Cryptography.X509Certificates.StoreName)">
+            <summary>
+            Adds an SSL certificate to the specified IP address and port in http.sys.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.ConfigurationHelper.DeleteSslCertificate(System.Net.IPAddress,System.Int32)">
+            <summary>
+            Deletes an SSL certificate registered for the specified IP address and port.
+            </summary>
+            <returns>True if the certificate was removed. Otherwise, false.</returns>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.ConfigurationHelper.HttpApiVersion">
+            <summary>
+            We are communicating with the V1 HTTP API version
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.ConfigurationHelper.HTTP_INITIALIZE_CONFIG">
+            <summary>
+            This is the flag we will be using to initialize/deinitialize the Http API
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.EnumerableExtensions.Buffer``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Boolean)">
+            <summary>
+            Creates a sequence of buffers over the source sequence with specified length.
+            </summary>
+            <remarks>
+            <para> The return type is <see cref="T:System.Collections.Generic.IList`1"/> to make it easier to access the size
+            of the buffer. It can be helpful to detect the last buffer which can be smaller.</para>
+            <para> For better memory management user may specify to share the underlying list. When
+            sharing is enables the calling code should make sure each buffer is processed before
+            next one is retrieved.</para>
+            </remarks>
+            <typeparam name="TSource">The type of the elements of source.</typeparam>
+            <param name="source">Source sequence.</param>
+            <param name="size">Size of the buffer.</param>
+            <param name="share">True the buffers share the underlying list.</param>
+            <returns>Sequence of buffers containing source sequence elements.</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.HostedBuildSettings">
+            <summary>
+            Represents the information a TFS deployment needs to perform hosted builds
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.HostedBuildSettings.ConnectionString">
+            <summary>
+            Connection string for the storage account containing the work queues.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.HostedBuildSettings.SubscriptionId">
+            <summary>
+            ID of the Azure subscription containing the Hosted Build deployments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.HostedBuildSettings.ManagementCertificate">
+            <summary>
+            Base64 string of the certificate required to manage the Azure subscription.  Used for machine reimages.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.LabCompatibilityResult">
+            <summary>
+            Enum representing the result of lab compatibility check.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.Hive">
+            <summary>
+            Gets the hive this watcher is currently monitoring
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.KeyPath">
+            <summary>
+            Gets the key path this watcher is currently monitoring
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.WatchSubtree">
+            <summary>
+            Gets a value indicating whether or not the sub-tree is being monitored
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.Filter">
+            <summary>
+            Gets the filter for the current watcher
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.Error">
+            <summary>
+            Raised when an error occurs while monitoring the key.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.KeyChanged">
+            <summary>
+            Raised each time a registry change is detected according to the parameters of the watcher
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.Stop">
+            <summary>
+            Stops monitoring the registry key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.RegistryWatcher.Start">
+            <summary>
+            Begins monitoring of the registry key according to the supplied parameters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidBuildDirectory(System.String@)">
+            <summary>
+            Validates the given build directory against a set of rules.
+            </summary>
+            <param name="path">The path to validate</param>
+            <exception cref="T:Microsoft.TeamFoundation.InvalidPathException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidBuildNumber(System.String)">
+            <summary>
+            Validates the given build type against a set of rules
+            </summary>
+            <param name="buildNumber">The build number to validate</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidBuildType(System.String)">
+            <summary>
+            Validates the given build type against a set of rules.
+            </summary>
+            <param name="buildType">The build type to validate</param>
+            <exception cref="T:System.ArgumentException"/>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidConfigPlatform(System.String)">
+            <summary>
+            Validates the given platform/flavor name against a set of common rules.
+            </summary>
+            <param name="configPlatform">The platform/flavor name to validate</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidAgentName(System.String,System.Boolean)">
+            <summary>
+            Validates the given agent name against a set of rules.
+            </summary>
+            <param name="name">The agent name to validate.</param>
+            <param name="allowWildcards">True if wildcards are allowed.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidControllerName(System.String,System.Boolean)">
+            <summary>
+            Validates the given controller name against a set of rules.
+            </summary>
+            <param name="name">The controller name to validate.</param>
+            <param name="allowWildcards">True if wildcards are allowed.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidDefinitionName(System.String)">
+            <summary>
+            Validates the given definition name against a set of rules.
+            </summary>
+            <param name="name">The definition name to validate.</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidDropLocation(System.String)">
+            <summary>
+            Validates the drop location against a set of rules.
+            </summary>
+            <param name="path">The path to validate</param>
+            <exception cref="T:Microsoft.TeamFoundation.InvalidPathException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidDropLocation(System.String@)">
+            <summary>
+            Validates the drop location against a set of rules and canonicalizes the path.
+            </summary>
+            <param name="path">The path to validate, which is canonicalized</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidServerPathDropLocation(System.String@)">
+            <summary>
+            Validates that the path is a server path and valid for a drop location, against
+            a set of rules
+            </summary>
+            <param name="path">The path to validate</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidUncDropLocation(System.String@)">
+            <summary>
+            Validates that the path is a Unc path and valid for a drop location, 
+            against a set of rules, and canonicalizes the path.
+            </summary>
+            <param name="path">he path to validate, which is canonicalized</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidBuildContainerDropLocation(System.String@)">
+            <summary>
+            Validates that the path is a Build Drop path and valid for a drop location, 
+            against a set of rules, and canonicalizes the path.
+            </summary>
+            <param name="path">he path to validate, which is canonicalized</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidUncDropLocationNotServer(System.String@)">
+            <summary>
+            Validates that the path is a Unc path and valid for a drop location, 
+            against a set of rules, and canonicalizes the path.
+            In case of valid server path gives a message explaining that vc drop location is not supported.
+            </summary>
+            <param name="path">he path to validate, which is canonicalized</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidLogLocation(System.String@)">
+            <summary>
+            Validates the log location against a set of rules and canonicalizes the path.
+            </summary>
+            <param name="path">The path to validate, which is canonicalized</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidItemPath(System.String@,System.Boolean)">
+            <summary>
+            Validates that an item path is full qualified and canonicalizes it
+            </summary>
+            <param name="path"></param>
+            <param name="allowWildcards"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidMachineName(System.String)">
+            <summary>
+            Validates the given machine name against a set of common rules.
+            </summary>
+            <param name="machineName">The machine name to validate</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidServiceHostName(System.String,System.Boolean)">
+            <summary>
+            Validates the given service host name against a set of rules.
+            </summary>
+            <param name="machineName">The service host name to validate</param>
+            <param name="allowWildcards">True if wildcards are allowed.</param>
+            <exception cref="T:System.ArgumentException" />
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.CheckValidUri(System.String,System.String)">
+            <summary>
+            Validates that the given URI is well formed and that the type of artifact referenced
+            matches the target type provided in the parameters.
+            </summary>
+            <param name="uri">The URI to validate</param>
+            <param name="type">The expected type of artifact</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidDropLocation(System.String,System.String@)">
+            <summary>
+            Validates the drop location against a set of rules.
+            </summary>
+            <param name="path">The path to validate</param>
+            <returns>True(false) if the path is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidDropLocation(System.String@,System.String@)">
+            <summary>
+            Validates the drop location against a set of rules.
+            </summary>
+            <param name="path">The path to validate</param>
+            <returns>True(false) if the path is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidLogLocation(System.String@,System.String@)">
+            <summary>
+            Validates the log location against a set of rules.
+            </summary>
+            <param name="path">The path to validate</param>
+            <returns>True(false) if the path is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidBuildDirectory(System.String@,System.String@,System.Boolean)">
+            <summary>
+            Validates the build directory against a set of rules.
+            </summary>
+            <param name="path">The path to validate</param>
+            <returns>True(false) if the path is(not) valid</returns>        
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidBuildNumber(System.String,System.String@)">
+            <summary>
+            Validates that a build number is valid as a label name as well as valid in our
+            system.
+            </summary>
+            <param name="buildNumber">The build number which should be checked</param>
+            <param name="error">The error, if any, that caused the failure</param>
+            <returns>True if the build number is valid, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidMachineName(System.String,System.String@)">
+            <summary>
+            Validates that a machine name is the correct length and does not
+            have any invalid characters If a domain suffix is attached to the
+            machine name then it is ignored for the purposes of validation.
+            </summary>
+            <param name="machineName">The machine name to be validated</param>
+            <returns>True(false) if the machine name is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidUncPath(System.String,System.String@)">
+            <summary>
+            Determines whether or not the path given is a valid UNC path.
+            </summary>
+            <param name="path">The path to be tested for UNC-edness</param>
+            <returns>True (false) if the path is (isn't) a valid UNC path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidUncPath(System.String@,System.String@)">
+            <summary>
+            Determines whether or not the path given is a valid UNC path.
+            </summary>
+            <param name="path">The path to be tested for UNC-edness</param>
+            <returns>True (false) if the path is (isn't) a valid UNC path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidServerPath(System.String,System.String@)">
+            <summary>
+            Determines whether or not the path given is a valid Server path.
+            </summary>
+            <param name="path">The path to be tested for Server-ness</param>
+            <returns>True (false) if the path is (isn't) a valid Server path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidServerPath(System.String@,System.String@)">
+            <summary>
+            Determines whether or not the path given is a valid Server path.
+            </summary>
+            <param name="path">The path to be tested for Server-ness</param>
+            <returns>True (false) if the path is (isn't) a valid Server path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidBuildContainerPath(System.String,System.String@)">
+            <summary>
+            Determines whether or not the path given is a valid Build Drop path.
+            </summary>
+            <param name="path">The path to be tested for Build Drop-ness</param>
+            <returns>True (false) if the path is (isn't) a valid Build Drop path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidBuildContainerPath(System.String@,System.String@)">
+            <summary>
+            Determines whether or not the path given is a valid Build Drop path.
+            </summary>
+            <param name="path">The path to be tested for Build Drop-ness</param>
+            <returns>True (false) if the path is (isn't) a valid Build Drop path</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidConfigPlatform(System.String,System.String@)">
+            <summary>
+            Validates platform and flavor names to ensure they conform to a set of rules.
+            </summary>
+            <param name="str">The platform (flavor) name to validate</param>
+            <returns>True(false) if the platform/flavor is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidAgentName(System.String,System.Boolean,System.String@)">
+            <summary>
+            Validates an agent name against a set of rules.
+            </summary>
+            <param name="name">The agent name to validate</param>
+            <param name="allowWildcards">True if wildcards are allowed.</param>
+            <returns>True (false) if the name is (not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidControllerName(System.String,System.Boolean,System.String@)">
+            <summary>
+            Validates a controller name against a set of rules.
+            </summary>
+            <param name="name">The controller name to validate</param>
+            <param name="allowWildcards">True if wildcards are allowed.</param>
+            <returns>True (false) if the name is (not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidDefinitionName(System.String,System.String@)">
+            <summary>
+            Validates a definition name against a set of rules.
+            </summary>
+            <param name="name">The definition name to validate</param>
+            <returns>True (false) is the name is (not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidUri(System.String,System.String@)">
+            <summary>
+            Validates that a URI is well formed.
+            </summary>
+            <param name="uri">The URI to validate</param>
+            <param name="error"></param>
+            <returns>True(false) if the uri is(not) well formed</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidUri(System.String,System.String,System.String@)">
+            <summary>
+            Validates at the URI is well formed and that the artifact type matches the target
+            type provided in the arguments.
+            </summary>
+            <param name="uri">The URI to validate</param>
+            <param name="type">The artifact type expected</param>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidBuildType(System.String,System.String@)">
+            <summary>
+            Checks whether or not a BuildType is considered to be valid. A build type
+            must be a valid VersionControl path and may not exceed 259 characters.
+            </summary>
+            <param name="buildType">The build type to validate</param>
+            <returns>True(false) if the build type is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidFolderName(System.String,System.Boolean)">
+            <summary>
+            Validates whether or not a folder name is valid. A folder is one of the components
+            of a path in between the DirectorySeparator characters found in System.IO.Path. If
+            the path must also be valid for version control then an extra check is performed.
+            </summary>
+            <param name="folder">The folder name to check for validity</param>
+            <param name="requireVersionControl">Whether or not this path must exist in version control</param>
+            <returns>True(false) if the folder name is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidFolderName(System.String,System.Boolean,System.String@)">
+            <summary>
+            Validates whether or not a folder name is valid. A folder is one of the components
+            of a path in between the DirectorySeparator characters found in System.IO.Path. If
+            the path must also be valid for version control then an extra check is performed.
+            The error which caused validation to fail is returned to the caller.
+            </summary>
+            <param name="folder">The folder name to check for validity</param>
+            <param name="requireVersionControl">Whether or not this path must exist in version control</param>
+            <returns>True(false) if the folder name is(not) valid</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.Validation.IsValidSymbolStorePath(System.String,System.String@)">
+            <summary>
+            Validates the symbol store path against a set of rules.
+            </summary>
+            <param name="path">The path to validate</param>
+            <returns>True(false) if the path is(not) valid</returns>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.Validation.s_msbuildSpecialChars">
+            <summary>
+            Represents the characters that *may* be considered special to MSBuild. It should
+            be noted that only in certain contexts are these characters actually treated in 
+            a special way. For instance, '$' is treated literally unless it is followed by an
+            opening parenthesis, etc.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.Validation.s_invalidPlatformFlavorChars">
+            <summary>
+            Represents all characters considered to be invalid for a platform or flavor 
+            specification.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Build.Common.Validation.s_definitionSpecialChars">
+            <summary>
+            Represents the invalid characters for a build definition name that are not covered
+            by other methods (e.g. they are not invalid NTFS characters).
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Build.Common.XamlHelper">
+            <summary>
+            Provides serialization helper methods for XAML 4.0, without using the XAML 4.0 stack.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.XamlHelper.Save(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Serializes a simple dictionary.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.XamlHelper.LoadPartial(System.String)">
+            <summary>
+            Deserializes a dictionary. If the xaml is a dictionary but contains non-string
+            items, those items will not be deserialized or returned in the result dictionary.
+            </summary>
+            <remarks>
+            Returns null if the XAML is malformed, or isn't a dictionary as expected.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.#cctor">
+            Creates the resource manager instance.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Get(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GetInt(System.String)">
+            Returns a localized integer given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GetBool(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Format(System.String,System.Object[])">
+            A little helper function to alleviate some typing associated with loading resources and
+            formatting the strings.  In DEBUG builds, it also asserts that the number of format
+            arguments and the length of args match.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ADMINISTER_BUILD">
+            <summary>
+            &apos;Administer a Build&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ArtifactTypeMisMatch(System.Object,System.Object)">
+            <summary>
+            TF209002: Invalid artifact URI specified. The expected URI type is {0}, and received type {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildDeletionResultDropLocationFailure(System.Object,System.Object,System.Object)">
+            <summary>
+            TF215018: warning: Failed to delete drop location {0} for build {1}: {2}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildDeletionResultDropLocationFailureWithAccount(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            TF215018: warning: {0} failed to delete drop location {1} for build {2}: {3}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildDeletionResultLabelFailure(System.Object,System.Object,System.Object)">
+            <summary>
+            TF209036: warning: Failed to delete label {0} for build {1}: {2}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildDeletionResultLabelFailureWithAccount(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            TF209036: warning: {0} failed to delete label {1} for build {2}: {3}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildDeletionResultSymbolsFailure(System.Object,System.Object)">
+            <summary>
+            TF209037: warning: Failed to delete symbols for build {0}: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildDeletionResultTestFailure(System.Object,System.Object)">
+            <summary>
+            TF215017: error: Build {0} could not be deleted because an error occurred while test results were being deleted: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildQualityUnexamined">
+            <summary>
+            Unexamined
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildStoppedBy(System.Object)">
+            <summary>
+            Build stopped by {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildInitializingState">
+            <summary>
+            Build Initializing
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildInProgress(System.Object)">
+            <summary>
+            A build is already in progress for team project {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildNumberInvalidChars(System.Object)">
+            <summary>
+            TF209010: The build number {0} contains invalid character(s) or is too long. The maximum length of a build number is 64 characters. Characters which are not allowed include &apos;&quot;&apos;, &apos;/&apos;, &apos;:&apos;, &apos;&lt;&apos;, &apos;&gt;&apos; , &apos;\&apos;, &apos;|&apos;, &apos;?&apos;, &apos;@&apos;, and &apos;*&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildNumberInvalidTermination(System.Object)">
+            <summary>
+            TF209038: The build number &apos;{0}&apos; ends with a character which is not allowed. Characters which are not allowed include &apos;.&apos; and &apos; &apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildExeNotFound(System.Object,System.Object,System.Object)">
+            <summary>
+            TF42020: The {0} executable file at {1} was not found. {2}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildReasonNotSupported(System.Object,System.Object,System.Object)">
+            <summary>
+            TF209039: The build process template for the build pipeline does not support the reason {0} for which this build was queued.  The supported build reasons for the build process template include {1}.  If you believe that the build process template does support the build reason, you can update the value of the SupportedReasons property in file {2}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.TemplateVersionNotSupported(System.Object,System.Object)">
+             <summary>
+             0 is the version string in the template. 1 is the assembly version.
+            
+             The build controller used for this build does not support the version of the template file used by the build pipeline. The version of the template file is {0}. The maximum supported version for this build controller is {1}. This build controller must be upgraded to build this version of the template file.
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildRequestFromInvalidMachine(System.Object)">
+            <summary>
+            TF42053: The build machine is not configured to build for server {0}. The build machine is configured for one Azure DevOps Server only. To change the Azure DevOps Server for the build machine, update the AllowedTeamServer key in the file TFSBuildService.exe.config and restart the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildStepNotFoundException(System.Object,System.Object)">
+            <summary>
+            TF209028: The BuildStep task could not find a build step with ID {0} (Detail Message: {1}).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildTagGroup_Agent">
+            <summary>
+            Agent
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildTagGroup_Build">
+            <summary>
+            Build
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildTagGroup_Definition">
+            <summary>
+            Pipeline
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildTypeNotFound(System.Object,System.Object)">
+            <summary>
+            TF41001: Team project {1} does not have a build pipeline {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CannotCreateDropLocation(System.Object,System.Object)">
+            <summary>
+            TF209011: Could not create drop location {0}: {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CannotStartBuildForActiveDefinition(System.Object,System.Object)">
+            <summary>
+            TF209057: You cannot perform the &quot;Start Now&quot; action on queued build {0} because its build pipeline ({1}) is not paused or disabled.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CannotStartBuildForUnavailableController(System.Object,System.Object)">
+            <summary>
+            TF209058: You cannot perform the &quot;Start Now&quot; action on queued build {0} because its build controller ({1}) is disabled or unavailable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CannotStartBuildControllerOverloaded(System.Object,System.Object)">
+            <summary>
+            TF209059: You cannot perform the &quot;Start Now&quot; action on queued build {0} because its build controller ({1}) is running its specified maximum number of parallel builds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CheckinComment">
+            <summary>
+            Created new build pipeline
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CheckinPermissionDenied(System.Object,System.Object)">
+            <summary>
+            TF209012: Access denied. You need the {0} permission in {1} to create a build pipeline.     For more information, contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CheckinPluginInitializationException(System.Object,System.Object)">
+            <summary>
+            TF217001: {0}: Azure DevOps Build encountered this error while initializing {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CheckinPluginSubscriptionException(System.Object,System.Object)">
+            <summary>
+            TF217002: {0}: Azure DevOps Build encountered this error while establishing subscriptions for {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ConnectionLostError">
+            <summary>
+            TF42017: Unable to create the build pipeline specified because the connection to the server timed out. Wait for few minutes and try again. If the problem persists, contact your network administrator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionQueueStatus_Disabled">
+            <summary>
+            Disabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionQueueStatus_Enabled">
+            <summary>
+            Enabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionQueueStatus_Paused">
+            <summary>
+            Paused
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_All">
+            <summary>
+            All
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_None">
+            <summary>
+            Manual
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_ContinuousIntegration">
+            <summary>
+            Continuous Integration
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_BatchedContinuousIntegration">
+            <summary>
+            Rolling Builds
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_Schedule">
+            <summary>
+            Schedule
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_ScheduleForced">
+            <summary>
+            Schedule (forced)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_GatedCheckIn">
+            <summary>
+            Gated Check-in
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DefinitionTrigger_BatchedGatedCheckIn">
+            <summary>
+            Gated Check-in (batched)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteOptions_All">
+            <summary>
+            All
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteOptions_Details">
+            <summary>
+            Details
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteOptions_DropLocation">
+            <summary>
+            Drop
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteOptions_Label">
+            <summary>
+            Label
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteOptions_None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteOptions_Symbols">
+            <summary>
+            Symbols
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteOptions_TestResults">
+            <summary>
+            Test Results
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DropLocationAlreadyExists(System.Object)">
+            <summary>
+            TF42049: The drop location {0} already exists. Specify a different drop location and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DuplicateBuildType(System.Object)">
+            <summary>
+            TF42013: The build pipeline {0} already exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.EDIT_BUILD_STATUS">
+            <summary>
+            &apos;Edit Build Quality&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.EnlistmentEmptyTag(System.Object)">
+            <summary>
+            TF42022: The workspace {0} does not have any working folder mappings. Verify the working folder mappings of selected workspace and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Error_InvalidOperationFailure">
+            <summary>
+            TF209013: Failed to retrieve data from the server. Verify the network connection and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Error_NetFailure(System.Object)">
+            <summary>
+            TF209014: Failed to retrieve data from the server. Verify the network connection and try again. The network error is: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Error_TFSFailure">
+            <summary>
+            TF209015: Failed to retrieve data from the server. Verify that Azure DevOps Server is accessible via the network and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Error_UnauthorizedAccess">
+            <summary>
+            TF209016: Access denied. You are not authorized to perform this action.     For more information, contact the Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ErrorInCheckInTag">
+            <summary>
+            TF42025: The wizard could not check the build pipeline files into source control. Verify the network connection and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ErrorInGettingSolutionNamesTag(System.Object)">
+            <summary>
+            TF42027: Team Build could not get the solution files for the team project. Verify that the {0} workspace mapping is correct and it contains one or more solution files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ErrorInGettingVsmdiFilesTag(System.Object)">
+            <summary>
+            TF42023: Failed to get test metadata (.vsmdi) file for the selected workspace {0}. Verify that the workspace contains one or more test metadata files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ErrorInSyncingConfigFilesTag">
+            <summary>
+            TF42030: Failed to synchronize build pipeline files. Verify the network connection and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ErrorOpeningWizardTag(System.Object)">
+            <summary>
+            TF42024: Failed to start the wizard. The workspace {0} is preventing the wizard from creating temporary workspace required for this operation. Change the folder mapping of the workspace to some other local folder.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ErrorWorkspaceAlreadyExistsTag(System.Object)">
+            <summary>
+            TF42026: Failed to start the wizard. The temporary workspace {0} needed for this operation already exists. Delete this workspace and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ExceedMaxLength(System.Object)">
+            <summary>
+            {0}: exceeds the maximum allowed length
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.FailedToStartBuild">
+            <summary>
+            TF209040: The build could not be started. An unknown error occurred.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.FileSystemCannotSetAcls">
+            <summary>
+            TF42052: The file system on the build machine does not support access control lists. Specify build directory on a file system that supports access control lists like NTFS.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.FinishedCompilationState">
+            <summary>
+            Compilation Completed
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.FixFrameworkInstall">
+            <summary>
+            TF209017: Re-install the .NET Framework on the build agent computer and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.FolderOpenError(System.Object,System.Object)">
+            <summary>
+            TF42004: Team Build failed to open folder {0}. {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.FolderOpenErrorMissingPath">
+            <summary>
+            The path to the folder is empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GatedCheckinSingleDefinition(System.Object,System.Object)">
+            <summary>
+            Your check-in has been placed into shelveset {0} and submitted for validation by build pipeline {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GatedCheckinSingleDefinitionFromShelveset(System.Object)">
+            <summary>
+            Your shelveset has been submitted for validation by build pipeline {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GatedCheckinMultipleDefinition(System.Object)">
+            <summary>
+            Your check-in could not be completed because it affects the following gated build pipelines.  {0}To complete your check-in you will need to shelve your changes and queue a build of that shelveset.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GatedCheckinMultipleDefinitionWithShelveset(System.Object,System.Object)">
+            <summary>
+            Your check-in could not be completed because it affects the following gated build pipelines.  {0}To complete your check-in you will need to queue a build of the shelveset {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GatedCheckinOverrideDenied(System.Object,System.Object,System.Object)">
+            <summary>
+            Access Denied: User {0} needs {1} permission for the following build pipeline(s).  {2}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.GENERIC_READ">
+            <summary>
+            &apos;View project-level information&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidAgentNameInvalidCharacters(System.Object)">
+            <summary>
+            TF209029: The agent name {0} contains characters that you cannot use. Characters that you cannot use include &apos;&lt;&apos;, &apos;&gt;&apos;, &apos;|&apos;, &apos;*&apos;, &apos;:&apos;, &apos;\&apos;, &apos;/&apos;, &apos;&quot;&apos;, &apos;?&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidAgentNameTooLong(System.Object,System.Object)">
+            <summary>
+            TF209030: The build agent name {0} is too long. The maximum length of a build agent name is {1} characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidAgentNameReservedName(System.Object)">
+            <summary>
+            TF209031: The build agent name {0} is not valid. Build agent names cannot be NTFS reserved names.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidAgentNameInvalidTermination(System.Object)">
+            <summary>
+            TF209032: The build agent name {0} is not valid. Build agent names cannot end in the following characters: &apos; &apos;, &apos;.&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidControllerNameInvalidCharacters(System.Object)">
+            <summary>
+            TF209041: The controller name {0} contains characters that you cannot use. Characters that you cannot use include &apos;&lt;&apos;, &apos;&gt;&apos;, &apos;|&apos;, &apos;*&apos;, &apos;:&apos;, &apos;\&apos;, &apos;/&apos;, &apos;&quot;&apos;, &apos;?&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidControllerNameTooLong(System.Object,System.Object)">
+            <summary>
+            TF209042: The build controller name {0} is too long. The maximum length of a build controller name is {1} characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidControllerNameReservedName(System.Object)">
+            <summary>
+            TF209043: The build controller name {0} is not valid. Build controller names cannot be NTFS reserved names.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidControllerNameInvalidTermination(System.Object)">
+            <summary>
+            TF209044: The build controller name {0} is not valid. Build controller names cannot end in the following characters: &apos; &apos;, &apos;.&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildDir">
+            <summary>
+            TF42033: The build directory must be a valid local path on the build machine (for example, C:\build).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildRequest(System.Object)">
+            <summary>
+            TF42057: The Azure DevOps Server {0} denies sending a build request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildDirectoryForDrive(System.Object)">
+            <summary>
+            TF42050: Invalid build directory: {0}. The build directory cannot be a UNC path, relative path or drive name. Specify the full path to a local folder on the build machine. The folder will be created if it does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidLogLocation(System.Object)">
+            <summary>
+            TF42051: Invalid log location: {0}. The log location must be a UNC path or a URI.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidDropLocation(System.Object)">
+            <summary>
+            TF42054: Invalid drop location: {0}. The drop location must be a UNC path or a valid TFS server path under a team project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.NonCanonicalBuildDirectory(System.Object)">
+            <summary>
+            TF42076: Invalid build directory: {0}. The build directory must be in its canonical form.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.RootBuildDirectory(System.Object)">
+            <summary>
+            TF42077: Invalid build directory: {0}. The build directory cannot be a drive name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidDefinitionNameInvalidCharacters(System.Object)">
+            <summary>
+            TF215075: The pipeline name {0} contains characters that you cannot use. Characters that you cannot use include &apos;&lt;&apos;, &apos;&gt;&apos;, &apos;|&apos;, &apos;*&apos;, &apos;:&apos;, &apos;\&apos;, &apos;/&apos;, &apos;&quot;&apos;, &apos;?&apos;, &apos;@&apos;, &apos;$&apos; and &apos;=&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidDefinitionNameTooLong(System.Object,System.Object)">
+            <summary>
+            TF209033: The build pipeline name {0} is too long. The maximum length for a build pipeline name is {1} characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidDefinitionNameReservedName(System.Object)">
+            <summary>
+            TF209034: The build pipeline name {0} is not valid. Build pipeline names cannot be NTFS reserved names.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidDefinitionNameInvalidTermination(System.Object)">
+            <summary>
+            TF209035: The build pipeline name {0} is not valid. Build pipeline names cannot end in the following characters: &apos; &apos;, &apos;.&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidDropDir(System.Object)">
+            <summary>
+            TF42034: The drop location {0} is invalid. The drop location must be a valid UNC path (for example, \\server\share).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidPathContainsWildcards(System.Object)">
+            <summary>
+            TF209018: The path {0} contains characters that are not allowed. Characters that are not allowed include &apos;?&apos; and &apos;*&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidPathMustContainRoot(System.Object)">
+            <summary>
+            TF209019: The path {0} must begin with a &apos;\&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidPathTeamProjectRequired(System.Object)">
+            <summary>
+            TF209020: The path {0} must specify a team project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidPathVolumeRequired(System.Object)">
+            <summary>
+            TF42066: The path &apos;{0}&apos; is not valid. Specify a volume and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidPlatformFlavorInvalidCharacters(System.Object)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidPathReservedName(System.Object)">
+            <summary>
+            TF42068: &apos;{0}&apos; is a reserved name and may not be included in a path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidServiceHostNameInvalidCharacters(System.Object)">
+            <summary>
+            TF209045: The build service host name {0} contains characters that you cannot use. Characters that you cannot use include &apos;&lt;&apos;, &apos;&gt;&apos;, &apos;|&apos;, &apos;*&apos;, &apos;:&apos;, &apos;\&apos;, &apos;/&apos;, &apos;&quot;&apos;, &apos;?&apos;, &apos;@&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidServiceHostNameTooLong(System.Object,System.Object)">
+            <summary>
+            TF209046: The build service host name {0} is too long. The maximum length of a build service host name is {1} characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidServiceHostNameReservedName(System.Object)">
+            <summary>
+            TF209047: The build service host name {0} is not valid. Build service host names cannot be NTFS reserved names.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidServiceHostNameInvalidTermination(System.Object)">
+            <summary>
+            TF209048: The build service host name {0} is not valid. Build service host names cannot end in the following characters: &apos; &apos;, &apos;.&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidSharedResourceName(System.Object,System.Object)">
+            <summary>
+            TF209049: The resource name &apos;{1}&apos; is not valid (parameter &apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidShelvesetName(System.Object,System.Object)">
+            <summary>
+            TF209050: The shelveset name &apos;{1}&apos; is not valid (parameter &apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidShelvesetOwner(System.Object,System.Object)">
+            <summary>
+            TF209051: The shelveset owner &apos;{1}&apos; is not valid (parameter &apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingShelvesetOwner(System.Object)">
+            <summary>
+            TF209052: You must specify a shelveset owner (parameter &apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidUncPath(System.Object)">
+            <summary>
+            TF42069: The path &apos;{0}&apos; is not a valid UNC path. A UNC path must be of the format \\server\share.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ServerPathNotSupported(System.Object)">
+            <summary>
+            TF400641: The path &apos;{0}&apos; cannot be used because the Azure DevOps Server you are connected to does not support source control drop locations; you must use a UNC path instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidUriNotAbsolute(System.Object)">
+            <summary>
+            TF209021: The URI {0} must be an absolute URI.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildTypeNoDownload(System.Object)">
+            <summary>
+            TF42018: The DoNotDownloadBuildType flag in configuration file of TFSBuildService.exe is set to true but {0} does not exist. Set the DoNotDownloadBuildType flag to false and restart the service or ensure that the file exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildType(System.Object,System.Object)">
+            <summary>
+            TF42006: The build service could not get the project file for build pipeline {0}. Ensure the project file exists and the build service account {1} is a member of the Build Services group for the team project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildTypeFile(System.Object,System.Object)">
+            <summary>
+            TF42075: The build pipeline file TfsBuild.proj for build pipeline {0} could not be loaded. Error: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildTypeFileFormat(System.Object)">
+            <summary>
+            TF42015: The build pipeline file TfsBuild.proj for build pipeline {0} could not be read. The format of the file is invalid, or the build service account does not have permissions to read the file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidInput(System.Object)">
+            <summary>
+            TF42048: The input argument {0} is required but missing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidInputAtIndex(System.Object,System.Object,System.Object)">
+            <summary>
+            TF42071: The input argument &apos;{0}&apos; has invalid input at index &apos;{1}&apos; (Detail Message: {2}).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidInputParameterOutOfRange(System.Object,System.Object)">
+            <summary>
+            TF42074: The value &apos;{0}&apos; is out of the range of valid values (Parameter name: {1})
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidInputNull">
+            <summary>
+            TF42072: The value cannot be null
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidInputParameterNull(System.Object)">
+            <summary>
+            TF42073: The value cannot be null (Parameter name: {0})
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MergeConflictTag">
+            <summary>
+            The files on your machine are out of date. Getting the latest files. Do you want to continue?
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingAgentName">
+            <summary>
+            TF215053: You must specify a name for the build agent.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingControllerName">
+            <summary>
+            TF209053: You must specify a name for the build controller.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingDefinitionName">
+            <summary>
+            TF215058: You must specify a name for the build pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingBuildDirectory">
+            <summary>
+            TF209003: You must specify a build directory.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingBuildMachine">
+            <summary>
+            TF209004: You must specify a computer name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingBuildNumber">
+            <summary>
+            TF209005: You must specify a build number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingBuildType">
+            <summary>
+            TF209006: You must specify a build pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.MissingServiceHostName">
+            <summary>
+            TF209054: You must specify a name for the build service host.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.PermissionDenied(System.Object)">
+            <summary>
+            TF209022: Access denied. You need the {0} permission to perform this action.    For more information, contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.PlatformFlavorFormatText(System.Object,System.Object)">
+            <summary>
+            {0}/{1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.PortfolioProjectDoesNotExistTag(System.Object)">
+            <summary>
+            TF42039: Team project {0} does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ProcessTemplateDeleted">
+            <summary>
+            TF215100: The build pipeline refers to a process template that no longer exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ProcessTemplateDeletedWithServerPath(System.Object)">
+            <summary>
+            TF215101: The build pipeline refers to a process template at &apos;{0}&apos;, which no longer exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ColumnRetentionPolicyHeaderText">
+            <summary>
+            Retention Policy
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ColumnDeleteOptionsHeaderText">
+            <summary>
+            What to Delete
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.QueuePriority_High">
+            <summary>
+            High
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.QueuePriority_AboveNormal">
+            <summary>
+            Above Normal
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.QueuePriority_Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.QueuePriority_BelowNormal">
+            <summary>
+            Below Normal
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.QueuePriority_Low">
+            <summary>
+            Low
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_All">
+            <summary>
+            All
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_Manual">
+            <summary>
+            Manual
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_IndividualCI">
+            <summary>
+            Individual Continuous Integration
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_BatchedCI">
+            <summary>
+            Batched Continuous Integration
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_Schedule">
+            <summary>
+            Scheduled
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_ScheduleForced">
+            <summary>
+            Scheduled (Forced)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_UserCreated">
+            <summary>
+            User Created
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_ValidateShelveset">
+            <summary>
+            Private
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_CheckinShelveset">
+            <summary>
+            Check In Shelveset
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Reason_Triggered">
+            <summary>
+            Triggered and Manual
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.RetentionPolicy_KeepAll">
+            <summary>
+            Keep All
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.RetentionPolicy_KeepNone">
+            <summary>
+            Keep None
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.RetentionPolicy_KeepLatest">
+            <summary>
+            Keep Latest Only
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.RetentionPolicy_KeepLatestN_Format(System.Object)">
+            <summary>
+            Keep {0} Latest
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ServiceAccountUnauthorized(System.Object,System.Object)">
+            <summary>
+            TF209009: The account {1} is not authorized to communicate with Azure DevOps Server {0}. Verify that the account is a member of the Build Services security group for the appropriate team project on the Azure DevOps Server and that the account&apos;s password has not expired.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.SyncState">
+            <summary>
+            Getting Sources
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.SyncCompletedState">
+            <summary>
+            Sync Completed
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.StartedCompilationState">
+            <summary>
+            Compilation Started
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.StartedTestingState">
+            <summary>
+            Testing Started
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.SourceControlDoesNotExist">
+            <summary>
+            TF209023: Either source control has not been configured for this team project or you do not have permission to access it. Configure source control and try again or contact your Azure DevOps Server administrator to obtain the required permissions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.START_BUILD">
+            <summary>
+            &apos;Start a build&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_All">
+            <summary>
+            All
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Available">
+            <summary>
+            Available
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Completed">
+            <summary>
+            Completed
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Disabled">
+            <summary>
+            Disabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Enabled">
+            <summary>
+            Enabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Failed">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Initializing">
+            <summary>
+            Initializing
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_InProgress">
+            <summary>
+            In Progress
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_NotStarted">
+            <summary>
+            Not Started
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Offline">
+            <summary>
+            Offline
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_PartiallySucceeded">
+            <summary>
+            Partially Succeeded
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Postponed">
+            <summary>
+            Postponed
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Queued">
+            <summary>
+            Queued
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Retry">
+            <summary>
+            Retry
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Stopped">
+            <summary>
+            Stopped
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Succeeded">
+            <summary>
+            Succeeded
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_V1_Succeeded">
+            <summary>
+            Successfully Completed
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Unavailable">
+            <summary>
+            Unavailable
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Status_Unreachable">
+            <summary>
+            Unreachable
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.TaskCannotAddBuildStep(System.Object)">
+            <summary>
+            The {0} task cannot add a build step because its BuildUri property is not set.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.TaskBuildStepException(System.Object,System.Object)">
+            <summary>
+            The {0} task failed to add or update a build step: {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidPropertyValueException(System.Object,System.Object,System.Object)">
+            <summary>
+            The value &apos;{0}&apos; for property {1} cannot be converted to type {2}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.TestCompletedState">
+            <summary>
+            Testing Completed
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ThreadPoolFailure">
+            <summary>
+            TF209024: Unexpected failure on the build agent computer: unable to queue ThreadPool request. Restarting the computer may fix this problem.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.UnableToSetAcl(System.Object,System.Object)">
+            <summary>
+            TF42058: The build process was not able to set access control on {0}. Grant the user account running the build process full rights on this directory. Set proper access control on this directory to ensure access only to authorized users. Details: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.UnableToSetPermissionsOnDropDir(System.Object,System.Object)">
+            <summary>
+            TF209025: The build process is unable to set the permissions on the drop directory {0} (Detail Message: {1}). Make sure that the build service account has proper permissions on the build drop directory and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.UnexpectedTFServerException(System.Object,System.Object)">
+            <summary>
+            TF209026: An unexpected error occurred on the Azure DevOps Server {0}: {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.UPDATE_BUILD">
+            <summary>
+            &apos;Write to build operational store&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.VSNotFound">
+            <summary>
+            TF209027: Failed to locate all the required Azure DevOps Build components. Reinstalling the Azure DevOps Build application may fix this problem.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ResponseFileReadException(System.Object)">
+            <summary>
+            TF209007: Error reading TfsBuild.rsp: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ResponseFileWriteException(System.Object)">
+            <summary>
+            TF209008: Error writing to TfsBuild.rsp: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidAgentStatus(System.Object)">
+            <summary>
+            TF209055: Incorrect agent status: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteBuildDefinitionPermission">
+            <summary>
+            Delete build pipeline
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DeleteBuildsPermission">
+            <summary>
+            Delete builds 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.DestroyBuildsPermission">
+            <summary>
+            Destroy builds
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.EditBuildDefinitionPermission">
+            <summary>
+            Edit build pipeline
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.EditBuildQualityPermission">
+            <summary>
+            Edit build quality
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ManageBuildQualitiesPermission">
+            <summary>
+            Manage build qualities
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ManageBuildQueuePermission">
+            <summary>
+            Manage build queue
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ManageBuildResourcesPermission">
+            <summary>
+            Manage build resources
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.QueueBuildsPermission">
+            <summary>
+            Queue builds
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.RetainIndefinitelyPermission">
+            <summary>
+            Retain indefinitely
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.StopBuildsPermission">
+            <summary>
+            Stop builds
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.UpdateBuildInformationPermission">
+            <summary>
+            Update build information
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.UseBuildResourcesPermission">
+            <summary>
+            Use build resources
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ViewBuildDefinitionPermission">
+            <summary>
+            View build pipeline
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ViewBuildResourcesPermission">
+            <summary>
+            View build resources
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ViewBuildsPermission">
+            <summary>
+            View builds
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.OverrideBuildCheckInPermission">
+            <summary>
+            Override check-in validation by build
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildServicesGroupDescription">
+            <summary>
+            Members of this group should include the service accounts used by the build services set up for this project collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CollectionBuildServicesGroupName">
+            <summary>
+            Project Collection Build Service Accounts
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidControllerStatus(System.Object)">
+            <summary>
+            TF209056: Incorrect controller status: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidAccount(System.Object)">
+            <summary>
+            {0} is not a valid account.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidContractVersion(System.Object)">
+             <summary>
+             Error message when invalid contract version string is specified for conversion to LabContractVersion enum.
+            
+             The contract version {0} is not valid.
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildAdministratorsGroupDescription">
+            <summary>
+            Members of this group should include accounts for people who should be able to administer the build resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CollectionBuildAdministratorsGroupName">
+            <summary>
+            Project Collection Build Administrators
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CannotStartBuildGatedInProgress(System.Object,System.Object)">
+            <summary>
+            TF209059: You cannot perform the &quot;Start Now&quot; action on queued build {0} because its build controller ({1}) is already running a gated build for the same build pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.AdministerBuildPermissionsPermission">
+            <summary>
+            Administer build permissions
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.AdministerBuildResourcePermissionsPermission">
+            <summary>
+            Administer build resource permissions
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.EditPipelineQueueConfigurationPermission">
+            <summary>
+            Edit queue build configuration
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildFileContainerId(System.Object)">
+            <summary>
+            The path {0} must specify a valid container ID.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidBuildFileContainerRoot(System.Object)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildContainerPathNotSupported(System.Object)">
+            <summary>
+            TF400955: The path &apos;{0}&apos; cannot be used because the Azure DevOps Server you are connected to does not support file container drop locations; you must use a UNC path instead.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.InvalidUriToolId(System.Object,System.Object)">
+            <summary>
+            Invalid artifact URI specified for {0}. The artifact identifier &apos;{1}&apos; should be an integer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildParameterDeserializationException(System.Object)">
+            <summary>
+            TF401070: Could not deserialize the JSON string provided. Details:{0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.BuildParameterElementNotFoundException(System.Object)">
+            <summary>
+            TF401071: Could not find the element within the process parameter. Details:{0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ManagePipelinePoliciesPermission">
+            <summary>
+            Manage pipeline policies
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.CreateBuildDefinitionPermission">
+            <summary>
+            Create build pipeline
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.ManageStageRunOrderPermission">
+            <summary>
+            Manage stage run order
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Build.Common.BuildTypeResource.AbandonBuildsPermission">
+            <summary>
+            Abandon builds
+            </summary>
+        </member>
+    </members>
+</doc>

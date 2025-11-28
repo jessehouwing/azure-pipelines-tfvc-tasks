@@ -19,61 +19,7 @@ Add-Tls12InSession
 function Find-VisualStudio {
     $ErrorActionPreference = 'Stop'
     
-    $path = & $PSScriptRoot/vswhere.exe -version "[18,0,)" -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
-    if ( -not [string]::IsNullOrWhiteSpace($path)) 
-    {
-        Write-Message -Type Debug "Found Visual Studio 2026 or newer."
-        $path = join-path $path '\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\'
-        return $path
-    }
-
-    $path = & $PSScriptRoot/vswhere.exe -version "[15.0,18.0)" -products * -requires Microsoft.VisualStudio.TeamExplorer -property installationPath
-    if ( -not [string]::IsNullOrWhiteSpace($path)) 
-    {
-        Write-Message -Type Debug "Found Visual Studio 2017-2022."
-        $path = join-path $path '\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\'
-        return $path
-    }
-
-    # visual studio 2015
-    $VS1464Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-    if ($VS1464Path -ne $null)
-    {
-        $path = (Join-Path $VS1464Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
-        if (Test-Path -PathType Container -LiteralPath $path)
-        {
-            Write-Message -Type Debug "Found Visual Studio 2015."
-            return $path
-        }
-    }
-
-    $VS1432Path = (Get-ItemProperty -LiteralPath "HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0" -Name 'ShellFolder' -ErrorAction Ignore).ShellFolder
-    if ($VS1432Path -ne $null)
-    {
-        $path = (Join-Path $VS1432Path "\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\")
-        if (Test-Path -PathType Container -LiteralPath $path)
-        {
-            Write-Message -Type Debug "Found Visual Studio 2015."
-            return $path
-        }
-    }
-
-    # Fall back to agent binaries
-    $agentExternalsTf =  (Join-Path $env:AGENT_HOMEDIRECTORY "\externals\tf")
-    if (Test-Path -PathType Container -LiteralPath $agentExternalsTf)
-    {
-        Write-Message -Type Warning "Couldn't find Team Explorer, falling back to the Agent Externals."
-        return $agentExternalsTf
-    }
-
-    $agentServerOM = $env:AGENT_SERVEROMDIRECTORY
-    if (Test-Path -PathType Container -LiteralPath $agentServerOM)
-    {
-        Write-Message -Type Warning "Couldn't find Team Explorer, falling back to Agent Server OM directory."
-        return $agentServerOM
-    }
-    
-    return $null
+    return "$PSScriptRoot/../VstsTaskSdk/lib/"
 }
 
 function Load-Assembly {

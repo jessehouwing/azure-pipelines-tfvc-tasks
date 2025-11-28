@@ -1,0 +1,972 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.WorkItemTracking.Proxy</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds.IntFromXml(System.Xml.XmlReader)">
+            <summary>
+            Extracts a 32 bit integer from XML element :
+                   <int> value </int>
+            </summary>
+            <param name="reader">reader positioned at the start node of the integer </param>
+            <returns> extracted integer</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds.StringFromXml(System.Xml.XmlReader)">
+            <summary>
+            Extracts a string from an XML element :
+                   <int> value </int>
+            </summary>
+            <param name="reader">reader positioned at the start node of a string </param>
+            <returns> extracted string</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds.IntArrayFromXml(System.Xml.XmlReader)">
+            <summary>
+             Extracts an array of 32 bit integers from XML 
+            </summary>
+            <param name="reader">reader positioned at the start node of the integer array</param>
+            <returns> extracted integer array</returns>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds.UriListOffset">
+            <summary>
+            Reports the offset uri in the original string list
+            </summary>        
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds.Uri">
+            <summary>
+            Reports the uri of the artifact
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds.ReadXml(System.Xml.XmlReader,System.String)">
+            <summary>
+            Deserializes a ArtifactWorkItemIds structure from XML 
+            </summary>
+            <param name="reader"> reader positioned at the beginning of the structure</param>
+            <param name="xmlElement"> the name of the xmlElement from which to extract the structure</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds.WriteXml(System.Xml.XmlWriter,System.String)">
+            <param name="xmlElement"></param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ClientService.ComponentName">
+            <summary>
+            Service name used for tracing/logging/reporting purposes
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ClientServiceStreamingProxy.ComponentName">
+            <summary>
+            Service name used for tracing/logging/reporting purposes
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ClientServiceStreamingProxy.ServiceType">
+            <summary>
+            Service name which is used for resolving the WebService for the request
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ClientServiceStreamingProxy.CollectionServiceIdentifier">
+            <summary>
+            Service identifier which is used for resolving the WebService for the request
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ClientServiceStreamingProxy.GetWorkItemIdsForArtifactUris(Microsoft.TeamFoundation.Client.IClientContext,System.String[],System.Nullable{System.DateTime},Microsoft.TeamFoundation.Client.IResultCollection{Microsoft.TeamFoundation.WorkItemTracking.Proxy.ArtifactWorkItemIds}@)">
+            <summary>
+            Retrieves the workitem ids associated with every uri given in set of artifactUris.
+            
+            The retrieving is done in a streaming fashion where the proxy recieves a list of ArtifactWorkItemId, each 
+            of which contains the associated workitems for a single input uri
+            </summary>
+            <param name="clientContext">A client conext to use for establishing the connection with the web service</param>
+            <param name="artifactUris">A list of uris for which to retrieve the associated workitem ids </param>
+            <param name="workItemIds">A collection of ArtifactWorkItemIds which contains the workitem ids associated with the input uris</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ConfigurationSettingsService.ComponentName">
+            <summary>
+            Service name used for tracing/logging/reporting purposes
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.FileAttachment">
+            <summary>
+            Summary description for FileAttachment.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets">
+            <summary>
+            Summary description for IMetadataRowSets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IPagedItemsRowSets">
+            <summary>
+            Summary description for IPagedItemsRowSets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet">
+            <summary>
+            Summary description for IRowSet.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet.RowCount">
+            <summary>
+            The number of rows in the set
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet.ColumnCount">
+            <summary>
+            The number of columns in each row
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet.Item(System.Int32)">
+            <summary>
+            The name of a column
+            </summary>
+            <param name="column">the column index</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet.Item(System.Int32,System.Int32)">
+            <summary>
+            An individual cell value 
+            </summary>
+            <param name="column">the column index</param>
+            <param name="row">the row index</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet.Item(System.String,System.Int32)">
+            <summary>
+            An individual cell value 
+            </summary>
+            <param name="column">the column name</param>
+            <param name="row">the row index</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet.SwapRows(System.Int32,System.Int32)">
+            <summary>
+            Exchange the position of two rows in the set
+            </summary>
+            <param name="row1">the index of the first row</param>
+            <param name="row2">the index of the second row</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.IWorkItemRowSets">
+            <summary>
+            Summary description for IWorkItemRowSets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.LongRowSetKey">
+            <summary>
+            Key for longrowset data
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.LongRowSetKey.#ctor(System.Int32,System.Int32)">
+            <summary>
+            LongRowSetKey constructor
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.LongRowSetData">
+            <summary>
+            longrowset data
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.LongRowSetData.#ctor(System.DateTime,System.String)">
+            <summary>
+            LongRowSetData constructor
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.LongRowSetKeyComparator">
+            <summary>
+            Summary description for IRowSet.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.LongRowSet">
+            <summary>
+            Summary description for IRowSet.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.LongRowSet.#ctor(Microsoft.TeamFoundation.WorkItemTracking.Proxy.IRowSet)">
+            <summary>
+            Initialize a LongRowSet with the contents of a rowset
+            Upto the caller to enforce that the right rowset of
+            longtext data is passed into this
+            This assumes that rows can have entries added before the
+            corresponding workitems' added date, but not any that were
+            added after
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataRowSets">
+            <summary>
+            Summary description for MetadataRowSets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry">
+            <summary>
+            Summary description for MetadataTableHaveEntry.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.PagedItemsRowSets">
+            <summary>
+            Summary description for PagedItemsRowSets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata">
+            <summary>
+            Used to transport metadata about an access control list over a webservice.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata.FullSelectionPermission">
+            <summary>
+            Name of permission that should have "select all" semantics, if any.
+            </summary>
+            <remarks>
+            Semantics for the "select all" permission may differ from simply requiring
+            all other permissions in that it can simply act as a "macro" that selects all
+            other permissions, whether it's selected for Allow or Deny. With required permissions,
+            selecting Deny for a permission may select Deny for permissions that imply it,
+            rather than permissions it implies.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata.IrrevocableAdminPermissions">
+            <summary>
+            Names of permissions that cannot be revoked from server administrators.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata.ObjectClassId">
+            <summary>
+            Name of the "object class" for which this metadata describes the supported 
+            permissions semantics.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata.PermissionDescriptions">
+            <summary>
+            Localized descriptions for permissions that can be set on an AccessControlList.
+            </summary>
+            <remarks>
+            Array indexes correspond to permission bit numbers in the access control entries.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata.PermissionDisplayStrings">
+            <summary>
+            Localized display strings for permissions that can be set on an AccessControlList.
+            </summary>
+            <remarks>
+            Array indexes correspond to permission bit numbers in the access control entries.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata.PermissionNames">
+            <summary>
+            Programmatic names of permissions that can be set on an AccessControlList,
+            e.g. "Read", "ManagePermissions".
+            </summary>
+            <remarks>
+            Array indexes correspond to permission bit numbers in the access control entries.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.AccessControlListMetadata.PermissionRequirements">
+            <summary>
+            Map from permission names to bit maps indicating other permissions that are 
+            required to be granted (for a given identity) when the requiring permissions are 
+            granted.
+            </summary>
+            <remarks>
+            Only contains values for permissions that require one or more other permissions.
+            "Granted" means that a permission is allowed and not denied. Thus, if a permission 
+            is allowed, the system may require that all permissions it requires are allowed,
+            and if a permission is denied, the system may require that all permissions that
+            require it are also denied.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ExtendedAccessControlListData">
+            <summary>
+            Used to transport an access control list and associated metadata over a webservice.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ExtendedAccessControlListData.InheritPermissions">
+            <summary>
+            True if this access control list inherits permissions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ExtendedAccessControlListData.IsEditable">
+            <summary>
+            Whether the AccessControlList is editable, based on the credentials used to
+            retrieve it.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ExtendedAccessControlListData.Metadata">
+            <summary>
+            Access control list metadata. Contains one entry for each object class
+            for which permissions are supported by the service from which this data
+            is obtained.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ExtendedAccessControlListData.Permissions">
+            <summary>
+            The permissions set on within this access control list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ExtendedAccessControlListData.Token">
+            <summary>
+            The token this access control list applies to.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.QuerySortOrderEntry">
+            <summary>
+            Summary description for QuerySortOrderEntry.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RequiredPermissions">
+            <summary>
+            Map from a permission name to a bit map indicating other permissions that are 
+            required to be granted (for a given identity) when the requiring permission is
+            granted.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RequiredPermissions.PermissionName">
+            <summary>
+            Permission name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RequiredPermissions.RequiredPermissionBits">
+            <summary>
+            Bit map of required permission bits.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection">
+            <summary>
+            A collection of tabular data to be transmitted from the server
+            </summary>
+            <summary>
+            Represents a collection of tabular data received by the proxy
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection.m_rowSetList">
+            <summary>
+            Supports index based access to the rowsets within this collection
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection.m_rowSetDictionary">
+            <summary>
+            Supports name based access to the rowsets within this collection
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection.Item(System.Int32)">
+            <summary>
+            Accessor for a logical table, or rowset, of data
+            </summary>
+            <param name="index">zero based offset of the rowset within the collection</param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection.Item(System.String)">
+            <summary>
+            Accessor for a logical table, or rowset, of data
+            </summary>
+            <param name="name">name of the rowset</param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection.Count">
+            <summary>
+            Numbe rof rowsets in this collection
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RetryHandler">
+            <summary>
+            Helper class to manage retries
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RetryHandler.#ctor(Microsoft.TeamFoundation.WorkItemTracking.Proxy.RetryTypes)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RetryHandler.HandleSoapException(System.Web.Services.Protocols.SoapException)">
+            <summary>
+            Handle soapexceptions thrown to the proxy
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RetryHandler.RandomSleep">
+            <summary>
+            Sleep for a random amount of time. The random-ness is typically for the deadlock 
+            case, where regular sleep for the same amount of time can cause deadlocks to
+            reoccur, if all deadlocked clients retry after the same interval. We'll use
+            the same algorithm for all retries.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RetryHandler.IsStaleViewError(System.Int32)">
+            <summary>
+            Check if the error corresponds to a "stale-view" error on the server
+            </summary>
+            <returns>the new object</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RetryHandler.GetErrorId(System.Web.Services.Protocols.SoapException)">
+            <summary>
+            Gets errorid from a soapexception
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet">
+            <summary>
+            Summary description for RowSet.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.m_name">
+            <summary>
+            Name of this rowset
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.m_columnNames">
+            <summary>
+            The names of the columns
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.m_columns">
+            <summary>
+            The columns in this rowset
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.m_rows">
+            <summary>
+            The rows in this rowset
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.#ctor">
+            <summary>
+            Create an empty rowset
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.Name">
+            <summary>
+            Rowset name accessor
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.Columns">
+            <summary>
+            Column accessor
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.RowCount">
+            <summary>
+            The number of rows in the set
+            </summary>
+            <value>The number of rows in the set</value>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.ColumnCount">
+            <summary>
+            The number of columns in each row
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.Item(System.Int32)">
+            <summary>
+            The name of a column
+            </summary>
+            <param name="column">the column index</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.Item(System.Int32,System.Int32)">
+            <summary>
+            An individual cell value
+            </summary>
+            <param name="column">the column index</param>
+            <param name="row">the row index</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.Item(System.String,System.Int32)">
+            <summary>
+            An individual cell value
+            </summary>
+            <param name="column">the column name</param>
+            <param name="row">the row index</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet.SwapRows(System.Int32,System.Int32)">
+            <summary>
+            Exchange the positions of two rows in the set
+            </summary>
+            <param name="row1">index of the first row</param>
+            <param name="row2">index of the second row</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetColumn">
+            <summary>
+            Encapsualtes information about a column within a rowset
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetColumn.m_name">
+            <summary>
+            Name of the column
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetColumn.m_dataType">
+            <summary>
+            Type of the data to be found in this column
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetColumn.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetColumn.Name">
+            <summary>
+            Name of the column
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetColumn.DataType">
+            <summary>
+            Type of the data to be found in the column
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetRow">
+            <summary>
+            An individual row of data in a rowset
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetRow.m_values">
+            <summary>
+            The data values themselves
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetRow.m_rowSet">
+            <summary>
+            THe rowset this row is part of
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetRow.#ctor(Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSet)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="rowSet">The rowset this row is part of</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetRow.Item(System.Int32)">
+            <summary>
+            Data value accessor
+            </summary>
+            <param name="index">The zero based index of the column</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemRowSets">
+            <summary>
+            Summary description for WorkItemRowSets.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer">
+            <summary>
+            Client side proxy for the Currituck middle tier web service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetWorkitemTrackingVersion(System.String)">
+            <summary>
+            Retrieves the middle tier version.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <returns>the version string e.g. 8.3600.0.0</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.StampWorkitemCache(System.String)">
+            <summary>
+            Updates the Db Stamp to force new download of metadata cache
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetWorkItem(System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.DateTime},System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IWorkItemRowSets@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Retrieve an individual work item.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="workItemId">ID of the work item</param>
+            <param name="revisionId">revision of the workitem desired</param>
+            <param name="minimumRevisionId">lowest revision to return</param>
+            <param name="asOfDate">point in time to evaluate information for</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="workItem">result rowsets returned to caller</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.QueryWorkitemRevisions(System.String,System.Xml.XmlElement,Microsoft.TeamFoundation.WorkItemTracking.Proxy.QuerySortOrderEntry[],System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IdRevisionPair[]@,System.DateTime@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Run a query.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="psQuery">XML query</param>
+            <param name="sort">columns to sort by and their direction of sort</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="pairs">workitem ID + Revision pairs.</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.QueryWorkitems(System.String,System.Xml.XmlElement,Microsoft.TeamFoundation.WorkItemTracking.Proxy.QuerySortOrderEntry[],System.Boolean,System.Int32[]@,System.DateTime@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Run a query.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="psQuery">XML query</param>
+            <param name="sort">columns to sort by and their direction of sort</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="ids">workitem IDs that satisfy the query</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.QueryLinkedWorkitems(System.String,System.Xml.XmlElement,Microsoft.TeamFoundation.WorkItemTracking.Proxy.QuerySortOrderEntry[],System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemRelation[]@,System.DateTime@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Run a query.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="psQuery">XML query</param>
+            <param name="sort">columns to sort by and their direction of sort</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="ids">workitem IDs that satisfy the query</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.PageWorkitemsByIds(System.String,System.Int32[],System.String[],System.Int32[],System.Nullable{System.DateTime},System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IPagedItemsRowSets@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Retrieve partial information from a number of work items
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="ids">IDs of the work items to retrieve information for</param>
+            <param name="columns">Names of the columns to retrieve</param>
+            <param name="longTextColumns">Names of the long text columns to retrieve</param>
+            <param name="asOfDate">Point in time for which the infromation should be retrieved</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="items">Result rowsets returned to caller</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="metadata">metadata updates returned</param>
+            <remarks>Typically used to page in the results of running a query; hence the name</remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.PageWorkitemsByIdRevs(System.String,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IdRevisionPair[],System.String[],System.Int32[],System.Nullable{System.DateTime},System.DateTime@,System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IPagedItemsRowSets@)">
+            <summary>
+            Retrieve partial information from a number of work items
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="pairs">ID/Revision pairs of the work items to retrieve information for</param>
+            <param name="columns">Names of the columns to retrieve</param>
+            <param name="asOfDate">Point in time for which the infromation should be retrieved</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="items">Result rowsets returned to caller</param>
+            <remarks>Typically used to page in the results of running a query; hence the name</remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.QueryWorkitemCount(System.String,System.Xml.XmlElement,System.Boolean,System.Int32@,System.DateTime@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Run a query that returns a count
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="psQuery">XML query</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="count">result of the query</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetMetadata(System.String,System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@,System.Int32@,System.Int32@,System.String@)">
+            <summary>
+            Retrieve metadata changes
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetMetadataEx(System.String,System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@,System.Int32@,System.Int32@,System.String@,System.String@)">
+            <summary>
+            Retrieve metadata changes
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+            <param name="callerIdentity">nt4-style name of caller as recognized by WS</param>
+            <param name="callerIdentitySid">SID of caller as recognized by WS</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetMetadataEx2(System.String,System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Retrieve metadata changes
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.BulkUpdate(System.String,System.Xml.XmlElement,System.Xml.XmlElement@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Process a package of bulk workitem updates to the database.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="package">XML package containing the updates</param>
+            <param name="result">XML results from processing the update package</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.Update(System.String,System.Xml.XmlElement,System.Xml.XmlElement@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.MetadataTableHaveEntry[],System.String@,Microsoft.TeamFoundation.WorkItemTracking.Proxy.IMetadataRowSets@)">
+            <summary>
+            Process a package of updates to the database.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="package">XML package containing the updates</param>
+            <param name="result">XML results from processing the update package</param>
+            <param name="metadataHave">tables to get updates for and the revisions already possessed</param>
+            <param name="dbStamp">guid to validate db consistency</param>
+            <param name="metadata">metadata updates returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.UploadFile(Microsoft.TeamFoundation.WorkItemTracking.Proxy.FileAttachment)">
+            <summary>
+            Upload file attachments via http POST method
+            </summary>
+            <param name="fileAttachment">File attachment structure, containing file stream and other info</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.DownloadFile(System.Int32)">
+            <summary>
+            Download file attachments via http GET method
+            </summary>
+            <param name="fileAttachment">File attachment structure, containing file stream and other info</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetStoredQuery(System.String,System.Boolean,System.Guid,Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection@)">
+            <summary>
+            Retrieve a specific stored query by guid
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="queryId">the guid of the query to retrieve</param>
+            <param name="queryDataSet">the query returned</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetStoredQueries(System.String,System.Boolean,System.Int64,System.Int32,Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection@)">
+            <summary>
+            Retrieve a specific stored query by guid
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="rowVersion">the row version marker for incremental gets</param>
+            <param name="projectId">the project id to get queries for - 0 is x proj</param>
+            <param name="queryiesDataSet">DataSet containing the queries retrieved</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetStoredQueryItems(System.String,System.Int64,System.Int32,Microsoft.TeamFoundation.WorkItemTracking.Proxy.RowSetCollection@)">
+            <summary>
+            Retrieve the set of stored query items
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="useMaster">whether to use the master R/W database when DB replication is employed</param>
+            <param name="rowVersion">the row version marker for incremental gets</param>
+            <param name="projectId">the project id to get queries for - 0 is x proj</param>
+            <param name="queryiesDataSet">DataSet containing the queries retrieved</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetDestroyedWorkItemIds(System.String,System.Int64)">
+            <summary>
+            An enumerable of work items IDs that have been destroyed, ordered by the database rowversion at the time they were destroyed.
+            <param name="rowVersion">
+            The maximum row version seen by the client thus far.
+            </param>
+            <returns>Id/Rowversion pairs for all items destroyed since the requested rowversion (in ascending order by rowversion)</returns>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetChangedWorkItemIds(System.String,System.Int64)">
+            <summary>
+            An enumerable of work items IDs that have been changed, ordered by the database rowversion at the time they were changed.
+            <param name="rowVersion">
+            The maximum row version seen by the client thus far.
+            </param>
+            <returns>Id/Rowversion pairs for all items changed since the requested rowversion (in ascending order by rowversion)</returns>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetWorkItemLinkChanges(System.String,System.Int64)">
+            <summary>
+            An enumerable of work items link changes, ordered by the database rowversion at the time they were changed.
+            <param name="rowVersion">
+            The maximum row version seen by the client thus far.
+            </param>
+            <returns>All work item link changes since the requested rowversion (in ascending order by rowversion)</returns>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetStoredQueryItemAccessControlList(System.String,System.Guid,System.Boolean)">
+            <summary>
+            Get the current permissions for the given query item, including inherited
+            permissions if any.
+            AccessControlListData.Token will contain the GUID of the query or folder for 
+            which permissions are being returned.  Inherited permissions will be returned 
+            in AccessControlEntry.ExtendedInfo.
+            
+            This method will return an exception if the caller is not a TFS admin or 
+            does not have at least Read permission for the query item.
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="queryItemId">
+            The id of the query item for which to get permissions. May be Guid.Empty
+            (for example, if only metadata is desired), in which case AccessControlListData
+            will be null.
+            </param>
+            <param name="getMetadata">
+            Whether to return the permission metadata. If false, Metadata will be null.
+            </param>
+            <returns>permission data</returns>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.RequestCancel(System.String,System.String)">
+            <summary>
+            Attempt to cancel an exisiting request
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="cancelRequestId">ID of the request to be cancelled</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.SyncExternalStructures(System.String,System.String)">
+            <summary>
+            Sync project strucutre from BIS for the specified project
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+            <param name="projectURI">URI of the project to Sync</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.SyncBisGroupsAndUsers(System.String,System.String)">
+            <summary>
+            Syncs down the Bis groups and users into Currituck DB.
+            </summary>
+            <param name="requestId">ID for this request - a uuid uri</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetReferencingWorkitemUris(System.String,System.String)">
+            <summary>
+            Returns string array of Workitem Id's that reference the give URI
+            </summary>
+            <param name="requestId">artifact uri</param>
+            <returns>array of workitem id's that refer to this URI</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetWorkItemIdsForArtifactUris(System.String[],System.Nullable{System.DateTime})">
+            <summary>
+            Return an IEnumberable of workitem ids arrays for each item in artifactUris.
+            </summary>
+            <param name="requestId">artifact uri</param>
+            <returns>array of workitem id's that refer to this URI</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.DestroyAttachments(System.String,System.Int32[])">
+            <summary>
+            Destroy attachments for the given work items.
+            </summary>
+            <param name="workItemIds">array of work item ids.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.NewRequestId">
+            <summary>
+            Helper method that creates a new request ID
+            </summary>
+            <returns>a new request ID</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.ValidateRequestId(System.String)">
+            <summary>
+            Check the supplied request ID is valid
+            </summary>
+            <param name="requestId">request ID to check</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetStreamingProxy">
+            <summary>
+            Creates and initializes a new ClientStreamingProxy instance that 
+            allow data to be recieved in a streaming fashion
+            </summary>
+            <param name="requestId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.GetConfigurationProxy">
+            <summary>
+            Create and initialize a new ConfigurationSettingsService proxy instance.
+            </summary>
+            <returns>the new object</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.IncRequestCount">
+            <summary>
+            IncRequestCount
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.m_tfs">
+            <summary>
+            TfsTeamProjectCollection object used to properly create connections.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.m_replicationHeaders">
+            <summary>
+            Replication headers shared between requests
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.BufferSize">
+            <summary>
+            Buffer size for file upload
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.TimeOut">
+            <summary>
+            Default timeout 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.FileTimeOut">
+            <summary>
+            Default file upload/download timeout 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.m_requestCount">
+            <summary>
+            static request count
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.m_maxAttachmentSize">
+            <summary>
+            Maximum attachment upload size
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.m_attachmentSizeLimitForBuffering">
+            <summary>
+            file size limit. if size > limit we do not use writestreambuffering for perf
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.WorkItemServer.m_maxAttachmentIsCached">
+            <summary>
+            Keep track if the max attachment has been cached yet
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.#cctor">
+            Creates the resource manager instance.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.Get(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.GetInt(System.String)">
+            Returns a localized integer given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.GetBool(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.Format(System.String,System.Object[])">
+            A little helper function to alleviate some typing associated with loading resources and
+            formatting the strings.  In DEBUG builds, it also asserts that the number of format
+            arguments and the length of args match.
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.ErrorBisMiddleTierNotRegistered">
+            <summary>
+            TF26176: Could not connect to the specified Azure DevOps Server collection URL. Please check the URL and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.InvalidRequestId">
+             <summary>
+             The request ID was blank o
+            
+             Invalid request ID.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.StreamDoesNotSupportLength">
+            <summary>
+            Stream provided for attachment does not support length property.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.HTTPStatusCode">
+            <summary>
+            HTTP Status Code : {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.HTTPStatusCodeAndDescription">
+            <summary>
+            HTTP Status Code : {0} - {1}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.ParameterNotNullOrEmpty">
+            <summary>
+            TF51575:  The value supplied for {0} cannot be null or empty.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.UnexpectedColumnType">
+            <summary>
+            Work Item Tracking Proxy does not know how to parse {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.WriteXmlNotImplemented">
+            <summary>
+            WriteXml is not implemented by {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Proxy.ResourceStrings.BadQuery">
+            <summary>
+            TF269000: You cannot pass a query string for linked work items to the QueryWorkItems method.
+            </summary>
+        </member>
+    </members>
+</doc>

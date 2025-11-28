@@ -1,0 +1,773 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.ProjectManagement</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationVersion">
+            <summary>
+            The common settings version.
+            </summary>
+            <remarks>
+            Keeps this enum aligned with the get/set settings services. Each version
+            of the settings should have its corresponding web service.
+            Additionally, each version should have its corresponding 'CommonSettingsConverter'
+            to downcast itself to the IMMEDIATE previous version of the setting.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter">
+            <summary>
+            The base class of all common settings converters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter.#ctor(Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationVersion,Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="supportedVersion">The version of the settings that's supported by this converter.</param>
+            <param name="nextConverter">(optional) The converter to be chained to this one (typically the one for the immediate previous version
+            of the setting).</param>                                                                                      
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter.Convert(Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration,Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationVersion)">
+            <summary>
+            Converts the configuration to the target version.
+            </summary>
+            <param name="config">The configuration to be converted.</param>
+            <param name="targetVersion">The target version of the configuration.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter.Convert(Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration,Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationVersion)">
+            <summary>
+            Converts the configuration to the target version.
+            </summary>
+            <param name="config">The configuration to be converted.</param>
+            <param name="targetVersion">The target version of the configuration.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter.DoConversion(Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration)">
+            <summary>
+            The actual work of converting this version of the configuration to the immediate previous one.
+            </summary>
+            <param name="config">The configuration to be converted.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter.DoConversion(Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration)">
+            <summary>
+            The actual work of converting this version of the configuration to the immediate previous one.
+            </summary>
+            <param name="config">The configuration to be converted.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverterFactory.CreateConverterChain(Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationVersion)">
+            <summary>
+            Creates a chain of converters that can convert the current version of
+            the common settings to any previous version.
+            </summary>
+            <returns>The chained converter.</returns>
+            <remarks>
+            Update this factory implementation whenever a newer version of the settings
+            is introduced. For instance, when V4 is introduced, this should look like:
+                CommonSettingsConverter converter = new V4CommonProjectConfigurationConverter(
+                    new V3CommonProjectConfigurationConverter(
+                        new V2CommonProjectConfigurationConverter()));
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProcessConfigurationHelpers">
+            <summary>
+            Static helper methods for handling the project ProcessConfiguration objects
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProcessConfigurationHelpers.LoadCommonConfiguration(Microsoft.TeamFoundation.Client.TfsTeamProjectCollection,System.String)">
+            <summary>
+            Creates a CommonProjectConfiguration object from an XML definition
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProcessConfigurationHelpers.LoadAgileConfiguration(Microsoft.TeamFoundation.Client.TfsTeamProjectCollection,System.String)">
+            <summary>
+            Creates an AgileProjectConfiguration object from an XML definition
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProcessConfigurationHelpers.LoadProcessConfiguration(Microsoft.TeamFoundation.Client.TfsTeamProjectCollection,System.String)">
+            <summary>
+            Creates an ProjectProcessConfiguration object from an XML definition
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProcessConfigurationHelpers.GetConfigurationObject``1(System.String,System.String,System.Func{System.Xml.XmlReader,``0})">
+            <summary>
+            Constructs a Process Configuration object from xml
+            </summary>
+            <typeparam name="T">Type of the process configuration object to create</typeparam>
+            <param name="fileName">data for the object of type T</param>
+            <param name="creator">delegate used to actually create the object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProcessConfigurationHelpers.GetReaderSettings(System.String)">
+            <summary>
+            The necessary settings to create an XmlReader capable of validating
+            against our schema.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProcessConfigurationHelpers.GetSchema(System.String)">
+            <summary>
+            Load the specified schema from the resources.
+            </summary>
+            <remarks>
+            This schema is compiled as a resource into the same assembly as this class.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService">
+            <summary>
+            Public interface for the ProcessConfigurationService web service.  Allows for process configuration items (such as task board/backlog settings)
+            to be set/retrieved/validated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.SupportsProcessConfiguration">
+            <summary>
+            Flag to indicate if we support getting/setting the ProjectProcessConfiguration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.SupportsProperties">
+            <summary>
+            Flag to indicate if we support Properties section.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.GetCommonConfiguration(System.String)">
+            <summary>
+            Retrieves the Common process configuration for a Team Project
+            </summary>
+            <param name="projectUri">The uri of the team project the settings are associated with</param>
+            <returns>The common process configuration settings for the specified team project</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.SetCommonConfiguration(System.String,Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration)">
+            <summary>
+            Called to set the Common process configuration for a Team Project
+            </summary>
+            <param name="projectUri">The uri of the project to associate these settings with</param>
+            <param name="commonConfiguration">The common process configuration for the specified project</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.ValidateCommonConfiguration(System.String,Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration)">
+            <summary>
+            Called to validate that the specified Common configuration is valid.  Performs a deep validation
+            if the projectUri is specified and will verify that specified fields exist, for example.  If the
+            project name is not specified it will do a shallow validation.
+            </summary>
+            <param name="projectUri">The uri of the project to validate the settings against.  May be null</param>
+            <param name="commonConfiguration">The common process configuration for the specified project</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.GetAgileConfiguration(System.String)">
+            <summary>
+            Retrieves the Agile process configuration for a Team Project
+            </summary>
+            <param name="projectUri">The uri of the team project the settings are associated with</param>
+            <returns>The agile process configuration settings for the specified team project</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.SetAgileConfiguration(System.String,Microsoft.TeamFoundation.ProcessConfiguration.Client.AgileProjectConfiguration)">
+            <summary>
+            Called to set the Agile process configuration for a Team Project
+            </summary>
+            <param name="projectUri">Name of the project to associate these settings with</param>
+            <param name="agileConfiguration">The agile process configuration for the specified project</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.ValidateAgileConfiguration(System.String,Microsoft.TeamFoundation.ProcessConfiguration.Client.AgileProjectConfiguration)">
+            <summary>
+            Called to validate that the specified Agile configuration is valid.  Performs a deep validation
+            if the projectUri is specified and will verify that specified fields exist, for example.  If the
+            project name is not specified it will do a shallow validation.
+            </summary>
+            <param name="projectUri">Name of the project to validate the settings against.  May be null</param>
+            <param name="agileConfiguration">The agile process configuration for the specified project</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.GetProcessConfiguration(System.String)">
+            <summary>
+            Called to get the project process configuration for a Team Project
+            </summary>
+            <param name="projectUri">Name of the project to validate the settings against.  May be null</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.SetProcessConfiguration(System.String,Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration)">
+            <summary>
+            Called to set the project process configuration for a Team Project
+            </summary>
+            <param name="projectUri">Name of the project to validate the settings against.  May be null</param>
+            <param name="processConfiguration">The project process configuration for the specified project</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfigurationService.ValidateProcessConfiguration(System.String,Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration)">
+            <summary>
+            Called to validate that the specified project process configuration is valid.  Performs a deep validation
+            if the projectUri is specified and will verify that specified fields exist, for example.  If the
+            project name is not specified it will do a shallow validation.
+            </summary>
+            <param name="projectUri">Name of the project to validate the settings against.  May be null</param>
+            <param name="processConfiguration">The project process configuration for the specified project</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectConfigurationServiceVersion">
+            <summary>
+            Server version of Project Configuration Service.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.AddPanelConfiguration">
+            <summary>
+            Add panel configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.AddPanelConfiguration.Fields">
+            <summary>
+            Fields of the add Panel
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.AgileProjectConfiguration">
+            <summary>
+            Project configuration settings for the agile features.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.AgileProjectConfiguration.IterationBacklog">
+            <summary>
+            Iteration Backlog
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.AgileProjectConfiguration.ProductBacklog">
+            <summary>
+            Product Backlog configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.BacklogCategoryConfiguration.Columns">
+            <summary>
+            Columns definitions
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.BacklogCategoryConfiguration.ParentCategoryReferenceName">
+            <summary>
+            Plural Name of the category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.BacklogCategoryConfiguration.WorkItemCountLimit">
+            <summary>
+            A hard limit on the number of work items that will be displayed on the agile boards
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CategoryConfiguration.CategoryReferenceName">
+            <summary>
+            Category Name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CategoryConfiguration.PluralName">
+            <summary>
+            Plural Name of the category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CategoryConfiguration.SingularName">
+            <summary>
+            Plural Name of the category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CategoryConfiguration.States">
+            <summary>
+            States associated with Workitem category
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.Column">
+            <summary>
+            Used to store information about columns used in the Product Backlog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.Column.ColumnWidth">
+            <summary>
+            The width of the column in pixels.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.Column.FieldName">
+            <summary>
+            The name of the WIT field.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration">
+            <summary>
+            Contains common configuration values used to allow customization of the process template.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.BugWorkItems">
+            <summary>
+            Bug Workitem Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.FeedbackRequestWorkItems">
+            <summary>
+            Feedback Request Workitems Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.FeedbackResponseWorkItems">
+            <summary>
+            Feedback Response Workitems Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.FeedbackWorkItems">
+            <summary>
+            Feedback Workitems Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.RequirementWorkItems">
+            <summary>
+            Parent Workitem Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.TaskWorkItems">
+            <summary>
+            Child Workitem Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.TypeFields">
+            <summary>
+            Fields Associated with the project configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration.Weekends">
+            <summary>
+            Weekends
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum">
+            <summary>
+            Field Cateogries.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.Activity">
+            <summary>
+            Activity field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.ApplicationLaunchInstructions">
+            <summary>
+            Application launch instruction field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.ApplicationStartInformation">
+            <summary>
+            Application start info field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.ApplicationType">
+            <summary>
+            Application Type field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.ClosedDate">
+            <summary>
+            closed date field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.Effort">
+            <summary>
+            effort field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.FeedbackNotes">
+            <summary>
+            Feedback notes field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.Order">
+            <summary>
+            order field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.RemainingWork">
+            <summary>
+            remaining work field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.Requestor">
+            <summary>
+            Requested By field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.FieldTypeEnum.Team">
+            <summary>
+            team field
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum">
+            <summary>
+            Represents the possible categories available for each taskboard and PBL state.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.Complete">
+            <summary>
+            Complete state (i.e. "done")
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.Declined">
+            <summary>
+            Requested or received feedback has been declined.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.InProgress">
+            <summary>
+            In-progress state (i.e. "inprogress")
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.Proposed">
+            <summary>
+            Proposed state (i.e. "todo")
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.Received">
+            <summary>
+            Requested feedback has been received.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.Requested">
+            <summary>
+            Feedback has been requested.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.Resolved">
+            <summary>
+            Bug has been resolved
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProcessConfiguration.Client.StateTypeEnum.Reviewed">
+            <summary>
+            Received feedback has been reviewed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.Field">
+            <summary>
+            Field info
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.Field.Name">
+            <summary>
+            Reference Name of the field
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.IterationBacklogConfiguration.Columns">
+            <summary>
+            Columns definitions
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.IterationBacklogConfiguration.WorkItemCountLimit">
+            <summary>
+            A hard limit on the number of work items that will be displayed on the agile boards
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProductBacklogConfiguration">
+            <summary>
+            product backlog configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProductBacklogConfiguration.AddPanel">
+            <summary>
+            AddPanel
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProductBacklogConfiguration.Columns">
+            <summary>
+            Columns definitions
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration">
+            <summary>
+            Contains process configuration values for a team project.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.BugWorkItems">
+            <summary>
+            Bug Workitem Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.FeedbackRequestWorkItems">
+            <summary>
+            Feedback Request Workitems Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.FeedbackResponseWorkItems">
+            <summary>
+            Feedback Response Workitems Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.FeedbackWorkItems">
+            <summary>
+            Feedback Workitems Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.PortfolioBacklogs">
+            <summary>
+            Portfolio backlogs level, listed in hierarchical order.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.RequirementBacklog">
+            <summary>
+            Requirement Backlog Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.TaskBacklog">
+            <summary>
+            Task Backlog Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.TypeFields">
+            <summary>
+            Fields Associated with the project configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.Weekends">
+            <summary>
+            Weekends
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.Properties">
+            <summary>
+            Project Properties
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.WorkItemColors">
+            <summary>
+            Fields Associated with the project configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.ReleaseWorkItems">
+            <summary>
+            Release Workitem Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.ReleaseStageWorkItems">
+            <summary>
+            Stage Workitem Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration.StageSignoffTaskWorkItems">
+            <summary>
+            Release Workitem Category
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.State">
+            <summary>
+            Used to store information about states used in both the Product Backlog and the Taskboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.State.Type">
+            <summary>
+            Gets or sets the type, or category, of the state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.State.Value">
+            <summary>
+            Gets or sets the textual value for the state.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamConfiguration">
+            <summary>
+            Contains team setting.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamConfiguration.IsDefaultTeam">
+            <summary>
+            Indicates whether the team is the "default team" for the team project
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamConfiguration.ProjectUri">
+            <summary>
+            The Project Uri of the team project which the team belongs to
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamConfiguration.TeamId">
+            <summary>
+            The identifier for the team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamConfiguration.TeamName">
+            <summary>
+            The team name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamConfiguration.TeamSettings">
+            <summary>
+            The team settings
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamFieldValue">
+            <summary>
+            Contains the details for a single team field value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamFieldValue.IncludeChildren">
+            <summary>
+            Indicates whether children nodes should be included if the team field supports hierarchy
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamFieldValue.Value">
+            <summary>
+            Value of a string-comparable work item field
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettings">
+            <summary>
+            Contains team setting.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettings.BacklogIterationPath">
+            <summary>
+            Work Item Tracking iteration path for the team's backlog iteration (or null if none is set)
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettings.CurrentIterationPath">
+            <summary>
+            Work Item Tracking iteration path for the team's current iteration (or null if none is set).
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettings.IterationPaths">
+            <summary>
+            Team Iterations. The set of Work Item Tracking iteration paths that the team participates in
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettings.TeamField">
+            <summary>
+            The refname of the "team field". Could be null if the team field has not been set on the project
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettings.TeamFieldValues">
+            <summary>
+            Team Field values. The value at index 0 is the default value. Could be an empty array
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.TypeField">
+            <summary>
+            Field info
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TypeField.Format">
+            <summary>
+            Format for field
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TypeField.Type">
+            <summary>
+            Type of the field
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TypeField.TypeFieldValues">
+            <summary>
+            Values associated with the field
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.TypeFieldValue">
+            <summary>
+            TypeField value info
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TypeFieldValue.Type">
+            <summary>
+            Gets or sets the type, or category, of the field's value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.TypeFieldValue.Value">
+            <summary>
+            Gets or sets the textual value for the field's value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.WorkItemCategory">
+            <summary>
+            A Workitem Category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.WorkItemCategory.CategoryName">
+            <summary>
+            Category Name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.WorkItemCategory.PluralName">
+            <summary>
+            Plural Name of the category
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProcessConfiguration.Client.WorkItemCategory.States">
+            <summary>
+            States associated with Workitem category
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettingsConfigurationService">
+            <summary>
+            Public interface for the TeamConfigurationService web service.
+            Allows for team configuration items (such as product backlog path, team fields) to be set and retrieved.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettingsConfigurationService.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettingsConfigurationService.Microsoft#TeamFoundation#Client#ITfsTeamProjectCollectionObject#Initialize(Microsoft.TeamFoundation.Client.TfsTeamProjectCollection)">
+            <summary>
+            Initializes the service.
+            </summary>
+            <param name="teamProjectCollection"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettingsConfigurationService.GetTeamConfigurations(System.Collections.Generic.IEnumerable{System.Guid})">
+            <summary>
+            Get the team settings for a set of teams
+            </summary>
+            <param name="teamIds">The team ids for the teams to retrieve</param>
+            <returns>Team settings for each team requested. </returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettingsConfigurationService.GetTeamConfigurationsForUser(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get the team settings for teams that the current user/identity is a member of (scoped to a set of team projects)
+            </summary>
+            <param name="projectUris">The project uris that will be used to filter the teams that are returned.</param>
+            <returns>A collection of team settings for each team that the user is a member of within the given projects</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettingsConfigurationService.SetTeamSettings(System.Guid,Microsoft.TeamFoundation.ProcessConfiguration.Client.TeamSettings)">
+            <summary>
+            Set the team settings for a given team
+            </summary>
+            <param name="teamId">The identifier for the team group</param>
+            <param name="settings">The settings for the team</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProcessConfiguration.Client.V2CommonProjectConfigurationConverter">
+            <summary>
+            This converter drops new version specific settings so that the setting is friendly to v-1 marsheller. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.V2CommonProjectConfigurationConverter.#ctor(Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationVersion,Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfigurationConverter)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="minSupportedVersion">Minimum supported version</param>
+            <param name="nextConverter">(Optional) The converter to be chained to this one (typically the one for the immediate previous version
+            of the setting).</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.V2CommonProjectConfigurationConverter.DoConversion(Microsoft.TeamFoundation.ProcessConfiguration.Client.CommonProjectConfiguration)">
+            <summary>
+            The actual work of converting this version of the configuration to the immediate previous one.
+            </summary>
+            <param name="config">The configuration to be converted.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.ProcessConfiguration.Client.V2CommonProjectConfigurationConverter.DoConversion(Microsoft.TeamFoundation.ProcessConfiguration.Client.ProjectProcessConfiguration)">
+            <summary>
+            The actual work of converting this version of the configuration to the immediate previous one.
+            </summary>
+            <param name="config">The configuration to be converted.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.ProjectManagement.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProjectManagement.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProjectManagement.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProjectManagement.Resources.OperationNotSuported">
+            <summary>
+              Looks up a localized string similar to This operation is not supported against this version of Azure DevOps Server..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.ProjectManagement.Resources.ProcessConfigOnOldServerNotSupported">
+            <summary>
+              Looks up a localized string similar to VS402352: This process configuration is not compatible with the version of the server you are trying to update. Server does not understand the following tags: Properties.
+            </summary>
+        </member>
+    </members>
+</doc>

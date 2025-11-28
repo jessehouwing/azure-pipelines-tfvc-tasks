@@ -1,0 +1,2133 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.CreateProcessBehaviorAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorCreateRequest,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a single behavior in the given process.
+            </summary>
+            <param name="behavior"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.DeleteProcessBehaviorAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a behavior in the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="behaviorRefName">The reference name of the behavior</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetProcessBehaviorAsync(System.Guid,System.String,System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetBehaviorsExpand},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a behavior of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="behaviorRefName">The reference name of the behavior</param>
+            <param name="expand"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetProcessBehaviorsAsync(System.Guid,System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetBehaviorsExpand},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of all behaviors in the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="expand"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateProcessBehaviorAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorUpdateRequest,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Replaces a behavior in the process.
+            </summary>
+            <param name="behaviorData"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="behaviorRefName">The reference name of the behavior</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.CreateControlInGroupAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control,System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a control in a group.
+            </summary>
+            <param name="control">The control.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="groupId">The ID of the group to add the control to.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.MoveControlToGroupAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control,System.Guid,System.String,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Moves a control to a specified group.
+            </summary>
+            <param name="control">The control.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="groupId">The ID of the group to move the control to.</param>
+            <param name="controlId">The ID of the control.</param>
+            <param name="removeFromGroupId">The group ID to remove the control from.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.RemoveControlFromGroupAsync(System.Guid,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a control from the work item form.
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="groupId">The ID of the group.</param>
+            <param name="controlId">The ID of the control to remove.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateControlAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control,System.Guid,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a control on the work item form.
+            </summary>
+            <param name="control">The updated control.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="groupId">The ID of the group.</param>
+            <param name="controlId">The ID of the control.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.AddFieldToWorkItemTypeAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Adds a field to a work item type.
+            </summary>
+            <param name="field"></param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetAllWorkItemTypeFieldsAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of all fields in a work item type.
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetWorkItemTypeFieldAsync(System.Guid,System.String,System.String,System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeFieldsExpandLevel},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a field in a work item type.
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="fieldRefName">The reference name of the field.</param>
+            <param name="expand"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.RemoveWorkItemTypeFieldAsync(System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a field from a work item type. Does not permanently delete the field.
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="fieldRefName">The reference name of the field.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateWorkItemTypeFieldAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeFieldRequest,System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a field in a work item type.
+            </summary>
+            <param name="field"></param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="fieldRefName">The reference name of the field.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.AddGroupAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group,System.Guid,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Adds a group to the work item form.
+            </summary>
+            <param name="group">The group.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="pageId">The ID of the page to add the group to.</param>
+            <param name="sectionId">The ID of the section to add the group to.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.MoveGroupToPageAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group,System.Guid,System.String,System.String,System.String,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Moves a group to a different page and section.
+            </summary>
+            <param name="group">The updated group.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="pageId">The ID of the page the group is in.</param>
+            <param name="sectionId">The ID of the section the group is i.n</param>
+            <param name="groupId">The ID of the group.</param>
+            <param name="removeFromPageId">ID of the page to remove the group from.</param>
+            <param name="removeFromSectionId">ID of the section to remove the group from.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.MoveGroupToSectionAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group,System.Guid,System.String,System.String,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Moves a group to a different section.
+            </summary>
+            <param name="group">The updated group.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="pageId">The ID of the page the group is in.</param>
+            <param name="sectionId">The ID of the section the group is in.</param>
+            <param name="groupId">The ID of the group.</param>
+            <param name="removeFromSectionId">ID of the section to remove the group from.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.RemoveGroupAsync(System.Guid,System.String,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a group from the work item form.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="pageId">The ID of the page the group is in</param>
+            <param name="sectionId">The ID of the section to the group is in</param>
+            <param name="groupId">The ID of the group</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateGroupAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group,System.Guid,System.String,System.String,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a group in the work item form.
+            </summary>
+            <param name="group">The updated group.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="pageId">The ID of the page the group is in.</param>
+            <param name="sectionId">The ID of the section the group is in.</param>
+            <param name="groupId">The ID of the group.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetFormLayoutAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets the form layout.
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.CreateListAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickList,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a picklist.
+            </summary>
+            <param name="picklist">Picklist</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.DeleteListAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a picklist.
+            </summary>
+            <param name="listId">The ID of the list</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetListAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a picklist.
+            </summary>
+            <param name="listId">The ID of the list</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetListsMetadataAsync(System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns meta data of the picklist.
+            </summary>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateListAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickList,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a list.
+            </summary>
+            <param name="picklist"></param>
+            <param name="listId">The ID of the list</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.AddPageAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Adds a page to the work item form.
+            </summary>
+            <param name="page">The page.</param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.RemovePageAsync(System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a page from the work item form
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="pageId">The ID of the page</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdatePageAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a page on the work item form
+            </summary>
+            <param name="page">The page</param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.CreateNewProcessAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessModel,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a process.
+            </summary>
+            <param name="createRequest">CreateProcessModel.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.DeleteProcessByIdAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a process of a specific ID.
+            </summary>
+            <param name="processTypeId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.EditProcessAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessModel,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Edit a process of a specific ID.
+            </summary>
+            <param name="updateRequest"></param>
+            <param name="processTypeId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetListOfProcessesAsync(System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetProcessExpandLevel},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get list of all processes including system and inherited.
+            </summary>
+            <param name="expand"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetProcessByItsIdAsync(System.Guid,System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetProcessExpandLevel},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a single process of a specified ID.
+            </summary>
+            <param name="processTypeId"></param>
+            <param name="expand"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.AddProcessWorkItemTypeRuleAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessRuleRequest,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Adds a rule to work item type in the process.
+            </summary>
+            <param name="processRuleCreate"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.DeleteProcessWorkItemTypeRuleAsync(System.Guid,System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a rule from the work item type in the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="ruleId">The ID of the rule</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetProcessWorkItemTypeRuleAsync(System.Guid,System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a single rule in the work item type of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="ruleId">The ID of the rule</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetProcessWorkItemTypeRulesAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of all rules in the work item type of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateProcessWorkItemTypeRuleAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessRuleRequest,System.Guid,System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a rule in the work item type of the process.
+            </summary>
+            <param name="processRule"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="ruleId">The ID of the rule</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.CreateStateDefinitionAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateInputModel,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a state definition in the work item type of the process.
+            </summary>
+            <param name="stateModel"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.DeleteStateDefinitionAsync(System.Guid,System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a state definition in the work item type of the process.
+            </summary>
+            <param name="processId">ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="stateId">ID of the state</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetStateDefinitionAsync(System.Guid,System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a single state definition in a work item type of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="stateId">The ID of the state</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetStateDefinitionsAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of all state definitions in a work item type of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.HideStateDefinitionAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.HideStateModel,System.Guid,System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Hides a state definition in the work item type of the process.Only states with customizationType:System can be hidden.
+            </summary>
+            <param name="hideStateModel"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="stateId">The ID of the state</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateStateDefinitionAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateInputModel,System.Guid,System.String,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a given state definition in the work item type of the process.
+            </summary>
+            <param name="stateModel"></param>
+            <param name="processId">ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="stateId">ID of the state</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.DeleteSystemControlAsync(System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Deletes a system control modification on the work item form.
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="controlId">The ID of the control.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetSystemControlsAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets edited system controls for a work item type in a process. To get all system controls (base + edited) use layout API(s)
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateSystemControlAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control,System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates/adds a system control on the work item form.
+            </summary>
+            <param name="control"></param>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="controlId">The ID of the control.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.CreateProcessWorkItemTypeAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a work item type in the process.
+            </summary>
+            <param name="workItemType"></param>
+            <param name="processId">The ID of the process on which to create work item type.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.DeleteProcessWorkItemTypeAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a work item type in the process.
+            </summary>
+            <param name="processId">The ID of the process.</param>
+            <param name="witRefName">The reference name of the work item type.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetProcessWorkItemTypeAsync(System.Guid,System.String,System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetWorkItemTypeExpand},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a single work item type in a process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="expand">Flag to determine what properties of work item type to return</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetProcessWorkItemTypesAsync(System.Guid,System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetWorkItemTypeExpand},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of all work item types in a process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="expand">Flag to determine what properties of work item type to return</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateProcessWorkItemTypeAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeRequest,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a work item type of the process.
+            </summary>
+            <param name="workItemTypeUpdate"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefName">The reference name of the work item type</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.AddBehaviorToWorkItemTypeAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeBehavior,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Adds a behavior to the work item type of the process.
+            </summary>
+            <param name="behavior"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefNameForBehaviors">Work item type reference name for the behavior</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetBehaviorForWorkItemTypeAsync(System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a behavior for the work item type of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefNameForBehaviors">Work item type reference name for the behavior</param>
+            <param name="behaviorRefName">The reference name of the behavior</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.GetBehaviorsForWorkItemTypeAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of all behaviors for the work item type of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefNameForBehaviors">Work item type reference name for the behavior</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.RemoveBehaviorFromWorkItemTypeAsync(System.Guid,System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a behavior for the work item type of the process.
+            </summary>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefNameForBehaviors">Work item type reference name for the behavior</param>
+            <param name="behaviorRefName">The reference name of the behavior</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClient.UpdateBehaviorToWorkItemTypeAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeBehavior,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a behavior for the work item type of the process.
+            </summary>
+            <param name="behavior"></param>
+            <param name="processId">The ID of the process</param>
+            <param name="witRefNameForBehaviors">Work item type reference name for the behavior</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CustomizationType">
+            <summary>
+            Indicates the customization-type.  
+            Customization-type is System if is system generated or by default.
+            Customization-type is Inherited if the existing workitemtype of inherited process is customized.
+            Customization-type is Custom if the newly created workitemtype is customized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CustomizationType.System">
+            <summary>
+            Customization-type is System if is system generated workitemtype.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CustomizationType.Inherited">
+            <summary>
+             Customization-type is Inherited if the existing workitemtype of inherited process is customized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CustomizationType.Custom">
+            <summary>
+            Customization-type is Custom if the newly created workitemtype is customized.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetBehaviorsExpand">
+            <summary>
+            Expand options to fetch fields for behaviors API.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetBehaviorsExpand.None">
+            <summary>
+            Default none option.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetBehaviorsExpand.Fields">
+            <summary>
+            This option returns fields associated with a behavior.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetBehaviorsExpand.CombinedFields">
+            <summary>
+            This option returns fields associated with this behavior and all behaviors from which it inherits.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior">
+            <summary>
+            Process Behavior Model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Name">
+            <summary>
+            Behavior Name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.ReferenceName">
+            <summary>
+            Behavior Id
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Color">
+            <summary>
+            Color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Rank">
+            <summary>
+            Rank of the behavior
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Description">
+            <summary>.
+            Description
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Customization">
+            <summary>
+            Indicates the type of customization on this work item.
+            System behaviors are inherited from parent process but not modified.
+            Inherited behaviors are modified behaviors that were inherited from parent process.
+            Custom behaviors are behaviors created by user in current process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Fields">
+            <summary>
+            Process Behavior Fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Inherits">
+            <summary>
+            Parent behavior reference.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehavior.Url">
+            <summary>
+            Url of the behavior.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorCreateRequest">
+            <summary>
+            Process Behavior Create Payload.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorCreateRequest.Inherits">
+            <summary>
+            Parent behavior id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorCreateRequest.Name">
+            <summary>
+            Name of the behavior.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorCreateRequest.ReferenceName">
+            <summary>
+            ReferenceName is optional, if not specified will be auto-generated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorCreateRequest.Color">
+            <summary>
+            Color.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorField">
+            <summary>
+            Process Behavior Field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorField.Name">
+            <summary>
+            Name of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorField.ReferenceName">
+            <summary>
+            Reference name of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorField.Url">
+            <summary>
+            Url to field.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorReference">
+            <summary>
+            Process behavior Reference.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorReference.BehaviorRefName">
+            <summary>
+            Id of a Behavior.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorReference.Url">
+            <summary>
+            Url to behavior.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorUpdateRequest">
+            <summary>
+            Process Behavior Replace Payload.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorUpdateRequest.Name">
+            <summary>
+            Behavior Name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessBehaviorUpdateRequest.Color">
+            <summary>
+            Color.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeBehavior">
+            <summary>
+            Association between a work item type and it's behavior
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeBehavior.Behavior">
+            <summary>
+            Reference to the behavior of a work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeBehavior.IsDefault">
+            <summary>
+            If true the work item type is the default work item type in the behavior
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeBehavior.IsLegacyDefault">
+            <summary>
+            If true the work item type is the default work item type in the parent behavior
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeBehavior.Url">
+            <summary>
+            URL of the work item type behavior
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IBasicFieldProperties">
+            <summary>
+            Interface for basic field properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IBasicFieldProperties.ReferenceName">
+            <summary>
+            Reference name of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IBasicFieldProperties.Name">
+            <summary>
+            Name of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IBasicFieldProperties.Description">
+            <summary>
+            Description of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IBasicFieldProperties.Type">
+            <summary>
+            Type of the field.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IFieldRuleProperties">
+            <summary>
+            Interface that declares properties of a field that are derived from rules.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IFieldRuleProperties.AllowGroups">
+            <summary>
+            Allow setting field value to a group identity. Only applies to identity fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IFieldRuleProperties.DefaultValue">
+            <summary>
+            The default value of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IFieldRuleProperties.ReadOnly">
+            <summary>
+            If true the field cannot be edited.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IFieldRuleProperties.Required">
+            <summary>
+            If true the field cannot be empty.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control">
+            <summary>
+            Represent a control in the form.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Id">
+            <summary>
+            The id for the layout node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.FromInheritedLayout">
+            <summary>
+            A value indicating whether this layout node has been inherited.
+            from a parent layout.
+            
+            This is expected to only be only set by the combiner.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Overridden">
+            <summary>
+            A value indicating whether this layout node has been overridden .
+            by a child layout.
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Label">
+            <summary>
+            Label for the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Name">
+            <summary>
+            Name for the control.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.ControlType">
+            <summary>
+            Type of the control.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Order">
+            <summary>
+            Order in which the control should appear in its group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Height">
+            <summary>
+            Height of the control, for html controls.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.ReadOnly">
+            <summary>
+            A value indicating if the control is readonly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Watermark">
+            <summary>
+            Watermark text for the textbox.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Metadata">
+            <summary>
+            Inner text of the control.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Visible">
+            <summary>
+            A value indicating if the control should be hidden or not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.Contribution">
+            <summary>
+            Contribution for the control.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Control.IsContribution">
+            <summary>
+            A value indicating if the layout node is contribution or not.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Extension">
+            <summary>
+            Represents the extensions part of the layout
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Extension.Id">
+            <summary>
+            Id of the extension
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FormLayout">
+            <summary>
+            Describes the layout of a work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FormLayout.Extensions">
+            <summary>
+            Gets and sets extensions list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FormLayout.Pages">
+            <summary>
+            Top level tabs of the layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FormLayout.SystemControls">
+            <summary>
+            Headers controls of the layout.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group">
+            <summary>
+            Represent a group in the form that holds controls in it.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Id">
+            <summary>
+            The id for the layout node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.FromInheritedLayout">
+            <summary>
+            A value indicating whether this layout node has been inherited 
+            from a parent layout.
+            
+            This is expected to only be only set by the combiner.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Overridden">
+            <summary>
+            A value indicating whether this layout node has been overridden 
+            by a child layout.
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Label">
+            <summary>
+            Label for the group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Order">
+            <summary>
+            Order in which the group should appear in the section.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Contribution">
+            <summary>
+            Contribution for the group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.IsContribution">
+            <summary>
+            A value indicating if the layout node is contribution are not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Visible">
+            <summary>
+            A value indicating if the group should be hidden or not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Controls">
+            <summary>
+            Controls to be put in the group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Group.Height">
+            <summary>
+            The height for the contribution.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page">
+            <summary>
+            Describes a page in the work item form layout
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Id">
+            <summary>
+            The id for the layout node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.FromInheritedLayout">
+            <summary>
+            A value indicating whether this layout node has been inherited 
+            from a parent layout.
+            
+            This is expected to only be only set by the combiner.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Overridden">
+            <summary>
+            A value indicating whether this layout node has been overridden 
+            by a child layout.
+            
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Label">
+            <summary>
+            The label for the page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.PageType">
+            <summary>
+            The icon for the page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Locked">
+            <summary>
+            A value indicating whether any user operations are permitted on this page and the contents of this page
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Visible">
+            <summary>
+            A value indicating if the page should be hidden or not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Order">
+            <summary>
+            Order in which the page should appear in the layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Contribution">
+            <summary>
+            Contribution for the page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.IsContribution">
+            <summary>
+            A value indicating if the layout node is contribution are not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Page.Sections">
+            <summary>
+            The sections of the page.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PageType">
+            <summary>
+            Enum for the types of pages in the work item form layout
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PageType.Custom">
+            <summary>
+            Custom page type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PageType.History">
+            <summary>
+            History page type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PageType.Links">
+            <summary>
+            Link page type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PageType.Attachments">
+            <summary>
+            Attachment page type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Section">
+            <summary>
+            Defines a section of the work item form layout
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Section.Id">
+            <summary>
+            The id for the layout node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Section.Overridden">
+            <summary>
+            A value indicating whether this layout node has been overridden 
+            by a child layout.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.Section.Groups">
+            <summary>
+            List of child groups in this section
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WitContribution">
+            <summary>
+            Properties of a work item form contribution
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WitContribution.ContributionId">
+            <summary>
+            The id for the contribution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WitContribution.Height">
+            <summary>
+            The height for the contribution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WitContribution.ShowOnDeletedWorkItem">
+            <summary>
+            A value indicating if the contribution should be show on deleted workItem.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WitContribution.Inputs">
+            <summary>
+            A dictionary holding key value pairs for contribution inputs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessModel.TypeId">
+            <summary>
+            The ID of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessModel.ReferenceName">
+            <summary>
+            Reference name of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessModel.Name">
+            <summary>
+            Name of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessModel.Description">
+            <summary>
+            Description of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessModel.Properties">
+            <summary>
+            Properties of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessModel.Projects">
+            <summary>
+            Projects in this process
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessProperties">
+            <summary>
+            Properties of the process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessProperties.Class">
+            <summary>
+            Class of the process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessProperties.ParentProcessTypeId">
+            <summary>
+            ID of the parent process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessProperties.IsEnabled">
+            <summary>
+            Is the process enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessProperties.Version">
+            <summary>
+            Version of the process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessProperties.IsDefault">
+            <summary>
+            Is the process default process.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionModel">
+            <summary>
+            Action to take when the rule is triggered.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemBehaviorReference">
+            <summary>
+            Reference to the behavior of a work item type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemBehaviorReference.Id">
+            <summary>
+            The ID of the reference behavior.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemBehaviorReference.Url">
+            <summary>
+            The url of the reference behavior.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemTypeModel.Inherits">
+            <summary>
+            Parent WIT Id/Internal ReferenceName that it inherits from
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickList">
+            <summary>
+            Picklist.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickList.Items">
+            <summary>
+            A list of PicklistItemModel.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickListMetadata">
+            <summary>
+            Metadata for picklist.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickListMetadata.Id">
+            <summary>
+            ID of the picklist
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickListMetadata.Name">
+            <summary>
+            Name of the picklist
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickListMetadata.Type">
+            <summary>
+            DataType of picklist
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickListMetadata.IsSuggested">
+            <summary>
+            Indicates whether items outside of suggested list are allowed
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.PickListMetadata.Url">
+            <summary>
+            Url of the picklist
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessModel">
+            <summary>
+            Describes a process being created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessModel.Name">
+            <summary>
+            Name of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessModel.Description">
+            <summary>
+            Description of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessModel.ReferenceName">
+            <summary>
+            Reference name of process being created. If not specified, server will assign a unique reference name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessModel.ParentProcessTypeId">
+            <summary>
+            The ID of the parent process
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetProcessExpandLevel">
+            <summary>
+            The expand level of returned processes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetProcessExpandLevel.None">
+            <summary>
+            No expand level.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetProcessExpandLevel.Projects">
+            <summary>
+            Projects expand level.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo">
+            <summary>
+            Process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.TypeId">
+            <summary>
+            The ID of the process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.Name">
+            <summary>
+            Name of the process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.ReferenceName">
+            <summary>
+            Reference name of the process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.Description">
+            <summary>
+            Description of the process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.Projects">
+            <summary>
+            Projects in this process to which the user is subscribed to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.ParentProcessTypeId">
+            <summary>
+            ID of the parent process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.IsEnabled">
+            <summary>
+            Is the process enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.IsDefault">
+            <summary>
+            Is the process default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessInfo.CustomizationType">
+            <summary>
+            Indicates the type of customization on this process.
+            System Process is default process.
+            Inherited Process is modified process that was System process before.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProjectReference">
+            <summary>
+            Defines the project reference class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProjectReference.Id">
+            <summary>
+            The ID of the project
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProjectReference.Name">
+            <summary>
+            Name of the project
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProjectReference.Description">
+            <summary>
+            Description of the project
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProjectReference.Url">
+            <summary>
+            Url of the project
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessModel">
+            <summary>
+            Describes a request to update a process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessModel.Name">
+            <summary>
+            New name of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessModel.Description">
+            <summary>
+            New description of the process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessModel.IsDefault">
+            <summary>
+            If true new projects will use this process by default
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessModel.IsEnabled">
+            <summary>
+            If false the process will be disabled and cannot be used to create projects
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessRuleRequest">
+            <summary>
+             Request object/class for creating a rule on a work item type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessRuleRequest.Name">
+            <summary>
+            Name for the rule.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessRuleRequest.Conditions">
+            <summary>
+            List of conditions when the rule should be triggered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessRuleRequest.Actions">
+            <summary>
+            List of actions to take when the rule is triggered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessRuleRequest.IsDisabled">
+            <summary>
+            Indicates if the rule is disabled.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessRule">
+            <summary>
+            Process Rule Response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessRule.Id">
+            <summary>
+            Id to uniquely identify the rule.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessRule.CustomizationType">
+            <summary>
+            Indicates if the rule is system generated or created by user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessRule.Url">
+            <summary>
+            Resource Url.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleAction">
+            <summary>
+            Action to take when the rule is triggered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleAction.ActionType">
+            <summary>
+            Type of action to take when the rule is triggered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleAction.TargetField">
+            <summary>
+            Field on which the action should be taken.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleAction.Value">
+            <summary>
+            Value to apply on target field, once the action is taken.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType">
+            <summary>
+            Type of action to take when the rule is triggered.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.MakeRequired">
+            <summary>
+            Make the target field required.
+            Example : 
+            {"actionType":"$makeRequired","targetField":"Microsoft.VSTS.Common.Activity","value":""}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.MakeReadOnly">
+            <summary>
+            Make the target field read-only. 
+            Example : 
+            {"actionType":"$makeReadOnly","targetField":"Microsoft.VSTS.Common.Activity","value":""}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.SetDefaultValue">
+            <summary>
+            Set a default value on the target field. This is used if the user creates a integer/string field and sets a default value of this field. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.SetDefaultFromClock">
+            <summary>
+            Set the default value on the target field from server clock. This is used if user creates the field like Date/Time and uses default value. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.SetDefaultFromCurrentUser">
+            <summary>
+            Set the default current user value on the target field. This is used if the user creates the field of type identity and uses default value. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.SetDefaultFromField">
+            <summary>
+            Set the default value on from existing field to the target field.  This used wants to set a existing field value to the current field. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.CopyValue">
+            <summary>
+            Set the value of target field to given value.
+            Example : {actionType: "$copyValue", targetField: "ScrumInherited.mypicklist", value: "samplevalue"}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.CopyFromClock">
+            <summary>
+            Set the value from clock. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.CopyFromCurrentUser">
+            <summary>
+            Set the current user to the target field.
+            Example : {"actionType":"$copyFromCurrentUser","targetField":"System.AssignedTo","value":""}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.CopyFromField">
+            <summary>
+            Copy the value from a specified field and set to target field. 
+            Example : {actionType: "$copyFromField", targetField: "System.AssignedTo", value:"System.ChangedBy"}.
+            Here, value is copied from "System.ChangedBy" and set to "System.AssingedTo" field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.SetValueToEmpty">
+            <summary>
+            Set the value of the target field to empty. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.CopyFromServerClock">
+            <summary>
+            Use the current time to set the value of the target field.
+            Example : {actionType: "$copyFromServerClock", targetField: "System.CreatedDate", value: ""}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.CopyFromServerCurrentUser">
+            <summary>
+            Use the current user to set the value of the target field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.HideTargetField">
+            <summary>
+            Hides target field from the form. This is a server side only action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleActionType.DisallowValue">
+            <summary>
+            Disallows a field from being set to a specific value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleCondition">
+            <summary>
+            Defines a condition on a field when the rule should be triggered. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleCondition.ConditionType">
+            <summary>
+            Type of condition.
+            $When. This condition limits the execution of its children to cases when another field has a particular value, i.e. when the Is value of the referenced field is equal to the given literal value.
+            $WhenNot.This condition limits the execution of its children to cases when another field does not have a particular value, i.e.when the Is value of the referenced field is not equal to the given literal value.
+            $WhenChanged.This condition limits the execution of its children to cases when another field has changed, i.e.when the Is value of the referenced field is not equal to the Was value of that field.
+            $WhenNotChanged.This condition limits the execution of its children to cases when another field has not changed, i.e.when the Is value of the referenced field is equal to the Was value of that field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleCondition.Field">
+            <summary>
+            Field that defines condition.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleCondition.Value">
+            <summary>
+            Value of field to define the condition for rule.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType">
+            <summary>
+            Type of rule condition.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType.When">
+            <summary>
+            $When. This condition limits the execution of its children to cases when another field has a particular value, 
+            i.e. when the Is value of the referenced field is equal to the given literal value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType.WhenNot">
+            <summary>
+            $WhenNot.This condition limits the execution of its children to cases when another field does not have a particular value, 
+            i.e.when the Is value of the referenced field is not equal to the given literal value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType.WhenChanged">
+            <summary>
+            $WhenChanged.This condition limits the execution of its children to cases when another field has changed, 
+            i.e.when the Is value of the referenced field is not equal to the Was value of that field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType.WhenNotChanged">
+            <summary>
+            $WhenNotChanged.This condition limits the execution of its children to cases when another field has not changed, 
+            i.e.when the Is value of the referenced field is equal to the Was value of that field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType.WhenWas">
+            <summary>
+            $WhenWas. This condition limits the execution of its children to cases when another field value is changed from one value to another. 
+            e.g. If the condition is : When the work item state changes from New to Approved, here $WhenWas clause defines the "New" state of the workitem and $When clause defines "Approved" state.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType.WhenCurrentUserIsMemberOfGroup">
+            <summary>
+            This condition checks if current user is member of a particular group. This condition does not have any 1:1 mapping with any server side rule condition, rather this is a dummy condition
+            added for customer simplicity of understanding. This condition is later translated to a FOR membership filter . 
+            e.g. If the condition is : WhenCurrentUserIsMemberOfGroup "Approvers" then "MakeRequired" Field1.Here it translates to a For rule , "MakeRequired" for "Approvers"
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.RuleConditionType.WhenCurrentUserIsNotMemberOfGroup">
+            <summary>
+            This condition checks if current user is not member of a particular group. This condition does not have any 1:1 mapping with any server side rule condition, rather this is a dummy condition
+            added for customer simplicity of understanding. This condition is later translated to a NOT membership filter . 
+            e.g. If the condition is : WhenCurrentUserIsNotMemberOfGroup "Approvers" then "MakeRequired" Field1.Here it translates to a Not rule , "MakeRequired" not "Approvers"
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessRuleRequest">
+            <summary>
+            Request class/object to update the rule.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessRuleRequest.Id">
+            <summary>
+            Id to uniquely identify the rule.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.HideStateModel">
+            <summary>
+            Class that describes the work item state is hidden.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.HideStateModel.Hidden">
+            <summary>
+            Returns 'true', if workitem state is hidden, 'false' otherwise.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateInputModel">
+            <summary>
+            Class That represents a work item state input.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateInputModel.Name">
+            <summary>
+            Name of the state
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateInputModel.Color">
+            <summary>
+            Color of the state
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateInputModel.StateCategory">
+            <summary>
+            Category of the state
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateInputModel.Order">
+            <summary>
+            Order in which state should appear
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel">
+            <summary>
+            Class that represents a work item state result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.Id">
+            <summary>
+             Id of the Workitemstate.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.Name">
+            <summary>
+            Work item state name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.Color">
+            <summary>
+            Work item state color.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.StateCategory">
+            <summary>
+            Work item state statecategory.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.Order">
+            <summary>
+            Work item state order.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.Url">
+            <summary>
+            Work item state url.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.Hidden">
+            <summary>
+            If the Work item state is hidden.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.WorkItemStateResultModel.CustomizationType">
+            <summary>
+            Work item state customization type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest">
+            <summary>
+            Class for create work item type request
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest.Name">
+            <summary>
+            Name of work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest.Description">
+            <summary>
+            Description of the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest.Color">
+            <summary>
+            Color hexadecimal code to represent the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest.Icon">
+            <summary>
+            Icon to represent the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest.IsDisabled">
+            <summary>
+            True if the work item type need to be disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessWorkItemTypeRequest.InheritsFrom">
+            <summary>
+            Parent work item type for work item type
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetWorkItemTypeExpand">
+            <summary>
+            Flag to define what properties to return in get work item type response.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetWorkItemTypeExpand.None">
+            <summary>
+            Returns no properties in get work item type response.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetWorkItemTypeExpand.States">
+            <summary>
+            Returns states property in get work item type response.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetWorkItemTypeExpand.Behaviors">
+            <summary>
+            Returns behaviors property in get work item type response.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetWorkItemTypeExpand.Layout">
+            <summary>
+            Returns layout property in get work item type response.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType">
+            <summary>
+            Class that describes a work item type object
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.ReferenceName">
+            <summary>
+            Reference name of work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.Name">
+            <summary>
+            Name of the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.Description">
+            <summary>
+            Description of the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.Url">
+            <summary>
+            Url of the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.Customization">
+            <summary>
+            Indicates the type of customization on this work item
+            System work item types are inherited from parent process but not modified
+            Inherited work item types are modified work item that were inherited from parent process
+            Custom work item types are work item types that were created in the current process
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.Color">
+            <summary>
+            Color hexadecimal code to represent the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.Icon">
+            <summary>
+            Icon to represent the work item typ
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.IsDisabled">
+            <summary>
+            Indicates if a work item type is disabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemType.Inherits">
+            <summary>
+            Reference name of the parent work item type
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeRequest">
+            <summary>
+            Class for update request on a work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeRequest.Description">
+            <summary>
+            Description of the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeRequest.Color">
+            <summary>
+            Color of the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeRequest.Icon">
+            <summary>
+            Icon of the work item type
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeRequest.IsDisabled">
+            <summary>
+            If set will disable the work item type
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest">
+            <summary>
+            Class that describes a request to add a field in a work item type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest.ReferenceName">
+            <summary>
+            Reference name of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest.ReadOnly">
+            <summary>
+            If true the field cannot be edited.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest.Required">
+            <summary>
+            If true the field cannot be empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest.DefaultValue">
+            <summary>
+            The default value of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest.AllowGroups">
+            <summary>
+            Allow setting field value to a group identity. Only applies to identity fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.AddProcessWorkItemTypeFieldRequest.AllowedValues">
+            <summary>
+            The list of field allowed values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType">
+            <summary>
+            Enum for the type of a field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.String">
+            <summary>
+            String field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.Integer">
+            <summary>
+            Integer field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.DateTime">
+            <summary>
+            DateTime field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.PlainText">
+            <summary>
+            Plain text field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.Html">
+            <summary>
+            HTML (Multiline) field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.TreePath">
+            <summary>
+            Treepath field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.History">
+            <summary>
+            History field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.Double">
+            <summary>
+            Double field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.Guid">
+            <summary>
+            Guid field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.Boolean">
+            <summary>
+            Boolean field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.Identity">
+            <summary>
+            Identity field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.PicklistInteger">
+            <summary>
+            Integer picklist field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.PicklistString">
+            <summary>
+            String picklist field type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.FieldType.PicklistDouble">
+            <summary>
+            Double picklist field type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField">
+            <summary>
+            Class that describes a field in a work item type and its properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.ReferenceName">
+            <summary>
+            Reference name of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.Name">
+            <summary>
+            Name of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.Type">
+            <summary>
+            Type of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.Description">
+            <summary>
+            Description of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.ReadOnly">
+            <summary>
+            If true the field cannot be edited.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.Required">
+            <summary>
+            If true the field cannot be empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.DefaultValue">
+            <summary>
+            The default value of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.AllowGroups">
+            <summary>
+            Allow setting field value to a group identity. Only applies to identity fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.Url">
+            <summary>
+            Resource URL of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.Customization">
+            <summary>
+            Indicates the type of customization on this work item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.AllowedValues">
+            <summary>
+            The list of field allowed values.
+            </summary> 
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeField.IsLocked">
+            <summary>
+            Information about field definition being locked for editing
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeFieldRequest">
+            <summary>
+            Class to describe a request that updates a field's properties in a work item type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeFieldRequest.ReadOnly">
+            <summary>
+            If true the field cannot be edited.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeFieldRequest.Required">
+            <summary>
+            The default value of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeFieldRequest.DefaultValue">
+            <summary>
+            The default value of the field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeFieldRequest.AllowGroups">
+            <summary>
+            Allow setting field value to a group identity. Only applies to identity fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessWorkItemTypeFieldRequest.AllowedValues">
+            <summary>
+            The list of field allowed values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeFieldsExpandLevel">
+            <summary>
+            Expand options for the work item field(s) request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeFieldsExpandLevel.None">
+            <summary>
+            Includes only basic properties of the field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeFieldsExpandLevel.AllowedValues">
+            <summary>
+            Includes allowed values for the field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.ProcessWorkItemTypeFieldsExpandLevel.All">
+            <summary>
+            Includes allowed values and dependent fields of the field.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IFieldLockingProperties">
+            <summary>
+            Interface for basic field properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.IFieldLockingProperties.IsLocked">
+            <summary>
+            Definition Locked for editing
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WitConstants.WorkItemTrackingWebConstants">
+            <summary>
+            General constants specific to the WorkItemTracking Web Layer
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClientCompatBase.CreateProcessAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.CreateProcessModel,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a process.
+            </summary>
+            <param name="createRequest"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClientCompatBase.DeleteProcessAsync(System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Removes a process of a specific ID.
+            </summary>
+            <param name="processTypeId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClientCompatBase.GetProcessByIdAsync(System.Guid,System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetProcessExpandLevel},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a single process of a specified ID.
+            </summary>
+            <param name="processTypeId"></param>
+            <param name="expand"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClientCompatBase.GetProcessesAsync(System.Nullable{Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.GetProcessExpandLevel},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of all processes.
+            </summary>
+            <param name="expand"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.WorkItemTrackingProcessHttpClientCompatBase.UpdateProcessAsync(Microsoft.TeamFoundation.WorkItemTracking.Process.WebApi.Models.UpdateProcessModel,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Updates a process of a specific ID.
+            </summary>
+            <param name="updateRequest"></param>
+            <param name="processTypeId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+    </members>
+</doc>

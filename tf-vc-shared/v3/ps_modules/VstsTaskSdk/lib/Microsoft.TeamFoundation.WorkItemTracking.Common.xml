@@ -1,0 +1,3213 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.WorkItemTracking.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.AdminUpdatePackageHelpers">
+            <summary>
+            The functionality herein it was moved out from client assembly, in order to make it available on the server.
+            This code was moved out from InternalAdmin.cs
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.GlobalListsCollection.Add(System.Xml.XmlElement,System.Boolean)">
+            <summary>
+            Parse GLOBALIST node and add to collection
+            </summary>
+            <param name="listElement"></param>
+            <param name="throwOnDuplicateGloballist">Default value false, if true ignore duplicate global list instead of throw</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.MetaID">
+            <summary>
+            Class represents an integer ID - either temporary or permanent.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.MetaID.op_Implicit(System.Int32)~Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.MetaID">
+            <summary>
+            Implicitly converts integer into meta id.
+            </summary>
+            <param name="id">Integer id</param>
+            <returns>MetaID object</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.UpdatePackageData">
+            <summary>
+            Shared object used by all import-specific classes 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.UpdatePackageField.IsInternalFieldType(Microsoft.TeamFoundation.WorkItemTracking.Common.DataStore.PsFieldDefinitionTypeEnum)">
+            Checks whether the given field type is internal
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.UpdatePackageField.IsInternalField(System.Int32,Microsoft.TeamFoundation.WorkItemTracking.Common.IMetadataProvisioningHelper)">
+            Checks whether the given field is internal
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.UpdatePackageField.RaiseRenameSafeValidationWarning">
+            <summary>
+            In this case the user is asking to change SyncNameChanges from false to true. 
+            This is not supported so we warn the user but we still allow the rest of the update to go through.
+            We do this to handle the possible mismatch scenario of old templates that have this property different than the new one
+            If we threw here it would break project create in this mismatch scenario
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.UpdatePackageFieldCollection.ValidateDuplicateReportingName(Microsoft.TeamFoundation.WorkItemTracking.Common.IMetadataProvisioningHelper,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
+            <summary>
+            Validates that the requested reporting name is not taken by another field.
+            </summary>
+            <param name="knownNames">Dictionary of reporting names to reference names</param>
+            <param name="refname">Ref name of the desired field.</param>
+            <param name="name">Reporting name of the desired field.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.WorkItemLinkTypeImporter.CheckRefName(System.String)">
+            <summary>
+            Link type reference names must be unique across all field names
+            and field names.
+            </summary>
+            <param name="refName"></param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.Provision.WITImporter.WorkItemTypes">
+            <summary>
+            Gets work item type definitions.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_And">
+            <summary>
+              Looks up a localized string similar to And.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_Any">
+            <summary>
+              Looks up a localized string similar to [Any].
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_Contains">
+            <summary>
+              Looks up a localized string similar to Contains.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_ContainsWords">
+            <summary>
+              Looks up a localized string similar to Contains Words.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_EqualTo">
+            <summary>
+              Looks up a localized string similar to =.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_Ever">
+            <summary>
+              Looks up a localized string similar to Was Ever.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_FieldComparisonQualifier">
+            <summary>
+              Looks up a localized string similar to  [Field].
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_FieldComparisonReferenceName">
+            <summary>
+              Looks up a localized string similar to Field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_GreaterThan">
+            <summary>
+              Looks up a localized string similar to &gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_GreaterThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to &gt;=.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_In">
+            <summary>
+              Looks up a localized string similar to In.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_InGroup">
+            <summary>
+              Looks up a localized string similar to In Group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_IsEmpty">
+            <summary>
+              Looks up a localized string similar to Is Empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_IsNotEmpty">
+            <summary>
+              Looks up a localized string similar to Is Not Empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_LessThan">
+            <summary>
+              Looks up a localized string similar to &lt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_LessThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to &lt;=.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroCurrentIteration">
+            <summary>
+              Looks up a localized string similar to CurrentIteration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroFollows">
+            <summary>
+              Looks up a localized string similar to Follows.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroMe">
+            <summary>
+              Looks up a localized string similar to Me.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroMyRecentActivity">
+            <summary>
+              Looks up a localized string similar to MyRecentActivity.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroProject">
+            <summary>
+              Looks up a localized string similar to Project.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroRecentMentions">
+            <summary>
+              Looks up a localized string similar to RecentMentions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroRecentProjectActivity">
+            <summary>
+              Looks up a localized string similar to RecentProjectActivity.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroStartOfDay">
+            <summary>
+              Looks up a localized string similar to StartOfDay.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroStartOfMonth">
+            <summary>
+              Looks up a localized string similar to StartOfMonth.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroStartOfWeek">
+            <summary>
+              Looks up a localized string similar to StartOfWeek.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroStartOfYear">
+            <summary>
+              Looks up a localized string similar to StartOfYear.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroTeamAreas">
+            <summary>
+              Looks up a localized string similar to TeamAreas.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroToday">
+            <summary>
+              Looks up a localized string similar to Today.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_MacroTodayMinusDaysFormat">
+            <summary>
+              Looks up a localized string similar to {0} - {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_NotContains">
+            <summary>
+              Looks up a localized string similar to Does Not Contain.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_NotContainsWords">
+            <summary>
+              Looks up a localized string similar to Does Not Contain Words.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_NotEqualTo">
+            <summary>
+              Looks up a localized string similar to &lt;&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_NotEver">
+            <summary>
+              Looks up a localized string similar to Was Never.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_NotIn">
+            <summary>
+              Looks up a localized string similar to Not In.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_NotInGroup">
+            <summary>
+              Looks up a localized string similar to Not In Group.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_NotUnder">
+            <summary>
+              Looks up a localized string similar to Not Under.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_Or">
+            <summary>
+              Looks up a localized string similar to Or.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonClientResourceStrings.WiqlOperators_Under">
+            <summary>
+              Looks up a localized string similar to Under.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonUtils.TryGetValue``2(System.Collections.Generic.Dictionary{``0,System.Object},``0,``1@)">
+            For binary backward compatibility.
+            new uses should use the IDictionary version of TryGetValue
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonUtils.GetDisplayNameFromDistinctDisplayName(System.String)">
+            <summary>
+            Gets the display name from the disticnt display name
+            Turns Joe Cool &lt;jcool@cool.com&gt; to Joe Cool
+            </summary>
+            <param name="distinctDisplayName">A display name that may contain the distinct component</param>
+            <returns>A display name without the distinct component</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.CommonUtils.DistinctDisplayName(Microsoft.VisualStudio.Services.WebApi.IdentityRef)">
+            <summary>
+            Gets the distinct display name for identityRef object
+            </summary>
+            <param name="identity">An IdenityRef object</param>
+            <returns>A distinct display name for the identity containing both display name and unique name</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.IMetadataProvisioningHelper.IsValidIdentityNameFormat(System.String)">
+            <summary>
+            Is this a valid user name. This checks just that it looks like a
+            valid user name format but does not validate the user exists
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.LinkingUtilitiesWrapper">
+            <summary>
+            Wrapper class for Satic LinkingUtilities class.
+            Use this class to abstract away LinkingUtilities behavior
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Predicates.IPredicateValidationHelper.GetFieldId(System.String)">
+            <summary>
+            Returns field id of the field. (#important!) Return 0 if field does not exist. 
+            Implementer of this interface should not throw when field does not exist.
+            </summary>
+            <param name="fieldReferenceName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Predicates.IPredicateValidationHelper.GetTreePath(System.Int32)">
+            <summary>
+            Returns the tree path of a tree id. (#important!) Returns null if tree node does not exist.
+            Implementer of this interface should not throw when tree node does not exist.
+            </summary>
+            <param name="treeNodeId">Id of the tree node</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Predicates.IPredicateValidationHelper.GetTreeId(System.String,Microsoft.TeamFoundation.WorkItemTracking.Internals.TreeStructureType)">
+            <summary>
+            Returns tree node id of a tree path. (#important!) Returns -1 if tree path does not exist.
+            Implementer of this interface should not throw when tree path does not exist.
+            </summary>
+            <param name="path"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingFieldDefinition">
+            <summary>
+            A work item field definition used for formatting
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItem">
+            <summary>
+            A work item used for formatting. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection">
+            <summary>
+            A collection of work items used for formatting
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection.ProjectCollectionName">
+            <summary>
+            The name of the colletion these workitem are from
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection.ProjectUri">
+            <summary>
+            The Uri of the project this collection is for
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection.QueryId">
+            <summary>
+            The id of the query used to generate this collection
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection.QueryName">
+            <summary>
+            The name of the query used to generate this collection
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection.WorkItems">
+            <summary>
+            The collection of workitems
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.HtmlFormatter">
+            <summary>
+            Formats the a <c>FilteredWorkItem</c> object into an XHTML document that contains
+            a HTML table.  This table contains the information of work items, and hyperlinks
+            the direct to the WebView or TSWA page of the work items.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.HtmlFormatter.SetDefaultColumnDisplayName(System.String,System.String)">
+            <summary>
+            Set the display name of core fields of a work item, which will be displayed in the table.
+            The set field will be displayed, whether it is in the query result or not.
+            <remarks>Only System.Id is enabled in the Orcas SP1 version.</remarks>
+            </summary>
+            <param name="corefieldReferenceName">Core Field ReferenceName of a work item 
+            <see cref="T:Microsoft.TeamFoundation.WorkItemTracking.Common.DatabaseCoreFieldRefName" />
+            </param>
+            <param name="fieldDisplayName">The display string of the field, usually a localized value.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.HtmlFormatter.FormatInputData(Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection,System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingFieldDefinition},Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.IWorkItemUrlBuilder,System.Boolean)">
+            <summary>
+            <remarks>Use LINQ to format inputWorkItemData into XML document that represents an HTML table.</remarks>
+            </summary>
+            <param name="workItemList">List of work items - results of a query or work item selections.</param>
+            <param name="displayFieldList">Display field of the work items.</param>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.HtmlFormatter.CreateHeader(Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.FormattingWorkItemCollection,Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.IWorkItemUrlBuilder)">
+            <summary>
+                Creates the header of the html content, which contains the TPC name and Query name (if applicable)
+                <remarks>
+                    Returns a XElement of the following structure:
+                    <![CDATA[
+                    <p style="margin:0px;size:11pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"
+                        <b><span style="padding:0in .05in 0in 0in;margin-bottom:4.0pt;color:#3D5277">Query:</span></b>
+                        <span style="margin-bottom:4.0pt;color:#3D5277">
+                           <a href="Query Link">Query Name</a>
+                        </span>
+                    </p>
+                    ]]>
+                </remarks>
+            </summary>
+            <param name="workItemCollection">List of work items - results of a query or work item selections.</param>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Presentation.HtmlFormatter.GetAnchorNode(System.String,System.Object)">
+            <summary>
+            Create an anchor tag expressed in an XElement.
+            </summary>  
+            <param name="url">Hyperlink of the anchor.</param>
+            <param name="value">Display text of the anchor.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Search.SearchParseError">
+            <summary>
+            Copy of __VSSEARCHPARSEERROR from vscommon\idl
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.Search.SearchFilterTokenType">
+            <summary>
+            Copy of __VSSEARCHFILTERTOKENTYPE from vscommon\idl
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Search.SearchWiqlBuilder.GetOperator(System.Object,Microsoft.TeamFoundation.WorkItemTracking.Common.Search.SearchFilterTokenType)">
+            <summary>
+            Return a WIQL operator based on the search operator and field.
+            </summary>
+            <param name="field"> The field the operator is used with. </param>
+            <param name="filterOp"> VS search operator flags. </param>
+            <returns> WIQL operator. </returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Search.SearchWiqlBuilder.GetInvariantFieldValue(System.Object,System.String)">
+            <summary>
+            Note: This culture conversion is modelled on GetInvariantFieldValueFromString() method in Query builder implementation. 
+            \vset\SCM\workitemtracking\Controls\WinForms\QueryBuilder\FilterGridAdapter.cs
+            
+            The two have similar functional requirements, but their current contracts differ a fair bit, making code sharing impractical in current form.
+            </summary>        
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Search.SearchWiqlBuilder.IsQuoted(System.String)">
+            <summary>
+            Returns <code>true</code> if the specified string is contained in double quotes, <code>false</code> otherwise
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.Search.SearchWiqlBuilder.GetKeywordSearchHelpText(System.Boolean,System.Object,System.Object,System.Object)">
+            <summary>
+            If the user is searching a bare term, we want to tell them what fields are 
+            being searched (title, description and/or repro steps).
+            </summary>
+            <param name="exclude">Whether the search term is negated (used to determine whether the last separator is an "and" or "or").</param>
+            <param name="titleField">The title field.</param>
+            <param name="descriptionField">The description field.</param>
+            <param name="reproStepsField">The repro steps field, null if not present in this team project.</param>
+            <returns>A user-friendly representation of the keyword fields being searched, in localized form  - 
+            for example, "Title, Description, and[/or] Repro Steps" or "Title and[/or] Description".</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlHelpers">
+            <summary>
+            Helpers for interacting with OM / Work Item Query Language
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlHelpers.GetEscapedSingleQuotedValue(System.String)">
+            <summary>
+            Put the specified string in quotes, escaping internal single-quotes.
+            </summary>        
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlHelpers.GetSingleQuotedValue(System.String)">
+            <summary>
+            Encloses the value in single quotations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlHelpers.GetDoubleQuotedValue(System.String)">
+            <summary>
+            Encloses the value in double quotations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlHelpers.GetEnclosedField(System.String)">
+            <summary>
+            Encloses the value in square brackets.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.IsFieldComparisonOperator(System.String)">
+            <summary>
+            Determines whether a localized operator is used for comparison between two fields (e.g. contains [Field]).
+            </summary>
+            <param name="operatorName">Name of the operator.</param>
+            <returns>
+            	<c>true</c> if the operator is used for comparison between two fields; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.StripFieldComparisonQualifier(System.String)">
+            <summary>
+            Strips the field comparison qualifier, [Field], from a localized operator (if present).
+            </summary>
+            <param name="operatorName">Name of the operator.</param>
+            <returns>The raw operator name after stripping [Field].</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.AppendFieldComparisonQualifier(System.String)">
+            <summary>
+            Appends the field comparison qualifier [Field] to a localized operator.
+            </summary>
+            <param name="operatorName">Name of the operator.</param>
+            <returns>The newly qualified operator name.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.IsComplexMacro(System.String,System.Boolean)">
+            <summary>
+            Gets complex macros that may have arguments or addition/subraction operators on them.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.IsCurrentIterationMacro(System.String,System.Boolean)">
+            <summary>
+            Returns 'true' if the specified macro is the @CurrentIteration macro, 'false' otherwise
+            </summary>
+            <param name="macro">string to test</param>
+            <param name="localized">Whether or not the string is localized</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.IsFollowsMacro(System.String,System.Boolean)">
+            <summary>
+            Returns 'true' if the specified macro is the @follows macro, 'false' otherwise
+            </summary>
+            <param name="macro">string to test</param>
+            <param name="localized">Whether or not the string is localized</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.AddSupportedOperatorPair(System.String,System.String)">
+            <summary>
+            Adds the items to supportedoperation dictionary
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.ConvertToContainsWords(System.String)">
+            <summary>
+            Convert the given "[Not] Contains" operator to the equivalent "[Not] Contains Words" operator.
+            </summary>
+            <param name="containsOperator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.ConvertToContains(System.String)">
+            <summary>
+            Convert the given "[Not] Contains Words" operator to the equivalent "[Not] Contains" operator.
+            </summary>
+            <param name="containsWordsOperator"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.ProjectOperators">
+            <summary>
+            Operators supported for the Team Project field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.StringOperators">
+            <summary>
+            Operators supported for String fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.StringWithTextSupportOperators">
+            <summary>
+            Operators supported for String fields that support text search.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.TextOperators">
+            <summary>
+            Operators supported for text fields (HTML, plain text, history) that don't support text search
+            (i.e. full text search isn't available on the server).
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.TextWithTextSupportOperators">
+            <summary>
+            Operators supported for text fields (HTML, plain text, history) that support text search.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.ContainsOperators">
+            <summary>
+            Contains operators, which do exact/substring match on String fields, text search 
+            on Text fields when full text search is available.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.ContainsWordsOperators">
+            <summary>
+            ContainsWords operators, to request text search for String fields that support it.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.TreePathOperators">
+            <summary>
+            Operators supported for tree path fields (e.g. Area or Iteration Path).
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.ComparisonOperators">
+            <summary>
+            Operators supported for comparable fields, e.g. Integers, Doubles, DateTimes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.EqualityOperators">
+            <summary>
+            Equality operators (equals, not equals).
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.LogicalOperators">
+            <summary>
+            Logical operators (and, or).
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.GroupOperators">
+            <summary>
+            Group operators (in group, not in group).
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.OperatorsSupportingFieldComparison">
+            <summary>
+            Operators that support comparison of two different field values (as opposed to a field compared
+            to a constant).
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.IdentityOperators">
+            <summary>
+            Identity operators
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.FieldTypesSupportingInGroup">
+            <summary>
+            Field types supporting the In Group operator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.FieldTypesSupportingEver">
+            <summary>
+            Field types supporting the Ever operator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Common.WiqlOperators.FieldTypesSupportingFieldComparison">
+            <summary>
+            Field types that support comparison against another field (rather than only a constant).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.HtmlConverter.StripToBuilder(System.String)">
+            <summary>
+            strip disallowed tags and attributes, and return content in a stringbuilder for continued processing.
+            </summary>        
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.IWiqlAdapterHelper.RewriteCondition(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeCondition,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node@)">
+            <summary>
+            Check if the given condition contains the macro.
+            If it does rewrite the entire condition. This makes it possible 
+            for the macro extension to change the operator or
+            even substitute in whole logic trees of conditions instead of just 1 condition
+            </summary>
+            <param name="condition">node to target for replacement</param>
+            <param name="rewritten">node to replace with</param>
+            <returns>Whether any replacement is being requested</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkProperties">
+            <summary>
+            Changed properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate">
+            <summary>
+            Internal class defining changes to a single link.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate.Mask">
+            <summary>
+            Gets the mask describing all changed properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate.Comment">
+            <summary>
+            Gets/sets comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate.IsLocked">
+            <summary>
+            Gets/sets locked property.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate.#ctor(Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkProperties)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="supported">Supported link properties</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate.Submit(System.Xml.XmlElement)">
+            <summary>
+            Submits content into the XML element.
+            </summary>
+            <param name="element">Target element</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate.Submit(Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkInfo)">
+            <summary>
+            Submits data into the target link info.
+            </summary>
+            <param name="li">Link info</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkUpdate.CheckSupport(Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkProperties)">
+            <summary>
+            Checks whether specified properties are supported.
+            </summary>
+            <param name="props">Properties to check</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.QueryItemHelper.Create(System.Xml.XmlElement,System.Guid,System.Guid,System.String,System.String,System.String,System.String)">
+            <summary>
+            helper method that adds a new query item to update package
+            </summary>
+            <param name="node">update package</param>
+            <param name="id">id of the query item. must be non-empty</param>
+            <param name="parentId">parent of query item. must be non-empty</param>
+            <param name="name">name of query item. must be non-empty</param>
+            <param name="queryText">query text. If query text is empty, query folder is created</param>
+            <param name="ownerIdentifier">owner identifier</param>
+            <param name="ownerType">identifier type</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.QueryItemHelper.Update(System.Xml.XmlElement,System.Guid,System.Guid,System.String,System.String,System.String,System.String)">
+            <summary>
+            helper method that adds an updated query item to update package
+            </summary>
+            <param name="node">update package</param>
+            <param name="id">id of the query item. must be non-empty</param>
+            <param name="parentId">parent of query item.</param>
+            <param name="name">name of query item.</param>
+            <param name="queryText">query text.</param>
+            <param name="ownerIdentifier">owner identifier</param>
+            <param name="ownerType">identifier type</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.QueryItemHelper.Delete(System.Xml.XmlElement,System.Guid)">
+            <summary>
+            helper method that adds a deleted query item to update package
+            </summary>
+            <param name="node">update package</param>
+            <param name="id">id of query to be deleted</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.QueryItemHelper.CheckNameIsValid(System.String)">
+            <summary>
+            validates query name, and return normalized name
+            </summary>
+            <param name="name">query name</param>
+            <returns>normalized name</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.QueryItemHelper.ValidateWiql(Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter,System.String)">
+            <summary>
+            validates wiql
+            </summary>
+            <param name="wiqlAdapter"></param>
+            <param name="queryText"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.QueryItemHelper.GetQueryTextNodes(System.Xml.XmlElement)">
+            <summary>
+            Get QueryText nodes from the provided XML document
+            </summary>
+            <param name="node">XML document node</param>
+            <returns>List of found QueryText nodes</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlConstants">
+            <summary>
+            Constants used for Wiql
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkQueryMode">
+            <summary>
+            Link query modes
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter">
+            <summary>
+            Class implementing the WIQL IExternal interface for work item tracking
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.#ctor(Microsoft.TeamFoundation.WorkItemTracking.Internals.IWiqlAdapterHelper)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="store">Work item store</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.DayPrecision">
+            <summary>
+            IExternal. Day precision.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.Context">
+            <summary>
+            IExternal. Query context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.CultureInfo">
+            <summary>
+            IExternal. The user's culture.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.TimeZone">
+            <summary>
+            IExternal. The user's time zone.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetTreeID(System.String,Microsoft.TeamFoundation.WorkItemTracking.Internals.TreeStructureType)">
+            <summary>
+            Helper function to find Tree ID by tree path
+            </summary>
+            <param name="path">Tree path</param>
+            <param name="type">Type of node (area or iteration)</param>
+            <returns>Tree ID</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.FindTable(System.String)">
+            <summary>
+            IExternal.  Find table by name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.FindField(System.String,System.String,System.Object)">
+            <summary>
+            IExternal. Find field by name in table context
+            </summary>
+            <param name="name"></param>
+            <param name="prefix"></param>
+            <param name="tableTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetFieldDataType(System.Object)">
+            <summary>
+            IExternal. Get field type
+            </summary>
+            <param name="fieldTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.FindVariable(System.String,Microsoft.TeamFoundation.WorkItemTracking.Client.QueryLanguage.NodeParameters)">
+            <summary>
+            IExternal. Find variable by name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetVariableDataType(System.String)">
+            <summary>
+            IExternal. Get field type.
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.VerifyCondition(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeFieldName,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Condition,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node,Microsoft.TeamFoundation.WorkItemTracking.Internals.LinkQueryMode)">
+            <summary>
+            Helper method.  Verify a single condition.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="op"></param>
+            <param name="errorNode"></param>
+            <param name="mode"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.VerifyNode(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeTableName,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeFieldName)">
+            <summary>
+            IExternal. Perform database dependent verifications.
+            </summary>
+            <param name="node"></param>
+            <param name="tableContext"></param>
+            <param name="fieldContext"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.OptimizeNode(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeTableName,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeFieldName)">
+            <summary>
+            Rewrite query and add database dependent optimizations
+            </summary>
+            <param name="node"></param>
+            <param name="tableContext"></param>
+            <param name="fieldContext"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.s_Operators">
+            <summary>
+            WIT query format is like this:
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetConditionalOperator(System.Int32,System.Boolean,System.Boolean,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node)">
+            <summary>
+            Calculate operator string based on 'not' and 'ever' context
+            </summary>
+            <param name="c"></param>
+            <param name="not"></param>
+            <param name="ever"></param>
+            <param name="errorNode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.QueryXml(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node,System.Xml.XmlDocument,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Create XML recursively.
+            </summary>
+            <param name="node"></param>
+            <param name="doc"></param>
+            <param name="not"></param>
+            <param name="ever"></param>
+            <param name="num"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.ComputeLinkTypes(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.Node)">
+            <summary>
+            Compute link types recursively.
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetAsOfUtc(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect)">
+            <summary>
+            Get AsOf date from the nodeSelect
+            </summary>
+            <param name="nodeSelect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetQueryXml(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect)">
+            <summary>
+            Get WIT query XML from nodeSelect operator.
+            </summary>
+            <param name="nodeSelect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetLinkQueryXml(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeAndOperator@)">
+            <summary>
+            Get link query XML from nodeSelect operator
+            </summary>
+            <param name="nodeSelect"></param>
+            <param name="linkGroup"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetDisplayFieldList(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect)">
+            <summary>
+            Return display field list.
+            </summary>
+            <param name="nodeSelect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetSortFieldList(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect)">
+            <summary>
+            Return sort field list.
+            </summary>
+            <param name="nodeSelect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.SetDisplayFieldList(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Update display field list. 
+            </summary>
+            <param name="nodeSelect"></param>
+            <param name="list"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.SetSortFieldList(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Update sort field list.
+            </summary>
+            <param name="nodeSelect"></param>
+            <param name="list"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetQueryMode(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeTableName)">
+            <summary>
+            Get link query mode.
+            </summary>
+            <param name="tableContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetQueryMode(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeMode,Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeTableName)">
+            <summary>
+            Get query mode.
+            </summary>
+            <param name="nodeMode"></param>
+            <param name="tableContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WiqlAdapter.GetQueryMode(Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.NodeSelect)">
+            <summary>
+            Get query mode.
+            </summary>
+            <param name="nodeSelect"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.WorkItemFormExtensionsConstants.ProjectAdminGroupCache">
+            <summary>
+            Contains the results of a check that some principal can be a member of the PA group for a particular project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.WorkItemHelper.LoadRevisions(Microsoft.TeamFoundation.WorkItemTracking.Internals.IRowSetCollectionHelper,Microsoft.TeamFoundation.WorkItemTracking.Internals.IWorkItemOpenFieldDataHelper,System.Collections.Generic.Dictionary{System.Int32,System.Object})">
+            <summary>
+            Note: This implementation will upcast the tables param to IRowSetCollectionHelper2 when available.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.#cctor">
+            Creates the resource manager instance.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.Get(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.GetInt(System.String)">
+            Returns a localized integer given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.GetBool(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.Format(System.String,System.Object[])">
+            A little helper function to alleviate some typing associated with loading resources and
+            formatting the strings.  In DEBUG builds, it also asserts that the number of format
+            arguments and the length of args match.
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.BuletPlainText">
+             <summary>
+             It is used when converting &lt;li&gt; tag to a plain text.
+            
+              *  
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInGroupNotSupported">
+            <summary>
+            TF248007: You cannot use the &apos;in group&apos; operator to run a query. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidQueryItemName">
+            <summary>
+            TF24003: The query or query folder name you entered contains characters that are not supported. Correct the name and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorQueryFieldsComparisonNotSupported">
+            <summary>
+            TF248009: You cannot run a query that compares fields. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWitCategoriesNotSupported">
+            <summary>
+            TF248003: You cannot create categories of work item types. Either this feature is not enabled on this server, or the server version is earlier than Visual Studio Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWitLinksNotSupported">
+            <summary>
+            TF248004: You cannot create custom types of links between work items. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWrongFieldTypeInInGroup">
+            <summary>
+            TF248016: You cannot use the In Group operator with the field &apos;{0}&apos;. You can use the In Group operator only with the Work Item Type field, or with a field that has the {1} data type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FileUploadedExceededMax">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImageAltTextEnd">
+             <summary>
+             It is used when converting alt attribute of img tag to a plain text.
+            
+             ]
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImageAltTextStart">
+             <summary>
+             It is used when converting alt attribute of img tag to a plain text.
+            
+             [
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyNameCannotBeEmpty">
+            <summary>
+            TF237007: You cannot create a query or a query folder without a name. Use a valid name when you create an item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryNameTooLong">
+            <summary>
+            TF26168: Azure DevOps Server does not support query or folder names over {0} characters long. Shorten the query name and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.UnrecognizedServerData">
+            <summary>
+            The Azure DevOps Server returned data which are not recognized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNotUniqueStoredQuery">
+            <summary>
+            TF26191: The query name already exists. Rename the query and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorUnexpected">
+            <summary>
+            TF237121: Cannot complete the operation. An unexpected error occurred.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorUnexpectedWithDetails">
+            <summary>
+            TF237121: Cannot complete the operation. An unexpected error occurred.Technical information (for administrator):{0}  
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemTypeAlreadyExists">
+            <summary>
+            TF237132: The work item type already exists in the project. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorServerInternalUnknown">
+            <summary>
+            There is a problem on the server. Contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorRequestNotCancelable">
+            <summary>
+            TF26159: The request cannot be canceled.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidQueryName">
+            <summary>
+            TF26059: The query name is not recognized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidQueryText">
+            <summary>
+            TF26060: The query text is not recognized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkitemTypeException">
+            <summary>
+            Work Item Type Import failed to make the requested rule changes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAuthorizeFieldChanges">
+            <summary>
+            TF237139: Work Item Type Import failed to make the requested field changes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorChangeWorkItemTypeAlreadyChanged">
+            <summary>
+            TF237152: Work Item Type Import failed applying work item type changes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorChangeWorkItemTypeInvalidProjectID">
+            <summary>
+            TF26207: Work Item Type Import failed. Unrecognized project.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorChangeActionAlreadyChanged">
+            <summary>
+            TF237149: Work Item Type Import failed applying action changes
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataFieldsOutOfRange">
+            <summary>
+            TF237143: Work Item Type Import failed. Field out of range.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataInvalidFieldType">
+            <summary>
+            TF26206: Work Item Type Import failed. Unsupported Field Type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataInvalidFieldName">
+            <summary>
+            TF26205: Work Item Type Import failed. Unsupported field name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataInvalidFieldReferenceName">
+            <summary>
+            TF26205: Work Item Type Import failed. Unsupported field reference name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataUnimplementedReadRuleCondition">
+            <summary>
+            TF237146: Work Item Type Import failed.  Unimplemented Read Rule.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataRuleFlagsNonEditable">
+            <summary>
+            TF237145: Work Item Type Import failed. Rule cannot be edited.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataRuleEnforcementIsNotImplemented">
+            <summary>
+            TF237144: Work Item Type Import failed. Unimplemented Rule.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminDataDenyAdminNotAllowed">
+            <summary>
+            TF237142: Work Item Type Import failed. Cannot deny administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadAdminCannotAddRuleOnCoreFields">
+            <summary>
+            TF237141: Work Item Type Import failed. Deleted structure node.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorLookupRuleTreeIdNotFound">
+            <summary>
+            TF26154: Work item type Import failed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemUpdateForceRollback">
+            <summary>
+            TF237165: Azure DevOps Server could not update the work item because of a validation error on the server. This may happen because the work item type has been modified or destroyed, or you do not have permission to update the work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorChangesRejected">
+            <summary>
+            TF237151: The update has been rejected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBadServiceConfig">
+            <summary>
+            TF237147: The server is unavailable due a configuration error. Contact your server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorSqlErrorLoginFailed">
+            <summary>
+            TF26161: You have been denied permissions to the SQL Server database. Azure DevOps Server is not properly configured. Contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorSqlErrorDeadlock">
+            <summary>
+            TF237160: Server operation failed. Try again. (Code: {0})
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorSqlErrorTimeOutOrServerNotResponding">
+            <summary>
+            TF237161: Server operation timed out or server not responding. Try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCannotOpenDatabase">
+            <summary>
+            TF237148: The Azure DevOps Server work item database cannot be opened. It may be offline for system administration. Try again later or contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNotAProjectUser">
+            <summary>
+            TF26157: You are not a recognized user in the current team project. Contact your Azure DevOps Server administrator to request permissions to this team project.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNotANamespaceAdmin">
+            <summary>
+            TF26155: You are not a recognized Azure DevOps Server administrator in the current team project. Contact the Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemUpdateWorkItemMissingOrUpdated">
+            <summary>
+            TF237079: Azure DevOps Server could not update the work item because it was already updated by another user, it does not exist, or you do not have permission to update it.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAddConstantNotValidDomainAccount">
+            <summary>
+            TF26204: The account you entered is not recognized. Contact your Azure DevOps Server administrator to add your account.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorChangeFieldReportingTypeAlreadySet">
+            <summary>
+            TF237150: Importing work item type failed. Reporting type has already been set and cannot be changed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidFieldSpecified">
+            <summary>
+            TF237158: The Field specified does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAddSetInvalidParentIDOrConstID">
+            <summary>
+            TF237138: An error while adding a set member. The Parent ID or Constant ID specified is not valid.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorQueryDepthTooLarge">
+            <summary>
+            TF26158: The query has too many levels of nesting. Restructure the query and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.InvalidProjectNodeId">
+            <summary>
+            Could not find the team project node on the Azure DevOps Server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAddFileFileAlreadyExists">
+            <summary>
+            TF237137: File attachment already exists.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAddFileFailedToFindFile">
+            <summary>
+            TF237136: File attachment does not exist, or you do not have permissions to read it.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorSqlInsufficientMemory">
+            <summary>
+            TF237162: There is insufficient system memory on the Azure DevOps Server SQL Server to run this query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNotEnoughFields">
+            <summary>
+            TF26213: Too many new fields. You are trying to create {0} field(s), while the server has space for {1} of them.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.IndexAssociatedWithFieldError">
+            <summary>
+            Field cannot be deleted because an index is associated with the field. Please contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoPermissionToModify">
+            <summary>
+            TF201068: You do not have permission to modify the work item type or field. You must have permission to modify work item types and fields in each team project where they are used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoPermissionToModifyField">
+            <summary>
+            TF201070: You do not have permission to modify the field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoPermissionToModifyRules">
+            <summary>
+            TF201071: Your change included a modification to system rules that cannot be modified.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorUserOrGroupNotFound">
+            <summary>
+            TF201072: A user or group could not be found. Verify that the users and groups used in your work item type definition have been added to Azure DevOps Server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_InvalidRules">
+            <summary>
+            TF201020: You cannot add a link type that is disabled or that cannot be deleted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_InvalidTopology">
+            <summary>
+            TF201021: The topology is not supported. See https://go.microsoft.com/fwlink/?LinkId=74075 for the supported link type topologies.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_ReverseNameInvalid">
+            <summary>
+            TF201022: The reverse name is not specified or is not supported. See https://go.microsoft.com/fwlink/?LinkID=72977 for link type name restrictions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_ReferenceNameInUse">
+            <summary>
+            TF201024: The reference name is not unique.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_ForwardNameInUse">
+            <summary>
+            TF201025: The forward name is not unique.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_ReverseNameInUse">
+            <summary>
+            TF201026: The reverse name is not unique.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_NothingSpecified">
+            <summary>
+            TF201027: The link type definition is unchanged.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_EditDenied">
+            <summary>
+            TF201028: The link type cannot be modified because it is a core link type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_ModifyTopology">
+            <summary>
+            TF201030: You cannot change the topology for a link type that has already been defined.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ImportWorkItemLinkTypeException_DeleteDenied">
+            <summary>
+            TF201029: The link type cannot be deleted. See https://go.microsoft.com/fwlink/?LinkId=74121 for more information on deleting link types.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeNotFound">
+            <summary>
+            TF201031: {0} is not a valid type of link. Check the spelling and capitalization. If you&apos;re not sure, use witadmin.exe to list the available link types. See the command-line help topic witadmin (https://go.microsoft.com/fwlink/?LinkId=75598) for more details.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeNotSupportedForQuerying">
+            <summary>
+            The link type &apos;{0}&apos; is not a supported link type for querying.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkNotFoundForDelete">
+            <summary>
+            TF201032: The {0} link between work items {1} and {2} that you are attempting to delete does not exist. It may have been deleted by another user.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkNotFoundForEdit">
+            <summary>
+            TF201074: The {0} link between work items {1} and {2} that you are attempting to modify does not exist. It may have been deleted by another user. You may need to refresh the work item before you add the link again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkCannotLinkToSelf">
+            <summary>
+            TF201033: A work item cannot be linked to itself.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddRemoteLinkCannotLinkToSameAccount">
+            <summary>
+            VS403467: A remote work item cannot link to the same account.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddRemoteLinkAccountRequired">
+            <summary>
+            VS403469: Account is required for remote work item links.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.RemoteLinkInvalidUriException">
+            <summary>
+            VS403475: The remote uri is either invalid or service is unavailable.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddRemoteLinkProjectRequired">
+            <summary>
+            VS403470: Project is required for remote work item links.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkDisabledType">
+            <summary>
+            TF201034: You cannot add {0} links because that type of link has been disabled.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkCircularity">
+            <summary>
+            TF201035: Adding a {0} link between work items {1} and {2} would result in a circular relationship. To create this link, evaluate the existing links, and remove one of the other links in the cycle.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkExtraParent">
+            <summary>
+            TF201036: You cannot add a {0} link between work items {1} and {2} because a work item can have only one {3} link.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkAlreadyExists">
+            <summary>
+            TF201037: A {0} link between work items {1} and {2} already exists. It may have been added by another user.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkMaxDepthExceeded">
+            <summary>
+            TF237200: You cannot add a {0} link from work item {1} to work item to {2}. Adding a link between these work items will increase the hierarchy levels to more than the maximum 220 levels.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkLimitExceeded">
+            <summary>
+            TF237201: You cannot add a {0} link from work item {1} to work item to {2}. Adding a link between these work items will exceed the limit of links per work item allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkAuthorizationFailed">
+            <summary>
+            TF201038: Linked item does not exist or access is denied. See Work Item Permissions for Links (https://go.microsoft.com/fwlink/?LinkId=75624) for more details.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkAuthorizationFailedAreaIdChanged">
+            <summary>
+            TF400947: Linked item has changed while saving the work item link. Try again later.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkAuthorizationFailedLinkLocked">
+            <summary>
+            TF248014: Locked links cannot be updated. Unlock the links and then proceed with the update.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyDeniedOrNotExist">
+            <summary>
+            TF237015: The query or query folder that you referenced either does not exist, or you do not have permissions to access it.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyParentDoesNotExist">
+            <summary>
+            TF237016: The destination folder does not exist on the server. It might have been deleted. Refresh your query hierarchy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyParentIsNotAFolder">
+            <summary>
+            TF237017: The item specified as a parent is not a folder.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyNameConflictsWithExistingItem">
+            <summary>
+            TF237018: A query or a query folder on the server has the same name as an item you tried to save. Refresh your query hierarchy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCircularReference">
+            <summary>
+            TF237019: You are working with a query hierarchy, but the hierarchy has been changed between now and when you last refreshed. You are advised to refresh the query hierarchy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyTypeMismatch">
+            <summary>
+            TF237020: The update operation could not complete. Refresh your query hierarchy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyItemAlreadyExists">
+            <summary>
+            TF237021: The query or a query folder already exists on the server. Refresh your query hierarchy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotMoveRootFolder">
+            <summary>
+            TF237022: You cannot move root folders.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotDeleteRootFolder">
+            <summary>
+            TF237023: You cannot delete root folders.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGlobalListInUse">
+            <summary>
+            TF237049: You cannot destroy a global list that is in use. Make sure that no work item types are using the global list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemTypeInUse">
+            <summary>
+            TF237055: You cannot destroy a work item type that is being used. Verify that the work item type is not being used in any categories.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBisAttributeNotFound">
+            <summary>
+            TF26175: Azure DevOps Core Services attribute &apos;{0}&apos; not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidOnParamedQuery">
+            <summary>
+            TF26057: This operation is not supported on a parameterized query
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBisMiddleTierNotRegistered">
+            <summary>
+            TF26176: Could not connect to the specified Azure DevOps Server collection URL. Please check the URL and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNodeNotExist">
+            <summary>
+            TF26186: The project hierarchy node &apos;{0}&apos; was not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCannotFindNodeFromId">
+            <summary>
+            TF26006: Azure DevOps Server could not find {0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCouldNotConnect">
+            <summary>
+            TF26012: Cannot connect to Azure DevOps Server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDeniedOrNotExist">
+            <summary>
+            TF237090: Does not exist or access is denied.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateGlobalList">
+            <summary>
+            TF26018: The global list &apos;{0}&apos; is defined more than once in the work item type definition file. Remove one of the definitions and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateListItem">
+            <summary>
+            TF26022: The list contains a duplicate value {0}. Remove the duplicate and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateReason">
+            <summary>
+            TF26024: The transition from &apos;{0}&apos; to &apos;{1}&apos; has a duplicate reason {2}. Remove the duplicate reason and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicatePattern">
+            <summary>
+            TF237098: Duplicate match pattern value: &apos;{0}&apos;
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldDefinitionNotExist">
+            <summary>
+            TF26027: A field definition {0} in the work item type definition file does not exist. Add a definition for this field or remove the reference to the field and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldDefinitionNotExistGeneral">
+            <summary>
+            TF26028: A field definition in the work item type definition file does not exist. Add a definition for this field, or remove the reference to the field and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldDefinitionIdNotExist">
+            <summary>
+            TF26026: A field definition ID {0} in the work item type definition file does not exist. Add a definition for this field ID, or remove the reference to the field ID and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldIdNotExist">
+            <summary>
+            TF26032: The field specified by ID {0} does not exist in this work item type. Remove the reference or correct the work item type definition and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldNotFound">
+            <summary>
+            TF26035: The definition for the field {0} was not found. Add a definition for this field and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldTypeMismatch">
+            <summary>
+            TF26038: Field type for {0} does not match the existing type. It was {1}, but now is {2}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGlobalListNotFound">
+            <summary>
+            TF26041: Global list &apos;{0}&apos; does not exist in this database.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidState">
+            <summary>
+            TF26063: &apos;{0}&apos; is not in the list of supported states.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorManyDefaultStates">
+            <summary>
+            TF237107: Only one transition from the empty state is allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateFieldName">
+            <summary>
+            TF237094: Field name &apos;{0}&apos; is used by the field &apos;{1}&apos;, so it cannot be used by the field &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateFieldNameBackup">
+            <summary>
+            TF237095: Field names &apos;{0}&apos; and &apos;{1}&apos; cannot be used with the field &apos;{2}&apos; as they are used by fields &apos;{3}&apos; and &apos;{4}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorManyStates">
+            <summary>
+            TF26083: The state &apos;{0}&apos; is defined more than once in the work item type definition (WITD) file. Remove or rename the duplicate state and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoDefaultState">
+            <summary>
+            TF237112: Default state cannot be inferred from transitions. Default state is defined by a transition from an empty state, which works for new items.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorProjectNotExist">
+            <summary>
+            TF26193: The team project {0} does not exist. Check the team project name and try again. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorProjectIdNotExist">
+            <summary>
+            TF26192: The team project specified by the ID {0} does not exist. Check the team project ID and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorRelatedLinkNotExist">
+            <summary>
+            TF26195: The related work item does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorRelatedLinkToSelf">
+            <summary>
+            TF26196: Azure DevOps Server does not support relating a work item to itself. Select a different related work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemStoreAlreadyConnected">
+            <summary>
+            TF26199: Cannot connect to a different server for a work item store that has successfully connected to an Azure DevOps Server
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemTypeNotExist">
+            <summary>
+            TF201077: The work item type {0} cannot be found. It may have been renamed or destroyed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemTypeNameInvalid">
+            <summary>
+            TF237133: The work item type name {0} is not supported.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorProhibitedMeasure">
+            <summary>
+            TF237118: Attribute &apos;{0}&apos; is prohibited for field &apos;{1}&apos; unless its &apos;{2}&apos; attribute is set to &apos;{3}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemUpdateFieldsConflict">
+            <summary>
+            TF248023: Your work item has not been saved. Review the history which contains conflicting changes made recently by another user, make any additional changes you need, then save again to save your changes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemUpdateRuleViolation">
+            <summary>
+            TF248024: Your changes were not saved because the work item was updated recently by another user and the resulting merged work item breaks one or more rules. You must modify one or more fields to resolve the issue and then save the work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorIncompatibleMeasure">
+            <summary>
+            TF26047: The field &apos;{0}&apos; has the &apos;Reportable&apos; attribute set to &apos;Measure&apos;, but its field type does not support this attribute. This attribute supports the field types &apos;Integer&apos; and &apos;Double&apos;. Change this attribute for the field, or change the field type and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorIncompatibleDimension">
+            <summary>
+            TF26046: The field &apos;{0}&apos; has the &apos;Reportable&apos; attribute set to &apos;Dimension&apos;, but its field type does not support this attribute. This attribute supports the following field types: Integer, Double, String, or DateTime. Change this attribute for the field, or change the field type and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorIncompatibleDetail">
+            <summary>
+            TF26045: The field &apos;{0}&apos; has the &apos;Reportable&apos; attribute set to &apos;Detail&apos;, but its field type does not support this attribute. This attribute supports the following field types: Integer, Double, String, or DateTime. Change this attribute for the field, or change the field type and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorUnsupportedReportingFieldType">
+            <summary>
+            TF248020: You cannot specify the &apos;Reportable&apos; attribute for field &apos;{0}&apos;. You can only define the reportable attribute for Integer, Double, String, or DateTime fields. Remove this attribute for the field, or change the field type and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateActions">
+            <summary>
+            TF237092: Action &apos;{0}&apos; is defined for more than one transition from state &apos;{1}&apos;. Transitions from every single state must have a unique set of actions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorPageSizeLocked">
+            <summary>
+            Cannot change page size after accessing items in the collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorPageSizeRange">
+            <summary>
+            TF237117: PageSize has to be between {0} and {1}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorActionsForInitialTransition">
+            <summary>
+            TF237080: Transition from the empty state must have no actions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateGlobalListItem">
+            <summary>
+            TF26019: The global list &apos;{0}&apos; appears more than once in the list of values. Remove the redundant references and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWrongRuleForFieldType">
+            <summary>
+            TF237134: Field &apos;{0}&apos; cannot have rule &apos;{1}&apos; - the rule is not supported by field&apos;s type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInconsistentFieldTypes">
+            <summary>
+            TF26048: The rule &apos;{0}&apos; for field &apos;{1}&apos; refers to field &apos;{2}&apos;, which is a different field type. Change the field type or the field reference so that the field referred to is the same type and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldSelfReference">
+            <summary>
+            TF26037: Rule &apos;{0}&apos; is declared for the field &apos;{1}&apos; and references the same field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidListItem">
+            <summary>
+            TF26055: The value &apos;{0}&apos; is not supported for the field type of field &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCannotSortBy">
+            <summary>
+            TF26009: Azure DevOps Server does not support sorting by this field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorLinkCommentTooLong">
+            <summary>
+            TF26079: Azure DevOps Server does not support link comments over {0} characters long. Shorten the comment and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorLinkLocationTooLong">
+            <summary>
+            TF26185: Azure DevOps Server does not support link paths over {0} characters long. Shorten the link path and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorHistory">
+            <summary>
+            TF26182: This operation is not supported on revision history items.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorIgnoreField">
+            <summary>
+            TF237101: The field must be ignored by the client.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidURL">
+            <summary>
+            TF26066: The URL is not recognized. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorItemIsNew">
+            <summary>
+            TF26073: This operation cannot be performed on an item that has not yet been saved.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorItemNotOpen">
+            <summary>
+            TF237103: The work item must be open for this operation. Open the work item and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorItemOpen">
+            <summary>
+            TF237104: The work item must be closed for this operation. Close the work item and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorQueryNestingLimit">
+            <summary>
+            TF237119: Selection criteria has too many levels of nesting.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorItemAlreadyUpdatedOnServer">
+            <summary>
+            TF26071: This work item has been changed by someone else since you opened it.  You will need to refresh it and discard your changes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidTreeNode">
+            <summary>
+            TF26065: The project hierarchy node is not recognized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorReadOnlyField">
+            <summary>
+            TF26194: The value for the field &apos;{0}&apos; cannot be changed. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBatchSaveFailed">
+            <summary>
+            TF237085: Item has an unknown error that caused BatchSave to fail
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInconsistentRules">
+            <summary>
+            TF26049: The field &apos;{0}&apos; has rules &apos;{1}&apos; and &apos;{2}&apos; that are inconsistent. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorUnknownFormField">
+            <summary>
+            TF237122: The form uses undefined field &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCannotUseTreePathType">
+            <summary>
+            TF26179: Field type &apos;{0}&apos; can be used only with &apos;{1}&apos; and &apos;{2}&apos; fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCannotUseHistoryType">
+            <summary>
+            TF26178: Field type &apos;{0}&apos; can be used only with the &apos;{1}&apos; field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryNameEmpty">
+            <summary>
+            TF26167: The query name was empty. Add a query name and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryTextEmpty">
+            <summary>
+            TF26169: Query name cannot be empty
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemValidation">
+            <summary>
+            TF26201: This work item has unsupported fields, or user does not have permissions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemNotExistOrNoAccess">
+            <summary>
+            TF26198: The work item does not exist, or you do not have permission to access it.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemChangeRejected">
+            <summary>
+            TF237123: Change to the work item was rejected by the server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorRequestCancelledByUser">
+            <summary>
+            TF237120: The request was canceled by the user.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateWorkItem">
+            <summary>
+            TF26180: An item with this ID already exists in the input array.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidProject">
+            <summary>
+            All work items in the BatchSave call should belong to the same team project.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAttachmentFileNotFound">
+            <summary>
+            TF26003: Azure DevOps Server could not find the file. Check the file name and path and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAttachmentCommentTooLong">
+            <summary>
+            TF26002: Azure DevOps Server does not support comments over {0} characters long. Shorten your comment and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAttachmentAlreadyExists">
+            <summary>
+            TF237081: A file attachment with the same name already exists.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorMaxNewAttachments">
+            <summary>
+            TF26084: The attachment could not be added because the work item already has the maximum number of supported attachments {0}. Remove attachments that are no longer being used and try again, or create a link to the file instead. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FileUploadedExceededMaxMb">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FileUploadedExceededMaxBytes">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.CannotChangeQueryScope">
+            <summary>
+            Query Scope cannot be changed after stored query is saved.  Must copy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryAlreadySaved">
+            <summary>
+            Query has already been saved.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryDescriptionTooLong">
+            <summary>
+            TF26163: Azure DevOps Server does not support query descriptions over {0} characters long. Shorten the description and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.TagFormatCreate">
+            <summary>
+            Created by {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.TagFormatEdit">
+            <summary>
+            Edited by {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.TagFormatTransition">
+            <summary>
+            Edited ({0} to {1}) by {2}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.TagAuth">
+            <summary>
+            {1} on behalf of {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.UnknownUser">
+            <summary>
+            Unknown user
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.CopiedCommentItem">
+             <summary>
+             {0} is the workitem tage, example:  &apos;Copied from Bug 324&apos;
+            
+             Copied from {0}.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemTag">
+             <summary>
+             {0} is the work item type name, {1} is the work item ID, example &apos;Task 32&apos;
+            
+             {0} {1}
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.CopiedCommentNewItem">
+            <summary>
+            Copied from new work item 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidFieldValue">
+            <summary>
+            TF26052: Attempt to set the field to an unsupported value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidFieldName">
+            <summary>
+            TF26051: The field name &apos;{0}&apos; is not a supported field name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidFieldReferenceName">
+            <summary>
+            TF26061: &apos;{0}&apos; is not a supported reference field name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInternalField">
+            <summary>
+            TF26050: The work item type definition has a definition for field &apos;{0}&apos; that is a reserved system field name and cannot be used. Rename or remove this field definition and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidRuleForFieldType">
+            <summary>
+            TF237102: Field &apos;{0}&apos;: {1} is not allowed for fields of type {2}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidRuleForField">
+            <summary>
+            TF26062: Rule &apos;{0}&apos; is not supported for the field &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateFieldReference">
+            <summary>
+            TF237096: Field &apos;{0}&apos; is referenced more than once in the same scope.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldAlreadyExists">
+            <summary>
+            TF26025: The field &apos;{0}&apos; already exists in the collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldNotQueryable">
+            <summary>
+            TF26036: Azure DevOps Server does not support querying on this field &apos;{0}&apos;. Change your query and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorUserNotFoundForSid">
+            <summary>
+            TF237163: The user was not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorServerRejectedChangesException">
+            <summary>
+            TF26212: Azure DevOps Server could not save your changes. There may be problems with the work item type definition, or a conflicting work item type definition change may require a refresh on your client. Restart your client application and try again, or contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorOrphanedItem">
+            <summary>
+            TF237115: The item has been disconnected from its parent.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorOrphanedLink">
+            <summary>
+            TF237116: The link has been disconnected from its parent and cannot be used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AttachmentChangedException">
+            <summary>
+            The attachment {0} was changed before it could be saved.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AttachmentExistsException">
+            <summary>
+            The attachment was already added to a work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AttachmentNotFoundException">
+            <summary>
+            The attachment {0} was moved or deleted before it could be saved, or it is being used by another process.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebExceptionConnectFailed">
+            <summary>
+            TF26173: Azure DevOps Server could not connect to the application tier. Check that you have a network connection and that the Azure DevOps Server is available. If the problem persists, contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebExceptionCouldNotReachServer">
+            <summary>
+            TF26173: Azure DevOps Server could not connect to the application tier. Check that you have a network connection and that the Azure DevOps Server is available. If the problem persists, contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.CouldNotReachServer">
+            <summary>
+            TF26000: Could not connect to the Azure DevOps Server. Check that you have a network connection and that your Azure DevOps Server is available.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebExceptionTimeOut">
+            <summary>
+            TF26174: Azure DevOps Server timed out trying to connect to the server. Check that you have a network connection and that the Azure DevOps Server is available. If the problem persists, contact your Azure DevOps Server administrator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.BackendArgumentException">
+            <summary>
+            The server operation failed. ({0}).
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorMissingConstant">
+            <summary>
+            TF26085: Unknown constant with ID {0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidXmlNamespace">
+            <summary>
+            TF26184: The default namespace is unrecognized. It must be either empty or set to &apos;{0}&apos;, but it is set to &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCannotRenameField">
+            <summary>
+            TF26177: The field {0} cannot be renamed from &apos;{1}&apos; to &apos;{2}&apos;. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDifferentReportingSettings">
+            <summary>
+            TF237091: Actual reporting settings for the field {0} are different from those specified in the XML. Changing these settings is prohibited.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FieldNameChanged">
+            <summary>
+            Name of the field &apos;{0}&apos; was changed from &apos;{1}&apos; to &apos;{2}&apos; as &apos;{1}&apos; is already used by field &apos;{3}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateFieldDefinition">
+            <summary>
+            TF26016: The field {0} has been defined more than once in the work item type definition file. Remove or rename one of the definitions and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WarningMissingIdentity">
+            <summary>
+            TF26171: User/group &apos;{0}&apos; is not found. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoImportPermissions">
+            <summary>
+            TF237113: You don&apos;t have enough permissions to complete the import operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorMissingRequiredAttribute">
+            <summary>
+            TF237108: Element &apos;{0}&apos; doesn&apos;t have a required attribute &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WhereIsNotEmptyOnParamedQuery">
+            <summary>
+            The WHERE and ORDER BY clauses of a query string are not supported on a parameterized query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidQueryColumn">
+            <summary>
+            TF237159: The query contains columns that are not valid.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCantSortBy">
+            <summary>
+            TF237089: The field &apos;{0}&apos; cannot be used to sort by.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateStateInTransition">
+            <summary>
+            TF26214: State &apos;{0}&apos; is specified in source and destination states in the transition. These states must be different.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateTransition">
+            <summary>
+            TF26215: Transition from state &apos;{0}&apos; to state &apos;{1}&apos; (for=&apos;{2}&apos;, not=&apos;{3}&apos;) is defined more than once.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAttachmentUploadFailed">
+            <summary>
+            TF237082: The attachment could not be uploaded. Verify that you have a network connection and that Azure DevOps Server is available. If the problem persists, provide the following information to the server administrator. The server returned the following message: {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorTwoWidthElements">
+            <summary>
+            TF26216: The form &apos;{0} element has mutually exclusive attributes &apos;{1}&apos; and &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoWidthElements">
+            <summary>
+            TF26217: The form &apos;{0}&apos; element has neither &apos;{1}&apos; nor &apos;{2}&apos; attributes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorReportingFieldNamesCollision">
+            <summary>
+            TF26218: Field names {0} and {1} map to the same field name {2} in reporting and cannot be used together.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeCannotUpdateTopology">
+            <summary>
+            TF201001: Cannot change topology for a link type {0}, it has already been defined.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeSourceRelationNameRequired">
+            <summary>
+            TF201002: A ForwardName attribute is required for link type {0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeTargetRelationNameRequired">
+            <summary>
+            TF201003: A ReverseName attribute is required for directional link type {0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeTopologyNotSpecified">
+            <summary>
+            TF201004: A Topology attribute is required for link type {0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeNonDirectionalSourceTargetDifferent">
+            <summary>
+            TF201005: The non-directional topology {0} for link type {1} must have the same ForwardName and ReverseName.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeDirectionalSourceTargetSame">
+            <summary>
+            TF201006: The directional topology {0} for link type {1} must have the different ForwardName and ReverseName.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeNameConflict">
+            <summary>
+            TF201006: The link type {0} conflicts with link type {1}. The name {2} is already being used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeRefNameConflict">
+            <summary>
+            TF201008: Link type {0} conflicts with an existing link type. The name {1} is already in use.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeFieldRefNameConflict">
+            <summary>
+            TF201010: Link type {0} conflicts with an existing field. The name {1} is already in use.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidLinkTypeName">
+            <summary>
+            TF201015: {0} is not a supported link type name. See https://go.microsoft.com/fwlink/?LinkID=72977 for link type name restrictions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidLinkTypeReferenceName">
+            <summary>
+            TF201016: {0} is not a valid link type reference name. See https://go.microsoft.com/fwlink/?LinkID=72977 for link type reference name restrictions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidLinkTypeReferenceNameSystem">
+            <summary>
+            TF201046: {0} is not a valid link type reference name. User defined reference names may not begin with &apos;System.&apos;. See https://go.microsoft.com/fwlink/?LinkID=72977 for link type reference name restrictions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FieldLinkTypeRefNameConflict">
+            <summary>
+            TF201000: Field reference name {0} conflicts with an existing link type. The name is already in use.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeCannotBeModified">
+            <summary>
+            TF201013: The link type {0} cannot be modified.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeHasBeenDeleted">
+            <summary>
+            TF201014: The link type {0} has been deleted. You cannot activate, deactivate, or delete a link type that has already been deleted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoPermissions">
+            <summary>
+            TF201017: You don&apos;t have permissions to complete the operation. To create, modify or delete link types, you must have the &apos;{0}&apos; permission.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkTypeCannotBeDeleted">
+            <summary>
+            TF201018: The link type {0} cannot be deleted because it is a core link type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemLinkTypeNotExist">
+            <summary>
+            TF201019: Work item link type {0} does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.DifferentStores">
+            <summary>
+            The mixing of objects, which belong to different Work Item Stores, is not allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinkNotFound2">
+            <summary>
+            TF201061: There is not a {0} link to work item {1}. It may have been deleted by another user.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkCircularity2">
+            <summary>
+            TF201063: Adding a {0} link to work item {1} would result in a circular relationship. To create this link, evaluate the existing links, and remove one of the other links in the cycle.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkAlreadyExists2">
+            <summary>
+            TF201064: A {0} link to work item {1} already exists. It may have been added by another user.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkExtraParent2">
+            <summary>
+            TF201065: You cannot add a {0} link to this work item because a work item can have only one link of this type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddLinkExtraParent3">
+            <summary>
+            TF201066: You cannot add a {0} link to work item {1} because a work item can have only one {2} link.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBatchSaveNullWorkItem">
+            <summary>
+            TF237087: Null workitem is not allowed in the BatchSave call.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBatchSaveDuplicateWorkItem">
+            <summary>
+            TF237084: Duplicate workitems are not allowed in the BatchSave call.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBatchSaveInvalidWorkitem">
+            <summary>
+            TF237086: The work item cannot be saved because at least one field contains a value that is not allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorLinkAlreadyAdded">
+            <summary>
+            TF237105: The link is already a part of a different work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateExternalLink">
+            <summary>
+            TF237093: Duplicate external link.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorHyperLinkAlreadyAdded">
+            <summary>
+            TF237100: Hyperlink is already a part of a different work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateHyperlink">
+            <summary>
+            TF237097: Duplicate hyperlink.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemLinkAlreadyAdded">
+            <summary>
+            TF237125: The work item link object is already a part of a different work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateWorkItemLink">
+            <summary>
+            TF237099: Duplicate work item link.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemLinkChangeTargetId">
+            <summary>
+            TF237127: Can&apos;t change target ID for the link in the workitem collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemLinkChangeSourceId">
+            <summary>
+            TF237126: Can&apos;t change source ID for the link in the workitem collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemLinkNeedTargetId">
+            <summary>
+            TF237128: Target workitem ID should be set before adding link to collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemLinkOneOfIds">
+            <summary>
+            TF237129: One of the source or target workitem IDs should be equal to the current workitem ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemLinkToUndefined">
+            <summary>
+            TF237130: One of work item links references new workitems, which are not defined in the same package.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemNeedCollection">
+            <summary>
+            TF237131: PartialOpen call can be applied to the query results only.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemIsNotReadyToSave">
+            <summary>
+            TF237124: Work Item is not ready to save
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCantModifyIdField">
+            <summary>
+            TF237088: Can&apos;t modify ID field
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorMalformedUri">
+            <summary>
+            TF237106: Malformed URI: {0}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryLinksOnParamedQuery">
+            <summary>
+            The FROM clause of a query string cannot specify links on a parameterized query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.IncorrectEndAsyncQuery">
+            <summary>
+            The begin and end methods of asynchronous query do not match.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.IncorrectWorkItemQueryMethod">
+            <summary>
+            TF248021: You have specified a query string that is not valid when you use the query method for a flat list of work items. You cannot specify a parameterized query or a query string for linked work items with the query method you specified.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.IncorrectLinkedWorkItemQueryMethod">
+            <summary>
+            TF248022: You have specified a query string that is not valid when you use the query method for linked work items. You cannot specify a parameterized query or a query string for a flat list of work items with the query method you specified.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlDuplicateName">
+            <summary>
+            TF201039: The name &apos;{0}&apos; is already in use by another links control. Specify a different name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlLinkColumnInvalidAttributes">
+            <summary>
+            TF201040: The &apos;LinkColumn&apos; element requires the &apos;LinkAttribute&apos; or the &apos;RefName&apos; attribute, but not both. Specify either the &apos;LinkAttribute&apos; or the &apos;RefName&apos; attribute.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlLinkColumnDuplicateColumn">
+            <summary>
+            TF201041: The link column named &apos;{0}&apos; is referenced more than once. Remove the duplicate references.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlDuplicateFilterName">
+            <summary>
+            TF201043: The link type filter &apos;{0}&apos; is specified more than once. Remove the duplicate filters.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlDuplicateWITFilterName">
+            <summary>
+            TF237175: The import failed. The work item type filter {0} is specified more than once in the work item type definition. Remove the duplicate filters and import it again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlCannotContainLinksOptions">
+            <summary>
+            TF237176: The import failed.  The work item type definition that you are trying to import contains a links control with an element {0} that is not supported on this server. That element is supported by a more recent version of Azure DevOps Server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlUnknownFilterName">
+            <summary>
+            TF201044: The link type filter &apos;{0}&apos; specifies a link type that does not exist on the Azure DevOps Server. Specify a valid link type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlLinkAttributeInvalid">
+            <summary>
+            TF201045: The link attribute &apos;{0}&apos; is not a supported link column. Specify one of the valid link column types, {1}, {2}, {3}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlAllFiltersCannotContainChildren">
+            <summary>
+            TF201047: The {0} links control element is not supported. When the {1} attribute is {2}, that element cannot contain &lt;{3}&gt; elements. Use {4} for the {1} attribute, or remove the &lt;{3}&gt; elements.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlExcludeAllLinkTypesFiltersCannotContainWorkItemTypeFilters">
+            <summary>
+            TF248013: The {0} and {1} links control elements are not compatible. Either do not set the {2} attribute of the {1} element to {3}, or else remove the {0} element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.LinksControlNonDirectionalLinkWithFilterOn">
+            <summary>
+            TF201048: The links control filter contains an element for link type {0} that is not supported. That link type is not directed, so the {1} attribute cannot be used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNullLinkInArray">
+            <summary>
+            TF237114: The link array should not contain null elements.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorNoAreaWriteAccess">
+            <summary>
+            TF237111: The current user does not have permissions to save work items under the specified area path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyTeamQueries">
+            <summary>
+            Team Queries
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyMyQueries">
+            <summary>
+            My Queries
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotAddSelfAsChild">
+            <summary>
+            TF237001: Cannot add self to child list
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotAddDeletedItems">
+            <summary>
+            TF237003: The item {0} has been deleted. You cannot add an item that has already been deleted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotAddToDeletedFolder">
+            <summary>
+            TF237004: The query folder {0} has been deleted. You cannot add any items to a deleted folder.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyServerDoesNotSupportFolders">
+            <summary>
+            TF237005: You cannot create a query folder with this version of Azure DevOps Server. Upgrade to a newer version of Azure DevOps Server in order to create query folders.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyServerDoesNotSupportPermissions">
+            <summary>
+            TF237199: You cannot set query or query folder permissions with this version of Azure DevOps Server. Upgrade to a newer version of Azure DevOps Server in order to set permissions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.IsEmptyValidWith">
+            <summary>
+            Is Empty can only be used with history, long text and plaintext fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotAddParentAsChild">
+            <summary>
+            TF237002: Folder {0} is the parent folder. You cannot add a parent folder to any of its child folders
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyNameConflict">
+            <summary>
+            TF237006: The destination folder {0} already contains a query or a query folder named {1}. You cannot add an item with the same name. Rename one of the items
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ArgumentCannotBeEmpty">
+            <summary>
+            The argument {0} cannot be empty.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyQueryTextCannotBeEmpty">
+            <summary>
+            TF237009: You cannot create an empty query. Create a query that has a valid string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyAddingAcrossStoresProhibited">
+            <summary>
+            TF237010: You cannot add a query or a query folder from a folder in a WorkItemStoreobject to a folder in a different WorkItemStore object.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyRootNodesMayNotBeModified">
+            <summary>
+            TF237012: Root node {0} may not be modified.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotModifyDeletedItems">
+            <summary>
+            TF237013: Cannot modify queries or query folders that are deleted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotDeleteDeletedItems">
+            <summary>
+            TF237046: Cannot delete queries or query folders that are already deleted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyCannotDeleteOrphanedItems">
+            <summary>
+            TF237048: You cannot delete a query or a query folder that does not have a parent folder.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.QueryHierarchyMoveBetweenProjectsProhibited">
+            <summary>
+            TF237014: You cannot move queries or query folders between projects.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorCannotImportWITNoPermissionToModifyFieldForAllProjects">
+            <summary>
+            TF218007: Cannot import the work item type. It changes fields in team projects in which you do not have permissions to make changes. Correct this problem by changing the definition of the work item type so that it does not change the name or reporting behavior of these fields: {0}Or obtain permissions to make changes to these team projects: {1}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorUnknownTypeInCategory">
+            <summary>
+            TF237059: The import of the category definition failed. In the type definition, category {0} refers to a work item type that does not exist {1}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateTypeInCategory">
+            <summary>
+            TF237060: The import of the category definition failed. The category {0} type definition refers to work item type {1} more than once.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidXml">
+            <summary>
+            TF237070: Importing the definition failed. The definition you are trying to import did not validate against the schema. Edit the definition, then try to import it again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ListSeparator">
+            <summary>
+            , 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorControlLabelAttrMissing">
+            <summary>
+            TF237064: Importing the work item type definition failed. The Control element must specify a Label attribute if a Link element is present. Add a Label attribute and try to import it again. Error Xml: {0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorLinkParamsTooFew">
+            <summary>
+            TF237066: Importing the work item type definition failed. The parameter elements specified for the link  are fewer than required in the URL. Fix the parameter element and try to import it again. Error xml: {0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidParam">
+            <summary>
+            TF237067: Importing the work item type definition failed. The Url  parameter {0} is not a valid field name or a valid macro. Valid macros include the following: @Me. Correct the Url parameter and try to import it again. Error xml: {1}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.InvalidParamIndexError">
+            <summary>
+            TF237068: Importing the work item type definition failed. The definition you are trying to import lists a parameter index value {0} that is greater than the number of the parameter elements {1} in a Link element.  Note that index values start at zero. Correct the index value and then try to import it again. Error Xml: {2}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ParamIndexDuplicateError">
+            <summary>
+            TF237069: Importing the work item type definition failed. The definition you are trying to import lists more than one parameter element with index {0}. Remove the duplicate element and try to import it again. Error Xml: {1}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.InvalidUrlRootFormat">
+            <summary>
+            TF237076: Importing the work item type definition failed. The definition you are trying to import contains an invalid UrlRoot attribute value &apos;{0}&apos;. The value must contain a valid Url or valid macro. Change the attribute value in the type definition and then try to import it again. The following are valid macros: @PortalPage, @ProcessGuidance, @ReportManagerUrl, @ReportServiceSiteUrl. Error: {1} Error Xml:{2}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.UnsupportedUriScheme">
+            <summary>
+            TF237077:Importing the work item type definition failed. The definition you are trying to import uses unsupported Url protocol &apos;{0}&apos; in the link label. Modify the type definition to use http, https, or mailto protocol, and then try to import it again. Error Xml:{1}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.UnsupportedUriSchemeWebpageControl">
+            <summary>
+            TF237078: Importing the definition failed. The definition you are trying to import uses unsupported Url protocol &apos;{0}&apos; for a Web page control. Modify the type definition to use http or https protocol and then try to import it again. Error Xml:{1}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebpageControlInvalidAttributes">
+            <summary>
+            TF237167: Importing the definition failed. The definition you are trying to import cannot use the attributes AllowScript or ReloadOnParamChange when the Content element is used in the WebpageControl. Remove those attributes in the type definition and then try to import it again. Error Xml:{0}.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ArgumentCannotBeNullOrEmpty">
+            <summary>
+            Argument {0} cannot be null or empty.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldReportabilityChange">
+            <summary>
+            TF201078: You are trying to import a type of work item that uses the field &apos;{0}&apos;. Your definition of the field includes a reportable setting that differs from the setting for that field in the database for Azure DevOps Server. To change the database setting, you must log on as a member of the Project Collection Administrators group. To import the type of work item without changing the database setting, you must remove the setting from your definition of the field, or you must change that setting to match the database.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFieldIndexingInvalidType">
+            <summary>
+            TF212021: You cannot index field &apos;{0}&apos; because it is not one of the following types: String, Integer, Double, DateTime, Boolean, Guid.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidProjectId">
+            <summary>
+            TF248000: The project ID &apos;{0}&apos; does not exist. Specify a valid project ID, and then try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorMissingProjectScope">
+            <summary>
+            TF248001: You have specified a project-scoped group, &apos;{0}&apos;, which is not allowed for a global list or a global workflow that is defined for a project collection. Remove the reference to the specified group.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGuidFieldsNotSupported">
+            <summary>
+            TF248005: You cannot create a field of the GUID. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorBoolFieldsNotSupported">
+            <summary>
+            TF248006: You cannot create a field of the Boolean type. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorRevisionQueriesNotSupported">
+            <summary>
+            TF248008: You cannot run a query for revisions. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorLinkLockingNotSupported">
+            <summary>
+            TF248010: You cannot lock a link between work items. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorComputedFieldInRevisionQuery">
+            <summary>
+            TF212022: You cannot specify &apos;{0}&apos; in a query that returns revisions of work items because that field is a computed field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDifferentProjectsInBatchSave">
+            <summary>
+            TF248011: You cannot save work items to more than one project in a single operation. Either this feature is not enabled on one of the servers, or the server version is earlier than Visual Studio Team Foundation Server 2010.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorFullTextService">
+            <summary>
+            TF248015: Your work item query could not be completed due to an unexpected error returned by the Microsoft SQL Server Full-text engine. Contact your system administrator to check the Application event log for Azure DevOps Server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorRenameSafeChanged">
+            <summary>
+            TF248018: You cannot change the &quot;{1}&quot; attribute of field &apos;{0}&apos; in a work item type definition. You can only change the value of this attribute by using the witadmin changefield command-line tool. For more information, see the Microsoft Web site:  https://go.microsoft.com/fwlink/?LinkId=759719. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorRenameSafeNotValid">
+            <summary>
+            TF248017: You cannot specify the &quot;renamesafe&quot; attribute for field &apos;{0}&apos;. You can only specify the &quot;{2}&quot; attribute for a field whose data type is &quot;{1}&quot;.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGlobalWorkflowNotSupported">
+            <summary>
+            TF298000: You cannot import global workflow. To import global workflow, the feature must be enabled on the application-tier server and the server must be running a version newer than Visual Studio Team Foundation Server 2010 Service Pack 1.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.IncorrectWorkItemState">
+            <summary>
+            TF400276: You have tried to set a value for a field of a work item which is not opened or partial opened. You cannot set a value for a field of a work item which is not opened or partial opened.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorSavingWorkItemTagFailed">
+            <summary>
+            TF401011: The work item cannot be saved. Associated tags are invalid.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorImageNotFound">
+             <summary>
+             {0} Full path to file
+            
+             TF602212: The image &apos;{0}&apos; was moved or deleted, or it is being used by another process.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorImageUploadFailed">
+             <summary>
+             {0} Full path to file, {1} The field which contains the file that failed to upload, {2} The error message that was returned from the server
+            
+             TF602213: The image, &apos;{0}&apos;, inserted in the &apos;{1}&apos; field could not be uploaded. Verify that you have a network connection and that Azure DevOps Server is available. If the problem persists, provide the following information to the server administrator. The server returned the following message: {2}
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDeleteFieldNoPermission">
+            <summary>
+            TF400326: You are trying to delete field &apos;{0}&apos;. To delete a field, you must have Work Item Tracking provisioning permission on the Team Project Collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDifferentFieldDefinitions">
+            <summary>
+            TF400930: Field &apos;{0}&apos; is defined multiple times with different field definitions. Correct the field definition and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FormatterQuery">
+            <summary>
+            Query: 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.PredicateError">
+            <summary>
+            Invalid Predicate
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.PredicateErrorInvalidValueType">
+            <summary>
+            The type of the value supplied for field comparison operator is incompatible with field type. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.PredicateErrorMissingFieldName">
+            <summary>
+            Field comparison operator must have a valid field reference name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateWorkItemTypeletID">
+            <summary>
+            Duplicate work item typelet ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorDuplicateWorkItemTypeletName">
+            <summary>
+            Duplicate work item typelet name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemTypeletDoesNotExist">
+            <summary>
+            Work item typelet does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageCancelled">
+            <summary>
+            Search cancelled.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageExceededCharacterLimit">
+             <summary>
+             0 - the maximum number of characters supported
+            
+             Your search query exceeded the maximum character count of {0}.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageExceededTermLimit">
+             <summary>
+             0 - the max number of terms supported
+            
+             You cannot enter more than {0} search terms.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageFailed">
+            <summary>
+            Search failed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageFormatException">
+             <summary>
+             0 - search value, 1 - name of the field, 2 - field type
+            
+             &apos;{0}&apos; does not match the expected format of {1}, which is a {2} field.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageKeywordHelpTextWithoutRepro">
+             <summary>
+             The friendly descriptive text for a default keyword search for a TPC without the Repro Steps field; {0} = Title, {1} = Description
+            
+             {0} or {1}
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageKeywordHelpTextWithRepro">
+             <summary>
+             The friendly descriptive text for a default keyword search for a TPC with the Repro Steps field; {0} = Title, {1} = Description, {2} = Repro Steps
+            
+             {0}, {1}, or {2}
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageKeywordNotHelpTextWithoutRepro">
+             <summary>
+             The friendly descriptive text for a default NOT keyword search for a TPC without the Repro Steps field; {0} = Title, {1} = Description
+            
+             {0} and {1}
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.SearchPageKeywordNotHelpTextWithRepro">
+             <summary>
+             The friendly descriptive text for a default NOT keyword search for a TPC with the Repro Steps field; {0} = Title, {1} = Description, {2} = Repro Steps
+            
+             {0}, {1}, and {2}
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorSearchInvalidFieldName">
+            <summary>
+            Your search criteria contains an undefined field for this team project: &apos;{0}&apos;. Check the spelling or remove the field from the search criteria and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorObseleteFeature">
+            <summary>
+            TF401327: The operation is not supported. The feature is obselete.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorIdentityFieldsNotSupported">
+            <summary>
+            You cannot create a field of type Identity. Either this feature is not enabled on this server, or the server version is earlier than Team Foundation Server 2014.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorIdentityMustBeAGroup">
+            <summary>
+            Identity &apos;{0}&apos; must be a group.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorMissingIdentity">
+            <summary>
+            User/group &apos;{0}&apos; is not found. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorOnlyIdentitiesAllowedInIdentityFields">
+            <summary>
+            Field &apos;{0}&apos;: {1} is not a valid identity. An identity field can only contain identity names.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorAddFileFileDoesNotExist">
+            <summary>
+            VS402398: WorkItem attachment does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemAttachmentIncorrectOffset">
+            <summary>
+            VS402399: Offset value {0} is incorrect for attachment with ID {1}. Please try restarting the upload.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemTypeNameNotUnique">
+            <summary>
+            VS402474: Work item type name is not unique: {0}. Correct the definition, and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorWorkItemTypeReferenceNameNotUnique">
+            <summary>
+            VS402475: Work item type reference name is not unique: {0}. Correct the definition, and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorInvalidWorkItemTypeReferenceName">
+            <summary>
+            VS402476: Work item type reference name is invalid: {0}. Correct it, and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorIdentityNotFound">
+            <summary>
+            VS402504: User or group cannot be found: {0}. Verify that the users and groups used in your work item type definition exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FieldTypeInvalid">
+            <summary>
+            VS402802: You&apos;ve specified an invalid type for the field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_ControlTypeNotAllowed">
+             <summary>
+             {0} = control type name
+            
+             VS403069: Control type {0} is not allowed in WebLayout.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_SystemControlTypeNotAllowed">
+             <summary>
+             {0} = control type name
+            
+             VS403176: Either field name is missing or control type {0} is not allowed in SystemControls.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_SystemControlNameDuplicated">
+             <summary>
+             {0} = control name
+            
+             VS403177: Control name {0} already exists.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_SystemControlFieldNameNotAllowed">
+             <summary>
+             {0} = field reference name
+            
+             VS403178: Field {0} is not allowed in SystemControl.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_FieldNameNotAllowed">
+             <summary>
+             {0} = field reference name
+            
+             VS403068: Field {0} is not allowed in WebLayout.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_ControlTypeOnlyAllowedInFirstSection">
+             <summary>
+             {0} = control type name
+            
+             VS403070: Control type {0} is only allowed in first section of the page.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemFormAttachments">
+            <summary>
+            Attachments
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemFormHistory">
+            <summary>
+            History
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemFormLinks">
+            <summary>
+            Links
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_InvalidOrDuplicatedPageLabel">
+             <summary>
+             {0} = page label
+            
+             VS403072: Page label &apos;{0}&apos; already exists or duplicated with preserved system label
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_InvalidOrDuplicatedGroupLabel">
+             <summary>
+             {0} = group label
+            
+             VS403080: Group label &apos;{0}&apos; already exists on the same page
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_InvalidControlsInGroup">
+             <summary>
+             {0} = group label
+            
+             VS403073: Group {0} violates the rule that a group can only contain a single HTML or WebPage control preceded by label controls.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_RequiredFieldsNotInBothLayouts">
+             <summary>
+             {0} = work item type name, {1} = field reference name
+            
+             VS403103: The required field ‘{0}’ is not included in all layouts.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_DuplicateControlsInGroup">
+             <summary>
+             {0} = field reference name, {1} = group label
+            
+             VS403111: The control {0} already exists in group {1}.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayoutLinksControlLinkColumnInvalidAttributes">
+            <summary>
+            TF201040: The &apos;Column&apos; element requires the &apos;Name&apos; attribute.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.Control">
+            <summary>
+            Control
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.Group">
+            <summary>
+            Group
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.Page">
+            <summary>
+            Page
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_InvalidContributionType">
+            <summary>
+            VS403116: The contribution &quot;{0}&quot; is not a valid {1} contribution.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_InvalidContributionInputValue">
+            <summary>
+            VS403117: The input value &quot;{0}&quot; is not a valid input value for input &quot;{1}&quot; in contribution &quot;{2}&quot;
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_InvalidContributionInputId">
+            <summary>
+            VS403118: The input ID &quot;{0}&quot; does not exist in contribution &quot;{1}&quot;
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_InvalidContributionInputType">
+            <summary>
+            VS403126: The input type &quot;{0}&quot; for input &quot;{1}&quot; in contribution &quot;{2}&quot; is not a valid Input type
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_ContributionInputNotSpecified">
+             <summary>
+             {0} is the contribution input, {1} is contribution ID.
+            
+             VS403116: The contribution input &quot;{0}&quot; is not specified for contribution {1}.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_ContributionNotFoundOrNotInListedExtensionsElement">
+             <summary>
+             {0} = contribution ID
+            
+             VS403120: Contribution &quot;{0}&quot; does not exist or is not in the extensions listed in the &lt;Extensions&gt; element.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_FormExtensionNotFoundOrNoFormContribution">
+             <summary>
+             {0} = extension ID
+            
+             VS403121: Extension(s) &quot;{0}&quot; does not exist , or has no work item form contribution.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_FormExtensionDoesNotHavePageGroupOrControlContribution">
+             <summary>
+             {0} = extension ID
+            
+             VS403296: Extension {0} does not have a control, group or page contribution.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_UnsupportedAutoInjectionContributionType">
+            <summary>
+            VS403155: The type of contribution &quot;{0}&quot; is not supported for auto injection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_DuplicateGroupContributions">
+            <summary>
+            VS403156: Cannot have more than one group contribution &apos;{0}&apos; in page &apos;{1}&apos;
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_DuplicatePageContributions">
+            <summary>
+            VS403157: Cannot have more than one page contribution &apos;{0}&apos;
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_FormExtensionNotDeclared">
+            <summary>
+            VS403158: Extension is required before adding page, group or control contribution in the layout xml.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.MultipleControlsInLinksGroupException">
+             <summary>
+             {0} is the label of the group
+            
+             VS403159: Group {0} can only have one links control.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.NewFormFirstPageTitle">
+            <summary>
+            Details
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_ControlHeightNotAllowed">
+            <summary>
+            VS403160: &apos;Height&apos; atttribute is only allowed for HTML, Links and Webpage controls
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemFormDevelopment">
+            <summary>
+            Development
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemFormRelatedWork">
+            <summary>
+            Related Work
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGroupContainsAADGroupMember">
+             <summary>
+             {0} - an Azure DevOps group name{1} - a list of Microsoft Entra group names, separated by comma
+            
+             VS237301: The process contains field rule attributes &quot;for&quot; or &quot;not&quot; that reference Microsoft Entra groups, which is unsupported. The &apos;{0}&apos; group contains the following Microsoft Entra groups: {1}
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGroupContainsAADGroupSnippet">
+             <summary>
+             {0} - child group , {1} - parent group, {2} - optional message of team project if applicable
+            
+             &apos;{0}&apos; (Child of &apos;{1}&apos;)
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGroupContainsAADGroupSnippetTeamProject">
+             <summary>
+             {0} - child group , {1} - parent group, {2} - team project name 
+            
+             &apos;{0}&apos; (Child of &apos;{1}&apos;, in team project &apos;{2}&apos;)
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorReportabilityValidationFailed">
+            <summary>
+            TF400930: The reporting attribute for field {0} is inconsistent between the imported XML and what is currently configured for the field. Correct the field configuration in the XML and try again.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_SystemControlReplacesFieldNotAllowed">
+             <summary>
+             {0} - list of field reference names
+            
+             VS403294: Only the fields {0} can be replaced.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_SystemControlReplacesFieldDuplicated">
+             <summary>
+             {0} = field being replaced
+            
+             VS403295: The replacement field {0} already exists in SystemControls.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WorkItemTypeListItemMustHaveValue">
+            <summary>
+            VS403301: A LISTITEM element does not have a value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.DataImportWhitelistedLinksControlUnknownFilterName">
+            <summary>
+            TF201084: The link type filter &apos;{0}&apos; specifies a link type that does not exist on the Azure DevOps Server. Specify a valid link type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_ControlNotRecognized">
+            <summary>
+            VS403348: Control type {0} is not recognized in WebLayout.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.WebLayout_SystemControlHiddenFieldNotAllowed">
+             <summary>
+             {0} - list of field reference names
+            
+             VS403361: Only the fields {0} can be hidden.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGroupContainsADGroupMember">
+            <summary>
+            VS237302: The process contains field rule attributes &quot;for&quot; or &quot;not&quot; that reference Active Directory (AD) groups, which is unsupported in data import as these groups will be converted to Microsoft Entra groups post data import. The &apos;{0}&apos; group contains the following AD groups: {1}
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FileDownloadExceededMaxBytes">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.FileDownloadExceededMaxMb">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.ErrorGroupIdentityNotFound">
+            <summary>
+            VS403464: Group cannot be found: {0}. Verify the group used in your work item type definition exists.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.RemoteLinkAddLockedLink">
+            <summary>
+            VS403478: You cannot lock a remote link.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.AddRemoteLinkWhenPendingDelete">
+            <summary>
+            VS403479: The remote link &apos;{0}&apos; between work items &apos;{1}&apos; and &apos;{2}&apos; that you are attempting to create is pending delete and cannot be added.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Internals.InternalsResourceStrings.InvalidContributionInputIdException">
+             <summary>
+             {0} is an input id, {1} is the contribution id
+            
+             Unexpected input {0} is provided for contribution {1}.
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Marker.TraceMarker(Microsoft.TeamFoundation.Common.Mark)">
+            <summary>
+            Writes the specified marker to the trace if perf tracing is enabled.
+            </summary>
+            <param name="mark">Mark to trace</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Marker.TryTranslate(Microsoft.TeamFoundation.Common.Mark,System.Int32@)">
+            <summary>
+            Translates the specified 'Mark' enumeration into a codemarker value if a codemarker mapping exists (it isn't required)
+            </summary>
+            <param name="mark">Mark to translate</param>
+            <param name="codeMarker">out - translated codemarker</param>
+            <returns>true if the mark was translated, false otherwise</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Common.WITCodeMarkerStartEnd">
+            <summary>
+            Wraps our implementation of the TfCodeMarkerStartEnd class, allows for translation of 'Mark' enumeration.
+            </summary>
+        </member>
+    </members>
+</doc>

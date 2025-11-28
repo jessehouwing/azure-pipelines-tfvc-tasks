@@ -1,0 +1,365 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.DevOps.Comments.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.Comment">
+            <summary>
+            Comment on an artifact like Work Item or Wiki, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.ArtifactId">
+            <summary>
+            The id of the artifact this comment belongs to
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.Id">
+            <summary>
+            The id assigned to the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.Version">
+            <summary>
+            The current version of the comment
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.Text">
+            <summary>
+            The plaintext/markdown version of the comment
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.RenderedText">
+            <summary>
+            The rendered text of the comment
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.Comment.Reactions">
+            <summary>
+            The reactions on the comment.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.Comment.Mentions">
+            <summary>
+            The mentions of the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.CreatedBy">
+            <summary>
+            <see cref="T:Microsoft.VisualStudio.Services.WebApi.IdentityRef"/> of the creator of the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.CreatedDate">
+            <summary>
+            The creation date of the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.ModifiedBy">
+            <summary>
+            <see cref="T:Microsoft.VisualStudio.Services.WebApi.IdentityRef"/> of the user who last modified the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.ModifiedDate">
+            <summary>
+            The last modification date of the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.IsDeleted">
+            <summary>
+            Indicates if the comment has been deleted.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.State">
+            <summary>
+            Indicates the current state of the comment
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.Replies">
+            <summary>
+            Replies for this comment
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.Comment.ParentId">
+            <summary>
+            The comment id of the parent comment, if any
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentCreateParameters">
+            <summary>
+            Represents a request to create a work item comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentCreateParameters.Text">
+            <summary>
+            Text of the comment
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentCreateParameters.ParentId">
+            <summary>
+            Optional CommentId of the parent in order to add a reply for an existing comment
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentExpandOptions">
+            <summary>
+            Specifies the additional data retrieval options for comments.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentExpandOptions.None">
+            <summary>
+            Include comments only, no mentions, reactions or rendered text
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentExpandOptions.Reactions">
+            <summary>
+            Include comment reactions
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentExpandOptions.RenderedText">
+            <summary>
+            Include the rendered text (html) in addition to markdown text
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentExpandOptions.RenderedTextOnly">
+            <summary>
+            If specified, then ONLY rendered text (html) will be returned, w/o markdown.
+            Supposed to be used internally from data provides for optimization purposes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentExpandOptions.Children">
+            <summary>
+            If specified, then responses will be expanded in the results
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentExpandOptions.All">
+            <summary>
+            Expand everything including Reactions, Mentions and also include RenderedText (HTML) for markdown comments
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentState">
+            <summary>
+            Represents the possible comment states.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentFormat">
+            <summary>
+            Format of the comment. Ex. Markdown, Html.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentList">
+            <summary>
+            Represents a list of comments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentList.TotalCount">
+            <summary>
+            Total count of comments on a work item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentList.Count">
+            <summary>
+            The count of comments in the current batch.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentList.Comments">
+            <summary>
+            List of comments in the current batch.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentList.NextPage">
+            <summary>
+            Uri to the next page of comments if it is available. Otherwise null.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentList.ContinuationToken">
+            <summary>
+            A string token that can be used to retrieving next page of comments if available. Otherwise null.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentMention">
+            <summary>
+            Contains information about various artifacts mentioned in the comment
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentMention.ArtifactId">
+            <summary>
+            Id of the artifact this mention belongs to
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentMention.CommentId">
+            <summary>
+            Id of the comment associated with this mention.
+            Nullable to support legacy mentions which can potentially have null commentId
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentMention.Type">
+            <summary>
+            The context which represent where this mentioned was parsed from
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentMention.MentionedArtifact">
+            <summary>
+            Value of the mentioned artifact.
+            Expected Value varies by CommentMentionType:
+            Person:         VSID associated with the identity
+            Work Item:      ID of the work item
+            Pull Request:   ID of the Pull Request
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentReaction">
+            <summary>
+            Contains information about comment reaction for a particular reaction type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentReaction.Type">
+            <summary>
+            Type of the reaction.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentReaction.Count">
+            <summary>
+            Total number of reactions for the <see cref="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentReactionType"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentReaction.IsCurrentUserEngaged">
+            <summary>
+            Flag to indicate if the current user has engaged on this
+            particular EngagementType (e.g. if they liked the associated comment).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentReaction.CommentId">
+            <summary>
+            The id of the comment this reaction belongs to.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentReactionType">
+            <summary>
+            Represents different reaction types for a comment
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentMentionType.Person">
+            <summary>
+            An identity was mentioned by using the format @{VSID}
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentMentionType.WorkItem">
+            <summary>
+            A work item was mentioned by using the format #{Work Item ID}
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentMentionType.PullRequest">
+            <summary>
+            A Pull Request was mentioned by using the format !{PR Number}
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentSortOrder.Asc">
+            <summary>
+            The results will be sorted in Ascending order.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.DevOps.Comments.WebApi.CommentSortOrder.Desc">
+            <summary>
+            The results will be sorted in Descending order.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentResourceReference">
+            <summary>
+            Base class for comment resource references
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentResourceReference.Url">
+            <summary>
+            REST URL for the resource.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentUpdateParameters">
+            <summary>
+            Represents a request to update a comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentUpdateParameters.Text">
+            <summary>
+            The updated text of the comment
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentUpdateParameters.State">
+            <summary>
+            Set the current state of the comment
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion">
+            <summary>
+            Represents a specific version of a comment on a work item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.Id">
+            <summary>
+            The id assigned to the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.Version">
+            <summary>
+            The version number.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.Text">
+            <summary>
+            The text of the comment at this version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.RenderedText">
+            <summary>
+            The rendered content of the comment at this version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.CreatedBy">
+            <summary>
+            <see cref="T:Microsoft.VisualStudio.Services.WebApi.IdentityRef"/> of the creator of the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.CreatedDate">
+            <summary>
+            The creation date of the comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.ModifiedBy">
+            <summary>
+            <see cref="T:Microsoft.VisualStudio.Services.WebApi.IdentityRef"/> of the user who modified the comment at this version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.ModifiedDate">
+            <summary>
+            The modification date of the comment for this version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.IsDeleted">
+            <summary>
+            Indicates if the comment has been deleted at this version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentVersion.State">
+            <summary>
+            Indicates the current state of the comment
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.DevOps.Comments.WebApi.CommentAttachment">
+            <summary>
+            Represents an attachment to a comment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentAttachment.Id">
+            <summary>
+            Unique Id of the attachment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentAttachment.CreatedBy">
+            <summary>
+            <see cref="T:Microsoft.VisualStudio.Services.WebApi.IdentityRef"/> of the creator of the attachment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.DevOps.Comments.WebApi.CommentAttachment.CreatedDate">
+            <summary>
+            The creation date of the attachment.
+            </summary>
+        </member>
+    </members>
+</doc>

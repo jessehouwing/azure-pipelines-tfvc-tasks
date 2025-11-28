@@ -1,0 +1,672 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Diff</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.Diff.ContinueDifferencePredicate`1">
+            <summary>
+            A predicate used by Microsoft.TeamFoundation.Diff.DiffFinder
+            that allows callers to stop differencing prematurely.
+            </summary>
+            <param name="originalIndex">The current index in the original sequence being differenced.</param>
+            <param name="originalSequence">The original sequence being differenced.</param>
+            <param name="longestMatchSoFar">The length of the longest match so far.</param>
+            <returns>true if the algorithm should continue processing, false to stop the algorithm.</returns>
+            <remarks>
+            When false is returned, the algorithm stops searching for matches and uses
+            the information it has computed so far to create the Microsoft.TeamFoundation.Diff.IDiffChange[] array
+            that will be returned.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.DiffChangeType">
+            <summary>
+            An enumeration of the possible change types for a difference operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Diff.DiffChangeType.Insert">
+            <summary>
+            Content was inserted into the modified sequence.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Diff.DiffChangeType.Delete">
+            <summary>
+            Content was deleted from the original sequence.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Diff.DiffChangeType.Change">
+            <summary>
+            Content from the original sequence has changed in the modified
+            sequence.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.IDiffChange">
+            <summary>
+            Represents information about a specific difference between two sequences.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.IDiffChange.ChangeType">
+            <summary>
+            The type of difference.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.IDiffChange.OriginalStart">
+            <summary>
+            The position of the first element in the original sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.IDiffChange.OriginalLength">
+            <summary>
+            The number of elements from the original sequence which were
+            affected (deleted).
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.IDiffChange.OriginalEnd">
+            <summary>
+            The position of the last element in the original sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.IDiffChange.ModifiedStart">
+            <summary>
+            The position of the first element in the modified sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.IDiffChange.ModifiedLength">
+            <summary>
+            The number of elements from the modified sequence which were
+            affected (added).
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.IDiffChange.ModifiedEnd">
+            <summary>
+            The position of the last element in the modified sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.IDiffChange.Add(Microsoft.TeamFoundation.Diff.IDiffChange)">
+            <summary>
+            This methods combines two IDiffChange objects into one
+            </summary>
+            <param name="diffChange">The diff change to add</param>
+            <returns>An IDiffChange that represnets this + diffChange</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.LineChanges">
+            <summary>
+            Represents both line and character level information about a specific difference between two sequences.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Diff.LineChanges.LineChange">
+            <summary>
+            The the change sequence in lines. A given change may span multiple lines.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Diff.LineChanges.CharChange">
+            <summary>
+            The change sequence in chars.  A given line (or lines) may have multiple char change sequences.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.DiffChange">
+            <summary>
+            Represents information about a specific difference between two sequences.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChange.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructs a new DiffChange with the given sequence information
+            and content.
+            </summary>
+            <param name="originalStart">The start position of the difference
+            in the original sequence.</param>
+            <param name="originalLength">The number of elements of the difference
+            from the original sequence.</param>
+            <param name="modifiedStart">The start position of the difference
+            in the modified sequence.</param>
+            <param name="modifiedLength">The number of elements of the difference
+            from the modified sequence.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChange.UpdateChangeType">
+            <summary>
+            Determines the change type from the ranges and updates the value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChange.ChangeType">
+            <summary>
+            The type of difference.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChange.OriginalStart">
+            <summary>
+            The position of the first element in the original sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChange.OriginalLength">
+            <summary>
+            The number of elements from the original sequence which were
+            affected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChange.OriginalEnd">
+            <summary>
+            The position of the last element in the original sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChange.ModifiedStart">
+            <summary>
+            The position of the first element in the modified sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChange.ModifiedLength">
+            <summary>
+            The number of elements from the modified sequence which were
+            affected (added).
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChange.ModifiedEnd">
+            <summary>
+            The position of the last element in the modified sequence which
+            this change affects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChange.Add(Microsoft.TeamFoundation.Diff.IDiffChange)">
+            <summary>
+            This methods combines two DiffChange objects into one
+            </summary>
+            <param name="diffChange">The diff change to add</param>
+            <returns>A IDiffChange object that represnets this + diffChange</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.EndOfLineTerminator">
+            <summary>
+            The types of End of Line terminators.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.DiffLineTokenizer">
+            <summary>
+            Utility class which tokenizes the given stream into string tokens. Each
+            token represents a line from the file as delimited by common EOL sequences.
+            (\n, \r\n, \r, \u2028, \u2029, \u85)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffLineTokenizer.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Constructs a new DiffLineTokenizer for the given stream and encoding.
+            </summary>
+            <param name="stream">The stream to tokenize.</param>
+            <param name="encoding">The character encoding of the bytes
+            in the stream. If null, this will be automatically detected.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffLineTokenizer.FillBuffer">
+            <summary>
+            Fills up the internal buffer with characters from the stream.
+            Returns the number of characters in the buffer and resets the
+            current buffer position.
+            Returns 0 when EOF.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffLineTokenizer.NextLineToken(Microsoft.TeamFoundation.Diff.EndOfLineTerminator@)">
+            <summary>
+            Gets the next line token as a string from the stream.
+            </summary>
+            <returns>The next token. Returns null when the end of stream has
+            been reached.</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.DiffChangeHelper">
+            <summary>
+            A utility class which helps to create the set of DiffChanges from
+            a difference operation. This class accepts original DiffElements and
+            modified DiffElements that are involved in a particular change. The
+            MarktNextChange() method can be called to mark the seration between
+            distinct changes. At the end, the Changes property can be called to retrieve
+            the constructed changes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChangeHelper.#ctor">
+            <summary>
+            Constructs a new DiffChangeHelper for the given DiffSequences.
+            </summary>
+            <param name="originalSequence">The original sequence.</param>
+            <param name="modifiedSequnece">The modified sequence.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChangeHelper.Dispose">
+            <summary>
+            Disposes of the resources used by this helper class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChangeHelper.MarkNextChange">
+            <summary>
+            Marks the beginning of the next change in the set of differences.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChangeHelper.AddOriginalElement(System.Int32,System.Int32)">
+            <summary>
+            Adds the original element at the given position to the elements
+            affected by the current change. The modified index gives context
+            to the change position with respect to the original sequence.
+            </summary>
+            <param name="originalIndex">The index of the original element to add.</param>
+            <param name="modifiedIndex">The index of the modified element that
+            provides corresponding position in the modified sequence.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffChangeHelper.AddModifiedElement(System.Int32,System.Int32)">
+            <summary>
+            Adds the modified element at the given position to the elements
+            affected by the current change. The original index gives context
+            to the change position with respect to the modified sequence.
+            </summary>
+            <param name="originalIndex">The index of the original element that
+            provides corresponding position in the original sequence.</param>
+            <param name="modifiedIndex">The index of the modified element to add.</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChangeHelper.Changes">
+            <summary>
+            Retrieves all of the changes marked by the class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffChangeHelper.ReverseChanges">
+            <summary>
+            Retrieves all of the changes marked by the class in the reverse order
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.WordPosition">
+            <summary>
+             Class used to hold Words Tokens, contains an index to the original line + start position
+             Also holds an index to the starting char index in the entire block (FullStart)
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.DiffFinder`1">
+            <summary>
+            A base for classes which compute the differences between two input sequences.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffFinder`1.OriginalSequence">
+            <summary>
+            The original sequence
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffFinder`1.ModifiedSequence">
+            <summary>
+            The modified sequence
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffFinder`1.ElementComparer">
+            <summary>
+            The element comparer
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.Dispose">
+            <summary>
+            Disposes resources used by this DiffFinder
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.ElementsAreEqual(System.Int32,System.Int32)">
+            <summary>
+            Returns true if the specified original and modified elements are equal.
+            </summary>
+            <param name="originalIndex">The index of the original element</param>
+            <param name="modifiedIndex">The index of the modified element</param>
+            <returns>True if the specified elements are equal</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.ElementsAreEqualWithoutBoudaryCheck(System.Int32,System.Int32)">
+            <summary>
+            Returns true if the specified original and modified elements are equal.
+            </summary>
+            <param name="originalIndex">The index of the original element</param>
+            <param name="modifiedIndex">The index of the modified element</param>
+            <returns>True if the specified elements are equal</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.OriginalElementsAreEqual(System.Int32,System.Int32)">
+            <summary>
+            Returns true if the two specified original elements are equal.
+            </summary>
+            <param name="firstIndex">The index of the first original element</param>
+            <param name="secondIndex">The index of the second original element</param>
+            <returns>True if the specified elements are equal</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.ModifiedElementsAreEqual(System.Int32,System.Int32)">
+            <summary>
+            Returns true if the two specified modified elements are equal.
+            </summary>
+            <param name="firstIndex">The index of the first modified element</param>
+            <param name="secondIndex">The index of the second modified element</param>
+            <returns>True if the specified elements are equal</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.ElementsAreEqual(System.Int32,System.Boolean,System.Int32,System.Boolean)">
+            <summary>
+            Returns true if the specified elements are equal.
+            </summary>
+            <param name="firstIndex">The index of the first element</param>
+            <param name="firstIsOriginal">True if the first element is an original
+            element, false if modified element</param>
+            <param name="secondIndex">The index of the second element</param>
+            <param name="secondIsOriginal">True if the second element is an original
+            element, false if modified element</param>
+            <returns>True if the specified elements are equal</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.ComputeUniqueIdentifiers(System.Int32,System.Int32,System.Int32,System.Int32)">
+             <summary>
+             This method hashes element groups within the specified range
+             and assigns unique identifiers to identical elements.
+            
+             This greatly speeds up element comparison as we may compare integers
+             instead of having to look at element content.
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.Diff(System.Collections.Generic.IList{`0},System.Collections.Generic.IList{`0},System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Computes the differences between the given original and modified sequences.
+            </summary>
+            <param name="original">The original sequence.</param>
+            <param name="modified">The modified sequence.</param>
+            <param name="elementComparer">The diff element comparer.</param>
+            <returns>The set of differences between the sequences.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.tokenizeWords(System.Collections.Generic.IList{`0},System.Int32,System.Int32)">
+            <summary>
+            Given a file create an array of words.  Words are defined by a punctuationBreaks characters.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.DiffFinder`1.WordComparer">
+            <summary>
+            Used by Myers algorithm to compare words
+            We need to use WordPosition specifically so we have a reference to the char indicies in each block
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.createDiffBlockPerLine(System.Int32,System.Int32,System.Int32,System.Int32,Microsoft.TeamFoundation.Diff.WordPosition[],System.Boolean)">
+            <summary>
+            Creates a diff block per line
+            Used to split up block differences that span multiple lines (avoids highlighting leading whitespace)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.WordDiff(Microsoft.TeamFoundation.Diff.IDiffChange[],System.Collections.Generic.IList{`0},System.Collections.Generic.IList{`0})">
+             <summary>
+             Performs a word level diff comparision
+            
+             The current use case is that we calulate line block diffs by calling
+             - IDiffChange[] diffList = _diffFinder.Diff(_original, _modified, _comparer);
+             We then take the results of the line diff and calculate word diffs by calling
+             - _diffFinder.WordDiff(diffList, _original, _modified)
+            
+             <param name="lineDiffs">IDiffChange[] that were previously calculated (most likely by a call to Diff)</param>
+             <param name="original">original sequence</param>
+             <param name="modified">modified sequence</param>
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.WordDiff(Microsoft.TeamFoundation.Diff.IDiffChange[],System.Collections.Generic.IList{`0},System.Collections.Generic.IList{`0},Microsoft.TeamFoundation.Diff.ContinueDifferencePredicate{Microsoft.TeamFoundation.Diff.WordPosition})">
+             <summary>
+             Performs a word level diff comparision
+            
+             The current use case is that we calulate line block diffs by calling
+             - IDiffChange[] diffList = _diffFinder.Diff(_original, _modified, _comparer);
+             We then take the results of the line diff and calculate word diffs by calling
+             - _diffFinder.WordDiff(diffList, _original, _modified)
+            
+             <param name="lineDiffs">IDiffChange[] that were previously calculated (most likely by a call to Diff)</param>
+             <param name="original">original sequence</param>
+             <param name="modified">modified sequence</param>
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.Diff(System.Collections.Generic.IList{`0},System.Collections.Generic.IList{`0},System.Collections.Generic.IEqualityComparer{`0},Microsoft.TeamFoundation.Diff.ContinueDifferencePredicate{`0})">
+            <summary>
+            Computes the differences between the given original and modified sequences.
+            </summary>
+            <param name="original">The original sequence.</param>
+            <param name="modified">The modified sequence.</param>
+            <param name="elementComparer">The diff element comparer.</param>
+            <returns>The set of differences between the sequences.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.ComputeDiff(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Computes the differences between the original and modified input
+            sequences on the bounded range.
+            </summary>
+            <returns>An array of the differences between the two input
+            sequences.</returns>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Diff.DiffFinder`1.LcsDiff">
+            <summary>
+            Gets the LCS Diff implementation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.ScanEqualRegion(System.Collections.Generic.List{Microsoft.TeamFoundation.Diff.IDiffChange},System.Collections.Generic.IEqualityComparer{`0},System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Scan a 2-way EQUAL region and create one or more DiffChanges for
+            the sub-spans that have ignorable changes.  (Or rather, changes
+            that were ignored by the comparer in the first pass, but are
+            not ignored by the second comparer.
+            </summary>
+            <param name="listChanges"></param>
+            <param name="oBegin"></param>
+            <param name="oLen"></param>
+            <param name="mBegin"></param>
+            <param name="mLen"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.DiffFinder`1.DiffEx(System.Collections.Generic.IList{`0},System.Collections.Generic.IList{`0},System.Collections.Generic.IEqualityComparer{`0},System.Collections.Generic.IEqualityComparer{`0})">
+             <summary>
+             Computes the differences between the given original and modified sequences.
+             This is an extension on the Diff() method.  It uses the primary comparer
+             for the initial computation (to compute the vertical alignment of the
+             changes) and then uses the second comparer to scan the 2-way-equal regions
+             for "unimportant" changes.  This can be used to ignore-leading-whitespace
+             for vertical alignment purposes during the primary scan and then to respect
+             whitespace for presentation, for example.
+            
+             Note that for this to have any effect, the secondary comparer must be
+             MORE STRICT than the primary.  And because we only receive generic comparer
+             objects (and not the actual set of ignore flags), we cannot protect you here.
+            
+             If the secondary comparer is null, we behave like the original Diff().
+             </summary>
+             <param name="original">The original sequence.</param>
+             <param name="modified">The modified sequence.</param>
+             <param name="primaryElementComparer">The diff element comparer.</param>
+             <param name="secondElementComparer">The diff element comparer for the second pass.</param>
+             <returns>The set of differences between the sequences.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.FileTypeUtil.TryDetermineTextEncoding(System.String)">
+            <summary>
+            Determines the encoding for a file by first checking for the Unicode byte order mark.  If
+            it is Unicode, the particular encoding is returned.  If it does not contain the Unicode
+            BOM, it's trying to detect utf8 encoding by scanning first 1024 bytes of the file.
+            If it fails, or exception is thrown it returns the current encoding is returned (aka the OEM code page).
+            </summary>
+            <param name="path">Canonicalized path to the file to check</param>
+            <returns>the encoding for the file or OEM code page if exception was thrown</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.FileTypeUtil.DetermineEncoding(System.String,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Determines the encoding for a file by first checking for the Unicode byte order mark.  If
+            it is Unicode, the particular encoding is returned.  If it does not contain the Unicode
+            BOM, it's trying to detect utf8 encoding by scanning first 1024 bytes of the file.
+            If utf8 is not detected and checkForBinary is false,
+            the current encoding is returned (aka the OEM code page).
+            When checkForBinary is true and the file does not contain the BOM, the encoding returned is
+            null if there are NUL bytes in the first 1K of the file or is the current encoding if there 
+            are no NUL bytes.
+            It throws exception if file is missing or is a directory.
+            </summary>
+            <param name="path">Canonicalized path to the file to check</param>
+            <param name="checkForBinary">if true, check the file for null bytes</param>
+            <param name="fallbackEncoding">The encoding to fall back to if a unicode encoding
+            was not detected and the file was not detected to contain only ASCII characters</param>
+            <returns>the encoding for the file or null if checkForBinary is true and NUL characters are
+              present in the file</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.FileTypeUtil.DetermineEncoding(System.IO.Stream,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Determines the encoding for a file by first checking for the Unicode byte order mark.  If
+            it is Unicode, the particular encoding is returned.  If it does not contain the Unicode
+            BOM, it's trying to detect utf8 encoding by scanning first 1024 bytes of the file.
+            If utf8 is not detected and checkForBinary is false,
+            the current encoding is returned (aka the OEM code page).
+            When checkForBinary is true and the file does not contain the BOM, the encoding returned is
+            null if there are NUL bytes in the first 1K of the file or is the current encoding if there 
+            are no NUL bytes.
+            It throws exception if file is missing or is a directory.
+            </summary>
+            <param name="stream">Stream to check</param>
+            <param name="checkForBinary">if true, check the file for null bytes</param>
+            <param name="fallbackEncoding">The encoding to fall back to if a unicode encoding
+            was not detected and the stream was not detected to contain only ASCII characters</param>
+            <returns>the encoding for the file or null if checkForBinary is true and NUL characters are
+              present in the file</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.FileTypeUtil.DetermineEncoding(System.IO.Stream,System.Boolean,System.Text.Encoding,System.Boolean,System.Boolean@)">
+            <summary>
+            Determines the encoding for a file by first checking for the Unicode byte order mark.  If
+            it is Unicode, the particular encoding is returned.  If it does not contain the Unicode
+            BOM, it's trying to detect utf8 encoding by scanning first 1024 bytes of the file.
+            If utf8 is not detected and checkForBinary is false,
+            the current encoding is returned (aka the OEM code page).
+            When checkForBinary is true and the file does not contain the BOM, the encoding returned is
+            null if there are NUL bytes in the first 1K of the file or is the current encoding if there 
+            are no NUL bytes.
+            It throws exception if file is missing or is a directory.
+            </summary>
+            <param name="stream">Stream to check</param>
+            <param name="checkForBinary">if true, check the file for null bytes</param>
+            <param name="fallbackEncoding">The encoding to fall back to if a unicode encoding
+            was not detected and the stream was not detected to contain only ASCII characters</param>
+            <returns>the encoding for the file or null if checkForBinary is true and NUL characters are
+              present in the file</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.FileTypeUtil.DetermineEncoding(System.IO.Stream,System.Boolean,System.Text.Encoding,System.Int64,System.Boolean@)">
+            <summary>
+            Determines the encoding for a file by first checking for the Unicode byte order mark.  If
+            it is Unicode, the particular encoding is returned.  If it does not contain the Unicode
+            BOM, it's trying to detect utf8 encoding by scanning first 1024 bytes of the file, or up to scanBytes.
+            If utf8 is not detected and checkForBinary is false,
+            the current encoding is returned (aka the OEM code page).
+            When checkForBinary is true and the file does not contain the BOM, the encoding returned is
+            null if there are NUL bytes in the first 1K of the file or is the current encoding if there 
+            are no NUL bytes.
+            It throws exception if file is missing or is a directory.
+            </summary>
+            <param name="stream">Stream to check</param>
+            <param name="checkForBinary">if true, check the file for null bytes</param>
+            <param name="fallbackEncoding">The encoding to fall back to if a unicode encoding
+            was not detected and the stream was not detected to contain only ASCII characters</param>
+            <param name="scanBytes">The maximum number of bytes to scan when attempting to detect file encoding (1024 is minimum)</param>
+            <returns>the encoding for the file or null if checkForBinary is true and NUL characters are
+              present in the file</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.FileTypeUtil.FindMatchingEncoding(System.Byte[],System.Int32,System.Boolean@)">
+            <summary>
+            Finds the encoding with the matching preamble, if any.
+            </summary>
+            <param name="buffer">the buffer to check</param>
+            <param name="length">the length of valid bytes in the buffer</param>
+            <param name="isPdf">returned true if the file is a PDF; false otherwise</param>
+            <returns>the encoding that matches or null</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.FileTypeUtil.GetUTF8Info(System.Byte[],System.Int32,System.Int64,System.IO.Stream,Microsoft.TeamFoundation.Diff.UTF8Flags@)">
+            <summary>
+            Port of vscommon\unilib\utf.cpp::GetUTF8Info
+            Analyzes byte array checking if it contains valid and invalid utf8 characters.
+            </summary>
+            <param name="buffer">Array of bytes, representing string in unknown encoding.</param>
+            <param name="bufferLength">Number of bytes in the array to analyze</param>
+            <param name="scanBytes">The maximum number of bytes to scan when attempting to detect file encoding (beyond the initial bufferLength). </param>
+            <param name="stream">The stream for reading additional bytes if needed when attempting to detect file encoding (beyond the initial bufferLength). </param>
+            <param name="result">UTF8 Flags indicating possible UTF-8 encoding and errors.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Diff.LcsDiff`1">
+            <summary>
+            An implementation of the difference algorithm described in
+            "An O(ND) Difference Algorithm and its Variations" by Eugene W. Myers
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.#ctor">
+            <summary>
+            Constructs the DiffFinder
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.Dispose">
+            <summary>
+            Disposes resources uses by this DiffFinder
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.ComputeDiff(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Computes the differences between the original and modified input 
+            sequences on the bounded range.
+            </summary>
+            <returns>An array of the differences between the two input 
+            sequences.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.ComputeDiffRecursive(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean@)">
+            <summary>
+            Private helper method which computes the differences on the bounded range
+            recursively.
+            </summary>
+            <returns>An array of the differences between the two input 
+            sequences.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.ComputeRecursionPoint(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.Boolean@)">
+            <summary>
+            Given the range to compute the diff on, this method finds the point:
+            (midOriginal, midModified)
+            that exists in the middle of the LCS of the two sequences and 
+            is the point at which the LCS problem may be broken down recursively.
+            This method will try to keep the LCS trace in memory. If the LCS recursion
+            point is calculated and the full trace is available in memory, then this method
+            will return the change list.
+            </summary>
+            <param name="originalStart">The start bound of the original sequence range</param>
+            <param name="originalEnd">The end bound of the original sequence range</param>
+            <param name="modifiedStart">The start bound of the modified sequence range</param>
+            <param name="modifiedEnd">The end bound of the modified sequence range</param>
+            <param name="midOriginal">The middle point of the original sequence range</param>
+            <param name="midModified">The middle point of the modified sequence range</param>
+            <returns>The diff changes, if available, otherwise null</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.ShiftChanges(Microsoft.TeamFoundation.Diff.IDiffChange[])">
+            <summary>
+            Shifts the given changes to provide a more intuitive diff.
+            While the first element in a diff matches the first element after the diff,
+            we shift the diff down.
+            </summary>
+            <param name="changes">The list of changes to shift</param>
+            <returns>The shifted changes</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.ConcatenateChanges(Microsoft.TeamFoundation.Diff.IDiffChange[],Microsoft.TeamFoundation.Diff.IDiffChange[])">
+            <summary>
+            Concatentates the two input DiffChange lists and returns the resulting
+            list.
+            </summary>
+            <param name="left">The left changes</param>
+            <param name="right">The right changes</param>
+            <returns>The concatenated list</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.ChangesOverlap(Microsoft.TeamFoundation.Diff.IDiffChange,Microsoft.TeamFoundation.Diff.IDiffChange,Microsoft.TeamFoundation.Diff.IDiffChange@)">
+            <summary>
+            Returns true if the two changes overlap and can be merged into a single
+            change
+            </summary>
+            <param name="left">The left change</param>
+            <param name="right">The right change</param>
+            <param name="mergedChange">The merged change if the two overlap, 
+            null otherwise</param>
+            <returns>True if the two changes overlap</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Diff.LcsDiff`1.ClipDiagonalBound(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Helper method used to clip a diagonal index to the range of valid
+            diagonals. This also decides whether or not the diagonal index,
+            if it exceeds the boundary, should be clipped to the boundary or clipped
+            one inside the boundary depending on the Even/Odd status of the boundary
+            and numDifferences.
+            </summary>
+            <param name="diagonal">The index of the diagonal to clip.</param>
+            <param name="numDifferences">The current number of differences being
+            iterated upon.</param>
+            <param name="diagonalBaseIndex">The base reference diagonal.</param>
+            <param name="numDiagonals">The total number of diagonals.</param>
+            <returns>The clipped diagonal index.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.WorkItemTracking.Client.QueryLanguage</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.LinkQueryMode">
+            <summary>
+            Link query modes
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.#cctor">
+            Creates the resource manager instance.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.Get(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.GetInt(System.String)">
+            Returns a localized integer given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.GetBool(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.Format(System.String,System.Object[])">
+            A little helper function to alleviate some typing associated with loading resources and
+            formatting the strings.  In DEBUG builds, it also asserts that the number of format
+            arguments and the length of args match.
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DateConstantFormat">
+            <summary>
+            TF51000: An unsupported date format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DuplicateFrom">
+            <summary>
+            A duplicate FROM part of SELECT query has been found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DuplicateGroupBy">
+            <summary>
+            A duplicate GROUP BY part of SELECT query has been found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DuplicateOrderBy">
+            <summary>
+            A duplicate ORDER BY part of SELECT query has been found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DuplicateWhere">
+            <summary>
+            A duplicate  WHERE part of SELECT query has been found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DuplicateAsOf">
+            <summary>
+            TF51002: The query statement contains a duplicate ASOF element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DuplicateRecursive">
+            <summary>
+            The query statement contains a duplicate RECURSIVE element.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.EverNotEqualOperator">
+            <summary>
+            TF51003: The EVER operator can only be used in conjunction with the &quot;=&quot; or &quot;contains&quot; operators.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingBoolean">
+            <summary>
+            TF51004: The query statement is missing a boolean expression in an expected place.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingBy">
+            <summary>
+             Expecting BY.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingClosingQuote">
+            <summary>
+             Expecting closing quote.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingClosingSquareBracket">
+            <summary>
+             Expecting closing square bracket.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingComparisonOperator">
+            <summary>
+             Expecting comparison operator.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingCondition">
+            <summary>
+             Expecting conditional expression.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingConst">
+            <summary>
+             Expecting constant.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingEndOfString">
+            <summary>
+             Expecting end of string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingFieldList">
+            <summary>
+             Expecting field list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingFieldName">
+            <summary>
+             Expecting field name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingFieldOrExpression">
+            <summary>
+             Expecting field name or expression.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingLeftBracket">
+            <summary>
+             Expecting left bracket.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingRightBracket">
+            <summary>
+             Expecting right bracket.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingSelect">
+            <summary>
+             Expecting SELECT.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingTableName">
+            <summary>
+             Expecting table name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingValue">
+            <summary>
+             Expecting constant value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingDate">
+            <summary>
+             Expecting date-time.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingExpression">
+            <summary>
+             Expecting expression.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.FieldDoesNotExistInTheTable">
+            <summary>
+            TF51005: The query references a field that does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidFieldPrefixInLinkQueries">
+            <summary>
+            TF400578: You must specify either &quot;Source&quot; or &quot;Target&quot; as the prefix of a field that references a linked work item. For example: Source.[System.TeamProject].
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.GroupByIsNotSupported">
+            <summary>
+            GROUP BY is not supported yet.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.IncompatibleConditionPartsType">
+            <summary>
+            TF212023: You cannot compare fields with different data types in the WHERE clause of a work item query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InOperatorWithTreePathField">
+            <summary>
+            Operator IN is not supported for the Area Path field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidConditionalOperator">
+            <summary>
+            The specified conditional operator is not supported.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidNodeType">
+            <summary>
+            Unsupported node type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ContainsWorksForStringsOnly">
+            <summary>
+            Operator CONTAINS can be used with string type fields only.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.NoError">
+            <summary>
+            No Error
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.PathMustBeAStringNotStartingWithBackslash">
+            <summary>
+            TF51008: Classification paths cannot start with a backslash.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.StringIsNotANumber">
+            <summary>
+            Numeric node is initialized by non-numeric string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.TableDoesNotExist">
+            <summary>
+            TF51009: The query specifies an unknown table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.TooComplexEverOperator">
+            <summary>
+            TF51010: The query contains a value for the EVER operator that is not supported.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.AreaPathIsNotFoundInHierarchy">
+            <summary>
+            TF51011: The specified area path does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.IterationPathIsNotFoundInHierarchy">
+            <summary>
+            TF51011: The specified iteration path does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.UnderCanBeUsedForTreePathFieldOnly">
+            <summary>
+            TF51012: The UNDER operator can only be used with classification fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.UnknownFieldType">
+            <summary>
+            TF51013: The field specified has an unsupported type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.UnknownOrIncompatibleTypesInTheList">
+            <summary>
+            The list contains unknown or incompatible types.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.FromIsNotSpecified">
+             <summary>
+             FROM is a SQL Query Language tokens, which should not be localized
+            
+             TF51006: The query statement is missing a FROM clause.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.FromIsNotSpecifiedFoundInFields">
+             <summary>
+             FROM and SELECT are Query Language tokens, which should not be localized
+            
+             TF401046: The query statement is missing a FROM clause. The SELECT field list may be improperly formatted.
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidConditionForLongTextField">
+            <summary>
+            The specified operator cannot be used with long-text fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.NonQueryableField">
+            <summary>
+            The specified field can not be returned as a result of query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.NonSortableField">
+            <summary>
+            The specified field cannot be sorted by.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidConditionForTreeField">
+            <summary>
+            The specified operator cannot be used with area path fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.VariableDoesNotExist">
+            <summary>
+            The specified variable does not exist.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.UnknownVariableType">
+            <summary>
+            Unknown variable type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidConditionForNodeField">
+            <summary>
+            The specified operator cannot be used with Project field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidProjectName">
+            <summary>
+            Project names cannot contain backslash.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ProjectNotFound">
+            <summary>
+            The project specified is not found in hierarchy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.WrongTypeForArithmetic">
+            <summary>
+            TF51015: The add or subtract operators can only be used with dates or numerical constants.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidLongTextSearchForWhitespace">
+            <summary>
+            Searches on large text fields cannot be white space only.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.WrongTypeForArithmeticRightOperand">
+            <summary>
+            TF51016: The value for an add or subtract operator must be a number.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.NonZeroTime">
+            <summary>
+            You cannot supply a time with the date when running a query using date precision.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DetailedMessage">
+            <summary>
+            {0} The error is caused by «{1}».
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidConditionForEmptyString">
+            <summary>
+            The specified operator cannot be used in conjunction with an empty string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.EverWithDatePrecision">
+            <summary>
+            The EVER operator cannot be used to query a date type field using date precision.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.MixedPrefixes">
+            <summary>
+            The link query can not mix expression with different prefixes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.EverWithLinkQuery">
+            <summary>
+            The EVER operator can not be used inside link queries.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidConditionForLinkType">
+            <summary>
+            The operator can not be used with Link Type field.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidLinkTypeName">
+            <summary>
+            The value is not a valid name of Link Type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.NotSupportedTreeQuery">
+            <summary>
+            The specified query can not be executed using recursive tree query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingNumberAfterOp">
+             <summary>
+             {0} = operator
+            
+             Expecting a number after &apos;{0}&apos;
+             </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingEmptyAfterIsNot">
+            <summary>
+            Expecting &apos;empty&apos; after &apos;is not&apos;
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingEmptyNotEmptyAfterIs">
+            <summary>
+            Expecting either &apos;empty&apos; or &apos;not empty&apos; after &apos;is&apos;
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.TreeQueryNeedsOneLinkType">
+            <summary>
+            Tree query must contain one and only one link type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.RecursiveOnWorkItems">
+            <summary>
+            The RECURSIVE keyword can not be used when querying work items.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ExpectingMode">
+            <summary>
+            Expecting MODE.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.UnknownMode">
+            <summary>
+            Unknown MODE parameter.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ModeOnWorkItems">
+            <summary>
+            The MODE keyword can not be used inside work item query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.OrderByLinkField">
+            <summary>
+            The work item link field can not be used inside work item query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidLinkTypeNameRecursive">
+            <summary>
+            The specified link type can not be used with recursive tree query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.EmptyName">
+            <summary>
+            Empty identifier is not allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.DuplicateOrderByField">
+            <summary>
+            The ORDER BY list can not contain duplicate fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidRightExpressionInCondition">
+            <summary>
+            Expecting constant, field name, or variable.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.FieldConditionsInLinkQueries">
+            <summary>
+            TF212024: To find work items by comparing fields of linked work items, you can only specify fields that belong to the same endpoint of the work item link. You cannot compare fields that belong to different endpoints of a linked work item.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.InvalidFieldTypeForCondition">
+            <summary>
+            TF212025: You cannot compare long text, HTML, or history fields to other fields in the WHERE clause of a work item query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.MacroUndefined">
+            <summary>
+            The macro &apos;@{0}&apos; is not defined.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.WorkItemTracking.Client.Wiql.ResourceStrings.ProjectMacroUndefined">
+            <summary>
+            Queries with an @project clause can only be executed on the project specific WIQL endpoint.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WorkItemTracking.Client.QueryLanguage.NodeParameters">
+            <summary>
+            Parameters for a macro clause
+            
+            var parameters = new NodeParameters();
+            parameters.add(new NodeString("param1Value");
+            </summary>
+        </member>
+    </members>
+</doc>

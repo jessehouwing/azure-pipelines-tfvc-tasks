@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.TestManagement.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.AttachmentTypes">
+            <summary>
+            Name for attachment types of the test result attachment.
+            The length of attachment type is set to 64 characters or less 
+            when it is passed to database.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.EnvironmentParentTypes">
+            <summary>
+            Types of the parent (owner) of the test environments.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.IdConstants">
+            <summary>
+            Constants specifying various Test Case Management Job Ids for the TFS Agent jobs.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.TestWellKnownGroups">
+            <summary>
+            Constants from various well known security group related to Test Management.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.TCMWitFields">
+            <summary>
+            Contains non core work item fields of test plan
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.Internal.ArtifactHelper">
+            <summary>
+            FOR INTERNAL USE ONLY.
+            Helper class for managing artifact URI conversion.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.Internal.AttachmentDownloadFields">
+            <summary>
+            FOR INTERNAL USE ONLY.
+            Query string parameters used for attachment downloads
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.Internal.HttpRange">
+            <summary>
+            FOR INTERNAL USE ONLY.
+            Used to contain and parse the byte offsets used in an HTTP range header
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.Internal.WorkItemFieldNames">
+             <summary>
+             FOR INTERNAL USE ONLY.
+            
+             The reference names of various Work Item fileds used by Test Management sub-system.
+             </summary>
+             <remarks>
+             These constants define the field names used to implement
+             various properties of TestCase. The place to find these is in:
+             vset\common\Methdologies\MSF_Agile\Files\WorkItem Tracking\TypeDefinitions\TestCase.xml
+             </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.Internal.XmlUtility">
+            <summary>
+            FOR INTERNAL USE ONLY.
+            Helper functions for reading\writing\loading of XML documents.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestManagement.Common.ISharedParameterData.ParameterNames">
+            <summary>
+            List of parameter names present in the shared parameter data set
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestManagement.Common.ISharedParameterData.ParameterValues">
+            <summary>
+            List of data rows present in the shared parameter data set along with meta data
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestManagement.Common.ISharedParameterDataRows.Rows">
+            <summary>
+            The list of data rows present in the shared parameter data set
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestManagement.Common.ISharedParameterDataRow.Id">
+            <summary>
+            The row id of the data row
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestManagement.Common.ISharedParameterDataRow.ParameterValues">
+            <summary>
+            List of key value pairs present in the data row
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestManagement.Common.IKeyValuePair.Key">
+            <summary>
+            The parameter name
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestManagement.Common.IKeyValuePair.Value">
+            <summary>
+            The parameter value
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.TestManagementErrorCodes">
+            <summary>
+            Specifies the error codes for error messages from both client and server sides.
+            </summary>
+            <remarks>
+            NOTE: Please keep the constant name the same as the corresponding message resource.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.WitCategoryRefName">
+            <summary>
+            Specifies the constants for WIT category names.
+            Adding AllWorkItemsCategory for getting all workitems
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Common.WitCategoryName">
+            <summary>
+            Specifies the constants for WIT category names.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Server.Phase">
+            <summary>
+            Phases of workflow.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestManagement.Server.AutomationPhaseState">
+            <summary>
+            State of the phase.
+            </summary>
+        </member>
+    </members>
+</doc>

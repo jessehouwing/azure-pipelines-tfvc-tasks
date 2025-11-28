@@ -1,0 +1,1064 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Dashboards.WebApi</name>
+    </assembly>
+    <members>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.NamespaceId">
+            <summary>
+            Guid for the DashboardsPrivileges security namespace
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.NamespaceSeparator">
+            <summary>
+            Separator used for parent/child tokens, as this namespace is hierarchical.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.Root">
+            <summary>
+            root for the namespace hierarchy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.MaterializeDashboardsRoot">
+            <summary>
+            root for the MaterializeDashboards token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.DashboardsPermissions">
+            <summary>
+            The permissions managed by the security namespace
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.DashboardsPermissions.Read">
+            <summary>
+            View dashboards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.DashboardsPermissions.Create">
+            <summary>
+            Add dashboards to a team
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.DashboardsPermissions.Edit">
+            <summary>
+            Edit the widgets in a dashboard
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.DashboardsPermissions.Delete">
+            <summary>
+            Delete dashboards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.DashboardsPermissions.ManagePermissions">
+            <summary>
+            Manage the permissions on dashboards and widgets.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsPrivileges.DashboardsPermissions.MaterializeDashboards">
+            <summary>
+            User can materialize dashboards
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardConstants.RestAreaId">
+            <summary>
+            The first fragment of dashboard rest URIs
+            </summary>        
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardRouteTemplates">
+            <summary>
+            RouteTemplates used in DashboardRoutes
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardRestResourceNames">
+            <summary>
+            Used for Area variables, Controller names and Route names
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsLocationIds">
+            <summary>
+            Web API Route location IDs for versioned routes
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.Links">
+            <summary>
+            Constant strings for names in _links 
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClient">
+            <summary>
+            Client proxy for the <em>dashboard</em> REST interface.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardCompatHttpClientBase">
+            <summary>
+            This class contains overloads of methods that were removed from the auto-generated client
+            due to adding parameters. We use extra overloads to ensure that whatever binary signature
+            a client used before will map to one of these prototypes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardCompatHttpClientBase.GetDashboardsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a list of dashboards.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardSecuredObject.SetSecuredObject(Microsoft.VisualStudio.Services.WebApi.ISecuredObject)">
+            <summary>
+            Operation to populate SecuredObject Info on object and all children with same security state.
+            </summary>
+            <param name="securedObject"></param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorAccessDenied">
+            <summary>
+              Looks up a localized string similar to VS403200: User &apos;{0}&apos; is denied &apos;{1}&apos; permission on dashboard resources..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorCannotHaveDashboardId">
+            <summary>
+              Looks up a localized string similar to VS402417: New dashboard cannot have a dashboard Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorCannotHaveWidgetId">
+            <summary>
+              Looks up a localized string similar to VS402413: New Widget cannot have a widget Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDashboardCountExceeded">
+            <summary>
+              Looks up a localized string similar to VS402426: The requested operation would result in more than allowed number of dashboards. Allowed: {0}, Current: {1}, With requested:{2}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDashboardDoesNotExist">
+            <summary>
+              Looks up a localized string similar to VS402410: This dashboard no longer exists or you do not have permissions to view it. ID: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDashboardNameMoreThanMaxLength">
+            <summary>
+              Looks up a localized string similar to VS402422: The dashboard name is longer than the allowed length. Max length allowed: {0}, Requested: {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDashboardDescriptionMoreThanMaxLength">
+            <summary>
+              Looks up a localized string similar to VS403360: The dashboard description is longer than the allowed length. Max length allowed: {0}, Requested: {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDashboardPositionCollision">
+            <summary>
+              Looks up a localized string similar to VS402435: Some positions of the dashboard are colliding with positions of other dashboards..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDashboardsDoNotExist">
+            <summary>
+              Looks up a localized string similar to VS402430: Some of the dashboards sent for update do not exist. Missing dashboards: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDeletingLastDashboard">
+            <summary>
+              Looks up a localized string similar to VS402433: Attempting to delete the last dashboard for the team..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorEmptyDashboardName">
+            <summary>
+              Looks up a localized string similar to VS402419: Name of the dashboard cannot be empty..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorEmptyWidgetName">
+            <summary>
+              Looks up a localized string similar to VS402415: Name of the widget cannot be empty..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorInvalidDashboardPosition">
+            <summary>
+              Looks up a localized string similar to VS402440: Invalid dashboard position passed: {0}. Dashboard position should be greater than 0..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorInvalidMetaDataConfigurationFromCatalog">
+            <summary>
+              Looks up a localized string similar to VS402438: Metadata for {0} was not found in catalog..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorLimitExceeded">
+            <summary>
+              Looks up a localized string similar to VS402432: {0} is not within the acceptable range [{1},{2}]. Value: {3}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorMissingWidgetId">
+            <summary>
+              Looks up a localized string similar to VS402416: Widget Id missing for updating widget..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorMoreThanMaxLength">
+            <summary>
+              Looks up a localized string similar to VS402422: The widget {0} is longer than the allowed length. Max length allowed: {1}, Requested: {2}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorNoMetaDataFoundInCatalog">
+            <summary>
+              Looks up a localized string similar to VS402439: No widget metadata can be found in the catalog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorTeamAdminOnlyAccess">
+            <summary>
+              Looks up a localized string similar to VS402429: Only team administrators have access to modify dashboard resources..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetCollision">
+            <summary>
+              Looks up a localized string similar to VS402428: Failed to add widget. Refresh your dashboard and try again..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetCountExceeded">
+            <summary>
+              Looks up a localized string similar to VS402427: The requested operation would result in more than allowed number of widgets. Allowed: {0}, Current: {1}, With requested:{2}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetDoesNotExist">
+            <summary>
+              Looks up a localized string similar to VS402411: Widget does not exist. It may have been deleted by another user. ID: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetsDoNotExist">
+            <summary>
+              Looks up a localized string similar to VS402431: Some of the widgets sent for update do not exist. Missing Widgets: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetSettingsVersionDowngrade">
+            <summary>
+              Looks up a localized string similar to VS403056:The new version {0} for the settings cannot be lower than the previous one {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetSettingsVersionInvalid">
+            <summary>
+              Looks up a localized string similar to VS403053: The new version {0} for the settings is invalid for the widget. The major, minor and patch should be positive numbers..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetSizeNotSupported">
+            <summary>
+              Looks up a localized string similar to VS402508: The specified widget uses a size ({0} x {1}) which is not supported for that widget type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorWidgetServiceUnavailable">
+            <summary>
+              Looks up a localized string similar to VS403281: This widget depends on {0} which is currently unavailable. Please refresh the dashboard and try again..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardResources.ErrorDuplicateDashboardName">
+            <summary>
+              Looks up a localized string similar to VS403345: Duplicate Name on Dashboard. Each dashboard held by a team must use a distinct name..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardsDoNotExistException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardNameLengthExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardDescriptionLengthExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardInvalidPositionException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardDoesNotExistException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardCountLimitExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetSizeNotSupportedException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetNameLengthExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetSettingsLengthExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetTypeLengthExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetSizeDimensionExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetPositionDimensionExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetSettingsVersionInvalidException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetDoesNotExistException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetLimitExceededException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetServiceUnavailableException.#ctor(Microsoft.VisualStudio.Services.WebApi.WrappedException)">
+            <summary>
+            This overload gets called when a WrappedException is unwrapped.  In this case we
+            want to keep the orignal message intact.
+            </summary>
+            <param name="wrappedException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.CopyDashboardAsync(Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Copies the given dashboard to given location
+            </summary>
+            <param name="copyDashboardOptions"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard to copy</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.CreateDashboardAsync(Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Create the supplied dashboard.
+            </summary>
+            <param name="dashboard">The initial state of the dashboard</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.DeleteDashboardAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Delete a dashboard given its ID. This also deletes the widgets associated with this dashboard.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard to delete.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetDashboardAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a dashboard by its ID.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetDashboardsByProjectAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a list of dashboards under a project.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.ReplaceDashboardAsync(Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Replace configuration for the specified dashboard. Replaces Widget list on Dashboard, only if property is supplied.
+            </summary>
+            <param name="dashboard">The Configuration of the dashboard to replace.</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard to replace.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.ReplaceDashboardsAsync(Microsoft.TeamFoundation.Dashboards.WebApi.DashboardGroup,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update the name and position of dashboards in the supplied group, and remove omitted dashboards. Does not modify dashboard content.
+            </summary>
+            <param name="group"></param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.CreateWidgetAsync(Microsoft.TeamFoundation.Dashboards.WebApi.Widget,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Create a widget on the specified dashboard.
+            </summary>
+            <param name="widget">State of the widget to add</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of dashboard the widget will be added to.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.DeleteWidgetAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Delete the specified widget.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard containing the widget.</param>
+            <param name="widgetId">ID of the widget to update.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the current state of the specified widget.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard containing the widget.</param>
+            <param name="widgetId">ID of the widget to read.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetsAsync(Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get widgets contained on the specified dashboard.
+            </summary>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard to read.</param>
+            <param name="eTag">Dashboard Widgets Version</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.ReplaceWidgetAsync(Microsoft.TeamFoundation.Dashboards.WebApi.Widget,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Override the  state of the specified widget.
+            </summary>
+            <param name="widget">State to be written for the widget.</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard containing the widget.</param>
+            <param name="widgetId">ID of the widget to update.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.ReplaceWidgetsAsync(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Dashboards.WebApi.Widget},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Replace the widgets on specified dashboard with the supplied widgets.
+            </summary>
+            <param name="widgets">Revised state of widgets to store for the dashboard.</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the Dashboard to modify.</param>
+            <param name="eTag">Dashboard Widgets Version</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.UpdateWidgetAsync(Microsoft.TeamFoundation.Dashboards.WebApi.Widget,Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Perform a partial update of the specified widget.
+            </summary>
+            <param name="widget">Description of the widget changes to apply. All non-null fields will be replaced.</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the dashboard containing the widget.</param>
+            <param name="widgetId">ID of the widget to update.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.UpdateWidgetsAsync(System.Collections.Generic.IEnumerable{Microsoft.TeamFoundation.Dashboards.WebApi.Widget},Microsoft.TeamFoundation.Core.WebApi.Types.TeamContext,System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Update the supplied widgets on the dashboard using supplied state. State of existing Widgets not passed in the widget list is preserved.
+            </summary>
+            <param name="widgets">The set of widget states to update on the dashboard.</param>
+            <param name="teamContext">The team context for the operation</param>
+            <param name="dashboardId">ID of the Dashboard to modify.</param>
+            <param name="eTag">Dashboard Widgets Version</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetMetadataAsync(System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the widget metadata satisfying the specified contribution ID.
+            </summary>
+            <param name="contributionId">The ID of Contribution for the Widget</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetMetadataAsync(System.String,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the widget metadata satisfying the specified contribution ID.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="contributionId">The ID of Contribution for the Widget</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetMetadataAsync(System.Guid,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get the widget metadata satisfying the specified contribution ID.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="contributionId">The ID of Contribution for the Widget</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetTypesAsync(System.String,Microsoft.TeamFoundation.Dashboards.WebApi.WidgetScope,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get all available widget metadata in alphabetical order, including widgets marked with isVisibleFromCatalog == false.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="scope"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetTypesAsync(System.Guid,Microsoft.TeamFoundation.Dashboards.WebApi.WidgetScope,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get all available widget metadata in alphabetical order, including widgets marked with isVisibleFromCatalog == false.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="scope"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardHttpClientBase.GetWidgetTypesAsync(Microsoft.TeamFoundation.Dashboards.WebApi.WidgetScope,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get all available widget metadata in alphabetical order, including widgets marked with isVisibleFromCatalog == false.
+            </summary>
+            <param name="scope"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard">
+            <summary>
+            Model of a Dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.Id">
+            <summary>
+            ID of the Dashboard. Provided by service at creation time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.Name">
+            <summary>
+            Name of the Dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.Description">
+            <summary>
+            Description of the dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.RefreshInterval">
+            <summary>
+            Interval for client to automatically refresh the dashboard.
+            Expressed in minutes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.Position">
+            <summary>
+            Position of the dashboard, within a dashboard group. If unset at creation time, position is decided by the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.ETag">
+            <summary>
+            Server defined version tracking value, used for edit collision detection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.Widgets">
+            <summary>
+            The set of Widgets on the dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.GroupId">
+            <summary>
+            ID of the group for a dashboard.
+            For team-scoped dashboards, this is the unique identifier for the team associated with the dashboard.
+            For project-scoped dashboards this property is empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.OwnerId">
+            <summary>
+            ID of the owner for a dashboard.
+            For team-scoped dashboards, this is the unique identifier for the team associated with the dashboard.
+            For project-scoped dashboards, this is the unique identifier for the user identity associated with the dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.DashboardScope">
+            <summary>
+            Entity to which the dashboard is scoped.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.ModifiedDate">
+            <summary>
+            Dashboard's last modified date.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.ModifiedBy">
+            <summary>
+            Id of the person who modified Dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.LastAccessedDate">
+            <summary>
+            Dashboard Last Accessed Date.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.GlobalParametersConfig">
+            <summary>
+            Dashboard Global Parameters Config
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.Dashboard.IsNew">
+            <summary>
+            Describes if the Dashboard is newly created.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardGroup">
+            <summary>
+            Describes a list of dashboards associated to an owner. Currently, teams own dashboard groups.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardGroup.DashboardEntries">
+            <summary>
+            A list of Dashboards held by the Dashboard Group
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardGroup.Permission">
+            <summary>
+            Deprecated: The old permission model describing the level of permissions for the current team. Pre-M125.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardGroup.TeamDashboardPermission">
+            <summary>
+            A permissions bit mask describing the security permissions of the current team for dashboards. When this permission is the value None, use GroupMemberPermission.
+            Permissions are evaluated based on the presence of a value other than None, else the GroupMemberPermission will be saved.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardGroupEntry">
+            <summary>
+            Dashboard group entry, wrapping around Dashboard (needed?)
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.GroupMemberPermission">
+            <summary>
+            None - Team member cannot edit dashboard
+            Edit - Team member can add, configure and delete widgets
+            Manage - Team member can add, reorder, delete dashboards
+            Manage Permissions - Team member can manage membership of other members to perform
+               group operations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardGroupEntryResponse">
+            <summary>
+            Response from RestAPI when saving and editing DashboardGroupEntry
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetResponse">
+            <summary>
+            Response from RestAPI when saving and editing Widget
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardScope">
+            <summary>
+            identifies the scope of dashboard storage and permissions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardScope.Collection_User">
+            <summary>[DEPRECATED] Dashboard is scoped to the collection user.</summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardScope.Project_Team">
+            <summary>Dashboard is scoped to the team.</summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.DashboardScope.Project">
+            <summary>Dashboard is scoped to the project.</summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetScope">
+            <summary>
+            data contract required for the widget to function in a webaccess area or page. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.SemanticVersion">
+            <summary>
+            versioning for an artifact as described at: http://semver.org/, of the form major.minor.patch.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.SemanticVersion.Major">
+            <summary>
+             Major version when you make incompatible API changes
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.SemanticVersion.Minor">
+            <summary>
+            Minor version when you add functionality in a backwards-compatible manner
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.SemanticVersion.Patch">
+            <summary>
+            Patch version when you make backwards-compatible bug fixes
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.SemanticVersion.Default">
+            <summary>
+            The default semantic version: 1.0.0 (i.e. starting with first major version)
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.TeamDashboardPermission">
+            <summary>
+            Read - User can see dashboards
+            Create - User can create dashboards
+            Edit - User can add, configure and delete widgets, and edit dashboard settings.
+            Delete - User can delete dashboards
+            Manage Permissions - Team member can manage membership of other members to perform
+               group operations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.Widget">
+            <summary>
+            Widget data
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Widget.AllowedSizes">
+            <summary>
+            Refers to the allowed sizes for the widget. This gets populated when user wants to configure the widget
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Widget.ArtifactId">
+            <summary>
+            Refers to unique identifier of a feature artifact. Used for pinning+unpinning a specific artifact.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Widget.Dashboard">
+            <summary>
+            Optional partial dashboard content, to support exchanging dashboard-level version ETag for widget-level APIs
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Widget.AreSettingsBlockedForUser">
+            <summary>
+            Read-Only Property from Dashboard Service. Indicates if settings are blocked for the current user.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.Widget.metaData">
+            <summary>
+            The entire metadata payload does not need to serialized and provided as part of the widget contract
+            We expose only whats needed with explicit data members. This provides a slight performance improvement
+            as the metadata payload is bulky. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.Widget.SetMetaData(Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata)">
+            <summary>
+            Applies metadata about the widget.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.Widget.ContributionId">
+            <summary>
+            The id of the underlying contribution defining the supplied Widget Configuration.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetConfigurationMetadata">
+            <summary>
+            Description for each type of Widget Configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetConfigurationMetadata.TypeId">
+            <summary>
+            Deprecated: locally unique identity of this kind of widget configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetConfigurationMetadata.ContributionId">
+            <summary>
+            The id of the underlying contribution defining the supplied Widget Configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetConfigurationMetadata.Targets">
+            <summary>
+            Contribution target IDs
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata">
+            <summary>
+            Contribution based information describing Dashboard Widgets.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.TypeId">
+            <summary>
+            Deprecated: locally unique developer-facing id of this kind of widget.
+            ContributionId provides a globally unique identifier for widget types.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.PublisherName">
+            <summary>
+            Publisher Name of this kind of widget.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.Targets">
+            <summary>
+            Contribution target IDs
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.Name">
+            <summary>
+            User facing name of the widget type. Each widget must use a unique value here.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.CatalogIconUrl">
+            <summary>
+            Resource for an icon in the widget catalog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.Tags">
+            <summary>
+            Tags associated with this widget, visible on each widget and filterable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.Keywords">
+            <summary>
+            Keywords associated with this widget, non-filterable and invisible
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.LoadingImageUrl">
+            <summary>
+            Resource for a loading placeholder image on dashboard
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.Description">
+            <summary>
+            Summary information describing the widget.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.IsVisibleFromCatalog">
+            <summary>
+             Opt-out boolean indicating if the widget is hidden from the catalog.
+             Commonly, this is used to allow developers to disable creation of a deprecated widget.
+             A widget must have a functional default state, or have a configuration experience, in order to be visible from the catalog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.IsEnabled">
+             <summary>
+             Widgets can be disabled by the app store.
+            
+             We'll need to gracefully handle for:
+             - persistence (Allow)
+             - Requests (Tag as disabled, and provide context)
+             </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.CanStoreCrossProjectSettings">
+            <summary>
+            Advanced widgets can store settings referring across projects
+            Non member users can only access information within the current project.
+            Where this is opted in, and "hasNoCrossProjectReferences" is set true, the framework will selectively permit trusted single project configurations. 
+            If active, and hasNoCrossProjectReferences is false or null, widget settings will be cleared.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.ContentUri">
+            <summary>
+            Uri for the widget content to be loaded from .
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.AllowedSizes">
+            <summary>
+            Sizes supported by the Widget.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.ConfigurationContributionId">
+            <summary>
+            The id of the underlying contribution defining the supplied Widget custom configuration UI. Null if custom configuration UI is not available.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.ConfigurationContributionRelativeId">
+            <summary>
+            The relative id of the underlying contribution defining the supplied Widget custom configuration UI. Null if custom configuration UI is not available.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.ConfigurationRequired">
+            <summary>
+            Indicates if the widget requires configuration before being added to dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.DefaultSettings">
+            <summary>
+            Optional default settings to be copied into widget settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.SupportedScopes">
+            <summary>
+            Data contract required for the widget to function and to work in its container. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.ContributionId">
+            <summary>
+            The id of the underlying contribution defining the supplied Widget.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.IsNameConfigurable">
+            <summary>
+            Opt-out boolean that indicates if the widget supports widget name/title configuration. Widgets ignoring the name should set it to false in the manifest.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.CatalogInfoUrl">
+            <summary>
+            Opt-in URL string pointing at widget information. Defaults to extension marketplace URL if omitted
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.LightboxOptions">
+            <summary>
+            Opt-in properties for customizing widget presentation in a "lightbox" dialog.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.AnalyticsServiceRequired">
+            <summary>
+            Opt-in boolean that indicates if the widget requires the Analytics Service to function.
+            Widgets requiring the analytics service are hidden from the catalog if the Analytics Service is not available.
+            </summary>
+            <remarks>
+            Even if a widget specifies an invalid size we don't consider it invalid as long as it has at least one valid size.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetMetadata.CreateDisabledInstance(System.String)">
+            <summary>
+            Produces a canonical "Disabled" Metadata entry.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.LightboxOptions">
+            <summary>
+            Lightbox configuration
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.LightboxOptions.Width">
+            <summary>
+            Width of desired lightbox, in pixels
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.LightboxOptions.Height">
+            <summary>
+            Height of desired lightbox, in pixels
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.LightboxOptions.Resizable">
+            <summary>
+            True to allow lightbox resizing, false to disallow lightbox resizing, defaults to false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetSize.RowSpan">
+            <summary>
+            The height of the widget, expressed in dashboard grid rows.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetSize.ColumnSpan">
+            <summary>
+            The Width of the widget, expressed in dashboard grid columns.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.WidgetsVersionedList">
+            <summary>
+            Wrapper class to support HTTP header generation using CreateResponse, ClientHeaderParameter and ClientResponseType in WidgetV2Controller
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions">
+            <summary>
+            Copy options of a Dashboard.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.CopyDashboardScope">
+            <summary>
+            Dashboard Scope. Can be either Project or Project_Team
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.ProjectId">
+            <summary>
+            ID of the project. Provided by service at creation time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.TeamId">
+            <summary>
+            ID of the team. Provided by service at creation time
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.Name">
+            <summary>
+            Name of the dashboard
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.Description">
+            <summary>
+            Description of the dashboard
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.RefreshInterval">
+            <summary>
+            Refresh interval of dashboard
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.CopyQueriesFlag">
+            <summary>
+             When this flag is set to true,option to select the folder to copy Queries of copy dashboard will appear.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardOptions.QueryFolderPath">
+            <summary>
+            Path to which the queries should be copied of copy dashboard
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardResponse.CopyDashboardOptions">
+            <summary>
+            Copy Dashboard options
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Dashboards.WebApi.CopyDashboardResponse.CopiedDashboard">
+            <summary>
+            Copied Dashboard
+            </summary>
+        </member>
+    </members>
+</doc>

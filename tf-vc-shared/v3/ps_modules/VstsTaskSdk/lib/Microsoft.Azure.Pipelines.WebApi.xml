@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Pipelines.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.Artifact">
+            <summary>
+            Artifacts are collections of files produced by a pipeline. Use artifacts to share files between stages in a pipeline or between different pipelines.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Artifact.Name">
+            <summary>
+            The name of the artifact.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Artifact.Url">
+            <summary>
+            Self-referential url
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Artifact.SignedContent">
+            <summary>
+            Signed url for downloading this artifact
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.BitBucketRepository.FullName">
+            <summary>
+            The full name (:owner/:repo) of the BitBucket repository. For example, octocat/Hello-World
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.BitBucketRepository.Connection">
+            <summary>
+            The service connection used to perform BitBucket operations against the repository
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.GetArtifactExpandOptions">
+            <summary>
+            Expansion options for GetArtifact and ListArtifacts.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Pipelines.WebApi.GetArtifactExpandOptions.None">
+            <summary>
+            No expansion.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Pipelines.WebApi.GetArtifactExpandOptions.SignedContent">
+            <summary>
+            Include signed content.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.GetLogExpandOptions">
+            <summary>
+            $expand options for GetLog and ListLogs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.GitHubEnterpriseRepository.FullName">
+            <summary>
+            The full name (:owner/:repo) of the GitHub enterprise repository. For example, octocat/Hello-World
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.GitHubEnterpriseRepository.Connection">
+            <summary>
+            The service connection used to perform Git enterprise operations against the repository
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.Log">
+            <summary>
+            Log for a pipeline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Log.CreatedOn">
+            <summary>
+            The date and time the log was created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Log.Id">
+            <summary>
+            The ID of the log.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Log.LastChangedOn">
+            <summary>
+            The date and time the log was last changed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Log.LineCount">
+            <summary>
+            The number of lines in the log.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.LogCollection">
+            <summary>
+            A collection of logs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.LogCollection.Logs">
+            <summary>
+            The list of logs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.LogCollection.Url">
+            <summary>
+            URL of the log.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.PipelineBase.Id">
+            <summary>
+            Pipeline ID
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.PipelineBase.Revision">
+            <summary>
+            Revision number
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.PipelineBase.Name">
+            <summary>
+            Pipeline name
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.PipelineBase.Folder">
+            <summary>
+            Pipeline folder
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.PipelineReference">
+            <summary>
+            A reference to a Pipeline.
+            </summary>
+            <remarks>
+            Do not add sensitive properties to this class. If a user can view a Run, they can see all the properties on a PipelineReference.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RepositoryResourceParameters.Token">
+            <summary>
+            This is the security token to use when connecting to the repository.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RepositoryResourceParameters.TokenType">
+            <summary>
+            Optional. This is the type of the token given. If not provided, a type of "Bearer" is assumed.
+            Note: Use "Basic" for a PAT token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters">
+            <summary>
+            Settings which influence pipeline runs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters.Resources">
+            <summary>
+            The resources the run requires.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters.TemplateParameters">
+            <summary>
+            The names and values for the template parameters you wish to supply.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters.Variables">
+            <summary>
+            The names and values for the queue-time variables you wish to supply. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters.StagesToSkip">
+            <summary>
+            A set of stages you wish this run to skip.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters.YamlOverride">
+            <summary>
+            If you use the preview run option, you may optionally supply different YAML.
+            This allows you to preview the final YAML document without committing a changed file.  
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters.PreviewRun">
+            <summary>
+            If true, don't actually create a new run. Instead, return the final YAML document after parsing templates.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.RunPipelineVariableParameters">
+            <summary>
+            Specifies a variable value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.RunPipelineVariableParameters.Value">
+            <summary>
+            The value of the variable
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.RunResult">
+            <summary>
+            This is not a Flags enum because we don't want to set multiple results on a build.
+            However, when adding values, please stick to powers of 2 as if it were a Flags enum.
+            This will make it easier to query multiple results.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.RunState">
+            <summary>
+            This is not a Flags enum because we don't want to set multiple states on a build.
+            However, when adding values, please stick to powers of 2 as if it were a Flags enum.
+            This will make it easier to query multiple states.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.StageState">
+            <summary>
+            This is not a Flags enum because we don't want to set multiple states on a Stage.
+            However, when adding values, please stick to powers of 2 as if it were a Flags enum.
+            This will make it easier to query multiple states.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.StageResult">
+            <summary>
+            This is not a Flags enum because we don't want to set multiple results on a stage.
+            However, when adding values, please stick to powers of 2 as if it were a Flags enum.
+            This will make it easier to query multiple results.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.GitHubRepository.FullName">
+            <summary>
+            The full name (:owner/:repo) of the GitHub repository. For example, octocat/Hello-World
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.GitHubRepository.Connection">
+            <summary>
+            The service connection used to perform Git operations against the repository
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.JobState">
+            <summary>
+            This is not a Flags enum because we don't want to set multiple states on a Job.
+            However, when adding values, please stick to powers of 2 as if it were a Flags enum.
+            This will make it easier to query multiple states.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.JobResult">
+            <summary>
+            This is not a Flags enum because we don't want to set multiple results on a Job.
+            However, when adding values, please stick to powers of 2 as if it were a Flags enum.
+            This will make it easier to query multiple results.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.CreateGitHubRepositoryParameters.FullName">
+            <summary>
+            The full name (:owner/:repo) of the GitHub repository. For example, octocat/Hello-World
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.CreateGitHubRepositoryParameters.Connection">
+            <summary>
+            The service connection used to perform Git operations against the repository
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.AzureReposGitRepository.FullName">
+            <summary>
+            The name (project/repo) of the TfsGitRepository.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Pipelines.WebApi.ConfigurationType.Unknown">
+            <summary>
+            Unknown type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Pipelines.WebApi.ConfigurationType.Yaml">
+            <summary>
+            YAML.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Pipelines.WebApi.ConfigurationType.DesignerJson">
+            <summary>
+            Designer JSON.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Pipelines.WebApi.ConfigurationType.JustInTime">
+            <summary>
+            Just-in-time.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.Pipelines.WebApi.ConfigurationType.DesignerHyphenJson">
+            <summary>
+            Designer-JSON.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.CreateYamlPipelineConfigurationParameters.Path">
+            <summary>
+            The path to the YAML file in the repository.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.CreatePipelineConfigurationParameters">
+            <summary>
+            Configuration parameters of the pipeline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.CreatePipelineConfigurationParameters.Type">
+            <summary>
+            Type of configuration.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.CreatePipelineParameters">
+            <summary>
+            Parameters to create a pipeline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.CreatePipelineParameters.Name">
+            <summary>
+            Name of the pipeline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.CreatePipelineParameters.Folder">
+            <summary>
+             Folder of the pipeline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.CreatePipelineParameters.Configuration">
+            <summary>
+            Configuration parameters of the pipeline.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.Pipeline">
+            <summary>
+            Definition of a pipeline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Pipelines.WebApi.Pipeline.Url">
+            <summary>
+            URL of the pipeline
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.PipelineValidationException">
+            <summary>
+            Thrown when a pipeline has validation errors.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.RunOrchestrationExistsException">
+            <summary>
+            Thrown when an orchestration already exists for a run.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.FlagsEnum.ParseKnownFlags(System.Type,System.String)">
+            <summary>
+            Parse known enum flags in a comma-separated string. Unknown flags are ignored. Allows for degraded compatibility without serializing enums to integers.
+            </summary>
+            <remarks>
+            Case insensitive. Both standard and EnumMemberAttribute names are parsed.
+            </remarks>
+            <exception cref="T:System.NullReferenceException">Thrown if stringValue is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if a flag name is empty.</exception>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetArtifactAsync(System.String,System.Int32,System.Int32,System.String,System.Nullable{Microsoft.Azure.Pipelines.WebApi.GetArtifactExpandOptions},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a specific artifact from a pipeline run
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">ID of the pipeline.</param>
+            <param name="runId">ID of the run of that pipeline.</param>
+            <param name="artifactName">Name of the artifact.</param>
+            <param name="expand">Expand options. Default is None.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetArtifactAsync(System.Guid,System.Int32,System.Int32,System.String,System.Nullable{Microsoft.Azure.Pipelines.WebApi.GetArtifactExpandOptions},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a specific artifact from a pipeline run
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">ID of the pipeline.</param>
+            <param name="runId">ID of the run of that pipeline.</param>
+            <param name="artifactName">Name of the artifact.</param>
+            <param name="expand">Expand options. Default is None.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetLogAsync(System.String,System.Int32,System.Int32,System.Int32,System.Nullable{Microsoft.Azure.Pipelines.WebApi.GetLogExpandOptions},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a specific log from a pipeline run
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">ID of the pipeline.</param>
+            <param name="runId">ID of the run of that pipeline.</param>
+            <param name="logId">ID of the log.</param>
+            <param name="expand">Expand options. Default is None.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetLogAsync(System.Guid,System.Int32,System.Int32,System.Int32,System.Nullable{Microsoft.Azure.Pipelines.WebApi.GetLogExpandOptions},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a specific log from a pipeline run
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">ID of the pipeline.</param>
+            <param name="runId">ID of the run of that pipeline.</param>
+            <param name="logId">ID of the log.</param>
+            <param name="expand">Expand options. Default is None.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.ListLogsAsync(System.String,System.Int32,System.Int32,System.Nullable{Microsoft.Azure.Pipelines.WebApi.GetLogExpandOptions},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a list of logs from a pipeline run.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">ID of the pipeline.</param>
+            <param name="runId">ID of the run of that pipeline.</param>
+            <param name="expand">Expand options. Default is None.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.ListLogsAsync(System.Guid,System.Int32,System.Int32,System.Nullable{Microsoft.Azure.Pipelines.WebApi.GetLogExpandOptions},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a list of logs from a pipeline run.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">ID of the pipeline.</param>
+            <param name="runId">ID of the run of that pipeline.</param>
+            <param name="expand">Expand options. Default is None.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.CreatePipelineAsync(Microsoft.Azure.Pipelines.WebApi.CreatePipelineParameters,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Create a pipeline.
+            </summary>
+            <param name="inputParameters">Input parameters.</param>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.CreatePipelineAsync(Microsoft.Azure.Pipelines.WebApi.CreatePipelineParameters,System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Create a pipeline.
+            </summary>
+            <param name="inputParameters">Input parameters.</param>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetPipelineAsync(System.String,System.Int32,System.Nullable{System.Int32},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a pipeline, optionally at the specified version
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">The pipeline ID</param>
+            <param name="pipelineVersion">The pipeline version</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetPipelineAsync(System.Guid,System.Int32,System.Nullable{System.Int32},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a pipeline, optionally at the specified version
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">The pipeline ID</param>
+            <param name="pipelineVersion">The pipeline version</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.ListPipelinesAsync(System.String,System.String,System.Nullable{System.Int32},System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a list of pipelines.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="orderBy">A sort expression. Defaults to &quot;name asc&quot;</param>
+            <param name="top">The maximum number of pipelines to return</param>
+            <param name="continuationToken">A continuation token from a previous request, to retrieve the next page of results</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.ListPipelinesAsync(System.Guid,System.String,System.Nullable{System.Int32},System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Get a list of pipelines.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="orderBy">A sort expression. Defaults to &quot;name asc&quot;</param>
+            <param name="top">The maximum number of pipelines to return</param>
+            <param name="continuationToken">A continuation token from a previous request, to retrieve the next page of results</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.PreviewAsync(Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters,System.String,System.Int32,System.Nullable{System.Int32},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Queues a dry run of the pipeline and returns an object containing the final yaml.
+            </summary>
+            <param name="runParameters">Optional additional parameters for this run.</param>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">The pipeline ID.</param>
+            <param name="pipelineVersion">The pipeline version.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.PreviewAsync(Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters,System.Guid,System.Int32,System.Nullable{System.Int32},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Queues a dry run of the pipeline and returns an object containing the final yaml.
+            </summary>
+            <param name="runParameters">Optional additional parameters for this run.</param>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">The pipeline ID.</param>
+            <param name="pipelineVersion">The pipeline version.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetRunAsync(System.String,System.Int32,System.Int32,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a run for a particular pipeline.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">The pipeline id</param>
+            <param name="runId">The run id</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetRunAsync(System.Guid,System.Int32,System.Int32,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a run for a particular pipeline.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">The pipeline id</param>
+            <param name="runId">The run id</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.ListRunsAsync(System.String,System.Int32,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets top 10000 runs for a particular pipeline.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">The pipeline id</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.ListRunsAsync(System.Guid,System.Int32,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets top 10000 runs for a particular pipeline.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">The pipeline id</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.RunPipelineAsync(Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters,System.String,System.Int32,System.Nullable{System.Int32},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Runs a pipeline.
+            </summary>
+            <param name="runParameters">Optional additional parameters for this run.</param>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId">The pipeline ID.</param>
+            <param name="pipelineVersion">The pipeline version.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.RunPipelineAsync(Microsoft.Azure.Pipelines.WebApi.RunPipelineParameters,System.Guid,System.Int32,System.Nullable{System.Int32},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Runs a pipeline.
+            </summary>
+            <param name="runParameters">Optional additional parameters for this run.</param>
+            <param name="project">Project ID</param>
+            <param name="pipelineId">The pipeline ID.</param>
+            <param name="pipelineVersion">The pipeline version.</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetSignedSignalRUrlAsync(System.String,System.Int32,System.Int32,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="pipelineId"></param>
+            <param name="runId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesHttpClientBase.GetSignedSignalRUrlAsync(System.Guid,System.Int32,System.Int32,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="pipelineId"></param>
+            <param name="runId"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="T:Microsoft.Azure.Pipelines.WebApi.KnownFlagsEnumTypeConverter">
+            <summary>
+            Parses known enum flags in a comma-separated string. Unknown flags are ignored. Allows for degraded compatibility without serializing enums to integer values.
+            </summary>
+            <remarks>
+            Case insensitive. Both standard and EnumMemberAttribute names are parsed.
+            json deserialization doesn't happen for query parameters :)
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.KnownFlagsEnumTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <exception cref="T:System.FormatException">Thrown if a flag name is empty.</exception>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.#cctor">
+            Creates the resource manager instance.
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.Get(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.GetInt(System.String)">
+            Returns a localized integer given a resource string name.
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.GetBool(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.Format(System.String,System.Object[])">
+            A little helper function to alleviate some typing associated with loading resources and
+            formatting the strings.  In DEBUG builds, it also asserts that the number of format
+            arguments and the length of args match.
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.FlagEnumTypeRequired">
+            <summary>
+            Invalid type. An enum type with the Flags attribute must be supplied.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.InvalidFlagsEnumValue(System.Object,System.Object)">
+            <summary>
+            &apos;{0}&apos; is not a valid value for {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Pipelines.WebApi.PipelinesWebApiResources.NonEmptyEnumElementsRequired(System.Object)">
+            <summary>
+            Each comma separated enum value must be non-empty: {0}
+            </summary>
+        </member>
+    </members>
+</doc>

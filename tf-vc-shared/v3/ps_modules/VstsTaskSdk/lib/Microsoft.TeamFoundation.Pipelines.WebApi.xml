@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Pipelines.WebApi</name>
+    </assembly>
+    <members>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.Configuration.Files">
+            <summary>
+            Collection of <see cref="T:Microsoft.TeamFoundation.Pipelines.WebApi.ConfigurationFile" /> objects that compose the Microsoft CI configuration.
+            There must be at least one file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.ConfigurationCreationContext.LanguageTag">
+            <summary>
+            An IETF BCP-47 language tag designating how template data should be localized.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.ConfigurationCreationContext.Answers">
+            <summary>
+            The answers to interview questions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.ConfigurationFile.Content">
+            <summary>
+            The content of the file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.ConfigurationFile.Path">
+            <summary>
+            The full path of the file, relative to the root of the repository.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.ConfigurationFile.IsBase64Encoded">
+            <summary>
+            Indicates if the content is base64 encoded.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs">
+            <summary>
+            This class is used to create a pipeline connection within the team project provided. If the team
+            project does not exist, it will be created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs.ProviderId">
+            <summary>
+            The external source provider id for which the connection is being made.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs.RedirectUrl">
+            <summary>
+            If provided, this will be the URL returned with the PipelineConnection.
+            This will override any other redirect URL that would have been generated for the connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs.RequestSource">
+            <summary>
+            Where the request to create the pipeline originated (such as 'GitHub Marketplace' or 'Azure DevOps')
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs.Project">
+            <summary>
+            The team project settings for an existing team project or for a new team project.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs.ProviderData">
+            <summary>
+            This dictionary contains information that is specific to the provider.
+            This data is opaque to the rest of the Pipelines infrastructure
+            and does NOT contribute to the resources Token. The format of the string and
+            its contents depend on the implementation of the provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.DetectedBuildFramework.Id">
+            <summary>
+            The unique identifier of the build framework.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.DetectedBuildFramework.Version">
+            <summary>
+            The version of the framework if it can be determined from the sources.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.DetectedBuildFramework.Settings">
+            <summary>
+            Additional detected settings for the build framework.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.DetectedBuildFramework.BuildTargets">
+            <summary>
+            List of build targets discovered for the framework to act upon.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.PipelineConnection.AccountId">
+            <summary>
+            The account id that contains the team project for the connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.PipelineConnection.TeamProjectId">
+            <summary>
+            The team project that contains the definition for the connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.PipelineConnection.ServiceEndpointId">
+            <summary>
+            The service endpoint that was created for the connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.PipelineConnection.DefinitionId">
+            <summary>
+            The definition id that was created for the connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.PipelineConnection.RedirectUrl">
+            <summary>
+            This is the URL that the user should be taken to in order to continue setup.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Pipelines.WebApi.RepositoryAnalysis.Languages">
+            <summary>
+            A set of languages that exist in the repository and their usage percentage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.GetConfigurationsAsync(System.String,System.String,System.String,System.String,System.Nullable{System.Guid},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a list of existing configuration files for the given repository.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="repositoryType">The type of the repository such as GitHub, TfsGit (i.e. Azure Repos), Bitbucket, etc.</param>
+            <param name="repositoryId">The vendor-specific identifier or the name of the repository, e.g. Microsoft/vscode (GitHub) or e9d82045-ddba-4e01-a63d-2ab9f040af62 (Azure Repos)</param>
+            <param name="branch">The repository branch where to look for the configuration file.</param>
+            <param name="serviceConnectionId">If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TfsGit (i.e. Azure Repos).</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.GetConfigurationsAsync(System.Guid,System.String,System.String,System.String,System.Nullable{System.Guid},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Gets a list of existing configuration files for the given repository.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="repositoryType">The type of the repository such as GitHub, TfsGit (i.e. Azure Repos), Bitbucket, etc.</param>
+            <param name="repositoryId">The vendor-specific identifier or the name of the repository, e.g. Microsoft/vscode (GitHub) or e9d82045-ddba-4e01-a63d-2ab9f040af62 (Azure Repos)</param>
+            <param name="branch">The repository branch where to look for the configuration file.</param>
+            <param name="serviceConnectionId">If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TfsGit (i.e. Azure Repos).</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.CreateConnectionAsync(Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] LEGACY METHOD - Obsolete Creates a new Pipeline connection between the provider installation and the specified project. Returns an Operation object that holds the redirect Url
+            </summary>
+            <param name="createConnectionInputs"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.CreateProjectConnectionAsync(Microsoft.TeamFoundation.Pipelines.WebApi.CreatePipelineConnectionInputs,System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Creates a new Pipeline connection between the provider installation and the specified project. Returns the PipelineConnection object created.
+            </summary>
+            <param name="createConnectionInputs"></param>
+            <param name="project"></param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.GetDetectedBuildFrameworksAsync(System.String,System.String,System.String,System.String,System.Nullable{Microsoft.TeamFoundation.Pipelines.WebApi.BuildFrameworkDetectionType},System.Nullable{System.Guid},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of build frameworks that best match the given repository based on its contents.
+            </summary>
+            <param name="project">Project ID or project name</param>
+            <param name="repositoryType">The type of the repository such as GitHub, TfsGit (i.e. Azure Repos), Bitbucket, etc.</param>
+            <param name="repositoryId">The vendor-specific identifier or the name of the repository, e.g. Microsoft/vscode (GitHub) or e9d82045-ddba-4e01-a63d-2ab9f040af62 (Azure Repos)</param>
+            <param name="branch">The repository branch to detect build frameworks for.</param>
+            <param name="detectionType"></param>
+            <param name="serviceConnectionId">If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TfsGit (i.e. Azure Repos).</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.GetDetectedBuildFrameworksAsync(System.Guid,System.String,System.String,System.String,System.Nullable{Microsoft.TeamFoundation.Pipelines.WebApi.BuildFrameworkDetectionType},System.Nullable{System.Guid},System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API] Returns a list of build frameworks that best match the given repository based on its contents.
+            </summary>
+            <param name="project">Project ID</param>
+            <param name="repositoryType">The type of the repository such as GitHub, TfsGit (i.e. Azure Repos), Bitbucket, etc.</param>
+            <param name="repositoryId">The vendor-specific identifier or the name of the repository, e.g. Microsoft/vscode (GitHub) or e9d82045-ddba-4e01-a63d-2ab9f040af62 (Azure Repos)</param>
+            <param name="branch">The repository branch to detect build frameworks for.</param>
+            <param name="detectionType"></param>
+            <param name="serviceConnectionId">If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TfsGit (i.e. Azure Repos).</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.CreateResourcesAsync(System.Collections.Generic.IDictionary{System.String,Microsoft.TeamFoundation.Pipelines.WebApi.ResourceCreationParameter},System.String,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="creationParameters"></param>
+            <param name="project">Project ID or project name</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Pipelines.WebApi.PipelinesHttpClient.CreateResourcesAsync(System.Collections.Generic.IDictionary{System.String,Microsoft.TeamFoundation.Pipelines.WebApi.ResourceCreationParameter},System.Guid,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            [Preview API]
+            </summary>
+            <param name="creationParameters"></param>
+            <param name="project">Project ID</param>
+            <param name="userState"></param>
+            <param name="cancellationToken">The cancellation token to cancel operation.</param>
+        </member>
+    </members>
+</doc>

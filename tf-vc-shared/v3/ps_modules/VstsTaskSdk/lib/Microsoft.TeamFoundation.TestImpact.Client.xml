@@ -1,0 +1,414 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.TestImpact.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.BuildImpactedTests">
+            <summary>
+            Represents the impacted test data for a build.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.BuildImpactedTests.Tests">
+            <summary>
+            The list of tests.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.BuildImpactedTests.CodeChanges">
+            <summary>
+            The list of associated code changes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.BuildImpactedTests.TestsInternal">
+            <summary>
+            Gets or sets the internal property which synchronizes with the list of tests.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.BuildImpactedTests.CodeChangesInternal">
+            <summary>
+            Gets or sets the internal property which synchronizes with the list of signatures.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.ClientTestInfo">
+            <summary>
+            Represents information about a test known to the client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.ClientTestInfo.#ctor(System.Int32,System.DateTime)">
+            <summary>
+            Constructs a <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.ClientTestInfo"/> for a test case.
+            </summary>
+            <param name="testCaseId">The test case identifier.</param>
+            <param name="dateCompleted">The date the test was last completed.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.CodeChange">
+            <summary>
+            Represents a code change in a build.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.CodeChange.Changesets">
+            <summary>
+            Gets the list of changesets that caused the code change.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.CodeChange.ChangesetsInternal">
+            <summary>
+            Gets or sets the internal property which synchronizes with the list of changesets.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.CodeChange.ToString">
+            <summary>
+            Gets the string representation of the code change.
+            </summary>
+            <returns>Returns the name of the code change.</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException">
+            <summary>
+            The base exception type thrown by the client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException.#ctor">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException.#ctor(System.String)">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException"/> with the given message.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException"/> with the given message and inner exception.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="inner">The inner exception.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactException"/> from the given serialization data.
+            </summary>
+            <param name="info">The serialization information.</param>
+            <param name="context">The streaming context.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException">
+            <summary>
+            An exception was thrown by the server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException.#ctor">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException.#ctor(System.String)">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException"/> with the given message.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException"/> with the given message and inner exception.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="inner">The inner exception.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructs a new <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException"/> from the given serialization data.
+            </summary>
+            <param name="info">The serialization information.</param>
+            <param name="context">The streaming context.</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.ITestImpactServer">
+            <summary>
+            The main server interface for test impact.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.ITestImpactServer.PublishBuildChanges(System.Uri,Microsoft.TeamFoundation.TestImpact.Client.CodeChange[])">
+            <summary>
+            Publishes the code changes in a build.
+            </summary>
+            <param name="buildUri">The URI of the build with changes.</param>
+            <param name="changes">The code changes in the build.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.ITestImpactServer.DeleteBuildImpact(System.Uri,System.Uri)">
+            <summary>
+            Deletes impact information for the given build.
+            </summary>
+            <param name="buildDefinitionUri">The URI of the definition of the build.</param>
+            <param name="buildUri">The URI of the build.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.ITestImpactServer.QueryBuildCodeChanges(System.Uri)">
+            <summary>
+            Queries for code changes of the given build.
+            </summary>
+            <param name="buildUri">The URI of the build to query the code changes for.</param>
+            <returns>Returns an array of code changes.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.ITestImpactServer.QueryImpactedTests(System.Uri)">
+            <summary>
+            Queries for impacted tests of the given build.
+            </summary>
+            <param name="buildUri">The URI of the build to query the impacted tests for.</param>
+            <returns>Returns a <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.BuildImpactedTests"/> containing the impacted tests.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.ITestImpactServer.QueryTestCaseSignatures(System.Uri[],Microsoft.TeamFoundation.TestImpact.Client.ClientTestInfo[])">
+            <summary>
+            Queries the test case signatures for the given build definition.
+            </summary>
+            <param name="buildDefinitionUris">The build definitions to get the test case signatures for.</param>
+            <param name="clientTests">Information about the tests currently known to the client.  This parameter can be null or empty.</param>
+            <returns>Returns a <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData"/> representing the test signature data.</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.ArgumentNull">
+            <summary>
+              Looks up a localized string similar to Argument &quot;{0}&quot; is null and is required..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.ArgumentNullOrEmpty">
+            <summary>
+              Looks up a localized string similar to Argument &quot;{0}&quot; was null or empty and is required..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.ObjectAlreadyInitialized">
+            <summary>
+              Looks up a localized string similar to The object has already been initialized..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.ObjectNotATest">
+            <summary>
+              Looks up a localized string similar to The object is not a Test..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.ServerException">
+            <summary>
+              Looks up a localized string similar to The test impact server threw an exception: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.TestCaseString">
+            <summary>
+              Looks up a localized string similar to Test case with identifier {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.TestFromProjectString">
+            <summary>
+              Looks up a localized string similar to Test from project with identifier {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.TestImpactServiceNotSupported">
+            <summary>
+              Looks up a localized string similar to The test impact service is not supported by the Azure DevOps Server..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.TestNotProjectTest">
+            <summary>
+              Looks up a localized string similar to The test is not from a test project..
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Properties.Resources.TestNotTestCase">
+            <summary>
+              Looks up a localized string similar to The test is not a test case..
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.Test">
+            <summary>
+            Represents the test data stored in the test impact database.
+            </summary>
+            <remarks>This is a partial class with the automatically generated proxy Test class.</remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Test.#ctor(System.Guid,System.String,System.DateTime)">
+            <summary>
+            Product internal use only constructor for the package to refresh automated tests after they have run in a VS test run.
+            </summary>
+            <param name="automatedTestId">The identifier of the automated test</param>
+            <param name="testName">The name of the test.</param>
+            <param name="dateCompleted">The date the test was completed.</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Test.IsTestCase">
+            <summary>
+            Gets whether or not the test is a TCM test case.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Test.IsAutomated">
+            <summary>
+            Gets whether or not the test is automated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Test.AssociationIndexes">
+            <summary>
+            Gets the list of associated item indexes.
+            </summary>
+            <remarks>This list is used in conjunction with a list of code changes or signatures.</remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Test.Equals(System.Object)">
+            <summary>
+            Checks for equality between this object and the given object.
+            </summary>
+            <param name="obj">The given object.  The object must be a <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.Test"/>.</param>
+            <returns>Returns true if the two objects are equal.  Returns false if they are not.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Test.System#IEquatable{Microsoft#TeamFoundation#TestImpact#Client#Test}#Equals(Microsoft.TeamFoundation.TestImpact.Client.Test)">
+            <summary>
+            Checks for equality between a given <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.Test"/> and this object.
+            </summary>
+            <param name="other">The other <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.Test"/> to check equality for.</param>
+            <returns>Returns true if both objects are equal.  Returns false if they are not.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Test.op_Equality(Microsoft.TeamFoundation.TestImpact.Client.Test,Microsoft.TeamFoundation.TestImpact.Client.Test)">
+            <summary>
+            Compares for equality between two <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.Test"/>.
+            </summary>
+            <param name="first">The first object to compare for equality.</param>
+            <param name="second">The second object to compare for equality.</param>
+            <returns>Returns true if the objects are equal.  Returns false if they are not.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Test.op_Inequality(Microsoft.TeamFoundation.TestImpact.Client.Test,Microsoft.TeamFoundation.TestImpact.Client.Test)">
+            <summary>
+            Compares for inequality between two <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.Test"/>.
+            </summary>
+            <param name="first">The first object to compare for inequality.</param>
+            <param name="second">The second object to compare for inequality.</param>
+            <returns>Returns true if the objects are not equal.  Returns false if they are.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Test.GetHashCode">
+            <summary>
+            Gets the hash code for this object.
+            </summary>
+            <returns>Returns the hash code for the object.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Test.ToString">
+            <summary>
+            Gets the name of the test.
+            </summary>
+            <returns>Returns the name of the test.</returns>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.Test.AssociationIndexesInternal">
+            <summary>
+            Gets or sets the internal property which synchronizes with the list of association indexes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData">
+            <summary>
+            Represents test signature data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData.#ctor(System.Collections.Generic.List{Microsoft.TeamFoundation.TestImpact.Client.Test},System.Collections.Generic.List{System.String})">
+            <summary>
+            Internal constructor from already populated lists of tests and signatures.
+            </summary>
+            <param name="tests">The test data.</param>
+            <param name="signatures">The signature data.</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData.Tests">
+            <summary>
+            The list of tests.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData.Signatures">
+            <summary>
+            The list of associated code signatures.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData.TestsInternal">
+            <summary>
+            Gets or sets the internal property which synchronizes with the list of tests.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData.SignaturesInternal">
+            <summary>
+            Gets or sets the internal property which synchronizes with the list of signatures.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServer">
+            <summary>
+            Represents the test impact server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServer.Microsoft#TeamFoundation#Client#ITfsTeamProjectCollectionObject#Initialize(Microsoft.TeamFoundation.Client.TfsTeamProjectCollection)">
+            <summary>
+            Initializes the server object.
+            </summary>
+            <param name="server">The TFS server to associate with this object.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServer.Microsoft#TeamFoundation#TestImpact#Client#ITestImpactServer#PublishBuildChanges(System.Uri,Microsoft.TeamFoundation.TestImpact.Client.CodeChange[])">
+            <summary>
+            Publishes the code changes in a build.
+            </summary>
+            <param name="buildUri">The URI of the build with changes.</param>
+            <param name="changes">The code changes in the build.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServer.Microsoft#TeamFoundation#TestImpact#Client#ITestImpactServer#DeleteBuildImpact(System.Uri,System.Uri)">
+            <summary>
+            Deletes impact information for the given build.
+            </summary>
+            <param name="buildDefinitionUri">The URI of the definition of the build.</param>
+            <param name="buildUri">The URI of the build.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServer.Microsoft#TeamFoundation#TestImpact#Client#ITestImpactServer#QueryBuildCodeChanges(System.Uri)">
+            <summary>
+            Queries for code changes of the given build.
+            </summary>
+            <param name="buildUri">The URI of the build to query the code changes for.</param>
+            <returns>Returns an array of code changes.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServer.Microsoft#TeamFoundation#TestImpact#Client#ITestImpactServer#QueryImpactedTests(System.Uri)">
+            <summary>
+            Queries for impacted tests of the given build.
+            </summary>
+            <param name="buildUri">The URI of the build to query the impacted tests for.</param>
+            <returns>Returns a <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.BuildImpactedTests"/> containing the impacted tests.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServer.Microsoft#TeamFoundation#TestImpact#Client#ITestImpactServer#QueryTestCaseSignatures(System.Uri[],Microsoft.TeamFoundation.TestImpact.Client.ClientTestInfo[])">
+            <summary>
+            Queries the test case signatures for the given build definition.
+            </summary>
+            <param name="buildDefinitionUris">The build definitions to get the test case signatures for.</param>
+            <param name="clientTests">Information about the tests currently known to the client.  This parameter can be null or empty.</param>
+            <returns>Returns a <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestSignatureData"/> representing the test signature data.</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TestImpact.Client.Utility">
+            <summary>
+            A simple shared utility class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Utility.CheckRequiredArgument(System.String,System.String)">
+            <summary>
+            Checks for a required string argument for null or empty.
+            </summary>
+            <param name="arg">The argument to check.</param>
+            <param name="name">The name of the argument.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Utility.CheckRequiredArgument(System.Object,System.String)">
+            <summary>
+            Checks for a required argument for null.
+            </summary>
+            <param name="arg">The argument to check.</param>
+            <param name="name">The name of the argument.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TestImpact.Client.Utility.GetServerException(System.Exception)">
+            <summary>
+            Gets a <see cref="T:Microsoft.TeamFoundation.TestImpact.Client.TestImpactServerException"/> for a given caught exception.
+            </summary>
+            <param name="caught">The exception that was caught.</param>
+        </member>
+    </members>
+</doc>

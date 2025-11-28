@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Git.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.Git.Client.GitClientProxy">
+            <summary>
+            Base class for all proxy objects in the VersionControl.Client namespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Git.Client.GitClientProxy.ComponentName">
+            <summary>
+            For the IRegistration service
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Git.Client.WebServiceLayer.QueryBranch(System.Guid,System.String)">
+            <summary>
+            Checks to see if the given branch exists and if so, return the GitRef for it
+            branchName should be in its short form: 'master' instead of 'refs/heads/master'
+            </summary>
+        </member>
+    </members>
+</doc>
