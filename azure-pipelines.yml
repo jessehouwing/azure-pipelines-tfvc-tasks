@@ -16,7 +16,7 @@ variables:
   - name: 'tfxVersion'
     value: 'builtin'
   - name: 'nodeVersion'
-    value: '16.x'
+    value: '24.x'
 
 stages:
 - stage: 'Build'
