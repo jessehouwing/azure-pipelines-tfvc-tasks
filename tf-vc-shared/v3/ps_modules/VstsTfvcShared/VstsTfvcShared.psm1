@@ -65,9 +65,41 @@ function Load-Assembly {
     throw "Could not load assembly: $Name"
 }
 
+function Get-TfvcClientCredentials {
+    $omDirectory = Find-VisualStudio
+    $collectionType = [Microsoft.TeamFoundation.Client.TfsTeamProjectCollection]
+    $vssCredentialsType = [Microsoft.VisualStudio.Services.Common.VssCredentials]
+    if (-not $collectionType.GetConstructor(@([uri], $vssCredentialsType))) {
+        return Get-VstsTfsClientCredentials -OMDirectory $omDirectory
+    }
+
+    $endpoint = Get-VstsEndpoint -Name SystemVssConnection -Require
+    $accessToken = [string]$endpoint.Auth.Parameters.AccessToken
+    if ([string]::IsNullOrWhiteSpace($accessToken)) {
+        throw 'SystemVssConnection does not contain an access token.'
+    }
+
+    # The SDK can reference a different Newtonsoft.Json version than the bundled one.
+    if (-not (Get-Variable -Name tfvcJsonResolver -Scope Script -ErrorAction SilentlyContinue)) {
+        $jsonAssembly = [System.Reflection.Assembly]::LoadFrom((Join-Path $omDirectory 'Newtonsoft.Json.dll'))
+        $script:tfvcJsonResolver = [System.ResolveEventHandler]{
+            param($sender, $eventArgs)
+            if ($eventArgs.Name -like 'Newtonsoft.Json, *') { return $jsonAssembly }
+            return $null
+        }.GetNewClosure()
+        [System.AppDomain]::CurrentDomain.add_AssemblyResolve($script:tfvcJsonResolver)
+    }
+
+    $null = Load-Assembly 'Microsoft.VisualStudio.Services.WebApi'
+    $oauthCredential = [Microsoft.VisualStudio.Services.OAuth.VssOAuthAccessTokenCredential]::new($accessToken)
+    $credentials = [Microsoft.VisualStudio.Services.Common.VssCredentials]::new($oauthCredential)
+    $credentials.PromptType = [Microsoft.VisualStudio.Services.Common.CredentialPromptType]::DoNotPrompt
+    return $credentials
+}
+
 function Get-TfsTeamProjectCollection()
 {
-    $credentials = Get-VstsTfsClientCredentials -OMDirectory (Find-VisualStudio)
+    $credentials = Get-TfvcClientCredentials
 
     $collectionUri = [System.Uri]::new((Get-VstsTaskVariable -Name 'System.TeamFoundationCollectionUri' -Require))
     $typedCredentials = $credentials
