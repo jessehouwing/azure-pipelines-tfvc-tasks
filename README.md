@@ -1,4 +1,5 @@
 # Release Notes
+> - **24-11-2026** - Updated the v3 client object model to 20.256.2 and fixed authentication with newer models while preserving compatibility with older clients.
 > - **28-11-2025** - Added preview support for runners with Visual Studio 2026, required v3 of the extension and tasks.
 > - **28-11-2025** - Fixed [#118 Error: Cannot convert the "Microsoft.TeamFoundation.Client.TfsClientCredentials" value of type "System.String" to type "System.Type".](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/118)
 > - **26-05-2020** - Fixed [#99 Error: Get-VstsTfsClientCredentials : ScriptHalted](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/issues/99)
@@ -15,7 +16,7 @@ A set of Build tasks for Team Foundation Server, Azure DevOps Server and Azure P
 * [Delete](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Delete)
 * [Undo changes](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Undo) 
 * [Update gated changes](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/Shelve) 
-* Do not Sync Sources
+* [Do not Sync Sources](https://github.com/jessehouwing/azure-pipelines-tfvc-tasks/wiki/DontSync)
 
 # Documentation
 
